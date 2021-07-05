@@ -1,9 +1,12 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{import}
-\usepackage{graphicx}
 
+\usepackage{graphicx}
 \graphicspath{ {images/} }
+
+\usepackage{biblatex}
+\addbibresource{bibliography.bib}
 
 \title{Master Thesis}
 \date{\today}
@@ -31,14 +34,25 @@
 \section{Introduction}
 \import{sections/}{introduction.tex}
 
+\section{Related work}
+\import{sections/}{related-work.tex}
 
-\section{Background and Previous Work}
+\section{Theory}
 \import{sections/}{theory.tex}
 
+\section{Implementation}
+\import{sections/}{implementation.tex}
 
-\section{Method}
-\import{sections/}{method.tex}
+\section{Evaluation}
+\import{sections/}{evaluation.tex}
 
+\section{Discussion}
+\import{sections/}{discussion.tex}
+
+\section{Conclusions and future work}
+\import{sections/}{conclusions-and-future-work.tex}
+
+\printbibliography
 
 \end{document}
 
