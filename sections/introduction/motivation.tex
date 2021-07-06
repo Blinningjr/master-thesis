@@ -1,4 +1,48 @@
-TODO 
 % Why is your work important? Typically this section relates strongly to the problems that you define in 1.3.
 % The motivations can be societal, economical, or other things, but try and look past the task at hand and find out what impact your results will have.
- 
+
+% Motivations bullet points
+%	* Optimized rust code is up to 100 faster.
+% 	* Improving the state of debugging.
+% 	* Contributing with a solution written in Rust.
+% 	* Contributing a debug rust library / simplifying debugging.
+% 	* Shinning a light on the obstacles.
+%	* Companies spend lot of money on testing but not on verifying if there program is correct, which debugging is a important tool for verifying.
+
+
+% Optimized rust code is up to 100 faster.
+The main motivation is that optimized \emph{Rust} code can be up to 100 times faster then unoptimised code. % TODO: Add Source
+That is a very large difference in speed compared to other languages like \emph{C} for example, were the optimized code is about 2-4 times faster then the unoptimized code. % TODO: Add Source
+Thus for language like \emph{C} it is much more acceptable to not be able to debug optimized code because the different isn't that large compared to \emph{Rust}.
+But in the case of \emph{Rust} code the different is so large that some programs are to slow to run without optimization.
+This causes the problem that the code can't be debugged because debuggers don't work well on optimized code and unoptimized code is to slow to run.
+Because of that there is a need for debuggers that can give enough information to debug optimized \emph{Rust} code.
+Then there is also the argument that relying only on testing the optimized code instead of going through and checking that is is correct is bad.
+The reason being that there can be extremely many paths that needs to be tested and it is sometimes not feasible to test all of them.
+In these cases it is less costly to verify that the code is correct then to test every path.
+
+
+% Improving the state of debugging.
+Another large motivation for this thesis is that the most common way of debugging \emph{Rust} code on embedded systems is complicated for a beginner.
+One of the reason being that it requires two programs being \emph{openocd} and \emph{gdb}, it also requires configuration files which takes some time to understand and configure.
+This is not very accessible for people that have no experience with these programs and is unnecessarily complicated.
+The ideal solution for accessibility would be to have a single program instead of two and that it requires less configuring, thus making it as easy as possible for a new person to debug there code.
+
+
+% Contributing with a solution written in Rust.
+Most of the debuggers used for \emph{Rust} code are written in other programming languages and there isn't a lot of debugging tools written in \emph{Rust} yet.
+Thus one of the motivation for the thesis debugger to be written in \emph{Rust} is to contribute with a example of a debugger written in \emph{Rust} to the \emph{Rust} community.
+This also relates back to improving debugging for optimized \emph{Rust} code because that is a large and hard problem that requires a lot of work to solve and to maintain the solution.
+One of the most realistic way that will happen is if the \emph{Rust} community around debugging grows and more people contribute with there solutions and ideas.
+
+
+% Contributing a debug rust library / simplifying debugging.
+Another way this thesis contributes to the \emph{Rust} community is by making a library that simplifies the process of retrieving information form the debug information.
+This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
+Which will hopefully lead to better debugging for optimized \emph{Rust} code.
+
+
+% Shinning a light on the obstacles. % TODO
+% Companies spend lot of money on testing but not on verifying if there program is correct, which debugging is a important tool for verifying. %TODO
+
+
