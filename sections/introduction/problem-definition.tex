@@ -32,8 +32,12 @@ The first problem then is to look at the different options that can be set in th
 Speed of the resulting code is still a big priority.
 
 
-The second problem is looking at the available debug information that the \emph{llvm} compiler generates for optimized code and creating a debugger that retrieves as much information as possible and displays it to the user.
+The second problem is looking at the available debug information that the \emph{llvm} compiler generates for optimized code and creating a debugger that utilises that information to the fullest.
+This problem has two parts to it, the first being retrieving the needed information from the debug information.
+This will be the hardest part and is the most important for improving the debugging for optimized code.
+The second part is to display the debug information to the user in a user friendly way.
 
 
-The goal is to create a better debugger for optimized code then the most commonly used debugger like \emph{gdb} and \emph{lldb}.
+The goal of solving these to problems is to create a debugger that gives a better debugging experience for optimized rust code on embedded systems then some of the most commonly used debugger, such as \emph{gdb} and \emph{lldb}.
+And to inspire further development for debugging tools in the rust community.
 
