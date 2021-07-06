@@ -1,4 +1,3 @@
-TODO
 % This is really the section you should start writing first, even if it's located as 1.3.
 % What scientific problems are you solving in your thesis.
 % The reason why you should start defining these is that they define what you should write in all the other sections.
@@ -12,4 +11,29 @@ TODO
 % The conclusions and future work describes the final outcome of how you solved your problems and what is left to do. 
  
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
+
+
+Debugging Rust code on embedded system today is not a very good experience for many reasons.
+One of the big problems is debugging optimized code is often near impossible.
+That is because the compilers today are very good at inlining the code and removing unused code.
+This changes the program so drastically in many cases that when trying to debug the code all the original variable can be optimized out.
+Thus the user doesn't get any useful information from the debugger about the program which makes is near impossible to debug.
+One of the big reasons why variable gets optimized out is because unoptimized code always push the value of the variable to memory which then can be read by the debugger at anytime.
+This is not done for optimized code because speed is prioritized and storing the value of a variable that will not be used on the stack is costly.Thus the time that most variable exist is very short in optimized code which results in that the debugger saying that a variable is optimized out.
+
+
+
+
+There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
+The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
+This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
+Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
+The first problem then is to look at the different options that can be set in the \emph{llvm} compiler to improve the generations of debug information without impacting the optimisation of the code to much.
+Speed of the resulting code is still a big priority.
+
+
+The second problem is looking at the available debug information that the \emph{llvm} compiler generates for optimized code and creating a debugger that retrieves as much information as possible and displays it to the user.
+
+
+The goal is to create a better debugger for optimized code then the most commonly used debugger like \emph{gdb} and \emph{lldb}.
 
