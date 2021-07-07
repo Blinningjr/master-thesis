@@ -1,5 +1,75 @@
-TODO
-
 % Describe what is not covered in the thesis.
 % Things you realize may have to be addressed to create a complete solution, but that would be too much work, or that may simply be out of the scope of your scientific area.
+
+
+% Delimitations
+% 	* Making changes to the compiler(llvm).
+%	* Focusing on the bare minimum of debugger features.
+%	* Making changes to DWARF standard.
+%	* Limiting supported chips and platforms.
+%	* Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html
+%	* Limiting the depth of detail how dwarf works.
+%	* Limiting it to a CLI and DAP server plus extension.
+
+
+
+% Making changes to the compiler(llvm).
+As mentioned one of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
+In the case of the \emph{Rust} compiler it is the \emph{LLVM} library that handles the debug information generation.
+\emph{LLVM} is a very lager project that many people are working on and thus it would be to much work for this thesis to try and improve the debug information generation.
+Thus this thesis is limited in solving this problem by the current functionality of \emph{LLVM}.
+
+
+% Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
+The compiler backend \emph{LLVM} that the \emph{Rust} compiler uses supports two debugging file formats that holds all the debug information.
+One of them is the \emph{DWARF} format that has been around for a long time and is supported by many compilers and debuggers.
+The other one is \emph{CodeView} format which is developed by \emph{Microsoft} and has also been around for a long time.
+To make a debugger that supports both formats would be a lot of extra work that doesn't contribute to solving the main problem of this thesis.
+Thus it has been decided to only support the \emph{DWARF} format because it has good documentation and a opensource community around it.
+
+
+% Making changes to DWARF standard.
+The scope of this thesis also dose not include changing or adding to the \emph{DWARF} format standard.
+The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realise that change or addition.
+Another reason is that even if a new version of the \emph{DWARF} format could be release in the span of this thesis, it would take years before the \emph{Rust} compiler had been updated to use the new standard.
+Currently the newest \emph{DWARF} version is 5 but the \emph{Rust} compiler still uses the \emph{DWARF} 4 format.
+
+
+% Focusing on the bare minimum of debugger features.
+Many of the debuggers today have a lot of functionality to help the user understand what is happening in the program that they are debugging.
+An example of these functionality are debuggers that support the ability to go backwards in the program.
+Functionalities like this are useful but not contributing much to the main problem of debugging optimized code.
+Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
+So to keep this thesis focused on the main problem the feature the debugger will have is restricted to evaluating stack frames and the variables present in each frame, the ability to add and remove breakpoints.
+And the ability to control the program by stopping, continuing and stepping an instruction.
+
+
+% Limiting supported chips and platforms.
+When debugging code on embedded systems the debugger needs to know a lot about the hardware the code is running on.
+It has to know the size of the memory and the number of registers, it also has to know which are the special registers such as the program counter register and more.
+There is also the endianity of the values store on in memory and registers so the debugger can convert it to the correct type.
+Then there is also the type of machine code the processes uses and the instruction mode use.
+To support all the different microcontroller would be to much work for this thesis.
+Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that is available.
+And it will only support the instruction set \emph{Thumb mode} made by \emph{arm}.
+The debugger will be design to work with other similar microcontroller but to test and grantee that it will work with them is to much work for this thesis.
+
+
+% Limiting it to a CLI and DAP server plus a VSCode extension.
+Another part of this thesis is the interaction between the user and the debugger.
+Existing debugger like \emph{gdb} both have a \emph{CLI} and a \emph{GUI}, thus it is up to the user which one they want to use.
+From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
+A \emph{CLI} is not that much work to implement but a \emph{GUI} takes a lot of work to implement.
+Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \emph{GUI} and the debugger.
+This protocol is called \emph{DAP} and is used by \emph{VSCode}.
+Thus the scope of the debugger will include implementing the \emph{DAP} protocol and an extension for \emph{VSCode}.
+
+
+% Limiting the depth of detail how dwarf works.
+The \emph{DWARF} format is very extensive and supports a lot of different program languages, the specifications for the different languages are a little different form each other.
+Because this thesis is about \emph{Rust} code the thesis will only go into detail in how to read the \emph{DWARF} format for \emph{Rust}.
+The specification for the \emph{DWARF} format is also very good at explaining how the information is structured.
+Thus a this thesis will not go into all the detail in how to read the \emph{DWARF} format instead it will focus on explaining how the information in the \emph{DWARF} format can be used in combination to get important information that the user wants.
+
+% TODO: Add sources where needed in this subsection
 
