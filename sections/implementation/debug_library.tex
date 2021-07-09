@@ -44,5 +44,11 @@ The variable structure continas the name, value, type, sourcelocaiton and the lo
 
 % Explain the evaluation of call stack % TODO
 % Explain the evaluation of stackframe % TODO
-% Explain the evaluation of source informaiton % TODo
+% Explain the evaluation of source informaiton % TODO
+% Explain how to get breakpoint locaiton.
+There is also a function for finding out what machine code addres a certain line in a source file correspondse to.
+It works by first finding out which compilation unit that the source file corresponse to by looping trough all the file entries in all of the compilation units. 
+Then it loops through all the rows in that file entry and adds all the rows that mach the source line number.
+If the vector is empty after that then there is no machine code instruction that maches that source line otherwise it is not empty there is atleas one instrcution that corresponse to that line.
+When there are multiple match the funciton will take the one that has the nearest column value to the soruce lines column value.
 
