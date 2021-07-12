@@ -23,6 +23,18 @@ The library is has the features to retive the call stack, stackframes, variables
 \end{figure}
 
 
+% Explain the evaluation of source informaiton % TODO
+Some of the dies have attributes that starts with \emph{DW\_AT\_decl\_}, these attrbitues describe which source file and where in it this dies was decleard.
+The library has a function for retriving the value of all these attributes and it returns as \emph{SourceInformation} struct.
+This struct contain the directory, file name, line number and column number where the die was decleard in the source files.
+The line and column number is very simple to retrive because it is the same as the value of the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}.
+It is much more complicated to get the directory and file name because the value of the attributes \emph{DW\_AT\_decl\_file} is a file index into the current units line program.
+The line program indexes all the file entries and can thus be used to find the directory and file name from the file index.
+If any of these attributes are not pressent in the die then the result of this funciton will be that that entry has a \emph{None} value.
+
+
+
+
 % Explain the evaluation part. % TODO
 % Explain the stored target memory and registers
 As mention before one of the requirements for evaluating the value of a variable is access to the registers and memory of the debugee.
@@ -43,12 +55,23 @@ The variable structure continas the name, value, type, sourcelocaiton and the lo
 
 
 % Explain the evaluation of call stack % TODO
-% Explain the evaluation of stackframe % TODO
-% Explain the evaluation of source informaiton % TODO
+% Explain the evaluation of stackframe 
+Using the call stack result each call frame can be used to create a stackframe.
+These stackframes are like the callframes execpt that they have more information like the function name of the frame, where the function was decleard and the value of all the variables.
+The way this library  constructs a \emph{StackFrame} struct works the same way as when creating a variable.
+Meaning that there is a helper struct for creating the stackframe which requroes the memory and register struct as an argument.
+This helper struct when created will find the name of the funciton for this frame and where it was decleared, then it will go thorugh all dies that belong to that function to find all the variable dies and store it in a list.
+This list of variable dies is then used to evaluate all variables and echec entry is removed when evaluated and the result stored in a variables attribute.
+Thus if one of the variables requires a value from memory that is not present in the memory and register struct then all the variables alrady evaluated dosne't need to be evaluated again.
+The evaluating of the variables is done in the same way as descirbe above the only diffrense is that the registers values is set to be the ones evaluated in the callframe.
+Thus adding the value of a register to the memory and register struct won't do anything when evaluating a stackframe.
+Then lastly the stackframe can be retrive using the method \emph{get\_stack\_frame} from the stack frame helper struct.
+
+
 % Explain how to get breakpoint locaiton.
 There is also a function for finding out what machine code addres a certain line in a source file correspondse to.
 It works by first finding out which compilation unit that the source file corresponse to by looping trough all the file entries in all of the compilation units. 
-Then it loops through all the rows in that file entry and adds all the rows that mach the source line number.
-If the vector is empty after that then there is no machine code instruction that maches that source line otherwise it is not empty there is atleas one instrcution that corresponse to that line.
+Then it loops through all the rows in that file entry and adds all the rows that match the source line number.
+If the vector is empty after that then there is no machine code instruction that matches that source line otherwise it is not empty there is atleas one instrcution that corresponse to that line.
 When there are multiple match the funciton will take the one that has the nearest column value to the soruce lines column value.
 
