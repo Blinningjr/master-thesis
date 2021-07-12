@@ -9,7 +9,7 @@ When all these are configure the attach command can be used to attach to the mic
 
 
 % Explain the second state where the debugger is attach to the debugee.
-The debugger uses the library \emph{probe-rs} to attach to the microcontroller and to interact with it.
+The debugger uses the library \emph{probe-rs} \cite{probe} to attach to the microcontroller and to interact with it.
 Thus a lot of useful debuging features like stopping, continuing and setting hardware breakpoints is already given by the \emph{probe-rs} library.
 The other features supported by the debugger uses the library \emph{rust-debug} together with the \emph{probe-rs} library.
 But the two library are seprate so they never interact with each other, the figure \ref{fig:debugger} show how all of these parts interact.
