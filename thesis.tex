@@ -12,6 +12,10 @@ sorting=ynt
 ]{biblatex}
 \addbibresource{bibliography.bib}
 
+\usepackage[acronym, toc]{glossaries}
+\makeglossaries
+\input{bibliocosas/glossary.tex}
+
 \title{Master Thesis}
 \date{\today}
 \author{Niklas Lundberg, inaule-6@student.ltu.se}
@@ -34,6 +38,12 @@ sorting=ynt
 
 \newpage
 \tableofcontents 
+
+\clearpage
+\printglossary
+\label{section:glossary}
+\printglossary[type=\acronymtype]
+\label{section:acronym}
 
 \newpage
 \section{Introduction}
@@ -70,6 +80,8 @@ sorting=ynt
 \label{section:conclusions}
 \import{sections/}{conclusions-and-future-work.tex}
 
+
+\clearpage
 \printbibliography
 
 \end{document}

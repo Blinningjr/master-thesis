@@ -17,7 +17,7 @@
 *.bcf
 
 # glossary related
-glossary.ist
+*.ist
 *.glo
 *.acn
 *.acr
@@ -26,6 +26,7 @@ glossary.ist
 *.gls*
 .idx
 .xdy
+
 
 # backup files
 *~

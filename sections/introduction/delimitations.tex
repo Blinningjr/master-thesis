@@ -57,10 +57,10 @@ The debugger will be design to work with other similar microcontroller but to te
 
 % Limiting it to a CLI and DAP server plus a VSCode extension.
 Another part of this thesis is the interaction between the user and the debugger.
-Existing debugger like \emph{gdb} both have a \emph{CLI} and a \emph{GUI}, thus it is up to the user which one they want to use.
+Existing debugger like \emph{gdb} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
 From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
-A \emph{CLI} is not that much work to implement but a \emph{GUI} takes a lot of work to implement.
-Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \emph{GUI} and the debugger.
+A \emph{CLI} is not that much work to implement but a \acrshort{gui} takes a lot of work to implement.
+Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \acrshort{gui} and the debugger.
 This protocol is called \emph{DAP} and is used by \emph{VSCode}.
 Thus the scope of the debugger will include implementing the \emph{DAP} protocol and an extension for \emph{VSCode}.
 
