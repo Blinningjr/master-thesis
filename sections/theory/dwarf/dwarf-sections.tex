@@ -37,8 +37,20 @@ This section is completly self-contained and is made up of two structures called
 To learn more of this section checkout section 6.4.1 in \cite{dwarf}
 
 
-\emph{.debug\_info}
-\emph{.debug\_line}
+Infomation about the source code are store in \glspl{die} which are low-level representation of the source code.
+These have a tag that describes what it represents, an example tag is \emph{DW\_TAG\_variable} which means that the \gls{die} represents a variable from the source code.
+All \glspl{die} are stored in tree structure that represents a compilation unit or a partial one.
+These tree structures are structure like the source program and makes it possible to relate the source code to the machine code.
+The section \emph{.debug\_info} contains a number of units that all have one of these \gls{die} trees and some more important debug information.
+Thus this is one of the most important sections in \emph{DWARF} because it is used to understand the relation ship between the source code and the macine code.
+
+
+The \emph{DWARF} section \emph{.debug\_line} holds the needed informtion to find the machine addresses that is generated from a certain line and column in the source file.
+It is also used to store the source director, file name, line number and column.
+Then the \glspl{die} will store pointers to the source location information in the section \emph{.debug\_line} enabeling the debuger to know the source location of a \gls{die}.
+The section 6.2 in \cite{dwarf} explains in more detail how this informatiobn is stored in the \emph{.debug\_line} section.
+
+
 \emph{.debug\_loc}
 \emph{.debug\_macinfo}
 \emph{.debug\_pubnames}
