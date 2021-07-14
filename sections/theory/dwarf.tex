@@ -8,9 +8,16 @@
 % TODO: Explain what this section will contain.
 
 % TODO: Explain DWARF Sections
-The \emph{DWARF} format is divided into sections in the object file which all contain specific information, these sections use offsets to point to information in another section.
+The \emph{DWARF} format is divided into sections in the object file which all contain specific information, these sections use offsets to point to information in another section, see figure \ref{fig:dwarfsections}.
 All of the sections can be different from depending on \emph{DWARF} versions and some doesn't exist in the older versions.
 Thus these explanations only apply to \emph{DWARF} version $4$ and some of the older versions, checkout Appendix F in \cite{dwarf} for more information.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{dwarf-sections.png}
+    \label{fig:dwarfsections}
+\end{figure}
 
 
 Going in alphabetical order the first \emph{DWARF} section is called \emph{.debug\_abbrev}.
@@ -25,7 +32,11 @@ These ranges consists of a start address followed by lenght.
 Thus to lookup the user only needs to check if the search addres is between the start addres and the start address plus the lengh.
 To read more about this section checkout section 6.1.2 in \cite{dwarf}.
 
+
+
 \emph{.debug\_frame}
+
+
 \emph{.debug\_info}
 \emph{.debug\_line}
 \emph{.debug\_loc}
@@ -35,6 +46,7 @@ To read more about this section checkout section 6.1.2 in \cite{dwarf}.
 \emph{.debug\_ranges}
 \emph{.debug\_str}
 \emph{.debug\_type}
+
 
 % TODO: Explain DWARF Unit
 % TODO: Explain DWARF Die and Attributes
