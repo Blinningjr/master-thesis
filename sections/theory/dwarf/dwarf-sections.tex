@@ -40,9 +40,9 @@ To learn more of this section checkout section 6.4.1 in \cite{dwarf}
 
 Infomation about the source code are store in \glspl{die} which are low-level representation of the source code.
 These have a tag that describes what it represents, an example tag is \emph{DW\_TAG\_variable} which means that the \gls{die} represents a variable from the source code.
-All \glspl{die} are stored in tree structure that represents a compilation unit or a partial one.
-These tree structures are structure like the source program and makes it possible to relate the source code to the machine code.
-The section \emph{.debug\_info} contains a number of units that all have one of these \gls{die} trees and some more important debug information.
+All \glspl{die} are stored in \gls{tree} structure that represents a compilation unit or a partial one.
+These \gls{tree} structures are structure like the source program and makes it possible to relate the source code to the machine code.
+The section \emph{.debug\_info} contains a number of units that all have one of these \gls{die} \glspl{tree} and some more important debug information.
 Thus this is one of the most important sections in \emph{DWARF} because it is used to understand the relation ship between the source code and the macine code.
 
 
@@ -79,6 +79,6 @@ Then the \glspl{die} somtimes point to the string in this section as the value o
 The \glspl{die} point to the value using a offset that can be found in \emph{DW\_FROM\_strp}.
 
 
-The last section is \emph{.debug\_type} it is very similar to section \emph{.debug\_info} in that it is also made up of units with each a tree of \glspl{die}.
+The last section is \emph{.debug\_type} it is very similar to section \emph{.debug\_info} in that it is also made up of units with each a \gls{tree} of \glspl{die}.
 The diffrence is that the \glspl{die} are a low-level representation of the types in the source code insead of a representation of the source program.
 
