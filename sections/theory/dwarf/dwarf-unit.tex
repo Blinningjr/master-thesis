@@ -1,0 +1,23 @@
+% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
+% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
+% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
+% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
+ 
+% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
+
+
+% TODO: Explain DWARF Compilation Unit
+The compiler when compiling a source program will most often generate one compilation unit for each source file, there are some cases when partial compilation units will be made.
+These compilation units holds most of the debug information generated from the source file.
+This naturally creates that the debug information in most  of the different \emph{DWARF} sections are divided into these compilation units.
+It also makes it easy for the debugger to find information because the debug information is structured similar to the source code.
+The main use of these compilation units in a debugger is to first find which unit the program is currently in.
+Then it is easy to search through the \gls{die} tree in the \emph{.debug\_info} section to find the information needed. 
+Finding the right compilation unit can take time but there is the \emph{DWARF} sections \emph{.debug\_aranges}, \emph{.debug\_pubnames} and \emph{.debug\_pubtypes} that provides a fast way of finding it.
+
+The fist \gls{die} in the tree from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
+This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
+It also says which programming language the source file is written in and directory and path of the source file.
+The tree is structured in a way that the children of a \gls{die} representing a function will all be decleard inside of the function in the source file.
+Thus it is easy for the debugger to know everything about the function by going through all of its children.
+
