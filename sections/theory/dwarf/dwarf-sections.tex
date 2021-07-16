@@ -74,9 +74,9 @@ This offset points to the start of a rangelist that contain range entries which 
 Checkout section 2.17 in \cite{dwarf} to learn more about code addresses and ranges.
 
 
-The section \emph{.debug\_str} is used to holds the strings that some of the variable are.
-Then the \glspl{die} somtimes point to the string in this section as the value of the \gls{die}.
-The \glspl{die} point to the value using a offset that can be found in \emph{DW\_FROM\_strp}.
+The section \emph{.debug\_str} is used for storing all the strings that is in the debug information.
+An example of these strings are the names of the functions and variables, these string are found using the offset in the attribute \emph{DW\_AT\_name}.
+The attribute is found in the function and vairable dies and the offset is in the form of \emph{DW\_FROM\_strp}.
 
 
 The last section is \emph{.debug\_type} it is very similar to section \emph{.debug\_info} in that it is also made up of units with each a \gls{tree} of \glspl{die}.
