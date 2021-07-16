@@ -1,10 +1,10 @@
 % Explain the implementaiton of the debug adapeter
 
 % Overview description of the debug adapter and the flow of communication form the user to the debugger.
-The debug adapter is implemanted as a \emph{TCP} server that listens for new connection on a specified port.
+The debug adapter is implemanted as a \gls{tcp} server that listens for new connection on a specified port.
 Then when a new connection is made it comunicates with the client using the \emph{Microsoft Debug Adapter Protocol}.
 Looking at figure \ref{fig:userDAP} show the flow of comunication between the diffrent processes form the user to the debugger.
-When a user interacts whith the debugger extansion in \emph{VSCode}, it will intern send a \acrshort{dap} message to the debug adapter server over the \emph{TCP} connection.
+When a user interacts whith the debugger extansion in \emph{VSCode}, it will intern send a \acrshort{dap} message to the debug adapter server over the \gls{tcp} connection.
 The debug adapter will then process the message and translate it to commands that the debugger in the debug thread can understand and send them through a channel to the debug thread.
 The debug thread will then intern procces the commands and send responsese back to the debug adapter which in tern can translate the reponse and forward it back to the \emph{VSCode} extension.
 That is the normal flow of comunication but there is another case that can happen.
@@ -35,6 +35,6 @@ This means that a single \acrshort{dap} message can result in multiple commands 
 
 
 % Explaining how the debug adapter communicate with the debugger and wise versa. % TODO
-Because the debug adapter can get messages from both the \acrshort{gui} and the deugger at any time it uses continues polling on the \emph{TCP} connection and the channel.
+Because the debug adapter can get messages from both the \acrshort{gui} and the deugger at any time it uses continues polling on the \gls{tcp} connection and the channel.
 This enables the debug adapter to forwad messages sent by both \emph{VSCode} and the debugger.
 

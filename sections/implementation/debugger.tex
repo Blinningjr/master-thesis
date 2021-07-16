@@ -13,7 +13,7 @@ The debugger uses the library \emph{probe-rs} \cite{probe} to attach to the micr
 Thus a lot of useful debuging features like stopping, continuing and setting hardware breakpoints is already given by the \emph{probe-rs} library.
 The other features supported by the debugger uses the library \emph{rust-debug} together with the \emph{probe-rs} library.
 But the two library are seprate so they never interact with each other, the figure \ref{fig:debugger} show how all of these parts interact.
-The \emph{rust-debug} library as mention above and seen in the figure \ref{fig:debugger} is a library for retriving information form the \emph{DWRAF} sections in the \emph{ELF} file.
+The \emph{rust-debug} library as mention above and seen in the figure \ref{fig:debugger} is a library for retriving information form the \emph{DWRAF} sections in the \gls{elf} file.
 To get some of the information from the library values in the \glspl{debugee} memory and/or registers are needed.
 Thus when the \emph{rust-debug} library gives a response to a requiese that it needs some specifig value the \emph{Debugger} \emph{Rust} struct can use \emph{probe-rs} to read those values.
 Then those values can be sent in as a argument ot the \emph{rust-debug} library.

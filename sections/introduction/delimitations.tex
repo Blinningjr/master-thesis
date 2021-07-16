@@ -22,17 +22,17 @@ Thus this thesis is limited in solving this problem by the current functionality
 
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
 The compiler backend \emph{LLVM} that the \emph{Rust} compiler uses supports two debugging file formats that holds all the debug information.
-One of them is the \emph{DWARF} format that has been around for a long time and is supported by many compilers and debuggers.
+One of them is the \gls{DWARF} format that has been around for a long time and is supported by many compilers and debuggers.
 The other one is \emph{CodeView} format which is developed by \emph{Microsoft} and has also been around for a long time.
 To make a debugger that supports both formats would be a lot of extra work that doesn't contribute to solving the main problem of this thesis.
-Thus it has been decided to only support the \emph{DWARF} format because it has good documentation and a opensource community around it.
+Thus it has been decided to only support the \gls{DWARF} format because it has good documentation and a opensource community around it.
 
 
 % Making changes to DWARF standard.
-The scope of this thesis also dose not include changing or adding to the \emph{DWARF} format standard.
+The scope of this thesis also dose not include changing or adding to the \gls{DWARF} format standard.
 The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realise that change or addition.
-Another reason is that even if a new version of the \emph{DWARF} format could be release in the span of this thesis, it would take years before the \emph{Rust} compiler had been updated to use the new standard.
-Currently the newest \emph{DWARF} version is 5 but the \emph{Rust} compiler still uses the \emph{DWARF} 4 format.
+Another reason is that even if a new version of the \gls{DWARF} format could be release in the span of this thesis, it would take years before the \emph{Rust} compiler had been updated to use the new standard.
+Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
 
 
 % Focusing on the bare minimum of debugger features.
@@ -66,10 +66,10 @@ Thus the scope of the debugger will include implementing the \acrshort{dap} prot
 
 
 % Limiting the depth of detail how dwarf works.
-The \emph{DWARF} format is very extensive and supports a lot of different program languages, the specifications for the different languages are a little different form each other.
-Because this thesis is about \emph{Rust} code the thesis will only go into detail in how to read the \emph{DWARF} format for \emph{Rust}.
-The specification for the \emph{DWARF} format is also very good at explaining how the information is structured.
-Thus a this thesis will not go into all the detail in how to read the \emph{DWARF} format instead it will focus on explaining how the information in the \emph{DWARF} format can be used in combination to get important information that the user wants.
+The \gls{DWARF} format is very extensive and supports a lot of different program languages, the specifications for the different languages are a little different form each other.
+Because this thesis is about \emph{Rust} code the thesis will only go into detail in how to read the \gls{DWARF} format for \emph{Rust}.
+The specification for the \gls{DWARF} format is also very good at explaining how the information is structured.
+Thus a this thesis will not go into all the detail in how to read the \gls{DWARF} format instead it will focus on explaining how the information in the \gls{DWARF} format can be used in combination to get important information that the user wants.
 
 % TODO: Add sources where needed in this subsection
 
