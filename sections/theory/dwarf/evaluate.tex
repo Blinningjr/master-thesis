@@ -22,7 +22,7 @@ The operation for evaluationg the \emph{frame base} are located in the attribute
 Looking at figure \ref{fig:subprogram-example} at the attribute \emph{DW\_AT\_frame\_base} of the function \gls{die} the operations to evaluating the \emph{frame base} consist only of the operation \emph{DW\_OP\_reg7}.
 This operation means that the value for the \emph{frame base} is stored in register $7$(see \cite{dwarf} page 27) thus to continue the evalution of the argument \emph{val} register $7$ has to be read.
 Continuing evaluation of the argument \emph{val} it is now know were it is located becouse the operations descibe it to be $-2$ from the \emph{frame base} in memory.
-Thus the value of the argument can then be read from that memory location but it also has to be paresed into the type of the argument.
+Thus the value of the argument can then be read from that memory location but to do that the size and type must first be knwon.
 
 
 \begin{figure}[h]
@@ -34,8 +34,14 @@ Thus the value of the argument can then be read from that memory location but it
 
 Now the fist problmen with parsing the value of the argument into the correct type is knowing what type the argument has.
 Luckely \gls{DWARF} has a attribute for that called \emph{DW\_AT\_type} which value is a offset into the \gls{DWARF} section called \emph{.debug\_types}.
-The \emph{val} argument die has this attribue
-The offset points 
+The \emph{val} argument \gls{die} has this attribue and as can be seen in figure \ref{fig:subprogramexample} it has the value $0x6233$ which points to the type \gls{die} seen in firgure \ref{fig:basetypeexample}.
+Note that the type \gls{die} in the figure has the offset $6233$ which is the same offset that the \emph{val} \gls{die} has in its type attribute.
+The type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it a type that is built into the languages and is not defined in terms of other data types(see \cite{dwarf} page 75).
+The \gls{die} also have three attributes the first one is the name attributes which in this case says that the base typs name is \emph{i16}, see figure \ref{fig:basetypeexample}.
+Then there is the attribute \emph{DW\_AT\_encoding} describes how the raw bytes should be interpreted and in this case it has the value $5$ that stands for signed.
+Thus from the enocding attribute it is known that the type of \emph{val} is a signed integer, but the size of the integer is still unknown.
+The last attribute in the \gls{die} is \emph{DW\_AT\_byte\_size} and it has the value $2$ which menas that the size of the signed integer is $2$ bytes.
+Now the location, size and type of \emph{val} is known and thus the value can be evaluated.
 
 
 \begin{figure}[h]
