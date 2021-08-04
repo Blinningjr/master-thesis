@@ -50,3 +50,11 @@ Now the location, size and type of \emph{val} is known and thus the value can be
     \label{fig:basetypeexample}
 \end{figure}
 
+
+A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc} that describe the \gls{pc} range in which the function applies.
+This means that the value of the argument \emph{val} will only be in memory when the \gls{pc} is in the range descirbe by the two attributes.
+Thus the value of \emph{val} can only be determind when the \gls{pc} is in that range.
+There is also some other attributes in the example that are not mention here because they are not needed for determinig the value of the attribute.
+
+Another important thing to note is that the example explaind is a very simple one 
+
