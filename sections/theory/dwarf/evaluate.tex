@@ -9,16 +9,20 @@
 
 The process of evaluating the value of a variableo or argument is a bit complicated because there is a lot of parts to it that all depend on each other.
 Thus to simplify the explanation a simple example will be used to explain the main part of evaluatin the value.
-Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram die with the name \emph{my\_function}, it is the die with the tag \emph{DW\_TAG\_subprogram}.
+Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}, it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}.
 The exmaple in the figure is the output of the program \emph{objdump} run on an \gls{DWARF} file and it is shown becuas it is much eaiser to read then the raw \gls{DWARF} file.
-The function has a argument called \emph{val} which is the die with the tag \emph{DW\_TAG\_formal\_parameter} in the figure \ref{fig:subprogramexample}, it is a child of the function die which means that it is a argument to the function \emph{my\_function}.
+The function has a argument called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter} in the figure \ref{fig:subprogramexample}, it is a child of the function \gls{die} which means that it is a argument to the function \emph{my\_function}.
 It is this argument \emph{val} that will be used as an example for evaluatin the value of a variable or argument.
-Examining the die for the argument \emph{val} there is a argument there called \emph{DW\_AT\_location} this arguments value is a number of operations that when executed will result in the location of the value.
+
+Examining the \gls{die} for the argument \emph{val} there is a attribute there called \emph{DW\_AT\_location} this attributes value is a number of operations that when executed will result in the location of the value.
 In this example the value of the \emph{DW\_AT\_location} attribute is \emph{DW\_OP\_fbreg} $-2$, this operation means that the value is stored in memory at the address of the \emph{frame base} plust the offset $-2$(see \cite{dwarf} page 18).
 \emph{Frame base} is a address in memory that is fixed to the first value in the stack for the funcitons stack frame(see \cite{dwarf} page 56).
 To get the value of the \emph{frame base} it also has to be evaluated in the same way that the argument \emph{val} will be.
-The operation for evaluationg the \emph{frame base} are located in the attribute \emph{DW\_AT\_frame\_base} in the parent function die called \emph{my\_function}.
-
+The operation for evaluationg the \emph{frame base} are located in the attribute \emph{DW\_AT\_frame\_base} in the parent function \gls{die} to the \emph{val} die, it is the one called \emph{my\_function}.
+Looking at figure \ref{fig:subprogram-example} at the attribute \emph{DW\_AT\_frame\_base} of the function \gls{die} the operations to evaluating the \emph{frame base} consist only of the operation \emph{DW\_OP\_reg7}.
+This operation means that the value for the \emph{frame base} is stored in register $7$(see \cite{dwarf} page 27) thus to continue the evalution of the argument \emph{val} register $7$ has to be read.
+Continuing evaluation of the argument \emph{val} it is now know were it is located becouse the operations descibe it to be $-2$ from the \emph{frame base} in memory.
+Thus the value of the argument can then be read from that memory location but it also has to be paresed into the type of the argument.
 
 
 \begin{figure}[h]
@@ -26,6 +30,12 @@ The operation for evaluationg the \emph{frame base} are located in the attribute
     \includegraphics[width=1.0\textwidth]{subprogram-example.png}
     \label{fig:subprogramexample}
 \end{figure}
+
+
+Now the fist problmen with parsing the value of the argument into the correct type is knowing what type the argument has.
+Luckely \gls{DWARF} has a attribute for that called \emph{DW\_AT\_type} which value is a offset into the \gls{DWARF} section called \emph{.debug\_types}.
+The \emph{val} argument die has this attribue
+The offset points 
 
 
 \begin{figure}[h]
