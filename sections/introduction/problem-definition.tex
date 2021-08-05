@@ -17,11 +17,11 @@ There are two main problem that this thesis tries to tackle to improve the exper
 The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
 This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
 Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
-The first problem then is to look at the different options that can be set in the \emph{llvm} compiler to improve the generations of debug information without impacting the optimisation of the code to much.
+The first problem then is to look at the different options that can be set in the \emph{llvm} compiler to improve the generations of debug information without impacting the optimization of the code to much.
 Speed of the resulting code is still a big priority.
 
 
-The second problem is looking at the available debug information that the \emph{llvm} compiler generates for optimized code and creating a debugger that utilises that information to the fullest.
+The second problem is looking at the available debug information that the \emph{llvm} compiler generates for optimized code and creating a debugger that utilizes that information to the fullest.
 This problem has two parts to it, the first being retrieving the needed information from the debug information.
 This will be the hardest part and is the most important for improving the debugging for optimized code.
 The second part is to display the debug information to the user in a user friendly way.

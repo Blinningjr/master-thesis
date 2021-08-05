@@ -30,7 +30,7 @@ Thus it has been decided to only support the \gls{DWARF} format because it has g
 
 % Making changes to DWARF standard.
 The scope of this thesis also dose not include changing or adding to the \gls{DWARF} format standard.
-The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realise that change or addition.
+The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realize that change or addition.
 Another reason is that even if a new version of the \gls{DWARF} format could be release in the span of this thesis, it would take years before the \emph{Rust} compiler had been updated to use the new standard.
 Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
 
@@ -49,10 +49,10 @@ When debugging code on embedded systems the debugger needs to know a lot about t
 It has to know the size of the memory and the number of registers, it also has to know which are the special registers such as the program counter register and more.
 There is also the endianity of the values store on in memory and registers so the debugger can convert it to the correct type.
 Then there is also the type of machine code the processes uses and the instruction mode use.
-To support all the different microcontroller would be to much work for this thesis.
+To support all the different micro controller would be to much work for this thesis.
 Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that is available.
 And it will only support the instruction set \emph{Thumb mode} made by \emph{arm}.
-The debugger will be design to work with other similar microcontroller but to test and grantee that it will work with them is to much work for this thesis.
+The debugger will be design to work with other similar micro controller but to test and grantee that it will work with them is to much work for this thesis.
 
 
 % Limiting it to a CLI and DAP server plus a VSCode extension.
