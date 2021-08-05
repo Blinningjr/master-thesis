@@ -18,6 +18,6 @@ Finding the right compilation unit can take time but there is the \gls{DWARF} se
 The fist \gls{die} in the \gls{tree} from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
 This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
 It also says which programming language the source file is written in and directory and path of the source file.
-The \gls{tree} is structured in a way that the children of a \gls{die} representing a function will all be decleard inside of the function in the source file.
+The \gls{tree} is structured in a way that the children of a \gls{die} representing a function will all be declared inside of the function in the source file.
 Thus it is easy for the debugger to know everything about the function by going through all of its children.
 

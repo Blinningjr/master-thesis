@@ -22,7 +22,7 @@ On the other hand the memory is structure like a stack that consist of stack fra
 The Call stack is a stack in the memory that holds stack frames which intern contain information about the values of variables and other values.
 A stack is a data structure that consist of a number of elements that are stacked on top of each other and the only two operations available for a stack is push and pop.
 The push operations adds a new element on top of the stack and the pop operation removes the top element of the stack.
-Other key characteristics are that it is only the top element that can be access thus to reach the lower elements all the above elements needs to be poped.
+Other key characteristics are that it is only the top element that can be access thus to reach the lower elements all the above elements needs to be popped.
 The call stack is used to keep track of all the stack frames which holds almost all the values of the running program, the values are also present in the registers and in the heap which is also located in the memory.
 An example of a call stack can be seen in the figure \ref{fig:callstack}.
 
@@ -39,6 +39,6 @@ An example of a call stack can be seen in the figure \ref{fig:callstack}.
 A stack frame or call frame is a element of the call stack that contain variable values for a scope of the running program.
 The scope is usually a function that has been called that have its own arguments and variables that are needed to be stored in memory for later use.
 Stack frames also contain a return address which is pointer to the machine code that the program should jump to after the computation in the current scope is done.
-When the computation is done the stack frame will be poped from the call stack and the previous stack frame will become the current stack frame, check out figure \ref{fig:callstack} for an visual example.
+When the computation is done the stack frame will be popped from the call stack and the previous stack frame will become the current stack frame, check out figure \ref{fig:callstack} for an visual example.
 
 
