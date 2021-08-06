@@ -11,10 +11,10 @@ Registers are very limited in space and are very volatile thus it is good for st
 Memory is slower but has a lot more space and is thus much more useful for storing values that will be needed in a while.
 The compiler will compile the program to store the different variables and values in the registers and memory in a structured way so it is easily managed.
 
-There is no real structure for the registers except that certain registers have a specific purpose, which can be the program counter for example.
-A program counter is a register that keeps track of which machine code instruction the program is currently at.
+There is no real structure for the registers except that certain registers have a specific purpose, which can be the \gls{pc} for example.
+A \gls{pc} is a register that keeps track of which machine code instruction the program is currently at.
 There are other important registers like the stack pointer register and more.
-On the other hand the memory is structure like a stack that consist of stack frames/call frames, the stack is called \emph{call stack}.
+On the other hand the memory all structure and one of the structures is a stack that consist of stack frames/call frames, the stack is called \emph{call stack}.
 
 
 \subsubsection{Call Stack}
@@ -40,5 +40,4 @@ A stack frame or call frame is a element of the call stack that contain variable
 The scope is usually a function that has been called that have its own arguments and variables that are needed to be stored in memory for later use.
 Stack frames also contain a return address which is pointer to the machine code that the program should jump to after the computation in the current scope is done.
 When the computation is done the stack frame will be popped from the call stack and the previous stack frame will become the current stack frame, check out figure \ref{fig:callstack} for an visual example.
-
 
