@@ -7,12 +7,17 @@
 
 % TODO: Explain Unwinding call stack
 
-To virtualy unwind the \emph{call stack} entail the task of restoring the register values for each \emph{call frame} and find the location of the call frame on the stack.
-Each \emph{call frame} has a code location that represent where it stopped for any reason, the reason could be that a break point was hit.
-It could also mean the location where it made a call from or 
+To virtually unwind the \emph{call stack} entail the task of restoring the code location and the register values for each \emph{subroutine activation}, it also entail the task of find the location of the corresponding \emph{call frame} on the stack.
+Each \emph{subroutine activation} has a code location within the subroutine that show where it stopped for any reason, the reason could be that a breakpoint was hit, it was interrupted by a event or it could be location were it made a call.
+As mention the \emph{subroutine activation} also has some register values at the mention code location that may or may not need to restored depending on if the activation is the last one or not.
+Lastly a \emph{subroutine activation} has a corresponding \emph{call frame} on the stack that is identified by the \gls{cfa}.
+The \gls{cfa} is the value of the stack pointer in the previous stack frame when it is at the call location of the current \emph{stack frame}, one thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{DWARF} page 126).
 
-
-The \emph{call stack} is made up of \emph{call frames} that each store information for a function scope, the information consist of variables, arguments and some register values that are saved on the stack.
-Most of the information is is easy to access because it is one the stack thus it can just be read, the only problem is knowing what the values on the stack corresponds to which variable, argument or register.
-There is also some of the register values that are hard coded by the compiler into the machine code thus making it hard to find those values.
+Accessing one of the \emph{subroutine activation} requires that the activation stack is virtually unwind to get to the desired activation, there is only one exception to this and that is if the top activation is desired.
+That is because all of \emph{activation} information location is known thus it is easy to read that information form the registers and memory. 
+It is called \emph{virtually unwinding} because none of the value in the registers or memory are changes which means that the state of the target is not changed.
+In general the steps to virtually unwinding the \emph{activation} is to begin with calculating the \gls{cfa} of the previous \emph{activation}, the code location of the previous \emph{activation} and to virtually restore any registers if needed.
+Then the same thing can be done to the previous \emph{activation} and so it repeats until the desired \emph{activation} is reached.
+This process is required to start with the top \emph{activation} because it is the only one that is known and the process has 
+to be stopped if the bottom \emph{activation} is reached.
 
