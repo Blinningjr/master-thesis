@@ -19,7 +19,7 @@ In this example the value of the \emph{DW\_AT\_location} attribute is \emph{DW\_
 \emph{Frame base} is a address in memory that is fixed to the first value in the stack for the functions stack frame(see \cite{dwarf} page 56).
 To get the value of the \emph{frame base} it also has to be evaluated in the same way that the argument \emph{val} will be.
 The operation for evaluating the \emph{frame base} are located in the attribute \emph{DW\_AT\_frame\_base} in the parent function \gls{die} to the \emph{val} die, it is the one called \emph{my\_function}.
-Looking at figure \ref{fig:subprogram-example} at the attribute \emph{DW\_AT\_frame\_base} of the function \gls{die} the operations to evaluating the \emph{frame base} consist only of the operation \emph{DW\_OP\_reg7}.
+Looking at figure \ref{fig:subprogramexample} at the attribute \emph{DW\_AT\_frame\_base} of the function \gls{die} the operations to evaluating the \emph{frame base} consist only of the operation \emph{DW\_OP\_reg7}.
 This operation means that the value for the \emph{frame base} is stored in register $7$(see \cite{dwarf} page 27) thus to continue the evaluation of the argument \emph{val} register $7$ has to be read.
 Continuing evaluation of the argument \emph{val} it is now know were it is located because the operations describe it to be $-2$ from the \emph{frame base} in memory.
 Thus the value of the argument can then be read from that memory location but to do that the size and type must first be known.
