@@ -30,9 +30,13 @@ Instead sometimes the store and read operation are moved into the subroutine.
 There more of these special cases that the compiler does and some that are hardware specific, to read more about them see \cite{DWARF} page 126-127.
 
 The location information for finding \gls{cfa} and the registers for a \emph{activation} is stored in a table, that consist of virtual unwinding rules and addresses.
-In the first column of the table the code addresses are located, they are used to identify that all the virtual unwinding rules on that row applies for that code address.
-Every machine code line is meant to have these rules but because many of the rows are exactly the same many of those rows are removed from the table to save storage space.
-The second column is also special because it contains the virtual unwinding rules for \gls{cfa}, these rules are eiter a \gls{DWARF} expression that needs to be evaluated in the same way that the variables are in section \ref{sec:evaluate-variable} or a register values plus some singed offset.
+There are multiple of these tables for each frame that are stored in a data structure called \gls{fde} that is meant to hold all the needed frame information for that frame.
+Then there is also the data structure \gls{cie} that holds information that is shared between some \acrlong{fde}'s.
+All of this frame information is stored in a separate section called \emph{.debug\_frame} and each instance of this section is guaranteed to have at least one \acrlong{cie}.
+
+Going back to the table with the virtual unwinding rules the first column of that table the code addresses are located, they are used to identify that all the virtual unwinding rules on that row applies for a particular code address.
+Every code line is meant to have these rules but because many of the rows are exactly the same many of those rows are removed from the table to save storage space.
+The second column is also special because it contains the virtual unwinding rules for \gls{cfa}, these rules are either a \gls{DWARF} expression that needs to be evaluated in the same way that the variables are in section \ref{sec:evaluate-variable} or a register values plus some singed offset.
 All the other columns contain virtual unwinding rules for all the register and they are in orders from $0$ to $n$, see figure \ref{fig:stacktracetable} for a visual example of the table.
 
 
@@ -44,5 +48,10 @@ All the other columns contain virtual unwinding rules for all the register and t
 
 
 There are a number of different virtual unwinding rules for the registers that are called register rules in the \gls{DWARF} specification \cite{DWARF}, these are listed on page 128.
+Some of them are very easy to use such as the register rule \emph{undefined} that says that a register is not preserved by the callee and thus is impossible to know the value of.
+If the register value is unchanged then register rule \emph{same value} is used to denote that.
+The must common rule is \emph{offset(N)} where \emph{N} is a signed offset, this rule means that the register value is stored at the address $\gls{cfa}+N$.
+All of the remaining rules can be read about in the \gls{DWARF} specification \cite{DWARF} on page 128.
+
 
 
