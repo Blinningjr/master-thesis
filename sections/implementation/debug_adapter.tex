@@ -1,9 +1,9 @@
 % Explain the implementaiton of the debug adapeter
 
-% Overview description of the debug adapter and the flow of communication form the user to the debugger.
+% Overview description of the debug adapter and the flow of communication from the user to the debugger.
 The debug adapter is implemented as a \gls{tcp} server that listens for new connection on a specified port.
 Then when a new connection is made it communicates with the client using the \emph{Microsoft Debug Adapter Protocol}.
-Looking at figure \ref{fig:userDAP} show the flow of communication between the different processes form the user to the debugger.
+Looking at figure \ref{fig:userDAP} show the flow of communication between the different processes from the user to the debugger.
 When a user interacts with the debugger extension in \emph{VSCode}, it will intern send a \acrshort{dap} message to the debug adapter server over the \gls{tcp} connection.
 The debug adapter will then process the message and translate it to commands that the debugger in the debug thread can understand and send them through a channel to the debug thread.
 The debug thread will then intern process the commands and send responses back to the debug adapter which in tern can translate the response and forward it back to the \emph{VSCode} extension.

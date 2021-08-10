@@ -15,7 +15,7 @@ The \gls{cfa} is the value of the stack pointer in the previous stack frame when
 
 
 Accessing one of the \emph{subroutine activation} requires that the activation stack is virtually unwind to get to the desired activation, there is only one exception to this and that is if the top activation is desired.
-That is because all of \emph{activation} information location is known thus it is easy to read that information form the registers and memory. 
+That is because all of \emph{activation} information location is known thus it is easy to read that information from the registers and memory. 
 It is called \emph{virtually unwinding} because none of the value in the registers or memory are changes which means that the state of the target is not changed.
 In general the steps to virtually unwinding the \emph{activation} is to begin with calculating the \gls{cfa} of the previous \emph{activation}, the code location of the previous \emph{activation} and to virtually restore any registers if needed.
 Then the same thing can be done to the previous \emph{activation} and so it repeats until the desired \emph{activation} is reached.

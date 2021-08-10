@@ -6,7 +6,7 @@ If the input does not mach any of the commands then an error is printed to the u
 When the input has been parsed into a request it is then sent through a channel to the main thread which forwards it to the debug thread.
 Then when the main thread gets a response back from the debug thread it prints the result to the user and sends a boolean back to the thread that reads the input.
 The boolean tells the thread if it should continue reading inputs or if it should stop.
-The main tread constantly awaits a request form the input thread or a response or event from the debug thread.
+The main tread constantly awaits a request from the input thread or a response or event from the debug thread.
 It does this by constantly polling the two channels.
 If the main thread receives a event from the debug event is displays it to the user and continues as usual.
 
