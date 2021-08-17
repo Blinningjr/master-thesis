@@ -1,4 +1,8 @@
-% Explain the implementation of the debugger and CLI
+% Explain the genral stucture of the debugger
+The acutal debugger called \emph{Embedded Rust Debugger}(the code for the debugger can be found in the git repository \cite{erd}) consists mainly of two main threads called the \emph{main thead} and the \emph{debug thread}.
+The \emph{main thead} is the thread that handels the input from the user from the console or trough \gls{dap} and the \emph{debug thread} handles the reading of \gls{DWARF} information and connection to the \gls{debugee}.
+There is also another thread in the debugger called \emph{input thread} that is only activated if the user is using the console, its jobb is to read the input and send it to the \emph{main thread}.
+
 
 % Explain the first state where the debugger is not attach to the debugee
 The debug thread has two main state that it changes between, the first state is when it is not attached to any \gls{debugee} and is called DebugHandler.

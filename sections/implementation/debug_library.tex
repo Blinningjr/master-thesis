@@ -13,7 +13,7 @@ Thus the \emph{rust-debug} library was made to simplify this problem even more s
 The library \emph{rust-debug} is built apone the \emph{gimli-rs} library and doesn't restrict the user from accessing the functionality of that library.
 It uses the \emph{gimli-rs} library for paring the \gls{DWARF} sections into more workable data structures, the figure \ref{fig:rustdebug} shows how they are connected.
 The goal of the design of the library is that a user should be able to just call a function for retrieving debug information such as a stack trace and at the same time be able to use the \emph{gimli-rs} functionality to retrieve the same information if wanted.
-The library is has the features to restive the call stack, stack frames, variables, sourceinfomaiton and a evaluation function for evaluating the values of variables.
+The library is has the features to restive the call stack, stack frames, variables, sourceinfomaiton and a function for evaluating the values of variables, the code for this library can be found in the git repository \cite{rust-debug}.
 
 
 \begin{figure}[h]

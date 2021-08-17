@@ -7,16 +7,15 @@
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
 % Move to above section
-The example code used to test is not totaly a real program that would be worked on because it would take to much time making or finding such examples that covers all the different cases that a debugger encounters.
-But that said all debuggers have been tested on real code examples as well to see that they work.
+
+The testing and comparing of the three diffrent debugger is done manualy on some example code, see the git repository \cite{example-code} for the example code.
+The example code was many times modified to test how well the three debugger handeld the different situations.
+This was repeatd untill there was any differens in the result between the three debuggers.
+There were two of these cases found when the code was compiled with optimiation 2.
+Also to keep it fair in these cases a software breakpoint was added to the code, this ensures that all the three debuggers stopes on the same machine code instuction.
+This is important because if they are not stoped on the same machine code instuction then the comparison is unfair because some of the information can have been optimized out for one of the debugger making it look worse then the other ones.
 
 
-Now comparing the debugger is done by manuly debugging example code \cite{debugexample} and looking for diffrences in the result.
-The version of \gls{GDB} used is \gls{GDB}-11.0 because it is the latest version released on the latest \emph{Ubuntu} version which is \emph{Ubuntu 21.04}.
-For the same reason the version of \gls{LLDB} used is version $10.1$.
-
-
-When running the example code on optimization $2$ and with a software breakpoint set in the middle of a function to ensure that both debugger stop on the same machine code location.
 The \gls{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \gls{GDB} can be seen in figure \ref{fig:gdbenum}.
 The expected value is \emph{TODO} which is not the same as what \gls{GDB} gave.
 
