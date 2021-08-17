@@ -12,75 +12,89 @@ But that said all debuggers have been tested on real code examples as well to se
 
 
 Now comparing the debugger is done by manuly debugging example code \cite{debugexample} and looking for diffrences in the result.
-The version of \gls{gdb} used is \emph{gdb-11.0} because it is the latest version released on the latest \emph{Ubuntu} version which is \emph{Ubuntu 21.04}.
-For the same reason the version of \emph{lldb} used is version $10.1$.
+The version of \gls{GDB} used is \gls{GDB}-11.0 because it is the latest version released on the latest \emph{Ubuntu} version which is \emph{Ubuntu 21.04}.
+For the same reason the version of \gls{LLDB} used is version $10.1$.
 
 
 When running the example code on optimization $2$ and with a software breakpoint set in the middle of a function to ensure that both debugger stop on the same machine code location.
-The \emph{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \emph{GDB} can be seen in figure \ref{fig:gdbenum}.
-The expected value is \emph{TODO} which is not the same as what \emph{GDB} gave.
+The \gls{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \gls{GDB} can be seen in figure \ref{fig:gdbenum}.
+The expected value is \emph{TODO} which is not the same as what \gls{GDB} gave.
 Doing the same using the debugger presented in this thesis shows that it also is not the same value as expected, the result can be seen in  figure \ref{fig:mydebuggerenum}.
 The printing look a bit diffrent but the result from the debugger presented in this thesis tells the user that the enum \emph{test\_enum3} is a enum of type \emph{TestEnum} where the acatual variant has been optimized out.
-While \emph{GDB} also tells that \emph{test\_enum3} is of type \emph{TestEnum} and that it is of the enum variant \emph{ITest} where the value is optimized out.
-As can be seen \emph{GDB} gives the wrong answere because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
+While \gls{GDB} also tells that \emph{test\_enum3} is of type \emph{TestEnum} and that it is of the enum variant \emph{ITest} where the value is optimized out.
+As can be seen \gls{GDB} gives the wrong answere because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
 While the debugger presesneted in this thesis says that the value has been optimized out which is a more correct anwser.
-Doing the same using \gls{lldb} give almost the smae result as the debugger presented in this thesis and that result can be seen in figure \ref{fig:lldbenum}.
-\gls{lldb} dosnet print that the variant of the enum has been optimized out which makes the reason why it is not printed ambigius.
+Doing the same using \gls{LLDB} give almost the smae result as the debugger presented in this thesis and that result can be seen in figure \ref{fig:lldbenum}.
+\gls{LLDB} dosnet print that the variant of the enum has been optimized out which makes the reason why it is not printed ambigius.
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{gdb10.1-opt2-enum-edited.png}
-    \label{fig:gdbenum}
+	\centering
+	\includegraphics[width=1.0\textwidth]{gdb10.1-opt2-enum-edited.png}
+	\caption{\gls{GDB} debugging result from evaluating variable \emph{test\_enum3} when stopped at the software brekpoint in the example code.}
+	\label{fig:gdbenum}
 \end{figure}
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{my-debugger-opt2-enum-edited.png}
-    \label{fig:mydebuggerenum}
+	\centering
+	\includegraphics[width=1.0\textwidth]{my-debugger-opt2-enum-edited.png}
+	\caption{Debugger presented in this thesis debugging result from evaluating some enum variables when stopped at the software brekpoint in the example code.}
+	\label{fig:mydebuggerenum}
 \end{figure}
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{lldb11.0-opt2-enum-edited.png}
-    \label{fig:lldbenum}
+	\centering
+	\includegraphics[width=1.0\textwidth]{lldb11.0-opt2-enum-edited.png}
+	\caption{\gls{LLDB} debugging result from evaluating some enum variables when stopped at the software brekpoint in the example code.}
+	\label{fig:lldbenum}
 \end{figure}
 
 
-Now when inspecting what is stored in the \emph{DWARF} format is shows that the variant of the enum is optimized out but not the two other values that make up the value stored in the variant.
+Now when inspecting what is stored in the \gls{DWARF} format is shows that the variant of the enum is optimized out but not the two other values that make up the value stored in the variant.
 The fact that the value that indicate with variant is optimized out makes it impossible for any debugger to evalute the value stored in the enum.
 This is because the encoding of the bytes is unknown and because the number of bytes to read from the stack is unknown.
 
 
 Looking back at figure \ref{fig:lldbenum} there are three other enums there where two of them dosen't have a value as well, they are named \emph{test\_enum1} and \emph{test\_enum2}.
-Those two enums should have a value but for some reason \gls{lldb} is not able to evaluate them, but looking at figure \ref{fig:mydebuggerenum} shows the values they should have.
-Also looking at figure \ref{fig:gdbenum} shows the same result as in figure \ref{fig:mydebuggerenum} thus both \gls{gdb} and the debugger presented in this thesis is able to evaluate the correct value.
+Those two enums should have a value but for some reason \gls{LLDB} is not able to evaluate them, but looking at figure \ref{fig:mydebuggerenum} shows the values they should have.
+Also looking at figure \ref{fig:gdbenum} shows the same result as in figure \ref{fig:mydebuggerenum} thus both \gls{GDB} and the debugger presented in this thesis is able to evaluate the correct value.
 
 Going back again to figure \ref{fig:lldbenum} which shows that the value of the attribute \emph{flag} is equal to \emph{false}, but looking at figure \ref{fig:gdbenum} and \ref{fig:lldbenum} shows that the value of \emph{flag} is equal to \emph{true}.
-The correct value when looking at the original source code is that the attribute \emph{flag} should be equal to \emph{true}, thus meaning that the result from \gls{lldb} is incorrect.
+The correct value when looking at the original source code is that the attribute \emph{flag} should be equal to \emph{true}, thus meaning that the result from \gls{LLDB} is incorrect.
 
+
+Another problem found is with values that are temporarly not present in any register or the stack which means that it is temporarly optimized out or out of range.
+An example of this is the value of the variable \emph{test\_u16} which is a unsinged $16$ bit integer that is temporarly optimized out when stoped at the software breakpoint in the example.
+When evaluating this value \gls{GDB} prints that the value is optimized out which can be seen in figure \ref{fig:gdboutofrange}, this is the same output it gives for a value that is totaly optmized out(example of this is the value of \emph{test\_struct} shown in figure \ref{fig:gdbenum}).
+Doing this with \gls{LLDB} gives the result  \emph{< variable is not available >} which can be seen in figure \ref{lldboutofragne}.
+Lasy compring this to the output of the debugger presented in this thesis which give the value \emph{<OutOfRange>}(see figure \ref{fig:mydebuggeroutofrange}).
+The result from both \gls{LLDB} and the debugger presented in this thesis are uniques and only happen in these situations thus making it easier for the user to understand that the value is temporary optimized out then the reuslt from \gls{GDB}.
+This is because the resutl that \gls{GDB} generates is used in multiple situations thus making it unclear if the variable is totaly optimized out or just that is temprarly optimized out.
 
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{gdb10.1-opt2-outofrange-edited.png}
-    \label{fig:gdboutofrange}
+	\centering
+	\includegraphics[width=0.5\textwidth]{gdb10.1-opt2-outofrange-edited.png}
+	\caption{\gls{GDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
+    	\label{fig:gdboutofrange}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{lldb11.0-opt2-outofrange-edited.png}
+	\caption{\gls{LLDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
+	\label{fig:lldboutofrange}
 \end{figure}
 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{my-debugger-opt2-outofrange-edited.png}
+	\caption{Debugger presented in this thesis debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
     \label{fig:mydebuggeroutofrange}
-\end{figure}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{lldb11.0-opt2-outofrange-edited.png}
-    \label{fig:lldboutofrange}
 \end{figure}
 
