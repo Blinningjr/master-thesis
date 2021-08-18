@@ -4,7 +4,7 @@
 Retrieving the debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
 The \gls{DWARF} format is made to be space efficient so that the binary file doesn't get to large.
 This feature of the \gls{DWARF} format has a side effect in that it makes it much more complicated for retrieving the information wanted.
-Luckily there exist a library called \emph{gimli-rs} that simplifies reading the \gls{DWARF} format.
+Luckily there exist a library called \emph{gimli-rs}\cite{gimli} that simplifies reading the \gls{DWARF} format.
 But the library still is very complicated to use because it required a lot of knowledge about the \gls{DWARF} format.
 Thus the \emph{rust-debug} library was made to simplify this problem even more so that almost no knowledge of the \gls{DWARF} format is needed.
 

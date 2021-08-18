@@ -23,7 +23,7 @@ Thus these explanations only apply to \gls{DWARF} version $4$ and some of the ol
 Going in alphabetical order the first \gls{DWARF} section is called \emph{.debug\_abbrev}.
 This section contain all of the abbreviation tables which can be used to find a specific die using the abbreviation.
 These table entries contain information about the die tag, attributes and if it has children.
-The library \emph{gimli-rs} simplifies the process of using this table and thus removes the need to know the detail of how to read it, but checkout section 7.5.3 in \cite{dwarf} to know more.
+The library \emph{gimli-rs} \cite{gimli} simplifies the process of using this table and thus removes the need to know the detail of how to read it, but checkout section 7.5.3 in \cite{dwarf} to know more.
 
 
 The \gls{DWARF} section \emph{\.debug\_aranges} is used to lookup which machine address corresponds to which compilations unit.
