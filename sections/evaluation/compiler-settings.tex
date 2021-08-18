@@ -6,6 +6,10 @@
 % This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
+
+The \emph{Rust} compiler doesne't give full acces to all the \emph{LLVM} settings 
+
+
 Going all the possible options that can be sent into the \emph{rust} compiler there are two that are key for getting the most amount of debug information.
 The most important one of these is the flag named \emph{debuginfo} which controls the amount of debug information generated.
 It has three option, the first is option $0$ which means that no debug info will be generated.
@@ -15,4 +19,12 @@ Comparing the different optimization levels the debug infomation got less and le
 The optimiztaion level $3$ resulted in amlost all variables being optimized out which made the debugging extreamly hard.
 But if the optimiztaion level was set to $2$ there was in most cases enugh infomation to debug code.
 Optimization level of $1$ hade the most debug information and was eisest to debug with.
+
+
+\subsubsection{rustc settings}
+\subimport{}{rustc.tex}
+
+
+\subsubsection{LLVM settings}
+\subimport{}{llvm.tex}
 
