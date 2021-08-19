@@ -14,10 +14,7 @@ Then the compiler options need to be tested manualy to see if any of them actual
 This is very hard to do and takes a lot of time to do it properly, thus the testing done will be limited to checking the \gls{DWARF} file and the debugging experience.
 
 
-All of the compiler options for the \emph{rustc} compiler can be found in the \emph{rustc book} see refrence \cite{rustc-book-codegen}.
-
-
-When going through all the possible \emph{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there where two that have the most inpact on the amount of debug information generated.
+When going through all the possible \gls{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there where two that have the most inpact on the amount of debug information generated.
 The most important one of these is the flag named \emph{debuginfo} which controls the amount of debug information generated.
 It has three option, the first is option $0$ which means that no debug info will be generated.
 The second option is $1$ which will only generate the line tables and the last is option $3$ which generates all the debug information it can.
@@ -30,16 +27,16 @@ The higest optimiztaion level for speed is $3$ and the result from using is that
 In the testing of the three optimization level $1$, $2$ and $3$ it seams that optimization level $2$ worked the best for debugging without making the program to slow.
 
 
-There are two other \emph{rustc} compiler option flags that is important for debugging but somtimes not necessary depending on the target.
+There are two other \gls{rustc} compiler option flags that is important for debugging but somtimes not necessary depending on the target.
 The first one is called \emph{force-frame-pointers} and does what is say, it forece the use of frame pointers \cite{rustc-book-codegen}.
 The other one is called \emph{force-unwind-tables} which forces the compiler to generate unwind tables in the \gls{DWARF} file \cite{rustc-book-codegen}.
 These two flags set to \emph{`yes`} can ensures that the debugger can unwind the stack and display the callstack to the user.
 
 
-\subsubsection{rustc settings}
-\subimport{}{rustc.tex}
-
-
-\subsubsection{LLVM settings}
-\subimport{}{llvm.tex}
+%\subsubsection{rustc settings}
+%\subimport{}{rustc.tex}
+%
+%
+%\subsubsection{LLVM settings}
+%\subimport{}{llvm.tex}
 
