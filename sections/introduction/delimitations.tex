@@ -13,19 +13,19 @@
 
 
 
-% Making changes to the compiler(llvm).
-As mentioned one of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
-In the case of the \emph{Rust} compiler it is the \emph{LLVM} library that handles the debug information generation.
-\emph{LLVM} is a very lager project that many people are working on and thus it would be to much work for this thesis to try and improve the debug information generation.
-Thus this thesis is limited in solving this problem by the current functionality of \emph{LLVM}.
+% Making changes to the compiler(rustc and llvm).
+As mentioned in sections \ref{sec:problemdefinition} one of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
+In the case of the \emph{Rust} compiler it is the \gls{LLVM} library that handles the debug information generation.
+\gls{LLVM} is a very lager project that many people are working on and thus it would be to much work for this thesis to try and improve the debug information generation.
+Thus this thesis is limited in solving this problem by using existing configurations for \gls{rustc} and \gls{LLVM}.
 
 
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
-The compiler backend \emph{LLVM} that the \emph{Rust} compiler uses supports two debugging file formats that holds all the debug information.
-One of them is the \gls{DWARF} format that has been around for a long time and is supported by many compilers and debuggers.
-The other one is \emph{CodeView} format which is developed by \emph{Microsoft} and has also been around for a long time.
+The compiler backend \gls{LLVM} that the \gls{rustc} uses supports two debugging file formats that holds all the debug information.
+One of them is the format \gls{DWARF} that is worked on by many individuals from different companies.
+The other one is \emph{CodeView} format which is developed by \emph{Microsoft} \cite{llvm-dbs}.
 To make a debugger that supports both formats would be a lot of extra work that doesn't contribute to solving the main problem of this thesis.
-Thus it has been decided to only support the \gls{DWARF} format because it has good documentation and a opensource community around it.
+Thus it has been decided to only support the \gls{DWARF} format because it has very descriptive specification and a open source community around it.
 
 
 % Making changes to DWARF standard.
@@ -38,31 +38,31 @@ Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still
 % Focusing on the bare minimum of debugger features.
 Many of the debuggers today have a lot of functionality to help the user understand what is happening in the program that they are debugging.
 An example of these functionality are debuggers that support the ability to go backwards in the program.
-Functionalities like this are useful but not contributing much to the main problem of debugging optimized code.
-Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
-So to keep this thesis focused on the main problem the feature the debugger will have is restricted to evaluating stack frames and the variables present in each frame, the ability to add and remove breakpoints.
-And the ability to control the program by stopping, continuing and stepping an instruction.
+Functionalities like this are useful but dose not contributing much to the main problem of this thesis which is debugging optimized code.
+%Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
+So to keep this thesis focused on the main problem the feature the debugger will have is restricted to virtually unwinding the stack, evaluating stack frames and there variables and lastly the ability to add and remove breakpoints.
+The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that doesn't require debug information.
 
 
 % Limiting supported chips and platforms.
 When debugging code on embedded systems the debugger needs to know a lot about the hardware the code is running on.
-It has to know the size of the memory and the number of registers, it also has to know which are the special registers such as the program counter register and more.
+It has to know the size of the memory and the number of registers, it also has to know which are the special registers such as the \gls{pc} register and more.
 There is also the endianity of the values store on in memory and registers so the debugger can convert it to the correct type.
 Then there is also the type of machine code the processes uses and the instruction mode use.
 To support all the different micro controller would be to much work for this thesis.
-Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that is available.
+Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available.
 And it will only support the instruction set \emph{Thumb mode} made by \emph{arm}.
 The debugger will be design to work with other similar micro controller but to test and grantee that it will work with them is to much work for this thesis.
 
 
 % Limiting it to a CLI and DAP server plus a VSCode extension.
 Another part of this thesis is the interaction between the user and the debugger.
-Existing debugger like \emph{gdb} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
+Existing debugger like \gls{GDB} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
 From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
 A \emph{CLI} is not that much work to implement but a \acrshort{gui} takes a lot of work to implement.
 Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \acrshort{gui} and the debugger.
 This protocol is called \acrfull{dap}\cite{dap} and is used by \emph{VSCode}.
-Thus the scope of the debugger will include implementing the \acrshort{dap} protocol and an extension for \emph{VSCode}.
+Thus the scope of the debugger will include implementing the \acrshort{dap} protocol and a simple extension for \emph{VSCode}.
 
 
 % Limiting the depth of detail how dwarf works.
