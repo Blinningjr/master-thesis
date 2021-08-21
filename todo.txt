@@ -56,7 +56,6 @@ I see in the Theory section you have a explained in more datail how a debugger w
 
 Maybe a shorter version of this could go into background.
 
-I wonder if "debug target" or "target device" is better than Debugee.
 
 I have made readthrough of the thesis, and there is a lot of information to digest.
 
