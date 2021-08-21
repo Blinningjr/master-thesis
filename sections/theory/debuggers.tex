@@ -20,3 +20,9 @@ Stepping is the process of continuing the execution of the target program for on
 Lastly resetting means that the target program will start execution from the start of the program.
 
 
+Most debugger display the state of the target program relative to the source code.
+This means that if the target program has stopped, most debugger will translate the location in the machine code it stopped on into location of the source instruction the machine code instruction was generated from.
+They also often let the user set the breakpoint in the source code and translate that to the closest machine code instruction.
+Other features debuggers have is the ability to virtually unwind the call stack, evaluate variables values and to evaluate expression.
+There are a lot more functionalities that debugger can have but these are the most common and used.
+

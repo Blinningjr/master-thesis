@@ -6,30 +6,38 @@ rephrase: This changes the program so drastically
 in many cases that when trying to debug the code all the original variable can
 be optimized out.
 
+
 One of the big reasons why variable g ...
 - grammar
 
+
 also this sentence should be rephrased, think about what you want to the reader to understand.
+
 
 maybe first explain about the unoptimized case then the optimized case, then its easier to understand.
 
+
 I understand what you mean but for the reader it might be hard to get
+
 
 Also optimization targets stack size, not only speed is gained by keeping things in registers.
 
-Regarding clang, I think for C++ it may be more than 3 times faster,
 
+Regarding clang, I think for C++ it may be more than 3 times faster,
 For C it may be true though.
+
 
 ... the different .. - typo
 
+
 to slow -> too slow
+
 
 at this point I give up proof reading the text in detail, you need to spell and grammar check the text first.
 
+
 Also better to use cannot in stead of can't etc.
 
-but its more of question of style
 
 Overall regarding Motivation (and Background)
 
@@ -37,31 +45,33 @@ You need to explain what debugging is in this context.
 
 And motivate why this is (still) needed. I think it is worth to mention that low level debugging like we do here is typically less commonly needed for Rust code than when using C/C++. The reason is that the compiler is already catching most errors (especially regarding pointers/mem access in C/C++. Nevertheless, there are cases when low level debugging is useful (and maybe required). This is especially true for embedded applications (which directly interacts with the underlying hardware)
 
+
 This sentence:
 As mentioned before testing all the paths in a program is
 sometimes not feasible because of the amount of work needed.
 
+
 Maybe I missed it but I don't see where you talk abut paths.
 
+
 The text following in the same section is a bit vague, you need to be specific on what you mean by program verification, and implementation verification. I guess there is some text here missing ...
+
 
 "So
 to keep this thesis focused on the main problem the feature the debugger will
 have is restricted to virtually unwinding the stack, evaluating stack frames and
 there variables and lastly the ability to add and remove breakpoints."
 
+
 Maybe this can be rephrased into a bullet list, making it very explicit and clear what the delimitations are.
 
-I see in the Theory section you have a explained in more datail how a debugger works.
 
+I see in the Theory section you have a explained in more datail how a debugger works. // DONE
 Maybe a shorter version of this could go into background.
 
 
-I have made readthrough of the thesis, and there is a lot of information to digest.
 
 Some sections might be easier to read if split into subsections.
-
-Obviously there are some sections missing, I guess you are working on those.
 
 
 The text needs a LOT of proof reading, 
