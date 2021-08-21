@@ -14,11 +14,11 @@ To learn more about how the debug library project is implemented checkout the su
 The second project is to create a debugger using the debug library and the last project is to make a debug adapter extension for \emph{VSCode}.
 The structure of the debugger can be seen in the figure \ref{fig:EDBStruct}, as can be seen in the figure the debugger uses the debug library \emph{rust-debug} to read the \gls{elf} file and the probe-rs library for interfacing with the microcontroller being debugged.
 It can also be noted that the debugger is devided into two separate thread, one for handeling the users input and displaying information.
-An another one for interacting with the \gls{debugee} and the \gls{elf} file.
+An another one for interacting with the debug target and the \gls{elf} file.
 These are not the only threads but they are the most important ones and to simplify this general overveiw it can be seen as only two threads.
 The \emph{Main Thread} is the thread that can eiter be started as a \gls{cli} that handles the users commands from the command line or as a debug adapter server that handles \acrshort{dap} commands over a \gls{tcp} connection.
 The main purpos of this thread is to handle input from the user and to display or forwad inormation from the \emph{Debug Thread}.
-The purpose of the debug thread is to handle requests from the \emph{Main Thread} and then send back a response, it also cheacks the state of the \gls{debugee} and sends events to the \emph{Main Thread} if the state of the debugee changes.
+The purpose of the debug thread is to handle requests from the \emph{Main Thread} and then send back a response, it also cheacks the state of the debug target and sends events to the \emph{Main Thread} if the state of the debug target changes.
 These two threads comunicates using a asyncronus channel that both sides polls to check for any new messages.
 
 

@@ -19,7 +19,7 @@ The first line in the figure begins with a number $8$ which represents the depth
 Lastly the information stored on that line is a $9$ which represents the tag of the \gls{die} which is in this case \emph{DW\_AT\_variable}.
 This first line is also the first line of the die.
 For the rest of the line the first number is also the offset into the \emph{.debug\_info} section that the information is located and these lines are attributes to in the \gls{die}.
-The attribute \emph{DW\_AT\_location} has the information of where the variable is stored on the \gls{debugee}.
+The attribute \emph{DW\_AT\_location} has the information of where the variable is stored on the debug target.
 The name attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the tool has evaluated to "str" and it is the name of the variable.
 The attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} has offset into the section \emph{.debug\_line} and will reveal the source file and line that this \gls{die} comes from.
 Lastly the attribute \emph{DW\_AT\_type} has a offset into the section \emph{.debug\_types} that points to a type \gls{die} that has the type information for this variable.

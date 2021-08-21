@@ -8,7 +8,7 @@ When a user interacts with the debugger extension in \emph{VSCode}, it will inte
 The debug adapter will then process the message and translate it to commands that the debugger in the debug thread can understand and send them through a channel to the debug thread.
 The debug thread will then intern process the commands and send responses back to the debug adapter which in tern can translate the response and forward it back to the \emph{VSCode} extension.
 That is the normal flow of communication but there is another case that can happen.
-Which is when a event happens on the debugee, this event could be that the debugee has stopped for some reason.
+Which is when a event happens on the debug target, this event could be that the debug target has stopped for some reason.
 In this case the flow of communication starts at the debug thread which can be seen in figure \ref{fig:userDAP}.
 The debug thread then sends the event to the debug adapter which in tern sends it to the \emph{VSCode} extension, where it is then shown to the user by \emph{VSCode}.
 
@@ -25,7 +25,7 @@ The debug thread then sends the event to the debug adapter which in tern sends i
 % Initializing the connection % TODO
 It is required the the first few \acrshort{dap} messages sent to the debug adapter is for configuring the debug adapter by communicating the supported capabilities of the debugger and \emph{VSCode}.
 This debugger doesn't support any of the optional capabilities that are defined in the \acrshort{dap} protocol and will thus not show up in \emph{VSCode}.
-After everything is configured then the debugger will get a requires to flash the connected debugee with the program that is going to be debugged.
+After everything is configured then the debugger will get a requires to flash the connected debug target with the program that is going to be debugged.
 Now the debug adapter is started and will work as a middle man between the debugger and the \acrshort{gui}.
 
 

@@ -36,7 +36,7 @@ If any of these attributes are not present in the die then the result of this fu
 
 % Explain the evaluation part. % TODO
 % Explain the stored target memory and registers
-As mention before one of the requirements for evaluating the value of a variable is access to the registers and memory of the debugee.
+As mention before one of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
 This library does not have that functionality because the problem of accessing memory and register is out of scope for this library.
 The reason being that it would limit the number of systems it could be used for too the systems it support and also the goal of this library is to make it simpler to get debug information from \gls{DWARF}, and not to provide an interface to the systems memory and register.
 That lead to the motivation of creating a data structure that holds these needed values of the system.
