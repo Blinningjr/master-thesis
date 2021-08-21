@@ -29,11 +29,9 @@ Some of the dies have attributes that starts with \emph{DW\_AT\_decl\_}, these a
 The library has a function for retrieving the value of all these attributes and it returns as \emph{SourceInformation} struct.
 This struct contain the directory, file name, line number and column number where the die was declared in the source files.
 The line and column number is very simple to retrieve because it is the same as the value of the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}.
-It is much more complicated to get the directory and file name because the value of the attributes \emph{DW\_AT\_decl\_file} is a file index into the current units line program.
+It is much more complicated to get the directory and file name because the value of the attributes \emph{DW\_AT\_decl\_file} is a file index that needs to be looked up in the current units line program.
 The line program indexes all the file entries and can thus be used to find the directory and file name from the file index.
 If any of these attributes are not present in the die then the result of this function will be that that entry has a \emph{None} value.
-
-
 
 
 % Explain the evaluation part. % TODO

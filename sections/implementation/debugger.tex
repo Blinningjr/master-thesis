@@ -19,9 +19,9 @@ The other features supported by the debugger uses the library \emph{rust-debug} 
 But the two library are separate so they never interact with each other, the figure \ref{fig:debugger} show how all of these parts interact.
 The \emph{rust-debug} library as mention above and seen in the figure \ref{fig:debugger} is a library for retrieving information from the \emph{DWRAF} sections in the \gls{elf} file.
 To get some of the information from the library values in the \glspl{debugee} memory and/or registers are needed.
-Thus when the \emph{rust-debug} library gives a response to a requires that it needs some specific value the \emph{Debugger} \emph{Rust} struct can use \emph{probe-rs} to read those values.
-Then those values can be sent in as a argument or the \emph{rust-debug} library.
-This repeats until the \emph{rust-debug} library returns the requested value or an error.
+Thus when calling the \emph{rust-debug} library it can somtimes give a response that says it requires some value from a registery or a memory address, the debugger then uses \emph{probe-rs} to get that value.
+Then the read values are sent in to the same \emph{rust-debug} library function as before by storing them in the memory struc that the library uses to read values from the target.
+This repeats until the \emph{rust-debug} library returns the requested value or an error if somthing has gone wrong with reading the \gls{DWARF} format.
 
 
 \begin{figure}[h]
