@@ -11,7 +11,7 @@ To virtually unwind the \emph{call stack} entail the task of restoring the code 
 Each \emph{subroutine activation} has a code location within the subroutine that show where it stopped for any reason, the reason could be that a breakpoint was hit, it was interrupted by a event or it could be location were it made a call.
 As mention the \emph{subroutine activation} also has some register values at the mention code location that may or may not need to restored depending on if the activation is the last one or not.
 Lastly a \emph{subroutine activation} has a corresponding \emph{call frame} on the stack that is identified by the \gls{cfa}.
-The \gls{cfa} is the value of the stack pointer in the previous stack frame when it is at the call location of the current \emph{stack frame}, one thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{dwarf} page 126).
+The \gls{cfa} is the value of the stack pointer in the previous stack frame at the call location of the current \emph{stack frame}, one thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{dwarf} page 126).
 
 
 Accessing one of the \emph{subroutine activation} requires that the activation stack is virtually unwind to get to the desired activation, there is only one exception to this and that is if the top activation is desired.
@@ -19,8 +19,7 @@ That is because all of \emph{activation} information location is known thus it i
 It is called \emph{virtually unwinding} because none of the value in the registers or memory are changes which means that the state of the target is not changed.
 In general the steps to virtually unwinding the \emph{activation} is to begin with calculating the \gls{cfa} of the previous \emph{activation}, the code location of the previous \emph{activation} and to virtually restore any registers if needed.
 Then the same thing can be done to the previous \emph{activation} and so it repeats until the desired \emph{activation} is reached.
-This process is required to start with the top \emph{activation} because it is the only one that is known and the process has 
-to be stopped if the bottom \emph{activation} is reached.
+This process is required to start with the top \emph{activation} because it is the only one that is known at first and the process has to be stopped if the bottom \emph{activation} is reached.
 
 
 Any subroutine can have some prologue code that is in the beginning of the subroutine  and epilogue code that is at the end.
@@ -38,8 +37,8 @@ Then there is also the data structure \gls{cie} that holds information that is s
 All of this frame information is stored in a separate section called \emph{.debug\_frame} and each instance of this section is guaranteed to have at least one \acrlong{cie}.
 
 
-Going back to the table with the virtual unwinding rules the first column of that table the code addresses are located, they are used to identify that all the virtual unwinding rules on that row applies for a particular code address.
-Every code line is meant to have these rules but because many of the rows are exactly the same many of those rows are removed from the table to save storage space.
+Going back to the table with the virtual unwinding rules the first column of that table contains the code addresses, they are used to identify that all the virtual unwinding rules on that row applies for a particular code address.
+Every line of code is meant to have these rules but because many of the rows are exactly the same many of those rows are removed from the table to save storage space.
 The second column is also special because it contains the virtual unwinding rules for \gls{cfa}, these rules are either a \gls{DWARF} expression that needs to be evaluated in the same way that the variables are in section \ref{sec:evaluate-variable} or a register values plus some singed offset.
 All the other columns contain virtual unwinding rules for all the register and they are in orders from $0$ to $n$, see figure \ref{fig:stacktracetable} for a visual example of the table.
 

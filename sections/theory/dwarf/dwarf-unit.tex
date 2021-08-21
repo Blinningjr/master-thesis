@@ -7,13 +7,14 @@
 
 
 % TODO: Explain DWARF Compilation Unit
-The compiler when compiling a source program will most often generate one compilation unit for each source file, there are some cases when partial compilation units will be made.
+The compiler when compiling a source program will most often generate one compilation unit for each source file, there are some cases when multiple partial compilation units will be generated instead.
 These compilation units holds most of the debug information generated from the source file.
-This naturally creates that the debug information in most  of the different \gls{DWARF} sections are divided into these compilation units.
+This naturally creates that the debug information in most of the different \gls{DWARF} sections are divided into these compilation units.
 It also makes it easy for the debugger to find information because the debug information is structured similar to the source code.
 The main use of these compilation units in a debugger is to first find which unit the program is currently in.
 Then it is easy to search through the \gls{die} \gls{tree} in the \emph{.debug\_info} section to find the information needed. 
 Finding the right compilation unit can take time but there is the \gls{DWARF} sections \emph{.debug\_aranges}, \emph{.debug\_pubnames} and \emph{.debug\_pubtypes} that provides a fast way of finding it.
+
 
 The fist \gls{die} in the \gls{tree} from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
 This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
