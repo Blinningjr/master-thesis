@@ -16,7 +16,7 @@ Then it is easy to search through the \gls{die} \gls{tree} in the \emph{.debug\_
 Finding the right compilation unit can take time but there is the \gls{DWARF} sections \emph{.debug\_aranges}, \emph{.debug\_pubnames} and \emph{.debug\_pubtypes} that provides a fast way of finding it.
 
 
-The fist \gls{die} in the \gls{tree} from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
+The first \gls{die} in the \gls{tree} from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
 This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
 It also says which programming language the source file is written in and directory and path of the source file.
 The \gls{tree} is structured in a way that the children of a \gls{die} representing a function will all be declared inside of the function in the source file.

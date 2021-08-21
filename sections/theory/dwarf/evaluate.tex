@@ -14,6 +14,18 @@ The example in the figure is the output of the program \emph{objdump} run on an 
 The function has a argument called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter} in the figure \ref{fig:subprogramexample}, it is a child of the function \gls{die} which means that it is a argument to the function \emph{my\_function}.
 It is this argument \emph{val} that will be used as an example for evaluating the value of a variable or argument.
 
+
+A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc} that describe the \gls{pc} range in which the function applies.
+This means that the value of the argument \emph{val} will only be in memory when the \gls{pc} is in the range describe by the two attributes.
+Thus the value of \emph{val} can only be determined when the \gls{pc} is in that range.
+There is also some other attributes in the example that are not mention here because they are not needed for determining the value of the attribute.
+
+
+Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
+All the various tags for type \glspl{die} requires a unique explanation to how it should be used thus the explanation of each one of them can be read about in the \gls{DWARF} specification \cite{dwarf}, the same goes for the different \gls{DWARF} operations.
+
+
+\subsubsubsection{Finding Raw Value Location}
 Examining the \gls{die} for the argument \emph{val} there is a attribute there called \emph{DW\_AT\_location} this attributes value is a number of operations that when executed will result in the location of the value.
 In this example the value of the \emph{DW\_AT\_location} attribute is \emph{DW\_OP\_fbreg} $-2$, this operation means that the value is stored in memory at the address for it is equal to the \emph{frame base} plus the offset $-2$(see \cite{dwarf} page 18).
 \emph{Frame base} is a address in memory that is fixed to the first value in the stack for the functions stack frame(see \cite{dwarf} page 56).
@@ -33,7 +45,8 @@ Thus the value of the argument can then be read from that memory location but to
 \end{figure}
 
 
-Now the fist problem with parsing the value of the argument into the correct type is knowing what type the argument has.
+\subsubsubsection{Parsing the Raw Value}
+Now the fist problem with parsing the raw value of the argument into the correct type is knowing what type the argument has.
 Luckily \gls{DWARF} has a attribute for that called \emph{DW\_AT\_type} which value is a offset into the \gls{DWARF} section called \emph{.debug\_types}.
 The \emph{val} argument \gls{die} has this attribute and as can be seen in figure \ref{fig:subprogramexample} it has the value $0x6233$ which points to the type \gls{die} seen in figure \ref{fig:basetypeexample}.
 Note that the type \gls{die} in the figure has the offset $6233$ which is the same offset that the \emph{val} \gls{die} has in its type attribute.
@@ -51,13 +64,4 @@ Now the location, size and type of \emph{val} is known and thus the value can be
 	\caption{An example of a base type \gls{DWARF} \gls{die}. This example is the output of the program \emph{objdump} run on a \gls{DWARF} file.}
 	\label{fig:basetypeexample}
 \end{figure}
-
-
-A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc} that describe the \gls{pc} range in which the function applies.
-This means that the value of the argument \emph{val} will only be in memory when the \gls{pc} is in the range describe by the two attributes.
-Thus the value of \emph{val} can only be determined when the \gls{pc} is in that range.
-There is also some other attributes in the example that are not mention here because they are not needed for determining the value of the attribute.
-
-Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
-All the various tags for type \glspl{die} requires a unique explanation to how it should be used thus the explanation of each one of them can be read about in the \gls{DWARF} specification \cite{dwarf}, the same goes for the different \gls{DWARF} operations.
 

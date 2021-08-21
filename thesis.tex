@@ -16,6 +16,17 @@ sorting=ynt
 \makeglossaries
 \input{bibliocosas/glossary.tex}
 
+% Adds subsubsubsection command
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\makeatletter
+\newcommand\subsubsubsection{\@startsection{paragraph}{4}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
+\newcommand\subsubsubsubsection{\@startsection{subparagraph}{5}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
+\makeatother
+
+
+
 \title{Master Thesis}
 \date{\today}
 \author{Niklas Lundberg, inaule-6@student.ltu.se}
