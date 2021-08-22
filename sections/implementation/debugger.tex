@@ -4,9 +4,12 @@ The \emph{main thead} is the thread that handels the input from the user from th
 There is also another thread in the debugger called \emph{input thread} that is only activated if the user is using the console, its jobb is to read the input and send it to the \emph{main thread}.
 
 
+\subsubsection{The Debug Thread}
 % Explain the first state where the debugger is not attach to the debug target
 The debug thread has two main state that it changes between, the first state is when it is not attached to any debug target and is called DebugHandler.
 The second state is when it is attach to the debug target which means that this state is where debugging can happen, it is called Debugger.
+
+
 Going back to the fist state, its purpose is to await instructions to attach to the debug target and to receive configuration required for that to happen.
 These configurations that the debugger requires is a path to the elf file, a path to the work directory of the code that should be debugged and lastly the type of chip.
 When all these are configure the attach command can be used to attach to the micro controller, all the other commands that require that the chip is attach can also be used to attach.
@@ -19,9 +22,9 @@ The other features supported by the debugger uses the library \emph{rust-debug} 
 But the two library are separate so they never interact with each other, the figure \ref{fig:debugger} show how all of these parts interact.
 The \emph{rust-debug} library as mention above and seen in the figure \ref{fig:debugger} is a library for retrieving information from the \emph{DWRAF} sections in the \gls{elf} file.
 To get some of the information from the library values in the debug targets memory and/or registers are needed.
-Thus when calling the \emph{rust-debug} library it can somtimes give a response that says it requires some value from a registery or a memory address, the debugger then uses \emph{probe-rs} to get that value.
-Then the read values are sent in to the same \emph{rust-debug} library function as before by storing them in the memory struc that the library uses to read values from the target.
-This repeats until the \emph{rust-debug} library returns the requested value or an error if somthing has gone wrong with reading the \gls{DWARF} format.
+Thus when calling the \emph{rust-debug} library it can sometimes give a response that says it requires some value from a registry or a memory address, the debugger then uses \emph{probe-rs} to get that value.
+Then the read values are sent in to the same \emph{rust-debug} library function as before by storing them in the memory struct that the library uses to read values from the target.
+This repeats until the \emph{rust-debug} library returns the requested value or an error if something has gone wrong with reading the \gls{DWARF} format.
 
 
 \begin{figure}[h]
@@ -32,6 +35,7 @@ This repeats until the \emph{rust-debug} library returns the requested value or 
 \end{figure}
 
 
+\subsubsection{Simultaneous Handling Of Request And Events}
 % How the debugger handles request and events simultaneously.
 To simultaneously handle incoming request from the user and events that happens in the debug target, the debugger polls the channel for incoming request and the state of the debugger.
 To reduce the amount of polling of the state of the debug target the debugger has a boolean that keeps track of the state of the debug target.
@@ -40,6 +44,7 @@ And because events can only occur if the debug target is running the polling onl
 Thus this is how the debugger can handle request from the user and near simultaneously handle events that happen in the debug target.
 
 
+\subsubsection{Optimization Of Repeated Variable Evaluation}
 % How it handles request for stackframes and variables.
 To improve of the performance of the debugger the debugger stores the value of the stack frames every time they are calculated.
 This allows for fast repetitive look up of stack frame information and variables.
@@ -47,4 +52,12 @@ The stored stack frame values are only stored when the debug target is stopped a
 Thus the wrong values will never be shown to the user.
 Also another feature of the debugger is that if the value of a variable is request the debugger will restive all the stack frames instead and then search for the requested variable.
 This simplifies the implementation a lot and will also make the debugger faster when repeated request are made.
+
+
+\subsubsection{Command Line Interface}
+\subimport{}{cli.tex}
+
+
+\subsubsection{Debug Adapter}
+\subimport{}{debug_adapter.tex}
 

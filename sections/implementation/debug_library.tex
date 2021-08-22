@@ -24,6 +24,7 @@ The library is has the features to restive the call stack, stack frames, variabl
 \end{figure}
 
 
+\subsubsection{Finding Source Location}
 % Explain the evaluation of source informaiton % TODO
 Some of the dies have attributes that starts with \emph{DW\_AT\_decl\_}, these attributes describe which source file and where in it this dies was declared.
 The library has a function for retrieving the value of all these attributes and it returns as \emph{SourceInformation} struct.
@@ -34,6 +35,7 @@ The line program indexes all the file entries and can thus be used to find the d
 If any of these attributes are not present in the die then the result of this function will be that that entry has a \emph{None} value.
 
 
+\subsubsection{Accessing Memory And Registers}
 % Explain the evaluation part. % TODO
 % Explain the stored target memory and registers
 As mention before one of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
@@ -46,6 +48,7 @@ This struct is then used as an argument to the functions in the library and if a
 This has a negative effect in that some of the calculations will be repeated multiple times but it is not very notable.
 
 
+\subsubsection{Evaluating Variables}
 % Explain the evaluation of vairbles.
 The library has a structure called \emph{VariableCreator} which  takes a reference to the \gls{DWARF} unit and die of the variable.
 Then there is a evaluation method that takes the memory and registers data structure and preforms calculation to evalue and retrieve variable information.
@@ -53,6 +56,7 @@ This method return an enum that either tell the user what memory or register val
 The variable structure contains the name, value, type, sourcelocaiton and the location of where the value was evaluated from.
 
 
+\subsubsection{Evaluating Call Stack}
 % Explain the evaluation of call stack % TODO
 % Explain the evaluation of stackframe 
 Using the call stack result each call frame can be used to create a stack frame.
@@ -67,6 +71,7 @@ Thus adding the value of a register to the memory and register struct won't do a
 Then lastly the stack frame can be retrieve using the method \emph{get\_stack\_frame} from the stack frame helper struct.
 
 
+\subsubsection{Finding Breakpoint Location}
 % Explain how to get breakpoint locaiton.
 There is also a function for finding out what machine code address a certain line in a source file corresponds to.
 It works by first finding out which compilation unit that the source file corresponds to by looping trough all the file entries in all of the compilation units. 

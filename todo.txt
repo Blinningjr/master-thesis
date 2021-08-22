@@ -84,3 +84,5 @@ Add subsections to the "Vitually Unwind Call Stack" section and rewite it a bit.
 
 Maybe add subsection to the "Debugger Comparison" section
 
+Rewrite some of the implementation sections and add more subsubsections
+
