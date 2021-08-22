@@ -2,8 +2,16 @@
 % It also outlines things that are left to do to reach a full solution, or to integrate your solution with something else.
 
 % The conclusion from the results
-TODO
-
+The problem of improving debugging for optimized \emph{Rust} code is a very complex problem and a very large one.
+To make it easier to solve this problem, the problem was divided into two parts and had a lot delimitations.
+The first part of generating more debug information was not very successful, because all of the options found to generate more debug information are well known.
+Thus none of them are really an improvement because most \emph{Rust} developers already use them.
+But the other part of creating a debugger that improve on optimized \emph{Rust} code on embedded systems was successful.
+The main reason for this is that the debugger in this thesis is able to correcly evalute the value of variables that are of the enum type.
+Were Both of the two supported debugger by the \emph{Rust} team does sometimes evalute variables of the enum type into the incorrect value.
+It was also able to simplify the process of debugging embeded systems that run \emph{Rust} code.
+Then there is also the fact that this thesis lead to the creation of a debugging library called \emph{rust-debug} which simplifies the process of retriving debug information from the \gls{DWARF} format.
+Thus overall I would say that goal of improving debugging of optimized \emph{Rust} code was achived, but that there is still a lot that needs to be done.
 
 
 \subsection{Future Debugging Improvement}
