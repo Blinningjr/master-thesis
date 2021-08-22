@@ -76,8 +76,8 @@ The text needs a LOT of proof reading,
 
 ## MY TODO
 
-1. Write Disscussion	// DONE
-2. Write Conclusion ...
+1. Write Disscussion	
+2. Write Conclusion ... // DONE
 3. Write Intorduction And Background
 4. Write Related Work
 5. Write Thesis Structure
