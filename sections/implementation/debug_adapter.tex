@@ -22,6 +22,7 @@ The debug thread then sends the event to the debug adapter which in tern sends i
 \end{figure}
 
 
+\subsubsubsection{Initial \acrshort{dap} Messages}
 % Initializing the connection % TODO
 It is required the the first few \acrshort{dap} messages sent to the debug adapter is for configuring the debug adapter by communicating the supported capabilities of the debugger and \emph{VSCode}.
 This debugger doesn't support any of the optional capabilities that are defined in the \acrshort{dap} protocol and will thus not show up in \emph{VSCode}.
@@ -29,12 +30,14 @@ After everything is configured then the debugger will get a requires to flash th
 Now the debug adapter is started and will work as a middle man between the debugger and the \acrshort{gui}.
 
 
+\subsubsubsection{Translating \acrshort{dap} Messages To Internal Messages}
 % Explain how the debug adapter converts the DAP messages to instructions for the debugger. % TODO: remove this paragraph?
 The debug adapter and the debugger is running on separate threads and thus communicate asynchronously using channels.
 The channels uses a different set of commands then that is defined in \acrshort{dap} which means that the debug adapter translates these commands and forwards them.
 This means that a single \acrshort{dap} message can result in multiple commands being sent from the debug adapter to the debugger.
 
 
+\subsubsubsection{Simultaneous Handling Of \acrshort{dap} Messages And Events}
 % Explaining how the debug adapter communicate with the debugger and wise versa. % TODO
 Because the debug adapter can get messages from both the \acrshort{gui} and the debugger at any time it uses continues polling on the \gls{tcp} connection and the channel.
 This enables the debug adapter to forward messages sent by both \emph{VSCode} and the debugger.
