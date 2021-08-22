@@ -73,11 +73,19 @@ The text needs a LOT of proof reading,
 - 3) I will have a second look at it
 
 
-Add subsections to the "Vitually Unwind Call Stack" section and rewite it a bit.
 
-Maybe add subsection to the "Debugger Comparison" section
+## MY TODO
 
-Rewrite some of the implementation sections and add more subsubsections
+1. Write Disscussion
+2. Write Conclusion ...
+3. Write Intorduction And Background
+4. Write Related Work
+5. Write Thesis Structure
+5. Write Abbstract
 
-
+6. Add subsections to the "Vitually Unwind Call Stack" section and rewite it a bit.
+7. Rewrite some of the implementation sections and add more subsubsections
+8. Maybe add subsection to the "Debugger Comparison" section
+9. Read through and add to this list
+10. Fix Grammer
 
