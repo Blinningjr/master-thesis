@@ -23,7 +23,7 @@ Thus it is clear from the description in the \emph{rustc book} that this flag sh
 The other key compiler option is the optimization flag named \emph{opt-level}, it controls the amount of optimization done to the code and which type of optimization, size or speed.
 Comparing the different optimization levels the debug information got less and less when a higher optimization level was set on a simple blink code example.
 The highest optimization level for speed is $3$ and the result from using is that the debug information got very limited, thus making it extremely hard to debug.
-In the testing of the three optimization level $1$, $2$ and $3$ it seams that optimization level $2$ worked the best for debugging without making the program to slow.
+In the testing of the three optimization level $1$, $2$ and $3$ it seams that optimization level $2$ worked the best for debugging without making the program too slow.
 
 
 There are two other \gls{rustc} compiler option flags that is important for debugging but sometimes not necessary depending on the target.

@@ -14,8 +14,8 @@
 The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster then unoptimised code \cite{perf-book}.
 That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster then the unoptimized code \cite{clang-opt}.
 Thus for language like \emph{C} it is much more acceptable to not be able to debug optimized code because the different isn't that large compared to \emph{Rust}.
-But in the case of \emph{Rust} the different is so large that some programs are to slow to run without optimization.
-This causes the problem that the code can't be debugged because debuggers don't work well on optimized code and unoptimized code is to slow to run.
+But in the case of \emph{Rust} the different is so large that some programs are too slow to run without optimization.
+This causes the problem that the code cannot be debugged because debuggers don't work well on optimized code and unoptimized code is too slow to run.
 Because of that there is a need for debuggers that can give enough information to debug optimized \emph{Rust} code.
 %Then there is also the argument that relying only on testing the optimized code instead of going through and checking that is is correct is bad.
 %The reason being that the number of paths in the code can be so extremely many that it is not feasible to make tests for all of them, instead it can be more feasible to check that the code works correctly.
