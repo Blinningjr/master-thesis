@@ -17,15 +17,18 @@ Thus for language like \emph{C} it is much more acceptable to not be able to deb
 But in the case of \emph{Rust} the different is so large that some programs are too slow to run without optimization.
 This causes the problem that the code cannot be debugged because debuggers don't work well on optimized code and unoptimized code is too slow to run.
 Because of that there is a need for debuggers that can give enough information to debug optimized \emph{Rust} code.
-%Then there is also the argument that relying only on testing the optimized code instead of going through and checking that is is correct is bad.
-%The reason being that the number of paths in the code can be so extremely many that it is not feasible to make tests for all of them, instead it can be more feasible to check that the code works correctly.
+
+
+A argument against the need of low level debugging of \emph{Rust} code is that the \emph{Rust} compiler will catch most of the errors.
+This is epasialy true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}. 
+Thus there is a less need for debugger that can debug \emph{Rust} code then there are debuggers that can debug \emph{C} and \emph{C++} code.
+But when it comes to embedded applications there is sill a need for low level debugging, such as a debugger.
 
 
 % Improving the state of debugging. % TODO: Rewrite this paragraph
-Another large motivation for this thesis is that the most common way of debugging \emph{Rust} code on embedded systems is complicated for a beginner.
-One of the reason being that it requires two programs being \emph{openocd} and \emph{gdb}, it also requires configuration files which takes some time to understand and configure.
-This is not very accessible for people that have no experience with these programs and is unnecessarily complicated.
-The ideal solution for accessibility would be to have a single program instead of two and that it requires less configuring, thus making it as easy as possible for a new person to debug there code.
+Another motivation for creating a debugger for embedded systems is that the most common way of debugging \emph{Rust} code on embedded systems is complicated for a beginner.
+One of the reason being that both of the debuggers that are supported by the \emph{Rust} team \gls{GDB} and \gls{LLDB} require the use of \emph{openocd} or a similar program.
+This complicates the process of debugging and makes for a bad experience, especially for new developers.
 
 
 % Contributing with a solution written in Rust.
@@ -40,18 +43,4 @@ Another way this thesis contributes to the \emph{Rust} community is by making a 
 This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
 Which will hopefully lead to more work being done on the compiler to improve the debugging situation for unoptimized and  optimized \emph{Rust} code.
 
-
-% Companies spend lot of money on testing but not on verifying if there program is correct, which debugging is a important tool for verifying.
-There is also a economical reason wanting to have debuggers that work well for optimized code.
-As mentioned before testing all the paths in a program is sometimes not feasible because of the amount of work needed.
-But verifying that the program is correct and that the implementation is correct is another way to ensure that the program works as intended.
-It is even sometimes the preferred solution because then the program is proven to work correctly.
-And a debugger is one of the vital tools needed for confirming that a implementation is correct.
-Verifying the correctness of a program and the implementation can also be cheaper then testing in those cases where the programs has extremely many paths.
-Thus improving the tools needed to verify the correctness of the implementation can intern reduce the cost of verifying that the program works as intended.
-And it can even reduce the amount of money witch companies spend on testing there code.
-% The amount of money spent on testing of code each year is about xxx and thus the potential savings on testing us huge. % TODO: Find Source
-
-
-% Shinning a light on the obstacles. % TODO
 
