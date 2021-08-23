@@ -14,29 +14,47 @@ It also able to inspect the debugged program by displaying the values of the var
 Debuggers are a very useful tool for debugging but it is also a very usful tool for testing, becuase it enables the developer to see the result of each line of code.
 
 
+Debugging today works by having the compilers generate debug information when compiling the program.
+The debug information is then stored in a file in a special file format desinged to be read by a debugger.
+One of the most popular of these file formats is the format \gls{DWARF}.
+It is a complex format that is explaind in detail in section \ref{sec:dwarf}.
+The debug information stored in the file can be used to find the location of variables, in most cases the value of varibles are stored on the in memory on the call stack.
+A stack is a data structure for stroing infomation and is usally used to store all the vairlbes for each function that is currently being executed.
+Thus a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displied to the user of the debugger.
 
+
+The main problem with debuggeing optimized code is that variables are not stored on the call stack that is in the memory.
+Insted they are temporarly stored in registers that are faster to access but cannot hold as much information as the memory.
+This reduces the amount of memory needed and makes the program run faster.
+It aslo makes debugging a lot harder becuase the variables are only present in the register for a very short time and thus debugger will often not have access to that value.
+There is also the problem of debugger not being able to use all the debug information
 
 
 
 % TODO Start
-Debugging Rust code on embedded system today is not a very good experience for many reasons.
-One of the big problems is debugging optimized code is often near impossible.
-That is because the compilers today are very good at inlining the code and removing unused code.
-This changes the program so drastically in many cases that when trying to debug the code all the original variable can be optimized out.
-Thus the user doesn't get any useful information from the debugger about the program which makes is near impossible to debug.
-One of the big reasons why variable gets optimized out is because unoptimized code always push the value of the variable to memory which then can be read by the debugger at anytime.
-This is not done for optimized code because speed is prioritized and storing the value of a variable that will not be used on the stack is costly.Thus the time that most variable exist is very short in optimized code which results in that the debugger saying that a variable is optimized out.
+%Debugging Rust code on embedded system today is not a very good experience for many reasons.
+%One of the big problems is debugging optimized code is often near impossible.
+%That is because the compilers today are very good at inlining the code and removing unused code.
+%This changes the program so drastically in many cases that when trying to debug the code all the original variable can be optimized out.
+%Thus the user doesn't get any useful information from the debugger about the program which makes is near impossible to debug.
+%One of the big reasons why variable gets optimized out is because unoptimized code always push the value of the variable to memory which then can be read by the debugger at anytime.
+%This is not done for optimized code because speed is prioritized and storing the value of a variable that will not be used on the stack is costly.
+%Thus the time that most variable exist is very short in optimized code which results in that the debugger saying that a variable is optimized out.
 % TODO END
+
 
 \subsection{Background}
 \subimport{introduction/}{background.tex}
 
+
 \subsection{Motivation}
 \subimport{introduction/}{motivation.tex}
+
 
 \subsection{Problem definition}
 \label{sec:problemdefinition}
 \subimport{introduction/}{problem-definition.tex}
+
 
 %\subsection{Equality and ethics}
 %\subimport{introduction/}{equality-and-ethics.tex}
@@ -44,8 +62,10 @@ This is not done for optimized code because speed is prioritized and storing the
 %\subsection{Sustainability}
 %\subimport{introduction/}{sustainability.tex}
 
+
 \subsection{Delimitations}
 \subimport{introduction/}{delimitations.tex}
+
 
 \subsection{Thesis structure}
 \subimport{introduction/}{thesis-structure.tex}
