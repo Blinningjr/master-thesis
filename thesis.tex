@@ -1,4 +1,4 @@
-\documentclass[10pt, a5paper]{article}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{import}
 
@@ -20,8 +20,11 @@ sorting=ynt
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 
-\usepackage{geometry}
-\geometry{a5paper}
+
+% For making it a5
+%\documentclass[10pt, a5paper]{article}
+%\usepackage{geometry}
+%\geometry{a5paper}
 
 
 \makeatletter
@@ -53,14 +56,9 @@ sorting=ynt
 
 \newpage
 \tableofcontents 
-
 \clearpage
-\printglossary
-\label{sec:glossary}
-\printglossary[type=\acronymtype]
-\label{sec:acronym}
 
-\newpage
+
 \section{Introduction}
 \label{sec:introfuction}
 \import{sections/}{introduction.tex}
@@ -95,6 +93,11 @@ sorting=ynt
 \label{sec:conclusions}
 \import{sections/}{conclusions-and-future-work.tex}
 
+\clearpage
+\printglossary
+\label{sec:glossary}
+\printglossary[type=\acronymtype]
+\label{sec:acronym}
 
 \clearpage
 \printbibliography
