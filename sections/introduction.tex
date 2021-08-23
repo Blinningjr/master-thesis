@@ -1,33 +1,35 @@
 % Give the reader an overview of the area.
 % Try to focus on the scientific area, but do not forget the red thread that binds the rest of the introduction together.
 
-Ever since the first programing language was made debugging has been a key part of the programing process.
-Debugging is the process of finding and resolving erros, flwas or faults in computer programs.
-These errors, flas or fautls are also commenly referd to as bugs in the field of computer sience.
-Debugging has become more difficult to do over the years because of the incressing complexity of computer programs and the hardware that they run on.
-Thuse the importance of better debugging tools have become more important to make the process of debugging easier and more time efficient.
+Ever since the first programming language was made debugging has been a key part of the programming process.
+Debugging is the process of finding and resolving errors, flaws or faults in computer programs.
+These errors, flaws or faults are also commonly referred to as a bug or bugs in the field of computer science.
+Debugging has become more difficult to do over the years because of the increasing complexity of computer programs and the hardware.
+Thus the importance of better debugging tools have become more important to make the process of debugging easier and more time efficient.
 
 
-One of the first types of debugging tools make and one of the most useful is called a debugger.
-A debugger is a program that most often allows the developer to control the debuged program in some ways, for example stopping, starting and reseting it.
-It also able to inspect the debugged program by displaying the values of the variables in the debug program.
-Debuggers are a very useful tool for debugging but it is also a very usful tool for testing, becuase it enables the developer to see the result of each line of code.
+One of the first types of debugging tools made and one of the most useful is called a debugger.
+A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
+It is also able to inspect the debugged program by for example displaying the values of the variables.
+Debuggers are a very useful tool for debugging but it is also a very useful tool for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
-The debug information is then stored in a file in a special file format desinged to be read by a debugger.
+The debug information is then stored in a file, the file is formatted using special file format designed to be read by a debugger or a another debugging tool.
 One of the most popular of these file formats is the format \gls{DWARF}.
-It is a complex format that is explaind in detail in section \ref{sec:dwarf}.
-The debug information stored in the file can be used to find the location of variables, in most cases the value of varibles are stored on the in memory on the call stack.
-A stack is a data structure for stroing infomation and is usally used to store all the vairlbes for each function that is currently being executed.
-Thus a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displied to the user of the debugger.
+It is a complex format that is explained in detail in section \ref{sec:dwarf}.
 
 
-The main problem with debuggeing optimized code is that variables are not stored on the call stack that is in the memory.
-Insted they are temporarly stored in registers that are faster to access but cannot hold as much information as the memory.
+The debug information stored in the \gls{DWARF} file can be used to find the location of variables, in most cases the value of variables are stored in memory on the call stack.
+A stack is a data structure for storing information and is usually used to store all the variables for each function that is currently being executed(see section \ref{sec:regmem} for more information).
+Thus a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displayed to the user of the debugger.
+
+
+The main problem with debugging optimized code is that variables are not stored on the call stack, which is in memory.
+Instead they are temporarily stored in registers that are faster to access but cannot hold as much information as the memory.
 This reduces the amount of memory needed and makes the program run faster.
-It aslo makes debugging a lot harder becuase the variables are only present in the register for a very short time and thus debugger will often not have access to that value.
-Then there is the problem of debugger not being able to utalise all the available debug information.
+It also makes debugging a lot harder because the variables are only present in the register for a very short time and thus debugger will often not have access to that value.
+Then there is the problem of debugger not being able to utilize all the available debug information.
 
 
 \subsection{Background}
