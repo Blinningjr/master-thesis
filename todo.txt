@@ -16,11 +16,26 @@ The text needs a LOT of proof reading,
 4. Write Background	// DONE
 5. Write Related Work
 6. Write Thesis Structure
+6.5 write Heap section
 7. Write Abbstract
 
 8. Add subsections to the "Vitually Unwind Call Stack" section and rewite it a bit.
 9. Rewrite some of the implementation sections and add more subsubsections
 10. Maybe add subsection to the "Debugger Comparison" section
-11. Read through and add to this list
+11. Read through section:
+	- Abstract
+	- Thesis structure
+	- Related work
+	- Heap
+	- DWARF Die
+	- DWARF Attribute
+	- DWARF Evaluate Var
+	- DWARF Finding Raw Value Location
+	- DWARF Parsing the Raw Value
+	- DWARF Virtually Unwind Call Stack
+	- Implementation
+	- Evaluation
+	- Discussion
+	- Conclusion
 12. Fix Grammer
 
