@@ -7,22 +7,27 @@
 
 % TODO: Explain DWARF Die
 
-One of the most important data structures in the \gls{DWARF} format is the \gls{die} which are found in the \emph{.debug\_info} and \emph{.debug\_type} sections.
-These \glspl{die} are used to represent parts of the source code and hold information about were in the source code there are declared.
-They also contain information about which range of addresses they are applicable to in the machine code and more.
-There are two types of \glspl{die}, one of them are dies that only describe types in the source code and are located in a \gls{tree} in the section \emph{.debug\_types}.
-The other type of \gls{die} are dies that describe the structure of the source code and describes where that information is in the machine code.
+One of the most important data structures in the \gls{DWARF} format is the \gls{die}.
+A \gls{die} is low level representation of a small part of the source code.
+Some of the most common things \glspl{die} represent are functions, variables and types.
+The \glspl{die} are found in a \gls{tree} structured referred to a as a \gls{die} \gls{tree}.
+Each \gls{die} \gls{tree} will most often represents a whole compile unit or a type from the source code.
+The ones representing compile units are found in the \gls{DWARF} section \emph{.debug\_info}, while the ones representing type are found in the \gls{DWARF} section \emph{.debug\_type}.
+The \glspl{die} representing types are often referred to a type \glspl{die}.
 
 
-Let look at an example of a \gls{die} that describes a variable, the example can be seen in figure \ref{fig:dwarfdie} which is a screen shoot of the output from the program \emph{objdump} run on a \gls{elf} file.
-The first line in the figure begins with a number $8$ which represents the depth in the tree this \gls{die} is located, the next number is the offset into this section for that line.
-Lastly the information stored on that line is a $9$ which represents the tag of the \gls{die} which is in this case \emph{DW\_AT\_variable}.
-This first line is also the first line of the die.
-For the rest of the line the first number is also the offset into the \emph{.debug\_info} section that the information is located and these lines are attributes to in the \gls{die}.
-The attribute \emph{DW\_AT\_location} has the information of where the variable is stored on the debug target.
-The name attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the tool has evaluated to "str" and it is the name of the variable.
-The attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} has offset into the section \emph{.debug\_line} and will reveal the source file and line that this \gls{die} comes from.
-Lastly the attribute \emph{DW\_AT\_type} has a offset into the section \emph{.debug\_types} that points to a type \gls{die} that has the type information for this variable.
+The information stored in \glspl{die} are all in the form of \gls{DWARF} attributes.
+There are a lot of different attributes a \gls{die} can have, but they never have more then one of the same.
+The information in the attributes varies a lot depending on what attribute it is.
+
+
+
+\subsubsubsection{Example of a \gls{die}}
+Lets look at an example of a \gls{die} that describes a variable, the example can be seen in figure \ref{fig:dwarfdie} which is a screen shoot of the output from the program \emph{objdump} run on a \gls{elf} file.
+The first line in the figure begins with a number $8$ which represents the depth in the \gls{die} tree this \gls{die} is located.
+The next number is the current lines offset into this compile unit, all the other lines in the figure also start with there offset.
+Then it says "Abbrev Number: 9" on the same line, this is a  abbreviation code that translates to \emph{DW\_TAG\_variable}.
+This tag means that the \gls{die} is representing a variable from the source code.
 
 
 \begin{figure}[h]
@@ -31,4 +36,12 @@ Lastly the attribute \emph{DW\_AT\_type} has a offset into the section \emph{.de
 	\caption{An example of a \gls{DWARF} \gls{die} for a variable \emph{ptr}. This example is the output of the tool \emph{objdump} run on a \gls{DWARF} file.}
 	\label{fig:dwarfdie}
 \end{figure}
+
+
+The attribute \emph{DW\_AT\_location} seen in figure \ref{fig:dwarfdie} has the information of where the variable is stored on the debug target.
+The attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the \emph{objdump} tool has evaluated to "str", this is the name of the variable.
+Attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} in the figure contain  offsets into the section \emph{.debug\_line}.
+Those offsets can be evaluated to the source file path and line number that this \gls{die} is generated from.
+Lastly the attribute \emph{DW\_AT\_type} contain a offset into the section \emph{.debug\_types}, that points to a type \gls{die} that has the type information for this variable.
+
 

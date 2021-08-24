@@ -27,7 +27,6 @@ The text needs a LOT of proof reading,
 	- Thesis structure
 	- Related work
 	- Heap
-	- DWARF Die
 	- DWARF Attribute
 	- DWARF Evaluate Var
 	- DWARF Finding Raw Value Location
