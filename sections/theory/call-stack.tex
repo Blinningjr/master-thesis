@@ -5,26 +5,41 @@
  
 % This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
 
-The values of a program needs to be temporary stored some were on the computer were it can easily be access while running the program.
-The two ways the computer can do this is to either store it in a register or in the memory.
-Registers are very limited in space and are very volatile thus it is good for storing values that are needed often in a short amount of time.
-Memory is slower but has a lot more space and is thus much more useful for storing values that will be needed in a while.
-The compiler will compile the program to store the different variables and values in the registers and memory in a structured way so it is easily managed.
+The values of a computer program needs to be temporary stored some were on the computer were it can easily be access while running the program.
+The two main ways the computer can do this is to either store values in registers or in the memory.
+Registers are very limited in space and are very volatile thus they are very good for storing values that are used many times in a short amount of time.
+Memory is much slower but has a lot more space.
+Memory is thus much more useful for storing values that are not needed right now but will be needed in the future.
 
-There is no real structure for the registers except that certain registers have a specific purpose, which can be the \gls{pc} for example.
-A \gls{pc} is a register that keeps track of which machine code instruction the program is currently at.
-There are other important registers like the stack pointer register and more.
-On the other hand the memory all structure and one of the structures is a stack that consist of stack frames/call frames, the stack is called \emph{call stack}.
+
+It is the compiler that decide when and if a variable will be stored in registers or memory.
+The compiler decides this when compiling the computer program, which means the developer has usually very little control over where the values are stored.
+
+
+Values stored in memory are either stored on the call stack or the heap.
+The call stack holds all the arguments and variables for all the called functions that have not finished execution.
+While the heap contain all the dynamically allocated values.
+
+
+\subsubsection{Registers}
+Computer registers are small memory spaces that are of fixed size.
+These registers can store any type of data as long as it fits withing the size limit of the registers.
+Some of the registers are reserved for special use, one of the most important ones is the \acrfull{pc} register.
+This register always holds the address of the next machine code instruction that will be executed.
+Which of the registers that are reserved for special use is different depending on the processor.
 
 
 \subsubsection{Call Stack}
-% \subimport{theory/}{.tex}
-The Call stack is a stack in the memory that holds stack frames which intern contain information about the values of variables and other values.
+The call stack is a stack in the memory that has the arguments and variables of all the functions that have been called and are not finished executing.
 A stack is a data structure that consist of a number of elements that are stacked on top of each other and the only two operations available for a stack is push and pop.
 The push operations adds a new element on top of the stack and the pop operation removes the top element of the stack.
 Other key characteristics are that it is only the top element that can be access thus too reach the lower elements all the above elements needs to be popped.
-The call stack is used to keep track of all the stack frames which holds almost all the values of the running program, the values are also present in the registers and in the heap which is also located in the memory.
-An example of a call stack can be seen in the figure \ref{fig:callstack}.
+
+
+Stack/call frames are the elements that make up the call stack, each stack frame has the values of the arguments and variables for one function call.
+Stack frames also usually contain a return address which is pointer to a machine code instruction, this instruction is the next instruction of the previous function that called the current function.
+When a function has finished executing its stack frame will be pop/removed from the stack and the previous function will continue executing. 
+An example of a call stack and stack frames can be seen in the figure \ref{fig:callstack}.
 
 
 \begin{figure}[h]
@@ -35,10 +50,6 @@ An example of a call stack can be seen in the figure \ref{fig:callstack}.
 \end{figure}
 
 
-\subsubsection{Stack Frame/Call Frame}
-% \subimport{theory/}{.tex}
-A stack frame or call frame is a element of the call stack that contain variable values for a scope of the running program.
-The scope is usually a function that has been called that have its own arguments and variables that are needed to be stored in memory for later use.
-Stack frames also contain a return address which is pointer to the machine code that the program should jump to after the computation in the current scope is done.
-When the computation is done the stack frame will be popped from the call stack and the previous stack frame will become the current stack frame, check out figure \ref{fig:callstack} for an visual example.
+\subsubsection{Heap}
+
 
