@@ -7,18 +7,20 @@
 
 
 % TODO: Explain DWARF Compilation Unit
-The compiler when compiling a source program will most often generate one compilation unit for each source file, there are some cases when multiple partial compilation units will be generated instead.
-These compilation units holds most of the debug information generated from the source file.
-This naturally creates that the debug information in most of the different \gls{DWARF} sections are divided into these compilation units.
-It also makes it easy for the debugger to find information because the debug information is structured similar to the source code.
-The main use of these compilation units in a debugger is to first find which unit the program is currently in.
-Then it is easy to search through the \gls{die} \gls{tree} in the \emph{.debug\_info} section to find the information needed. 
-Finding the right compilation unit can take time but there is the \gls{DWARF} sections \emph{.debug\_aranges}, \emph{.debug\_pubnames} and \emph{.debug\_pubtypes} that provides a fast way of finding it.
+The compiler when compiling a source program will most often generate one compilation unit for each source file.
+There are some cases when multiple partial compilation units will be generated instead.
+The compilation units are store in the \gls{DWARF} section \emph{.debug\_info}.
+These compilation units are structured the same as the sources code, which makes it easy to relate between the debug target state and the source code.
 
 
-The first \gls{die} in the \gls{tree} from the section \emph{.debug\_info} will have the tag \emph{DW\_TAG\_compile\_unit}.
+%Finding the right compilation unit can easily be done looking it up in the \gls{DWARF} section \emph{.debug\_aranges} using the current machine code address.
+The first \gls{die} in the \gls{tree} of the compilation unit will have the tag \emph{DW\_TAG\_compile\_unit}.
 This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
-It also says which programming language the source file is written in and directory and path of the source file.
-The \gls{tree} is structured in a way that the children of a \gls{die} representing a function will all be declared inside of the function in the source file.
-Thus it is easy for the debugger to know everything about the function by going through all of its children.
+It also says which programming language the source file is written in and also the directory and path of the source file.
+
+
+A \gls{die} in the \gls{tree} can have multiple children, the relationship between the \gls{die} and the children is that all the children belong to the \gls{die}.
+An example of this is if there is a function \gls{die}, then the children of the function \gls{die} will be \glspl{die} that represent parameters and variables that are declared in that function.
+Thus if the source code has a function declared in a function then one of the children to the first functions \gls{die} will be the second functions \gls{die}.
+This makes it is easy for the debugger to know everything about a function by going through all of its children.
 
