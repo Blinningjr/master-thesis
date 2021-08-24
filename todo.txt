@@ -1,55 +1,5 @@
 # TODO List
 
-cant -> cannot // DONE
-
-to slow -> too slow // DONE
-
-maybe first explain about the unoptimized case then the optimized case, then its easier to understand. 	\\ Done
-
-Also optimization targets stack size, not only speed is gained by keeping things in registers. \\ Done
-
-
-... the different .. - typo
-
-
-
-
-Overall regarding Motivation (and Background)
-
-You need to explain what debugging is in this context.
-
-And motivate why this is (still) needed. I think it is worth to mention that low level debugging like we do here is typically less commonly needed for Rust code than when using C/C++. The reason is that the compiler is already catching most errors (especially regarding pointers/mem access in C/C++. Nevertheless, there are cases when low level debugging is useful (and maybe required). This is especially true for embedded applications (which directly interacts with the underlying hardware)	// DONE
-
-
-
-
-This sentence:
-As mentioned before testing all the paths in a program is
-sometimes not feasible because of the amount of work needed.
-
-
-Maybe I missed it but I don't see where you talk abut paths.
-
-
-The text following in the same section is a bit vague, you need to be specific on what you mean by program verification, and implementation verification. I guess there is some text here missing ...
-
-
-"So
-to keep this thesis focused on the main problem the feature the debugger will
-have is restricted to virtually unwinding the stack, evaluating stack frames and
-there variables and lastly the ability to add and remove breakpoints."
-
-
-Maybe this can be rephrased into a bullet list, making it very explicit and clear what the delimitations are.
-
-
-I see in the Theory section you have a explained in more datail how a debugger works. // DONE
-Maybe a shorter version of this could go into background.
-
-
-
-Some sections might be easier to read if split into subsections.
-
 
 The text needs a LOT of proof reading, 
 - 1) spell and grammar check
@@ -63,7 +13,7 @@ The text needs a LOT of proof reading,
 1. Write Disscussion	
 2. Write Conclusion ... // DONE
 3. Write Intorduction	// DONE
-4. Write Background
+4. Write Background	// DONE
 5. Write Related Work
 6. Write Thesis Structure
 7. Write Abbstract
