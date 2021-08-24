@@ -12,21 +12,29 @@
  
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
-
-There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
-The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
-This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
-Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
-The first problem then is to look at the different options that can be set for the \gls{rustc} compiler to improve the generations of debug information without impacting the optimization of the code to much.
-Speed of the resulting code is still a big priority because the unoptimized \emph{Rust} code is very slow compared to the other languages.
+The problem this thesis tries to tackle is the problem of improving the debugging experience of using a debugger on optimized \emph{Rust} code for embedded systems.
+This problem can be divided into two parts, the first part is to improve the generation of debug information.
+The second part to create a debugger written in \emph{Rust} that has a better debugging experience for optimized code then the existing debuggers.
 
 
-The second problem is looking at the available debug information that the \gls{rustc} compiler generates for optimized code and creating a debugger that utilizes that information to the fullest.
-This problem has two parts to it, the first being retrieving the needed information from the debug information.
-This will be the hardest part and is the most important for improving the debugging for optimized code.
-The second part is to display the debug information to the user in a user friendly way.
-
-
-The goal of solving these to problems is to create a debugger that gives a better debugging experience for optimized \emph{Rust} code on embedded systems then some of the most commonly used debuggers, such as \gls{GDB} and \gls{LLDB}.
+The goal of solving this problem is to create a debugger that gives a better debugging experience for optimized \emph{Rust} code on embedded systems then some of the most commonly used debuggers, such as \gls{GDB} and \gls{LLDB}.
 And to inspire further development for debugging tools in the \emph{Rust} community.
+
+
+%There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
+%The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
+%This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
+%Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
+%The first problem then is to look at the different options that can be set for the \gls{rustc} compiler to improve the generations of debug information without impacting the optimization of the code to much.
+%Speed of the resulting code is still a big priority because the unoptimized \emph{Rust} code is very slow compared to the other languages.
+%
+%
+%The second problem is looking at the available debug information that the \gls{rustc} compiler generates for optimized code and creating a debugger that utilizes that information to the fullest.
+%This problem has two parts to it, the first being retrieving the needed information from the debug information.
+%This will be the hardest part and is the most important for improving the debugging for optimized code.
+%The second part is to display the debug information to the user in a user friendly way.
+%
+%
+%The goal of solving these to problems is to create a debugger that gives a better debugging experience for optimized \emph{Rust} code on embedded systems then some of the most commonly used debuggers, such as \gls{GDB} and \gls{LLDB}.
+%And to inspire further development for debugging tools in the \emph{Rust} community.
 
