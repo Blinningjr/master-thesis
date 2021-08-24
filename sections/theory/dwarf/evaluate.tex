@@ -7,34 +7,14 @@
 
 % TODO: Explain Evaluation of values
 
-The process of evaluating the value of a variable or argument is a bit complicated because there is a lot of parts to it that all depend on each other.
-Thus to simplify the explanation a simple example will be used to explain the main part of evaluating a value.
-Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}, it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}.
-The example in the figure is the output of the program \emph{objdump} run on an \gls{DWARF} file and it is shown because it is much easier to read then the raw \gls{DWARF} file.
-The function has a argument called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter} in the figure \ref{fig:subprogramexample}, it is a child of the function \gls{die} which means that it is a argument to the function \emph{my\_function}.
-It is this argument \emph{val} that will be used as an example for evaluating the value of a variable or argument.
+The process of evaluating the value of a variable is a bit complicated because there is a lot of variation.
+Thus to simplify the explanation a simple example will be used to explain the main part of evaluating a variable.
 
 
-A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc} that describe the \gls{pc} range in which the function applies.
-This means that the value of the argument \emph{val} will only be in memory when the \gls{pc} is in the range describe by the two attributes.
-Thus the value of \emph{val} can only be determined when the \gls{pc} is in that range.
-There is also some other attributes in the example that are not mention here because they are not needed for determining the value of the attribute.
-
-
-Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
-All the various tags for type \glspl{die} requires a unique explanation to how it should be used thus the explanation of each one of them can be read about in the \gls{DWARF} specification \cite{dwarf}, the same goes for the different \gls{DWARF} operations.
-
-
-\subsubsubsection{Finding Raw Value Location}
-Examining the \gls{die} for the argument \emph{val} there is a attribute there called \emph{DW\_AT\_location} this attributes value is a number of operations that when executed will result in the location of the value.
-In this example the value of the \emph{DW\_AT\_location} attribute is \emph{DW\_OP\_fbreg} $-2$, this operation means that the value is stored in memory at the address for it is equal to the \emph{frame base} plus the offset $-2$(see \cite{dwarf} page 18).
-\emph{Frame base} is a address in memory that is fixed to the first value in the stack for the functions stack frame(see \cite{dwarf} page 56).
-To get the value of the \emph{frame base} it also has to be evaluated in the same way that the argument \emph{val} will be.
-The operation for evaluating the \emph{frame base} are located in the attribute \emph{DW\_AT\_frame\_base} in the parent function \gls{die} to the \emph{val} die, it is the one called \emph{my\_function}.
-Looking at figure \ref{fig:subprogramexample} at the attribute \emph{DW\_AT\_frame\_base} of the function \gls{die} the operations to evaluating the \emph{frame base} consist only of the operation \emph{DW\_OP\_reg7}.
-This operation means that the value for the \emph{frame base} is stored in register $7$(see \cite{dwarf} page 27) thus to continue the evaluation of the argument \emph{val} register $7$ has to be read.
-Continuing evaluation of the argument \emph{val} it is now know were it is located because the operations describe it to be in the memory address equal to $-2$ plus \emph{frame base}.
-Thus the value of the argument can then be read from that memory location but to do that the size first be known and the value then needs to be parsed into the correct type.
+Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}(it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
+The function has a paramter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}.
+That means that it is a parameter to the function \emph{my\_function}.
+It is this parameter \emph{val} that will be used as an example of how to evaluating a variable.
 
 
 \begin{figure}[h]
@@ -45,9 +25,50 @@ Thus the value of the argument can then be read from that memory location but to
 \end{figure}
 
 
-\subsubsubsection{Parsing the Raw Value}
-Now the fist problem with parsing the raw value of the argument into the correct type is knowing what type the argument has.
+A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
+Those attributes describe the range of \gls{pc} values in which the function is executing.
+There is also some other attributes in the example that will not be mention because they are not needed for determining the value of the attribute.
+
+
+%Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
+%All the various tags for type \glspl{die} requires a unique explanation to how it should be used thus the explanation of each one of them can be read about in the \gls{DWARF} specification \cite{dwarf}, the same goes for the different \gls{DWARF} operations.
+
+
+\subsubsubsection{Finding Raw Value Location}
+Examining the \gls{die} for the argument \emph{val} there is a attribute there called \emph{DW\_AT\_location}.
+The value of that attribute is a number of operations, preforming these operations will give the location of the variable.
+
+
+In this example the operation in the \emph{DW\_AT\_location} attribute in figure \ref{fig:subprogramexample} is \emph{DW\_OP\_fbreg $-2$}.
+That operation describes that the value is stored in memory at the \emph{frame base} minus $2$(see \cite{dwarf} page 18).
+The \emph{Frame base} is the addess to the first variable in the functions stack frame(see \cite{dwarf} page 56).
+
+
+Currently the value of the \emph{frame base} is unknown, but the location of the \emph{frame base}  is describe in the \emph{my\_function} \gls{die}.
+The location of the \emph{frame base} is also describe in a number of operation.
+Those operations can be found under the attribute \emph{DW\_AT\_frame\_base}.
+Looking at figure \ref{fig:subprogramexample} the \emph{frame base} location is decribe with the operation \emph{DW\_OP\_reg7}.
+The operation \emph{DW\_OP\_reg7} descirbe the value is located in register $7$(see \cite{dwarf} page 27).
+Thus register $7$ needs to be read to get the value of the \emph{frame base}.
+
+
+Now knowing the value of the \emph{frame base} the location of the parameter val can be calculated.
+As mention the location of parameter \emph{val} is the \emph{frame base} minus $2$.
+Thus the value of \emph{val} can be read from the memory at address of the \emph{frame base} minus $2$.
+But the value also has to be parsed into the type of \emph{val}, see section \ref{sec:parsingvalue} for how that is done.
+
+
+\subsubsubsection{Parsing the Raw Value} \label{sec:parsingvalue}
+Now the fist problem with parsing the raw value of the paramter \emph{val} into the correct type is knowing what type the parameter has, this is where the attibute \emph{DW\_AT\_type} comes in.
+The value of the \emph{DW\_AT\_type} attribute points to a type \gls{die} \gls{tree}, which describes the type of the \gls{die}.
+
+
+When it comes to the value of the \emph{DW\_AT\_type} attribute for the parameter \emph{val}
+Looking at the attribute \emph{DW\_AT\_type} in figure \ref{fig:subprogramexample}  of the paramter \gls{die} \emph{val} 
+
+
 Luckily \gls{DWARF} has a attribute for that called \emph{DW\_AT\_type} which value is a offset into the \gls{DWARF} section called \emph{.debug\_types}.
+
 The \emph{val} argument \gls{die} has this attribute and as can be seen in figure \ref{fig:subprogramexample} it has the value $0x6233$ which points to the type \gls{die} seen in figure \ref{fig:basetypeexample}.
 Note that the type \gls{die} in the figure has the offset $6233$ which is the same offset that the \emph{val} \gls{die} has in its type attribute.
 The type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it a type that is built into the languages and is not defined in terms of other data types(see \cite{dwarf} page 75).
