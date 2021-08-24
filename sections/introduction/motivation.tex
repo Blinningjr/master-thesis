@@ -11,36 +11,35 @@
 
 
 % Optimized rust code is up to 100 faster.
-The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster then unoptimised code \cite{perf-book}.
+The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster then unoptimized code \cite{perf-book}.
 That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster then the unoptimized code \cite{clang-opt}.
 Thus for language like \emph{C} it is much more acceptable to not be able to debug optimized code because the different isn't that large compared to \emph{Rust}.
-But in the case of \emph{Rust} the different is so large that some programs are too slow to run without optimization.
+But in the case of \emph{Rust} the difference is so large that some programs are too slow to run without optimization.
 This causes the problem that the code cannot be debugged because debuggers don't work well on optimized code and unoptimized code is too slow to run.
-Because of that there is a need for debuggers that can give enough information to debug optimized \emph{Rust} code.
+Because of that there is a need for better debuggers that can provide a good experience debugging optimized \emph{Rust} code.
 
 
-A argument against the need of low level debugging of \emph{Rust} code is that the \emph{Rust} compiler will catch most of the errors.
-This is epasialy true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}. 
+% Debugging is not as important for rust, but is still needed for embedded systems
+A argument against the need of low level debugging is that the \emph{Rust} compiler will catch most of the errors.
+This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}. 
 Thus there is a less need for debugger that can debug \emph{Rust} code then there are debuggers that can debug \emph{C} and \emph{C++} code.
 But when it comes to embedded applications there is sill a need for low level debugging, such as a debugger.
 
 
 % Improving the state of debugging. % TODO: Rewrite this paragraph
-Another motivation for creating a debugger for embedded systems is that the most common way of debugging \emph{Rust} code on embedded systems is complicated for a beginner.
-One of the reason being that both of the debuggers that are supported by the \emph{Rust} team \gls{GDB} and \gls{LLDB} require the use of \emph{openocd} or a similar program.
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \gls{LLVM} and \gls{GDB}, which both requires another program to interact with the \gls{mcu}.
+An example of such a program that is commonly used is \emph{openocd}, which needs to be setup as a \gls{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a bad experience, especially for new developers.
 
 
 % Contributing with a solution written in Rust.
 Most of the debuggers used for \emph{Rust} code are written in other programming languages and there isn't a lot of debugging tools written in \emph{Rust} yet.
-Thus one of the motivation for the thesis debugger to be written in \emph{Rust} is to contribute with a example of a debugger written in \emph{Rust} to the \emph{Rust} community.
-This also relates back to improving debugging for optimized \emph{Rust} code because that is a large and hard problem that requires a lot of work to solve and to maintain the solution.
-One of the most realistic way that will happen is if the \emph{Rust} community around debugging grows and more people contribute with there solutions and ideas.
+Thus one of the motivation is to write a debugger in \emph{Rust}, this will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides.
 
 
-% Contributing a debug rust library / simplifying debugging.
-Another way this thesis contributes to the \emph{Rust} community is by making a library that simplifies the process of retrieving information from the debug information.
-This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
-Which will hopefully lead to more work being done on the compiler to improve the debugging situation for unoptimized and  optimized \emph{Rust} code.
+%% Contributing a debug rust library / simplifying debugging.
+%Another way this thesis contributes to the \emph{Rust} community is by making a library that simplifies the process of retrieving information from the debug information.
+%This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
+%Which will hopefully lead to more work being done on the compiler to improve the debugging situation for unoptimized and  optimized \emph{Rust} code.
 
 
