@@ -7,42 +7,42 @@
 
 % TODO: Explain Unwinding call stack
 
-Virtually unwinding the call stack is done by recursevly unwinding a stack of \emph{subroutine activations}.
-It is called vituall unwinding because the state of the debugged target is not changed at any point during the unwinding.
-Every subroutine in the call stack has a actiavtion and a stack frame.
-And because the activation ofthen has the value of the stack pointer, the related stack frame is aslo known.
-Thus succesfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
+Virtually unwinding the call stack is done by recursively unwinding a stack of \emph{subroutine activations}.
+It is called virtual unwinding because the state of the debugged target is not changed at any point during the unwinding.
+Every subroutine in the call stack has a activation and a stack frame.
+And because the activation often has the value of the stack pointer, the related stack frame is also known.
+Thus successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
 
 
 The debug information needed to unwind activations are stored in the \gls{DWARF} section \emph{.debug\_frame}.
 That section is made up of two data structures, one is called \gls{fde}.
-A \gls{fde} contains a table used for unwinding registers and the \gls{cfa} of a activaiton.
-The other data stucture is called \gls{cie}, it contain informaiton that is sharde among many \glspl{fde}.
-The relevaent \gls{cie} and \gls{fde} to a activation can be found using the code location where it is stopped.
+A \gls{fde} contains a table used for unwinding registers and the \gls{cfa} of a activation.
+The other data structure is called \gls{cie}, it contain information that is shared among many \glspl{fde}.
+The relevant \gls{cie} and \gls{fde} to a activation can be found using the code location where it is stopped.
 
 
 Unwinding the stack of activation is done by first evaluating the values of the top activation, read section \ref{sec:subact} to learn how that is done.
-It starts with the top acivation because there is to little information known of the other activations.
-Next step is to find the \gls{cie} and \gls{fde} that contain debug info on the next activaiton.
-When those are known the values of the next activation can be evaluated as descirbe in section \ref{sec:subact}.
+It starts with the top activation because there is to little information known of the other activations.
+Next step is to find the \gls{cie} and \gls{fde} that contain debug info on the next activation.
+When those are known the values of the next activation can be evaluated as describe in section \ref{sec:subact}.
 This is then repeated for the rest of activation.
 
 
 % ###############################################
 \subsubsubsection{Subroutine Activation} \label{sec:subact}
-A \emph{subroutine activation} contain information on a subroutine call/activaiton.
+A \emph{subroutine activation} contain information on a subroutine call/activation.
 Each \emph{subroutine activation} contain a code location within the subroutine, it is the location where the subroutine stopped.
 The reason for stopping could be that a breakpoint was hit, it was interrupted by a event or it could be location were it made a call to the next subroutine.
 
 
-The address of the stopped code location is easily found using the stack pointer of the above activaion in the activation stack.
-Because the return address of the above activation is amlost alwasys stored on the stack.
-This works for all activations except for the top activation, were stoped code location it is the current \gls{pc} value.
+The address of the stopped code location is easily found using the stack pointer of the above activation in the activation stack.
+Because the return address of the above activation is almost always stored on the stack.
+This works for all activations except for the top activation, were stopped code location it is the current \gls{pc} value.
 
 
 A activation also describe the state of some of the registers where it stopped.
 Those are the registers that are preserved thanks to the prologue and epilogue code of the subroutine.
-The rest of the registers are unknown because they have been written over, which makes them imposibole to recover.
+The rest of the registers are unknown because they have been written over, which makes them impossible to recover.
 
 
 The activations is identified by there \gls{cfa} value. 
@@ -57,16 +57,14 @@ Checkout section \ref{sec:evalcfa} to learn how that is done.
 
 % ###############################################
 \subsubsubsection{Unwinding \gls{cfa} And Registers} \label{sec:evalcfa}
-The location information for finding \gls{cfa} and the registers for a \emph{activation} is stored in a table, the table consist of virtual unwinding rules and addresses.
-There are multiple of these tables for each stack frame, they are stored in a data structure called \gls{fde}.
-Then there is also the data structure \gls{cie}, which contains information that is shared between some \glspl{fde} and the actual \glspl{fde}.
-All of this stack frame information is stored in a separate \gls{DWARF} section called \emph{.debug\_frame)}.
+The tables in the \glspl{fde} contains virtual unwinding rules for a subroutine.
+These virtual unwinding rules are used to restore the values of registers and the \gls{cfa}.
 
-Each instance of this section is guaranteed to have at least one \acrlong{cie}.
-Going back to the table with the virtual unwinding rules the first column of that table contains the code addresses, they are used to identify that all the virtual unwinding rules on that row applies for a particular code address.
-Every line of code is meant to have these rules but because many of the rows are exactly the same many of those rows are removed from the table to save storage space.
-The second column is also special because it contains the virtual unwinding rules for \gls{cfa}, these rules are either a \gls{DWARF} expression that needs to be evaluated in the same way that the variables are in section \ref{sec:evaluate-variable} or a register values plus some singed offset.
-All the other columns contain virtual unwinding rules for all the register and they are in orders from $0$ to $n$, see figure \ref{fig:stacktracetable} for a visual example of the table.
+
+The first column in the tables contains code addresses, the addresses are used to identify the code location that all the virtual unwinding rules on that row applies for.
+Next column is special because it contains the virtual unwinding rules for \gls{cfa}.
+The rest of the columns contain the virtual unwinding rules for registers $0$ to $n$, where $n$ is the last registry.
+Check out figure \ref{fig:stacktracetable} for a visual of how the tables are structured.
 
 
 \begin{figure}[h]
@@ -77,33 +75,17 @@ All the other columns contain virtual unwinding rules for all the register and t
 \end{figure}
 
 
-There are a number of different virtual unwinding rules for the registers that are called register rules in the \gls{DWARF} specification \cite{dwarf}, these are listed on page 128.
-Some of them are very easy to use such as the register rule \emph{undefined} that says that a register is not preserved by the callee and thus is impossible to know the value of.
-If the register value is unchanged then register rule \emph{same value} is used to denote that.
-The must common rule is \emph{offset(N)} where \emph{N} is a signed offset, this rule means that the register value is stored at the address $\gls{cfa}+N$.
-All of the remaining rules can be read about in the \gls{DWARF} specification \cite{dwarf} on page 128.
+There are a number of different virtual unwinding rules, the ones for the registers are called register rules.
+Some of them are very easy to use such as the register rule \emph{undefined}, this rules means that it is impossible to unwind that register.
+Other ones require some calculations such as the register rule \emph{offset(N)}, where the \emph{N} is a signed offset.
+This rule means that the register value is stored at the \gls{cfa} address plus the offset $N$.
+All of the rules can be read about in the \gls{DWARF} specification \cite{dwarf} on page 128.
 
 
-
-%Accessing one of the \emph{subroutine activation} requires that the activation stack is virtually unwind to get to the desired activation, there is only one exception to this and that is if the top activation is desired.
-%That is because all of \emph{activation} information location is known thus it is easy to read that information from the registers and memory. 
-%It is called \emph{virtually unwinding} because none of the value in the registers or memory are changes which means that the state of the target is not changed.
-%In general the steps to virtually unwinding the \emph{activation} is to begin with calculating the \gls{cfa} of the previous \emph{activation}, the code location of the previous \emph{activation} and to virtually restore any registers if needed.
-%Then the same thing can be done to the previous \emph{activation} and so it repeats until the desired \emph{activation} is reached.
-%This process is required to start with the top \emph{activation} because it is the only one that is known at first and the process has to be stopped if the bottom \emph{activation} is reached.
-%
-%
-%
-%Now understanding what information is stored about the call frames the call stack can be virtually unwind by first finding the relevant \gls{cie} and \gls{fde}.
-%Finding the relevant \gls{cie} and \gls{fde} is done by doing a lookup in the \gls{DWARF} section \emph{.debug\_frame} using the current machine code location that the program is stopped on.
-%Then the virtual unwinding rules in the table of the \gls{fde} can be evaluated to get the value of the \gls{cfa} and the preserved register.
-%Lastly the code location of the previous frame can be calculated using the return register that is must often one of the preserved registers, this can not always be done because sometimes the information needed is not present.
-%The most common case were the value of the return register is not preserved is when the bottom of the stack is reach, thus the virtual unwinding is complete.
-%This way of virtually unwind a \emph{activation} can then be repeat for all the actiavations in the stack starting from the top \emph{activation} of the stack to the bottom one.
-%
-%
-%The virtual unwinding rules in the table actually needs to be evaluated from some special \gls{DWARF} operations.
-%There are a lot of these operation which many are similar to the operation used to evaluate the location of a value in section \ref{sec:evaluate-variable}.
-%Thus there is no real need of explain them here but to learn more about them read section $6.4.2$ in the \gls{DWARF} specification \cite{dwarf} on pages 131-136.
-%The way to evaluate these operations is also describe in section $6.4.3$ in the \gls{DWARF} specification \cite{dwarf} on pages 136-137 in $4$ steps.
+Unwind a register is done by first finding the correct row.
+That is done by finding the closes address that is less then the search one.
+Next step is to evaluate the new value using the register rule on the row.
+Then go to the next row in the table and do the same thing but with the new value.
+Repeat until there are now more rows.
+That is how to use the table to unwind a register.
 
