@@ -7,11 +7,18 @@
 
 % TODO: Explain Unwinding call stack
 
-To virtually unwind the \emph{call stack} entail the task of restoring the code location and the register values for each \emph{subroutine activation}, it also entail the task of find the location of the corresponding \emph{call frame} on the stack.
-Each \emph{subroutine activation} has a code location within the subroutine that show where it stopped for any reason, the reason could be that a breakpoint was hit, it was interrupted by a event or it could be location were it made a call.
-As mention the \emph{subroutine activation} also has some register values at the mention code location that may or may not need to restored depending on if the activation is the last one or not.
-Lastly a \emph{subroutine activation} has a corresponding \emph{call frame} on the stack that is identified by the \gls{cfa}.
-The \gls{cfa} is the value of the stack pointer in the previous stack frame at the call location of the current \emph{stack frame}, one thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{dwarf} page 126).
+To virtually unwind the \emph{call stack} entail the task of restoring the code location and the register values for each \emph{subroutine activation}.
+It also entail the task of find the location of the corresponding \emph{call frame} on the stack for each \emph{subroutine activation}.
+
+
+Each \emph{subroutine activation} has a code location within the subroutine, it describes where it stopped.
+The reason for stopping could be that a breakpoint was hit, it was interrupted by a event or it could be location were it made a call to the next subroutine.
+A activation also describe the state of some of the registers where it stopped.
+These are the registers that need to be preservd during the call to another subroutine.
+They can be restored by virtualy unwidning using the information stored in \gls{DWARF} section \emph{.debug\_frame}.
+Lastly a activation is identified by its \gls{cfa} value. 
+The \gls{cfa} is the value of the stack pointer in the previous stack frame for the stopped code location of the activation.
+One thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{dwarf} page 126).
 
 
 Accessing one of the \emph{subroutine activation} requires that the activation stack is virtually unwind to get to the desired activation, there is only one exception to this and that is if the top activation is desired.
