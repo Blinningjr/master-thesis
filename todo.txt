@@ -28,6 +28,8 @@ The text needs a LOT of proof reading,
 	- Related work
 	- Heap
 	- Implementation
+	- Debug Library
+	- Debugger
 	- Evaluation
 	- Discussion
 	- Conclusion

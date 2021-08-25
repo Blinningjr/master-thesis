@@ -1,7 +1,7 @@
 % Explain the implementation of the vscode explanation.
-The \emph{VSCode} extension for the debugger \emph{Embedded Rust Debugger} is a very simple and bare bones implementation, the code for the extension is in the git repository \cite{erd-vscode}.
-\emph{Microsoft} provides \emph{API} which can be used to starting a debugging session and trackers for logging what is happening in the debugging session.
-The implementation of the extensions uses the \emph{API} to create a tracker that logs all the sent and received messages, it also logs all the errors.
-It also creates a session that tries to connect to a \acrshort{dap} server on a configurable port or uses a already existing session.
-Then there is some extra arguments added to the configuration \acrshort{dap} message sent to the debug adapter.
+The \emph{VSCode} extension for the debugger \emph{Embedded Rust Debugger} is a very simple and bare bones implementation.
+\emph{Microsoft} provides an \gls{api} which can be used to start a debugging session and some trackers for logging.
+The implementation of the extensions uses that \gls{api} to create a debugging session and a tracker that logs all the sent and received messages, it also logs all the errors.
+There are some configuration done to the debugging session, most of it is for the \gls{dap} messages being sent.
+All of the code for the extension is in the git repository \cite{erd-vscode}.
 
