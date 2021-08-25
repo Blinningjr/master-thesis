@@ -37,21 +37,22 @@ This repeats until the \emph{rust-debug} library returns the requested value or 
 
 \subsubsection{Simultaneous Handling Of Request And Events}
 % How the debugger handles request and events simultaneously.
-To simultaneously handle incoming request from the user and events that happens in the debug target, the debugger polls the channel for incoming request and the state of the debugger.
-To reduce the amount of polling of the state of the debug target the debugger has a boolean that keeps track of the state of the debug target.
-This boolean is to track if the debug target is running or is stopped.
-And because events can only occur if the debug target is running the polling only needs to be done when it thinks the debug target is running.
-Thus this is how the debugger can handle request from the user and near simultaneously handle events that happen in the debug target.
+The debug thread polls the channel for incoming request and the state of the debugger.
+This enables the debug thread to simultaneously handle requests from the user and events from the debugged target.
+There is a boolean that keeps track if the debugged target is running.
+It is used to stop the pulling of the targets state when the debugged target is stopped.
+This is done because the debugged target cannot start executing on its own,
 
 
 \subsubsection{Optimization Of Repeated Variable Evaluation}
 % How it handles request for stackframes and variables.
-To improve of the performance of the debugger the debugger stores the value of the stack frames every time they are calculated.
-This allows for fast repetitive look up of stack frame information and variables.
-The stored stack frame values are only stored when the debug target is stopped and are removed when the debug target starts.
-Thus the wrong values will never be shown to the user.
-Also another feature of the debugger is that if the value of a variable is request the debugger will restive all the stack frames instead and then search for the requested variable.
-This simplifies the implementation a lot and will also make the debugger faster when repeated request are made.
+To improve on the performance of the debugger the value of the stack frames are stored every time they are calculated.
+This allows for fast repetitive look up of information that is stored in the stack frames.
+The stored stack frames are removed any time the debugged target starts executing again, thus it will not give old values.
+
+
+%Also another feature of the debugger is that if the value of a variable is request the debugger will restive all the stack frames instead and then search for the requested variable.
+%This simplifies the implementation a lot and will also make the debugger faster when repeated request are made.
 
 
 \subsubsection{Command Line Interface}
