@@ -29,13 +29,6 @@ Then the same thing can be done to the previous \emph{activation} and so it repe
 This process is required to start with the top \emph{activation} because it is the only one that is known at first and the process has to be stopped if the bottom \emph{activation} is reached.
 
 
-Any subroutine can have some prologue code that is in the beginning of the subroutine  and epilogue code that is at the end.
-The prologue code is used to preserve the values of registers over the duration of the subroutine, this is done by allocating some extra space on the call stack for the \emph{call frame} which is used to store the register values.
-Then the epilogue code is used to restore these values to the registers before returning to the previous frame.
-Using this fact the compiler generates debug information that enables a user to virtually restore these preserved registers and that is what is done when virtually unwinding the \emph{activations}.
-One thing to note is that the prologue and epilogue code are not always continues blocks of code that are in the beginning and end of a subroutine.
-Instead sometimes the store and read operation are moved into the subroutine.
-There more of these special cases that the compiler does and some that are hardware specific, to read more about them see \cite{dwarf} page 126-127.
 
 
 The location information for finding \gls{cfa} and the registers for a \emph{activation} is stored in a table, that consist of virtual unwinding rules and addresses.
