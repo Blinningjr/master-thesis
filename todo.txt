@@ -27,7 +27,6 @@ The text needs a LOT of proof reading,
 	- Thesis structure
 	- Related work
 	- Heap
-	- DWARF Parsing the Raw Value
 	- DWARF Virtually Unwind Call Stack
 	- Implementation
 	- Evaluation
