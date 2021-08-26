@@ -19,7 +19,7 @@ Figure \ref{fig:rustdebug} shows how the two libaries and the \gls{elf} file are
 Some of the main functionality that \emph{rust-debug} provides are the following:
 
 \begin{itemize}
-  \item Retriving the Source location for funcitons, variables, types and more.
+  \item Retriving the source file location for funcitons, variables, types and more.
   \item Virtually unwinding the call stack.
   \item Evaluating variables.
   \item Translating soruce file line number to the nearest machine code address.
@@ -29,7 +29,7 @@ There is more functionalities that \emph{rust-debug} provides but they are not n
 
 
 
-\subsubsection{Retriving Source Location}
+\subsubsection{Retriving Source File Location}
 % Explain the evaluation of source informaiton % TODO
 Some of the \glspl{die} in \gls{DWARF} have attributes that starts with \emph{DW\_AT\_decl\_}.
 These attributes contain infomation on where in the source file the \gls{die} was decleard.
@@ -46,22 +46,40 @@ Finding the line and column number does not require any lookup. there attributes
 \subsubsection{Accessing Memory And Registers}
 % Explain the evaluation part. % TODO
 % Explain the stored target memory and registers
-As mention before one of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
-This library does not have that functionality because the problem of accessing memory and register is out of scope for this library.
-The reason being that it would limit the number of systems it could be used for too the systems it support and also the goal of this library is to make it simpler to get debug information from \gls{DWARF}, and not to provide an interface to the systems memory and register.
-That lead to the motivation of creating a data structure that holds these needed values of the system.
-The implementation is just a struct with two hashmaps, one for the memory values and one for the register values.
-It also has some methods for retrieving the stored values.
-This struct is then used as an argument to the functions in the library and if a value that is not present in the data structure is needed the result of the function call will be a request to add the to the data structure and call the function again.
-This has a negative effect in that some of the calculations will be repeated multiple times but it is not very notable.
+One of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
+\emph{rust-debug} does not have that functionality because it should be hardware independet as much as possible.
+Intead the library uses a data structure which contain the values of the registers and memory.
+This keeps the library hardware independent.
+The data structure also has some function for reading and adding values.
+
+
+The register and memory data structture is used as an argument to the functions in the library.
+If a value is missing the called function will return a values that says which value is missing.
+Then the user of the library can read that value from the debugged target and add it to the data structure.
+Now the funciton can be called again and there are no more missing values it will return the requested value.
+Otherwise the user has to reapet the same process.
 
 
 \subsubsection{Evaluating Variables}
 % Explain the evaluation of vairbles.
-The library has a structure called \emph{VariableCreator} which  takes a reference to the \gls{DWARF} unit and die of the variable.
-Then there is a evaluation method that takes the memory and registers data structure and preforms calculation to evalue and retrieve variable information.
-This method return an enum that either tell the user what memory or register values are needed, or that the it is done and the method \emph{get\_variable} can be used to get the variable.
-The variable structure contains the name, value, type, sourcelocaiton and the location of where the value was evaluated from.
+The \emph{rust-debug} library has a structure called \emph{VariableCreator}, it takes a reference to a \gls{DWARF} unit and \gls{die}.
+The \gls{die} has to be one that represents a variable.
+When the data strucute is created it will extrac some important informantion about the variable from the \gls{die}.
+
+
+A constucuted \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and meory data structure.
+This method evalutes the variable as describe in section \ref{sec:evaluate-variable} and the \gls{DWARF} specification \cite{dwarf}.
+The return value of the method is a enum that is used for telling the user if a value is missing from the register and memory data structure or not.
+Then there is another method for retriving the variable information containing the evaluated value.
+The variable information contains the following:
+
+\begin{itemize}
+  \item The variables name.
+  \item The variables type
+  \item The variables location in the source file.
+  \item The locations of the variables value in registers and memory.
+  \item The evaluated value of the variable.
+\end{itemize}
 
 
 \subsubsection{Evaluating Call Stack}
