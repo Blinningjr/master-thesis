@@ -10,7 +10,6 @@
 The \gls{DWARF} format is divided into sections that all contain unique information with some few small exceptions.
 These sections use offsets from the start of other sections to point to information in the other section, most of these offsets can be found in specific \gls{DWARF} attributes.
 The figure \ref{fig:dwarfsections} shows all the \gls{DWARF} sections and which ones point to each other.
-The boxes in the figure show which type of \gls{DWARF} offsets points to which section, the ones that start with \emph{DW\_AT\_} are attributes.
 
 
 %All of the sections are not in every version of \gls{DWARF} and are sometimes changed from version to version.
@@ -20,7 +19,7 @@ The boxes in the figure show which type of \gls{DWARF} offsets points to which s
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{dwarf-sections.png}
-	\caption{Diagram of all the different \gls{DWARF} sections and there relations to each other. This diagram is taken directly from the \gls{DWARF} specification \cite{dwarf}.}
+	\caption{Diagram of all the different \gls{DWARF} sections and there relations to each other.}
 	\label{fig:dwarfsections}
 \end{figure}
 
