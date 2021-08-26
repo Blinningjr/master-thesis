@@ -28,7 +28,5 @@ The text needs a LOT of proof reading,
 	- Related work
 	- Heap
 	- Evaluation
-	- Discussion
-	- Conclusion
 12. Fix Grammer
 

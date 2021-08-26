@@ -3,41 +3,44 @@
 
 % The conclusion from the results
 The problem of improving debugging for optimized \emph{Rust} code is a very complex problem and a very large one.
-To make it easier to solve this problem, the problem was divided into two parts and had a lot delimitations.
+To make it easier to solve this problem, the problem was divided into two parts and had a lot delimitation's.
 The first part of generating more debug information was not very successful, because all of the options found to generate more debug information are well known.
 Thus none of them are really an improvement because most \emph{Rust} developers already use them.
 But the other part of creating a debugger that improve on optimized \emph{Rust} code on embedded systems was successful.
-The main reason for this is that the debugger in this thesis is able to correcly evalute the value of variables that are of the enum type.
-Were Both of the two supported debugger by the \emph{Rust} team does sometimes evalute variables of the enum type into the incorrect value.
-It was also able to simplify the process of debugging embeded systems that run \emph{Rust} code.
-Then there is also the fact that this thesis lead to the creation of a debugging library called \emph{rust-debug} which simplifies the process of retriving debug information from the \gls{DWARF} format.
-Thus overall I would say that goal of improving debugging of optimized \emph{Rust} code was achived, but that there is still a lot that needs to be done.
+
+
+The main reason for this is that the debugger \gls{erd} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
+Were Both of the two supported debugger by the \emph{Rust} team does sometimes evaluate variables of the enum type into the incorrect value.
+It was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
+Then there is also the fact that this thesis lead to the creation of a debugging library called \emph{rust-debug}.
+Which simplifies the process of retrieving debug information from the \gls{DWARF} format.
+Thus overall I would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot that needs to be done.
 
 
 \subsection{Future Debugging Improvement}
 % Future work that can be done on the debuger side.
 One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
-Thus after the variables are done with they are often overwritten and this makes it impossible for the debugger to know the value they had.
-This makes debugging very hard because the user has to find the correct machine code locations where the value is in a registry, which is not easy.
-But if the debugger is able to get the last value of the variable somehow it could display it as the last known value of the variable.
-It could maybe be done by storing the value of the variable before it get overwritten, but that is a hard problem in it self.
+This causes the variables to be overwritten when they are not needed anymore.
+That fact makes debugging very hard because the user has to stop the execution when the variable still exist.
+But if the debugger is able to get the last value of the variable and store it.
+The last known value of the variable could be displayed to the user if it is out of range.
 There is no time to make a solution for this problem, thus this will have to be left for future work.
 
 
 \subsection{Future Debugger Improvement}
 % Future work that can be done on the debuger side.
-The debugger presented in this thesis only supports most important functionalities of a debugger.
+The debugger \gls{erd} only supports the most important functionalities of a debugger.
 Thus there is many more features that could be added.
 One important one is the ability to evaluate expression which is left to be done as future work.
 This is a really hard problem because the evolution of the expressions should work exactly the same as the \emph{Rust} compiler.
 Thus it would be best if the same code could be used so that it doesn't need to be written twice.
 
 
-\subsection{Future Debugger Library Improvement}
-% Future work that can be done on the debuger side.
-Currently the debugging library \emph{rust-debug} is not able to display a pointer and the value it points to.
-When a user wants to evaluate the value of a variable that is a pointer such as a string, they most often want the value of the string and not the pointer to the string.
-This problem is a little hard because sometimes the user want the value of the pointer.
-Implementing a solution for this is left as future work.
+%\subsection{Future Debugger Library Improvement}
+%% Future work that can be done on the debuger side.
+%Currently the debugging library \emph{rust-debug} is not able to display values stored on the heap.
+%It will instead show the pointer to the heap location where the value is stored.
+%This problem is a little bit hard because the pointer is a data structure, thus it is hard to determine if it is a pointer or not.
+%Implementing a solution for this is left as future work.
 
 
