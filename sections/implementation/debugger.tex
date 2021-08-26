@@ -1,30 +1,55 @@
 % Explain the genral stucture of the debugger
-The acutal debugger called \emph{Embedded Rust Debugger}(the code for the debugger can be found in the git repository \cite{erd}) consists mainly of two main threads called the \emph{main thead} and the \emph{debug thread}.
-The \emph{main thead} is the thread that handels the input from the user from the console or trough \gls{dap} and the \emph{debug thread} handles the reading of \gls{DWARF} information and connection to the debug target.
-There is also another thread in the debugger called \emph{input thread} that is only activated if the user is using the console, its jobb is to read the input and send it to the \emph{main thread}.
+The debugger \acrfull{erd} is implemented using the debugging library \emph{rust-debug}.
+That library provides all of the needed functionalities for retrieving debug information from the \gls{DWARF} format.
+The debugger also uses the \emph{probe-rs} library for controlling the \gls{mcu}.
+It is also used for accessing the registers and memory of the \gls{mcu}.
 
 
-\subsubsection{The Debug Thread}
-% Explain the first state where the debugger is not attach to the debug target
-The debug thread has two main state that it changes between, the first state is when it is not attached to any debug target and is called DebugHandler.
-The second state is when it is attach to the debug target which means that this state is where debugging can happen, it is called Debugger.
+The debugger is made up of three modules, the first one is called \acrshort{cli}.
+It's main functionality is to handle the input from the console and the output to it.
+The second module is called DebugAdapter, it also handles the input and output but in the form of \gls{dap} messages.
+This module is for supporting \glspl{gui} that use the \gls{dap} protocol to display debug information.
+The last module is called Debugger and it runs in a separate thread from the other two modules.
+This is the module one that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
+It is also used to control the debug target.
+Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
+Also all of the code for \gls{erd} can be found in this git repository \cite{erd}.
 
 
-Going back to the fist state, its purpose is to await instructions to attach to the debug target and to receive configuration required for that to happen.
-These configurations that the debugger requires is a path to the elf file, a path to the work directory of the code that should be debugged and lastly the type of chip.
-When all these are configure the attach command can be used to attach to the micro controller, all the other commands that require that the chip is attach can also be used to attach.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{debugger_structure.png}
+	\caption{Diagram showing the structure of  \acrfull{erd}.}
+	\label{fig:ERDStruct}
+\end{figure}
 
 
-% Explain the second state where the debugger is attach to the debug target.
-The debugger uses the library \emph{probe-rs} \cite{probe} to attach to the micro controller and to interact with it.
-Thus a lot of useful debugging features like stopping, continuing and setting hardware breakpoints is already given by the \emph{probe-rs} library.
-The other features supported by the debugger uses the library \emph{rust-debug} together with the \emph{probe-rs} library.
-But the two library are separate so they never interact with each other, the figure \ref{fig:debugger} show how all of these parts interact.
-The \emph{rust-debug} library as mention above and seen in the figure \ref{fig:debugger} is a library for retrieving information from the \emph{DWRAF} sections in the \gls{elf} file.
-To get some of the information from the library values in the debug targets memory and/or registers are needed.
-Thus when calling the \emph{rust-debug} library it can sometimes give a response that says it requires some value from a registry or a memory address, the debugger then uses \emph{probe-rs} to get that value.
-Then the read values are sent in to the same \emph{rust-debug} library function as before by storing them in the memory struct that the library uses to read values from the target.
-This repeats until the \emph{rust-debug} library returns the requested value or an error if something has gone wrong with reading the \gls{DWARF} format.
+\subsubsection{The \acrshort{cli} module}
+\subimport{}{cli.tex}
+
+
+\subsubsection{The Debug Adapter module}
+\subimport{}{debug_adapter.tex}
+
+
+\subsubsection{The Debugger module}
+The debugger module is design as a server that listens for commands through a channel.
+It is running in a separate thread from the \acrshort{cli} and the debug adapter, which is called the debug thread.
+There is two states in which the debug thread can be in, that is in the attached or detached state.
+The two states are different in that the attached state can access the debug target and the \gls{DWARF} file.
+
+
+The debug thread is started by the main thread and starts in the detached state.
+In the detached state only the configuration and exit commands work.
+The other commands requires that the debug target is attached.
+But if one of those commands is received then the debug thread will try to enter the attached state.
+This can only happen if all the required configuration are set.
+If one of the configuration are missing then a error will be sent as a response.
+
+
+When the debug thread is in the attached state it can use the \emph{rust-debug} library to retrieve debug information.
+It can also use the \emph{probe-rs} library for controlling the debug target and reading the registers and memory.
+The relation between the libraries can be seen in figure \ref{fig:debugger}.
 
 
 \begin{figure}[h]
@@ -35,7 +60,18 @@ This repeats until the \emph{rust-debug} library returns the requested value or 
 \end{figure}
 
 
-\subsubsection{Simultaneous Handling Of Request And Events}
+\subsubsubsection{Retrieving Debug Information}
+The debugger module retrieves debug information by using the \emph{rust-debug} library.
+This library sometimes requires a data structure that contain the values of some registers and memory addresses.
+Those function will return a enum that tells if a value is needed and where that value is located.
+Thus the debugger module will use the \emph{probe-rs} library to read the needed value, which then is  add to the data structure.
+This repeats till no more values are needed and the result of the evaluation can be retrieved.
+The values in the data structure are removed every time the debug target starts executing again.
+This is so no old values are used and it works because the debug target must be stopped to use related commands.
+
+
+
+\subsubsubsection{Simultaneous Handling Of Request And Events}
 % How the debugger handles request and events simultaneously.
 The debug thread polls the channel for incoming request and the state of the debugger.
 This enables the debug thread to simultaneously handle requests from the user and events from the debugged target.
@@ -44,29 +80,15 @@ It is used to stop the pulling of the targets state when the debugged target is 
 This is done because the debugged target cannot start executing on its own,
 
 
-\subsubsection{Optimization Of Repeated Variable Evaluation}
+\subsubsubsection{Optimization Of Repeated Variable Evaluation}
 % How it handles request for stackframes and variables.
-To improve on the performance of the debugger the value of the stack frames are stored every time they are calculated.
-This allows for fast repetitive look up of information that is stored in the stack frames.
-The stored stack frames are removed any time the debugged target starts executing again, thus it will not give old values.
+To improve on the performance of the debugger it will temporarily store the values of the stack trace.
+This allows for fast repetitive look up of information present in the stack trace.
+The stored stack trace is removed any time the debugged target starts executing again.
+This ensures that it always gives the correct values and not the old ones.
 
 
-%Also another feature of the debugger is that if the value of a variable is request the debugger will restive all the stack frames instead and then search for the requested variable.
-%This simplifies the implementation a lot and will also make the debugger faster when repeated request are made.
-
-
-\subsubsection{Command Line Interface}
-\subimport{}{cli.tex}
-
-
-\subsubsection{Debug Adapter}
-\subimport{}{debug_adapter.tex}
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{debugger_structure.png}
-	\caption{Diagram showing all the moduals of emmbedded rust debugger and there relations to each other.}
-	\label{fig:EDBStruct}
-\end{figure}
+Another thing to not is that if a request is received to only evaluate one variable the debugger will then preform a stack trace instead.
+Or read from the temporarily stored stack trace.
+This simplifies the implementation a lot and also makes the subsequent evaluation request faster.
 

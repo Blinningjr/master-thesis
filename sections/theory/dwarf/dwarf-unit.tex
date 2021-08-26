@@ -13,7 +13,7 @@ The compilation units are store in the \gls{DWARF} section \emph{.debug\_info}.
 These compilation units are structured the same as the sources code, which makes it easy to relate between the debug target state and the source code.
 
 
-%Finding the right compilation unit can easily be done looking it up in the \gls{DWARF} section \emph{.debug\_aranges} using the current machine code address.
+%Finding the correct compilation unit can easily be done looking it up in the \gls{DWARF} section \emph{.debug\_aranges} using the current machine code address.
 The first \gls{die} in the \gls{tree} of the compilation unit will have the tag \emph{DW\_TAG\_compile\_unit}.
 This \gls{die} has a lot of useful debug information about the source file, one being the compiler used and the version of it.
 It also says which programming language the source file is written in and also the directory and path of the source file.
