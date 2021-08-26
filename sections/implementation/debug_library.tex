@@ -82,9 +82,11 @@ The variable information contains the following:
 \end{itemize}
 
 
-\subsubsection{Evaluating Call Stack}
+\subsubsection{Unwinding Call Stack}
 % Explain the evaluation of call stack % TODO
 % Explain the evaluation of stackframe 
+
+
 Using the call stack result each call frame can be used to create a stack frame.
 These stack frames are like the call frames except that they have more information like the function name of the frame, where the function was declared and the value of all the variables.
 The way this library  constructs a \emph{StackFrame} struct works the same way as when creating a variable.
@@ -99,9 +101,15 @@ Then lastly the stack frame can be retrieve using the method \emph{get\_stack\_f
 
 \subsubsection{Finding Breakpoint Location}
 % Explain how to get breakpoint locaiton.
-There is also a function for finding out what machine code address a certain line in a source file corresponds to.
-It works by first finding out which compilation unit that the source file corresponds to by looping trough all the file entries in all of the compilation units. 
-Then it loops through all the rows in that file entry and adds all the rows that match the source line number.
-If the vector is empty after that then there is no machine code instruction that matches that source line otherwise it is not empty there is at least one instruction that corresponds to that line.
-When there are multiple match the function will take the one that has the nearest column value to the source lines column value.
+The \emph{rust-debug} library has a function that finds a machine code location using a soruce file locaiton.
+This machine code locaiton is the closest one that represents the line in the source code.
+The funciton requires a file path and line number, but it also can take a column number.
+
+
+The mention function works by first finding out which compilation unit contains information on the inputed file path.
+It thoes this by looping through all the file entries in the line number information table, for every compilation unit.
+Each line number information table entry have rows that each contain informaiton on a line from the source code.
+Thus all the rows with the search line numbers are added to a list.
+The machine code address of the first element in this list is returnd if no column line was inputed to the function.
+Otherwiese it is the one with the closest column number that is reurned.
 
