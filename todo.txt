@@ -27,9 +27,8 @@ The text needs a LOT of proof reading,
 	- Thesis structure
 	- Related work
 	- Heap
-	- Implementation
 	- Debug Library
-	- Debugger
+	- Debugger ERD
 	- Evaluation
 	- Discussion
 	- Conclusion

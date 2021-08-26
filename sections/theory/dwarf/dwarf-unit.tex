@@ -7,7 +7,7 @@
 
 
 % TODO: Explain DWARF Compilation Unit
-The compiler when compiling a source program will most often generate one compilation unit for each source file.
+The compiler when compiling a source program will most often generate one compilation unit for each project/library.
 There are some cases when multiple partial compilation units will be generated instead.
 The compilation units are store in the \gls{DWARF} section \emph{.debug\_info}.
 These compilation units are structured the same as the sources code, which makes it easy to relate between the debug target state and the source code.

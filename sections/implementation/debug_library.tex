@@ -1,19 +1,11 @@
 % Explain the implementation of the library rust-debug
 
 % Explain why this library was made.
-Retrieving the debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
-The \gls{DWARF} format is made to be space efficient so that the binary file doesn't get to large.
-This feature of the \gls{DWARF} format has a side effect in that it makes it much more complicated for retrieving the information wanted.
-Luckily there exist a library called \emph{gimli-rs}\cite{gimli} that simplifies reading the \gls{DWARF} format.
-But the library still is very complicated to use because it required a lot of knowledge about the \gls{DWARF} format.
-Thus the \emph{rust-debug} library was made to simplify this problem even more so that almost no knowledge of the \gls{DWARF} format is needed.
-
-
-% Explain the overview of the library.
-The library \emph{rust-debug} is built apone the \emph{gimli-rs} library and doesn't restrict the user from accessing the functionality of that library.
-It uses the \emph{gimli-rs} library for paring the \gls{DWARF} sections into more workable data structures, the figure \ref{fig:rustdebug} shows how they are connected.
-The goal of the design of the library is that a user should be able to just call a function for retrieving debug information such as a stack trace and at the same time be able to use the \emph{gimli-rs} functionality to retrieve the same information if wanted.
-The library is has the features to restive the call stack, stack frames, variables, sourceinfomaiton and a function for evaluating the values of variables, the code for this library can be found in the git repository \cite{rust-debug}.
+Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
+The \emph{Rust} library \emph{gimli-rs} simplifies that problem by providing data structures and functions for reading the \gls{DWARF} sections.
+But the library requires a lot of knowlage about the \gls{DWARF} format to use.
+Thus the \emph{rust-debug} library was created to make it even eaiser to get the debug information.
+Figure \ref{fig:rustdebug} shows how the two libaries and the \gls{elf} file are connected.
 
 
 \begin{figure}[h]
@@ -24,15 +16,31 @@ The library is has the features to restive the call stack, stack frames, variabl
 \end{figure}
 
 
-\subsubsection{Finding Source Location}
+Some of the main functionality that \emph{rust-debug} provides are the following:
+
+\begin{itemize}
+  \item Retriving the Source location for funcitons, variables, types and more.
+  \item Virtually unwinding the call stack.
+  \item Evaluating variables.
+  \item Translating soruce file line number to the nearest machine code address.
+\end{itemize}
+
+There is more functionalities that \emph{rust-debug} provides but they are not notisable.
+
+
+
+\subsubsection{Retriving Source Location}
 % Explain the evaluation of source informaiton % TODO
-Some of the dies have attributes that starts with \emph{DW\_AT\_decl\_}, these attributes describe which source file and where in it this dies was declared.
-The library has a function for retrieving the value of all these attributes and it returns as \emph{SourceInformation} struct.
-This struct contain the directory, file name, line number and column number where the die was declared in the source files.
-The line and column number is very simple to retrieve because it is the same as the value of the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}.
-It is much more complicated to get the directory and file name because the value of the attributes \emph{DW\_AT\_decl\_file} is a file index that needs to be looked up in the current units line program.
-The line program indexes all the file entries and can thus be used to find the directory and file name from the file index.
-If any of these attributes are not present in the die then the result of this function will be that that entry has a \emph{None} value.
+Some of the \glspl{die} in \gls{DWARF} have attributes that starts with \emph{DW\_AT\_decl\_}.
+These attributes contain infomation on where in the source file the \gls{die} was decleard.
+This include file path, line number and column number.
+The library \emph{rust-debug} has a function for retrieving the value of all these attributes from a given \gls{die}.
+
+
+The attribute  \emph{DW\_AT\_decl\_file} wich contain the file path of where the \gls{die} was decleard has a file indexd as it's value.
+Every compliation unit has a line number information table that contain file paths which are index.
+Thus the \emph{rust-debug} libary will search for the maching index in the table to find the file path.
+Finding the line and column number does not require any lookup. there attributes contain the value.
 
 
 \subsubsection{Accessing Memory And Registers}
