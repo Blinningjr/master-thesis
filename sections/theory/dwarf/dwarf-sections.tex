@@ -50,9 +50,9 @@ Virtually unwinding the call stack is complex, thus to learn more about that che
 \subsubsubsection{\emph{.debug\_info}}
 Most of the information about the source code are store in \glspl{die} which are low-level representation of the source code.
 \glspl{die} have a tag that describes what it represents, an example tag is \emph{DW\_TAG\_variable} which means that the \gls{die} represents a variable from the source code.
-All \glspl{die} are stored in \glspl{tree}, which is a common data structure.
-Each compilation unit will have at least on of these \glspl{tree} made up of \glspl{die} and each \gls{tree} is stored in a \gls{DWARF} unit.
-The \glspl{tree} are structured the same as the source code, which makes it easy to relate the source code to the machine code.
+All \glspl{die} are stored in trees, which is a common data structure.
+Each compilation unit will have at least on of these trees made up of \glspl{die} and each tree is stored in a \gls{DWARF} unit.
+The trees are structured the same as the source code, which makes it easy to relate the source code to the machine code.
 
 The section \emph{.debug\_info} consist of a number of these \gls{DWARF} units and some other debug information.
 This is one of the most important sections in \gls{DWARF} because it is used relate the state of the debug target and the source code, and vice versa.
@@ -100,6 +100,6 @@ The attribute is found in the function and variable \glspl{die} and the offset i
 
 
 \subsubsubsection{\emph{.debug\_type}}
-The \gls{DWARF} section \emph{.debug\_type} is very similar to section \emph{.debug\_info} in that it is also made up of units with each a \gls{tree} of \glspl{die}.
+The \gls{DWARF} section \emph{.debug\_type} is very similar to section \emph{.debug\_info} in that it is also made up of units with each a tree of \glspl{die}.
 The difference is that the \glspl{die} are a low-level representation of the types in the source code.
 

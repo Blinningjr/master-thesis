@@ -7,13 +7,13 @@
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
 The \emph{Rust} compiler has some compiler options that the user can set when compiling a project that effect the code generation and the debug information.
-It also enables the user to access some of the compiler options for \gls{LLVM} that is the backend of the compiler.
+It also enables the user to access some of the compiler options for \emph{LLVM} that is the backend of the compiler.
 The first part to finding if any of these compiler options effect the debug information generated in a meaningful way is to read what they do and determine if they might do that.
 Then the compiler options need to be tested manually to see if any of them actually have any meaningful effect and that the option doesn't effect the speed of the optimised code in a negative way.
 This is very hard to do and takes a lot of time to do it properly, thus the testing done will be limited to checking the \gls{DWARF} file and the debugging experience.
 
 
-When going through all the possible \gls{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there where two that have the most impact on the amount of debug information generated.
+When going through all the possible \emph{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there where two that have the most impact on the amount of debug information generated.
 The most important one of these is the flag named \emph{debuginfo} which controls the amount of debug information generated.
 It has three option, the first is option $0$ which means that no debug info will be generated.
 The second option is $1$ which will only generate the line tables and the last is option $3$ which generates all the debug information it can.
@@ -26,13 +26,13 @@ The highest optimization level for speed is $3$ and the result from using is tha
 In the testing of the three optimization level $1$, $2$ and $3$ it seams that optimization level $2$ worked the best for debugging without making the program too slow.
 
 
-There are two other \gls{rustc} compiler option flags that is important for debugging but sometimes not necessary depending on the target.
+There are two other \emph{rustc} compiler option flags that is important for debugging but sometimes not necessary depending on the target.
 The first one is called \emph{force-frame-pointers} and does what is say, it force the use of frame pointers \cite{rustc-book-codegen}.
 The other one is called \emph{force-unwind-tables} which forces the compiler to generate unwind tables in the \gls{DWARF} file \cite{rustc-book-codegen}.
 These two flags set to \emph{`yes`} can ensures that the debugger can unwind the stack and display the callstack to the user.
 
 
-Looking through all the \gls{LLVM} arguments that is available through \gls{rustc} yielded one more argument that effects the debug information generated.
+Looking through all the \emph{LLVM} arguments that is available through \emph{rustc} yielded one more argument that effects the debug information generated.
 The argument is named \emph{debugify-level} and controls the kind of debug information that is added to the \gls{DWARF} file.
 There are two options for this argument, the first is called \emph{"location+variables"} and adds locations and variables to \gls{DWARF}.
 The other option is called \emph{"locations"} and only adds locations to \gls{DWARF}.

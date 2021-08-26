@@ -11,8 +11,8 @@
 
 
 % Optimized rust code is up to 100 faster.
-The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster then unoptimized code \cite{perf-book}.
-That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster then the unoptimized code \cite{clang-opt}.
+The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster then unoptimized code according to \cite{perf-book}.
+That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster then the unoptimized code according to \cite{clang-opt}.
 Thus for language like \emph{C} it is much more acceptable to not be able to debug optimized code because the different isn't that large compared to \emph{Rust}.
 But in the case of \emph{Rust} the difference is so large that some programs are too slow to run without optimization.
 This causes the problem that the code cannot be debugged because debuggers don't work well on optimized code and unoptimized code is too slow to run.
@@ -27,8 +27,8 @@ But when it comes to embedded applications there is sill a need for low level de
 
 
 % Improving the state of debugging. % TODO: Rewrite this paragraph
-Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \gls{LLVM} and \gls{GDB}, which both requires another program to interact with the \gls{mcu}.
-An example of such a program that is commonly used is \emph{openocd}, which needs to be setup as a \gls{GDB} server that the debugger connects to.
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which both requires another program to interact with the \gls{mcu}.
+An example of such a program that is commonly used is \emph{openocd}, which needs to be setup as a \emph{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a bad experience, especially for new developers.
 
 

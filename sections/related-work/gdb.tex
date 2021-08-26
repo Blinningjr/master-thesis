@@ -3,16 +3,16 @@
 % Example: if you are working on a social networking component which is to aggregate real-time data to automatically update your status in the social network, then your related work is not about other social networks but about different aggregation techniques, activity recognition solutions, etc.
 
 % TODO: This should probebly be under the theory section.
-On of the most well known and used debuggers is \Gls{GDB} which supports a lot of different programming languages including \emph{Rust} \cite{gdb}.
+On of the most well known and used debuggers is \emph{GDB} which supports a lot of different programming languages including \emph{Rust} \cite{gdb}.
 It is also one of the most common debuggers used for debugging embedded \emph{Rust} code together with the tool \emph{openocd}.
-Thus it is for this reason that the debugger make in this thesis will be compared to \Gls{GDB} to see if it actually made any improvement on debugging optimized \emph{Rust} code.
+Thus it is for this reason that the debugger make in this thesis will be compared to \emph{GDB} to see if it actually made any improvement on debugging optimized \emph{Rust} code.
 
 
-One of the problem found with running \Gls{GDB} on optimized code is that if the enumerator variant value is optimized out by the compiler but not the value contained in the variant.
-Then \Gls{GDB} will default to choosing the $0$ variant of the enumerator and thus display the wrong value because it is optimized out thus the correct value could be any of the enumerator variants.
-This is one of the reason why \Gls{GDB} is not a very good debugger for debugging optimized \emph{Rust} code. % TODO: Maby add a image of this, and link to the code.
+One of the problem found with running \emph{GDB} on optimized code is that if the enumerator variant value is optimized out by the compiler but not the value contained in the variant.
+Then \emph{GDB} will default to choosing the $0$ variant of the enumerator and thus display the wrong value because it is optimized out thus the correct value could be any of the enumerator variants.
+This is one of the reason why \emph{GDB} is not a very good debugger for debugging optimized \emph{Rust} code. % TODO: Maby add a image of this, and link to the code.
 
-Another problem with \Gls{GDB} on optimized code is that if a variables value is only stored in a register then the time the value is know is very short because the register will be written over very soon after it is not needed.
-In these cases \Gls{GDB} will say that the variable is optimized out when the value is not present, but this result can make the user to think that the value is totally optimized away and never present in the program, which is not true.
+Another problem with \meph{GDB} on optimized code is that if a variables value is only stored in a register then the time the value is know is very short because the register will be written over very soon after it is not needed.
+In these cases \emph{GDB} will say that the variable is optimized out when the value is not present, but this result can make the user to think that the value is totally optimized away and never present in the program, which is not true.
 The lack of information in these cases makes debugging very hard because the user has no way of knowing if optimized out means that a variable is optimized out completely or if it doesn't have a value at this precise time.
 

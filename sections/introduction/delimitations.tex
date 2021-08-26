@@ -15,13 +15,13 @@
 
 % Making changes to the compiler(rustc and llvm).
 One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
-In the case of the \emph{Rust} compiler \gls{rustc} it is the \gls{LLVM} library that mostly handles the debug information generation.
-\gls{LLVM} is a very lager project that many people are working on and thus improving on \gls{LLVM} is out of scope for this thesis, the same goes for improving \gls{rustc}.
-%Thus this thesis is limited in solving this problem by using existing configurations for \gls{rustc} and \gls{LLVM}.
+In the case of the \emph{Rust} compiler \emph{rustc} it is the \emph{LLVM} library that mostly handles the debug information generation.
+\emph{LLVM} is a very lager project that many people are working on and thus improving on \emph{LLVM} is out of scope for this thesis, the same goes for improving \emph{rustc}.
+%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
 
 
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
-The compiler backend \gls{LLVM} that \gls{rustc} uses supports two debugging file formats that holds all the debug information.
+The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats that holds all the debug information.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that doesn't contribute to solving the main problem of this thesis.
 Thus it has been decided to only support the \gls{DWARF} format because it has very good documentation.
@@ -84,12 +84,12 @@ Here is a list of some of those things:
 To support all the different \glspl{mcu} would be to much work for this thesis.
 Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available.
 And it will only support the \emph{arm Thumb mode} instruction set..
-%The debugger will be design to work with other similar micro controller but to test and grantee that it will work with them is to much work for this thesis.
+%The debugger will be design to work with other similar \gls{mcu} but to test and grantee that it will work with them is to much work for this thesis.
 
 
 %% Limiting it to a CLI and DAP server plus a VSCode extension.
 %Another part of this thesis is the interaction between the user and the debugger.
-%Existing debugger like \gls{GDB} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
+%Existing debugger like \emph{GDB} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
 %From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
 %A \emph{CLI} is not that much work to implement but a \acrshort{gui} takes a lot of work to implement.
 %Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \acrshort{gui} and the debugger.
