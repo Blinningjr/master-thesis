@@ -8,7 +8,7 @@
 % TODO: Explain Unwinding call stack
 
 Virtually unwinding the call stack is done by recursively unwinding a stack of \emph{subroutine activations}.
-It is called virtual unwinding because the state of the debugged target is not changed at any point during the unwinding.
+It is called virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
 Every subroutine in the call stack has a activation and a stack frame.
 And because the activation often has the value of the stack pointer, the related stack frame is also known.
 Thus successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
