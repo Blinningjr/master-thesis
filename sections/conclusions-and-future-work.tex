@@ -2,19 +2,19 @@
 % It also outlines things that are left to do to reach a full solution, or to integrate your solution with something else.
 
 % The conclusion from the results
-The problem of improving debugging for optimized \emph{Rust} code is a very complex problem and a very large one.
-To make it easier to solve this problem, the problem was divided into two parts and had a lot delimitation's.
-The first part of generating more debug information was not very successful, because all of the options found to generate more debug information are well known.
-Thus none of them are really an improvement because most \emph{Rust} developers already use them.
-But the other part of creating a debugger that improve on optimized \emph{Rust} code on embedded systems was successful.
+The result from testing and comparing the different settings in the compiler is a bit disappointing.
+Because the settings found did not do much or were well known before, thus there was no real improvement.
 
 
+But the result from comparing the debuggers was a success.
 The main reason for this is that the debugger \gls{erd} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
-Were Both of the two supported debugger by the \emph{Rust} team does sometimes evaluate variables of the enum type into the incorrect value.
-It was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
-Then there is also the fact that this thesis lead to the creation of a debugging library called \emph{rust-debug}.
-Which simplifies the process of retrieving debug information from the \gls{DWARF} format.
-Thus overall I would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot that needs to be done.
+While both of the two supported debugger by the \emph{Rust} team evaluated the wrong value in some special cases.
+The debugger \gls{erd} was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
+
+
+An unexpected result from the creation of the debugger was the debugging library \emph{rust-debug}.
+This library simplifies the process of retrieving debug information from the \gls{DWARF} format, which is a good contribution to the \emph{Rust} debugging community.
+Overall I would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot more that needs to be done.
 
 
 \subsection{Future Debugging Improvement}
