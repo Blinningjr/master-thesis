@@ -17,6 +17,7 @@ This ensures that all the three debuggers stopes on the same machine code instuc
 The reason being that the debug result can be correct but still diffrent from the other debugger, thus making it seam like one is worse then theother.
 
 
+\subsubsection{Evalutaion of \emph{Rust} enums}
 The \emph{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \emph{GDB} can be seen in figure \ref{fig:gdbenum}.
 The expected value is \ref{TODO} which is not the same as what \emph{GDB} gave.
 
@@ -68,6 +69,8 @@ Going back again to figure \ref{fig:lldbenum} which shows that the value of the 
 The correct value when looking at the original source code is that the attribute \emph{flag} should be equal to \emph{true}, thus meaning that the result from \emph{LLDB} is incorrect.
 
 
+
+\subsubsection{Displaying Optimized Out varaibles}
 Another problem found is with values that are temporarly not present in any register or the stack which means that it is temporarly optimized out or out of range.
 An example of this is the value of the variable \emph{test\_u16} which is a unsinged $16$ bit integer that is temporarly optimized out when stoped at the software breakpoint in the example.
 When evaluating this value \emph{GDB} prints that the value is optimized out which can be seen in figure \ref{fig:gdboutofrange}, this is the same output it gives for a value that is totaly optmized out(example of this is the value of \emph{test\_struct} shown in figure \ref{fig:gdbenum}).
