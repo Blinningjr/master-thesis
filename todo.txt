@@ -10,21 +10,8 @@ The text needs a LOT of proof reading,
 
 ## MY TODO
 
-1. Write Disscussion		// DONE
-2. Write Conclusion ... 	// DONE
-3. Write Intorduction		// DONE
-4. Write Background		// DONE
-5. Write Related Work		// REMOVED
-6. Write Thesis Structure
-7. Write Abbstract
-
-8. Add subsections to the "Vitually Unwind Call Stack" section and rewite it a bit.
-9. Rewrite some of the implementation sections and add more subsubsections
-10. Maybe add subsection to the "Debugger Comparison" section
-11. Read through section:
-	- Abstract
-	- Thesis structure
-	- Related work
-	- Evaluation
-12. Fix Grammer
+Fix Evaluation section
+Update discussion and conclutions after fixing evaluation.
+Write Abstarct
+Fix Grammer
 
