@@ -1,0 +1,28 @@
+% Describe existing solutions and other peoples' scientific work in the same area.
+% Note that the related work should focus around things that relate to your problems in 1.3.
+% Example: if you are working on a social networking component which is to aggregate real-time data to automatically update your status in the social network, then your related work is not about other social networks but about different aggregation techniques, activity recognition solutions, etc.
+
+
+Debugging optimized code has been a problem for a long time.
+There have been many scientific papers on how to solve this problem.
+One of the most common approaches is to make the optimizations transparent to the user.
+The paper \cite{edselc.2-52.0-8497669319919920107} takes this approach by provide visual aids to the user.
+These visual aids are annotations and highlights on both the source and machine code, this helps the user understand how the source and machine code relate to each other.
+Some other papers that takes the same  approach are \cite{adl1996source, edselc.2-52.0-002842706219940105}.
+The two main problems with this approach is that the debug information size get a lot larger, also the compilation times get longer.
+
+
+Another approach is to dynamically deoptimize the subroutine that is being debugged as described in the paper \cite{edselc.2-52.0-002699386519920107}.
+This gives almost the same level of debugging experience for optimized code as unoptimized code.
+The main problem with this approach is that it cannot debug the actual optimized code.
+
+
+There are a lot more approaches for debugging optimized code but all of them have some drawbacks.
+Two of the most common are that compilation times get a lot longer and that the debug information gets a lot larger.
+These are two drawbacks that most compilers do not want.
+
+
+
+%TODO \cite{edselc.2-52.0-002842706219940105}  Debugging Optimized Code Without Being Misled.
+%TODO \cite{edselc.2-52.0-002699386519920107}  Debugging Optimized Code with Dynamic Deoptimization.
+%TODO \cite{edselc.2-52.0-8497669319919920107} A New Approach to Debugging Optimized Code.
