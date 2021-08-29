@@ -18,7 +18,7 @@ The reason being that the debug result can be correct but still different from t
 
 
 \subsubsection{Evalutaion of \emph{Rust} enums}
-The \emph{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \emph{GDB} can be seen in figure \ref{fig:gdbenum}.
+The \emph{GDB} debugger gave the wrong value when debugging the value of a enum named \emph{test\_enum3}, the result can be seen in figure \ref{fig:gdbenum}.
 The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 })} which is not the same as what \emph{GDB} gave.
 
 
@@ -31,22 +31,22 @@ The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 }
 
 
 Doing the same using \gls{erd} also gives an unexpected value, the result can be seen in  figure \ref{fig:mydebuggerenum}.
-The printing look a bit diffrent but the result from the \gls{erd} debugger tells the user that the enum \emph{test\_enum3} is a enum of type \emph{TestEnum} where the acatual variant has been optimized out.
-While \emph{GDB} also tells that \emph{test\_enum3} is of type \emph{TestEnum}, but it also shows thate the enum variant is \emph{ITest}.
-As can be seen \emph{GDB} gives the wrong answere because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
-While the \gls{erd} debugger shows that the value has been optimized out which is a more correct in this case.
+The printing look a bit different but the result from the \gls{erd} debugger tells the user that the enum \emph{test\_enum3} is an enum of type \emph{TestEnum} where the actual variant has been optimized out.
+While \emph{GDB} also tells that \emph{test\_enum3} is of type \emph{TestEnum}, but it also shows that the enum variant is \emph{ITest}.
+As can be seen \emph{GDB} gives the wrong answer because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
+While the \gls{erd} debugger shows that the value has been optimized out which is a more proper response in this case.
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{my-debugger-opt2-enum-edited.png}
-	\caption{Debugger presented in this thesis debugging result from evaluating some enum variables when stopped at the software brekpoint in the example code.}
+	\caption{Debugger presented in this thesis debugging result from evaluating some enum variables when stopped at the software breakpoint in the example code.}
 	\label{fig:mydebuggerenum}
 \end{figure}
 
 
 Doing the same using \emph{LLDB} give almost the same result as \gls{erd}, that result can be seen in figure \ref{fig:lldbenum}.
-\emph{LLDB} dose not show that the variant of the enum has been optimized out which makes the reason why it is not printed ambigius.
+\emph{LLDB} does not show that the variant of the enum has been optimized out which makes the reason why it is not printed ambiguous.
 
 
 \begin{figure}[h]
@@ -57,23 +57,27 @@ Doing the same using \emph{LLDB} give almost the same result as \gls{erd}, that 
 \end{figure}
 
 
-Now when inspecting what is stored in the \gls{DWARF} format is shows that the variant of the enum is optimized out but not the two other values that make up the value stored in the variant.
-The fact that the value that indicate with variant is optimized out makes it impossible for any debugger to evalute the value stored in the enum.
+Now when inspecting what is stored in the \gls{DWARF} format it shows that the variant of the enum is optimized out but not the two other values that make up the value stored in the variant.
+The fact that the value that indicate which variant is optimized out makes it impossible for any debugger to evaluate the value stored in the enum.
 This is because the encoding of the bytes is unknown and because the number of bytes to read from the stack is unknown.
 
 
-Looking back at figure \ref{fig:lldbenum} there are three other enums there where two of them dose not have a value as well, they are named \emph{test\_enum1} and \emph{test\_enum2}.
-Those two enums should have a value but for some reason \emph{LLDB} is not able to evaluate them, but looking at figure \ref{fig:mydebuggerenum} shows the values they should have.
+Looking back at figure \ref{fig:lldbenum} there are three other enums where two of them do not have a value.
+They are named \emph{test\_enum1} and \emph{test\_enum2}.
+Those two enums should have a value but for some reason \emph{LLDB} is not able to evaluate them.
+However the debugger \gls{erd} is able to the correct value of them, see figure \ref{fig:mydebuggerenum}.
 Also looking at figure \ref{fig:gdbenum} shows the same result as in figure \ref{fig:mydebuggerenum} thus both \emph{GDB} and \gls{erd} is able to evaluate the correct value.
+
+
 Going back again to figure \ref{fig:lldbenum} which shows that the value of the attribute \emph{flag} is equal to \emph{false}, but looking at figure \ref{fig:gdbenum} and \ref{fig:lldbenum} shows that the value of \emph{flag} is equal to \emph{true}.
 The correct value when looking at the original source code is that the attribute \emph{flag} should be equal to \emph{true}, thus meaning that the result from \emph{LLDB} is incorrect.
 
 
 
-\subsubsection{Displaying Optimized Out varaibles}
-Another problem found is with values that are temporarly not present in any register or the stack which means that it is temporarly optimized out or out of range.
-An example of this is the value of the variable \emph{test\_u16} which is a unsinged $16$ bit integer that is temporarly optimized out when stoped at the software breakpoint in the example.
-When evaluating this value \emph{GDB} prints that the value is optimized out which can be seen in figure \ref{fig:gdboutofrange}, this is the same output it gives for a value that is totaly optmized out(example of this is the value of \emph{test\_struct} shown in figure \ref{fig:gdbenum}).
+\subsubsection{Displaying Optimized Out Variables}
+Another problem found is with values that are temporarily not present in any register or the stack which means that it is temporarily optimized out or out of range.
+An example of this is the value of the variable \emph{test\_u16} which is a unsigned $16$ bit integer that is temporarily optimized out when stopped at the software breakpoint in the example.
+When evaluating this value \emph{GDB} prints that the value is optimized out which can be seen in figure \ref{fig:gdboutofrange}, this is the same output it gives for a value that is totally optimized out(example of this is the value of \emph{test\_struct} shown in figure \ref{fig:gdbenum}).
 
 
 \begin{figure}[h]
@@ -84,7 +88,7 @@ When evaluating this value \emph{GDB} prints that the value is optimized out whi
 \end{figure}
 
 
-Doing this with \emph{LLDB} gives the result  \emph{< variable is not available >} which can be seen in figure \ref{fig:lldboutofrange}.
+Doing this with \emph{LLDB} gives the result  \emph{$<$ variable is not available $>$} which can be seen in figure \ref{fig:lldboutofrange}.
 
 
 \begin{figure}[h]
@@ -95,9 +99,9 @@ Doing this with \emph{LLDB} gives the result  \emph{< variable is not available 
 \end{figure}
 
 
-Lasty compring this to the output of \gls{erd}, which give the value \emph{<OutOfRange>}(see figure \ref{fig:mydebuggeroutofrange}).
-The result from both \emph{LLDB} and \gls{erd} are unique and only happen in these situations thus making it easier for the user to understand that the value is temporary optimized out then the reuslt from \emph{GDB}.
-This is because the resutl that \emph{GDB} generates is used in multiple situations thus making it unclear if the variable is totaly optimized out or just that is temprarly optimized out.
+Lasty compring this to the output of \gls{erd}, which give the value \emph{$<$OutOfRange$>$}, see figure \ref{fig:mydebuggeroutofrange}.
+The result from both \emph{LLDB} and \gls{erd} are unique and only happen in these situations thus making it easier for the user to understand that the value is temporary optimized out than the result from \emph{GDB}.
+This is because the result that \emph{GDB} generates is used in multiple situations thus making it unclear if the variable is totally optimized out or temporarily optimized out.
 
 
 \begin{figure}[h]
