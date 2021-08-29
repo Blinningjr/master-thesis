@@ -8,16 +8,16 @@
 
 % Move to above section
 
-The testing and comparing of the three diffrent debugger is done manually on some example code, see the git repository \cite{example-code} for the example code.
+The testing and comparing of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
 The example code was many times modified to test how well the three debugger handled the different situations.
 This was repeated until one of the debuggers gave an unexpected result.
-There were two of these cases found when the code was compiled with optimiation 2.
+There were two of these cases found when the code was compiled with optimization 2.
 To keep it fair in these cases a software breakpoint was added to the code.
-This ensures that all the three debuggers stops on the same machine code instuction.
+This ensures that all the three debuggers stops on the same machine code instruction.
 The reason being that the debug result can be correct but still different from the other debugger, thus making it seem like one is worse then the other.
 
 
-\subsubsection{Evalutaion of \emph{Rust} enums}
+\subsubsection{Evaluation of \emph{Rust} enums}
 The \emph{GDB} debugger gave the wrong value when debugging the value of a enum named \emph{test\_enum3}, the result can be seen in figure \ref{fig:gdbenum}.
 The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 })} which is not the same as what \emph{GDB} gave.
 
@@ -25,7 +25,7 @@ The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 }
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{gdb10.1-opt2-enum-edited.png}
-	\caption{\emph{GDB} debugging result from evaluating variable \emph{test\_enum3} when stopped at the software brekpoint in the example code.}
+	\caption{\emph{GDB} debugging result from evaluating variable \emph{test\_enum3} when stopped at the software breakpoint in the example code.}
 	\label{fig:gdbenum}
 \end{figure}
 
@@ -40,7 +40,7 @@ While the \gls{erd} debugger shows that the value has been optimized out which i
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{my-debugger-opt2-enum-edited.png}
-	\caption{Debugger presented in this thesis debugging result from evaluating some enum variables when stopped at the software breakpoint in the example code.}
+	\caption{\acrshort{erd} debugging result from evaluating some enum variables when stopped at the software breakpoint in the example code.}
 	\label{fig:mydebuggerenum}
 \end{figure}
 
@@ -52,7 +52,7 @@ Doing the same using \emph{LLDB} give almost the same result as \gls{erd}, that 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{lldb11.0-opt2-enum-edited.png}
-	\caption{\emph{LLDB} debugging result from evaluating some enum variables when stopped at the software brekpoint in the example code.}
+	\caption{\emph{LLDB} debugging result from evaluating some enum variables when stopped at the software breakpoint in the example code.}
 	\label{fig:lldbenum}
 \end{figure}
 
@@ -83,7 +83,7 @@ When evaluating this value \emph{GDB} prints that the value is optimized out whi
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.4\textwidth]{gdb10.1-opt2-outofrange-edited.png}
-	\caption{\emph{GDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
+	\caption{\emph{GDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software breakpoint in the example code.}
     	\label{fig:gdboutofrange}
 \end{figure}
 
@@ -94,12 +94,12 @@ Doing this with \emph{LLDB} gives the result  \emph{$<$ variable is not availabl
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{lldb11.0-opt2-outofrange-edited.png}
-	\caption{\emph{LLDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
+	\caption{\emph{LLDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software breakpoint in the example code.}
 	\label{fig:lldboutofrange}
 \end{figure}
 
 
-Lasty compring this to the output of \gls{erd}, which give the value \emph{$<$OutOfRange$>$}, see figure \ref{fig:mydebuggeroutofrange}.
+Lastly comparing this to the output of \gls{erd}, which give the value \emph{$<$OutOfRange$>$}, see figure \ref{fig:mydebuggeroutofrange}.
 The result from both \emph{LLDB} and \gls{erd} are unique and only happen in these situations thus making it easier for the user to understand that the value is temporary optimized out than the result from \emph{GDB}.
 This is because the result that \emph{GDB} generates is used in multiple situations thus making it unclear if the variable is totally optimized out or temporarily optimized out.
 
@@ -107,7 +107,7 @@ This is because the result that \emph{GDB} generates is used in multiple situati
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{my-debugger-opt2-outofrange-edited.png}
-	\caption{\gls{erd} debugging result from evaluating variable \emph{test\_u16} when stopped at the software brekpoint in the example code.}
+	\caption{\gls{erd} debugging result from evaluating variable \emph{test\_u16} when stopped at the software breakpoint in the example code.}
     \label{fig:mydebuggeroutofrange}
 \end{figure}
 
