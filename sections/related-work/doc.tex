@@ -6,10 +6,10 @@
 Debugging optimized code has been a problem for a long time.
 There have been many scientific papers on how to solve this problem.
 One of the most common approaches is to make the optimizations transparent to the user.
-The paper \cite{edselc.2-52.0-8497669319919920107} takes this approach by provide visual aids to the user.
-These visual aids are annotations and highlights on both the source and machine code, this helps the user understand how the source and machine code relate to each other.
+The paper \cite{edselc.2-52.0-8497669319919920107} takes this approach by providing visual aids to the user.
+These visual aids are annotations and highlights on both the source and machine code which helps the user understand how the source and machine code relate to each other.
 Some other papers that takes the same  approach are \cite{adl1996source, edselc.2-52.0-002842706219940105}.
-The two main problems with this approach is that the debug information size get a lot larger, also the compilation times get longer.
+The two main problems with this approach is that the debug information size get a lot larger and the compilation times get longer as well.
 
 
 Another approach is to dynamically deoptimize the subroutine that is being debugged as described in the paper \cite{edselc.2-52.0-002699386519920107}.
@@ -18,8 +18,8 @@ The main problem with this approach is that it cannot debug the actual optimized
 
 
 There are a lot more approaches for debugging optimized code but all of them have some drawbacks.
-Two of the most common are that compilation times get a lot longer and that the debug information gets a lot larger.
-These are two drawbacks that most compilers do not want.
+Two of the most common are that compilation times get a lot longer and the debug information gets a lot larger.
+These are two drawbacks most compilers do not want.
 
 
 
