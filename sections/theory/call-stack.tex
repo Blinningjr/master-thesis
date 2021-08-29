@@ -36,8 +36,10 @@ The push operations adds a new element on top of the stack and the pop operation
 Other key characteristics are that it is only the top element that can be accessed, thus to reach the lower elements, all the above elements needs to be popped.
 
 
-Stack/call frames are the elements that make up the call stack, each stack frame has the values of the arguments and variables for one function call.
-Stack frames also usually contain a return address which is pointer to a machine code instruction, this instruction is the next instruction of the previous function that called the current function.
+Stack/call frames are the elements that make up the call stack.
+Each stack frame has the values of the arguments and variables for one function call.
+Stack frames also usually contain a return address which is a pointer to a machine code instruction.
+This instruction is the next instruction of the previous function that called the current function.
 When a function has finished executing its stack frame will be pop/removed from the stack and the previous function will continue executing. 
 An example of a call stack and stack frames can be seen in the figure \ref{fig:callstack}.
 
@@ -45,7 +47,7 @@ An example of a call stack and stack frames can be seen in the figure \ref{fig:c
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{call-stack.png}
-	\caption{An visual example of how a stack and stack frames can look.}
+	\caption{A visual example of how a stack and stack frames can look.}
 	\label{fig:callstack}
 \end{figure}
 
