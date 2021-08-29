@@ -13,7 +13,7 @@ Thus to simplify the explanation a simple example will be used to explain the ma
 
 Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}(it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
 The function has a parameter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}.
-That means that it is a parameter to the function \emph{my\_function}.
+Which means that it is a parameter to the function \emph{my\_function}.
 It is this parameter \emph{val} that will be used as an example of how to evaluating a variable.
 
 
@@ -27,7 +27,7 @@ It is this parameter \emph{val} that will be used as an example of how to evalua
 
 A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
 Those attributes describe the range of \gls{pc} values in which the function is executing.
-There is also some other attributes in the example that will not be mention because they are not needed for determining the value of the attribute.
+There is also some other attributes in the example that will not be mentioned because they are not needed for determining the value of the attribute.
 
 
 %Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
@@ -35,8 +35,8 @@ There is also some other attributes in the example that will not be mention beca
 
 
 \subsubsubsection{Finding Raw Value Location}
-Examining the \gls{die} for the argument \emph{val} there is a attribute there called \emph{DW\_AT\_location}.
-The value of that attribute is a number of operations, preforming these operations will give the location of the variable.
+Examining the \gls{die} for the argument \emph{val} there is an attribute there called \emph{DW\_AT\_location}.
+The value of that attribute is a number of operations, performing these operations will give the location of the variable.
 
 
 In this example the operation in the \emph{DW\_AT\_location} attribute in figure \ref{fig:subprogramexample} is \emph{DW\_OP\_fbreg $-2$}.
@@ -44,11 +44,11 @@ That operation describes that the value is stored in memory at the \emph{frame b
 The \emph{Frame base} is the address to the first variable in the functions stack frame(see \cite{dwarf} page 56).
 
 
-Currently the value of the \emph{frame base} is unknown, but the location of the \emph{frame base}  is describe in the \emph{my\_function} \gls{die}.
-The location of the \emph{frame base} is also describe in a number of operation.
+Currently the value of the \emph{frame base} is unknown, but the location of the \emph{frame base}  is described in the \emph{my\_function} \gls{die}.
+The location of the \emph{frame base} is also described in a number of operations.
 Those operations can be found under the attribute \emph{DW\_AT\_frame\_base}.
-Looking at figure \ref{fig:subprogramexample} the \emph{frame base} location is describe with the operation \emph{DW\_OP\_reg7}.
-The operation \emph{DW\_OP\_reg7} describe the value is located in register $7$(see \cite{dwarf} page 27).
+Looking at figure \ref{fig:subprogramexample} the \emph{frame base} location is described with the operation \emph{DW\_OP\_reg7}.
+The operation \emph{DW\_OP\_reg7} describe that the value is located in register $7$(see \cite{dwarf} page 27).
 Thus register $7$ needs to be read to get the value of the \emph{frame base}.
 
 
@@ -77,7 +77,7 @@ That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it a
 \end{figure}
 
 
-In this example the type \gls{die} has three attributes, that are used to describe the type.
+In this example the type \gls{die} has three attributes which are used to describe the type.
 The first attribute is \emph{DW\_AT\_name}, it describes the name of the type.
 In this case the name of the type is \emph{i16}, which can be seen in figure \ref{fig:basetypeexample}.
 The next attribute is \emph{DW\_AT\_encoding}, this attribute describes the encoding of the type.
