@@ -39,10 +39,10 @@ This include file path, line number and column number.
 The library \emph{rust-debug} has a function for retrieving the value of all these attributes from a given \gls{die}.
 
 
-The attribute  \emph{DW\_AT\_decl\_file} which contain the file path of where the \gls{die} was declared has a file index as it's value.
-Every compilation unit has a line number information table that contain file paths which are index.
+The attribute  \emph{DW\_AT\_decl\_file} which contain the file path of where the \gls{die} was declared has a file index as its value.
+Every compilation unit has a line number information table that contain file paths which are indexed.
 Thus the \emph{rust-debug} library will search for the matching index in the table to find the file path.
-Finding the line and column number does not require any lookup. there attributes contain the value.
+Finding the line and column number does not require any lookup.
 
 
 \subsubsection{Accessing Memory And Registers}
@@ -56,10 +56,10 @@ The data structure also has some function for reading and adding values.
 
 
 The register and memory data structure is used as an argument to the functions in the library.
-If a value is missing the called function will return a values that says which value is missing.
+If a value is missing the called function will return a result that describes which value is missing.
 Then the user of the library can read that value from the debug target and add it to the data structure.
-Now the function can be called again and there are no more missing values it will return the requested value.
-Otherwise the user has to repeat the same process.
+If there are more values missing then calling the function with the updated values will result in that another values needs to be added.
+This repeats until the function give a result that says it has completed its task.
 
 
 \subsubsection{Evaluating Variables} \label{sec:ievalvar}
@@ -71,7 +71,7 @@ When the data structure is created it will extract some important information ab
 
 A constructed \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and memory data structure.
 This method evaluates the variable as describe in section \ref{sec:evaluate-variable} and the \gls{DWARF} specification \cite{dwarf}.
-The return value of the method is a enum that is used for telling the user if a value is missing from the register and memory data structure or not.
+The return value of the method is an enum that is used for telling the user if a value is missing from the register and memory data structure or not.
 Then there is another method for retrieving the variable information containing the evaluated value.
 The variable information contains the following:
 
@@ -90,20 +90,20 @@ The function also needs a machine code address to find the correct compilation u
 
 
 The correct compilation unit can be found using a code address.
-Every compilation unit has a address range that can be used to see if the machine code is from that compilation unit.
-Thus searching for the correct one is cone by going through each unit and checking if the address is in the range.
+Every compilation unit has an address range that can be used to see if the machine code is from that compilation unit.
+Thus searching for the correct one is done by going through each unit and checking if the address is in the range.
 
 
-When the compilation unit is known the \gls{die} representing the subroutine can be found be searching the \gls{die} tree of the unit.
-This is done by going done the path of the tree where the machine code address is in range.
+When the compilation unit is known the \gls{die} representing the subroutine can be found by searching the \gls{die} tree of the unit.
+This is done by going down the path of the tree where the machine code address is in range.
 It returns a result when it has found the subroutine \gls{die} with the searched name, or when there are no more \glspl{die} to check.
 
 
 \subsubsection{Unwinding Call Stack}
 % Explain the evaluation of call stack % TODO
 % Explain the evaluation of stackframe 
-The \emph{rust-debug} library has a data structure called \emph{Stacktrace}, it works very similarly to the data structure describe in section \ref{sec:ievalvar}.
-But \emph{Stacktrace} is used to virtually unwind the call stack and evaluate all the variables in it.
+The \emph{rust-debug} library has a data structure called \emph{Stacktrace}, which works very similarly to the data structure describe in section \ref{sec:ievalvar}.
+However \emph{Stacktrace} is used to virtually unwind the call stack and evaluate all the variables in it.
 The call stack is unwind as described in section \ref{sec:stacktrace} and the \gls{DWARF} specification \cite{dwarf}.
 This results in a stack of activations, which most importantly contain restored register values and stack pointers.
 
@@ -112,7 +112,7 @@ All the variables in each of the activations are then evaluated using the resort
 This is done using a data structure that works similar to the data structure describe in section \ref{sec:ievalvar}.
 
 The first step of evaluating the variables is finding the \gls{die} of the subroutine that the activation is related to.
-This is done using the function describe in section \ref{sec:funcdie}.
+This is done using the function described in section \ref{sec:funcdie}.
 After that the \gls{die} tree is search through for variable \glspl{die}, starting at the subroutine \gls{die}.
 All the variable \glspl{die} found are added to a list.
 Each variable in the list is then evaluated as described in section \ref{sec:ievalvar}.
@@ -128,7 +128,7 @@ The function requires a file path and line number, but it also can take a column
 
 
 The mention function works by first finding out which compilation unit contains information on the inputted file path.
-It those this by looping through all the file entries in the line number information table, for every compilation unit.
+It does this by looping through all the file entries in the line number information table for every compilation unit.
 Each line number information table entry have rows that each contain information on a line from the source code.
 Thus all the rows with the search line numbers are added to a list.
 The machine code address of the first element in this list is returned if no column line was inputted to the function.
