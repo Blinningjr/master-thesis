@@ -31,12 +31,12 @@ Thus it has been decided to only support the \gls{DWARF} format because it has g
 % Making changes to DWARF standard.
 The scope of this thesis does also not include changing or adding to the \gls{DWARF} format.
 The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realize that change or addition.
-Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler had been updated to use the new standard.
+Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler has been updated to use the new standard.
 %Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
 
 
 % Will not explain every detail in dwarf.
-The \gls{DWARF} format is very complex and is very well explain in there documentation.
+The \gls{DWARF} format is very complex but provides good documentation.
 Thus the explanation of \gls{DWARF} in section \ref{sec:dwarf} will not go into every detail of \gls{DWARF}.
 Instead it will focus on explaining the minimum needed to understand the implementation of the debugger.
 Checkout the document \cite{dwarf} for more information on \gls{DWARF}.
@@ -73,7 +73,7 @@ The following is the list of features the debugger is planed to have:
 
 % Limiting supported chips and platforms.
 When debugging code on embedded systems the debugger needs to know a lot about the hardware and some of these things differ depending on the hardware.
-Here is a list of some of those things:
+Here is a list:
 
 \begin{itemize}
   \item Number of registers.
@@ -82,9 +82,8 @@ Here is a list of some of those things:
   \item The machine code instruction set the \gls{mcu} is using/supports.
 \end{itemize}
 
-To support all the different \glspl{mcu} would be to much work for this thesis.
-Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available.
-And it will only support the \emph{arm Thumb mode} instruction set..
+To support all the different \glspl{mcu} would be too much work for this thesis.
+Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that is available and it will only support the \emph{arm Thumb mode} instruction set..
 %The debugger will be design to work with other similar \gls{mcu} but to test and grantee that it will work with them is to much work for this thesis.
 
 
