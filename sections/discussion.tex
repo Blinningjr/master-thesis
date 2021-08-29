@@ -1,5 +1,5 @@
 % Discuss how you solved your problems from 1.3, and what the results were (from section 5).
-% Describe alternative solutions, what you could have done differently, problems you encountered, how your results compare to other peoples' results, etc.
+% Describe alternative solutions, what you could have done differently, problems you encountered, how your results compare to other peoples results, etc.
 % Go through each problem individually, and then in the end add general remarks and discussion points which are outside the problems themselves but that you think may be valuable to share with the reader.
 % This section can have several subsections.
 
@@ -20,7 +20,7 @@ To really improve on the amount of debug information generated one has to work o
 At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that almost all variables are optimized out,  when debugging optimized code.
 Thus it was thought that those variables were completely removed from the optimized code.
-But as it turns out they weren't, instead they were just optimized out at that particular point.
+But as it turns out they were not, instead they were just optimized out at that particular point.
 
 
 Keeping these expectation in mind the result in section \ref{sec:debuggercomparison} were a bit disappointing.
@@ -30,7 +30,7 @@ This makes it much clearer to the user how the variable is optimized out.
 
 Unexpectedly there was another problem with the debuggers \emph{GDB} and \emph{LLDB} that could be improved on.
 That problem is that both mentioned debuggers had problems with the evaluation of the \emph{Rust} \emph{enum} type.
-The reason for this problem is that many other programming language doesn't allow \emph{enums} to have any value stored in them like \emph{Rust} allows.
+The reason for this problem is that many other programming language does not allow \emph{enums} to have any value stored in them like \emph{Rust} allows.
 
 
 The \emph{LLDB} debugger had much more problems with this then \emph{GDB} which only gave the wrong value when the enum variant was optimized out.

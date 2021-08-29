@@ -62,7 +62,7 @@ The fact that the value that indicate with variant is optimized out makes it imp
 This is because the encoding of the bytes is unknown and because the number of bytes to read from the stack is unknown.
 
 
-Looking back at figure \ref{fig:lldbenum} there are three other enums there where two of them dosen't have a value as well, they are named \emph{test\_enum1} and \emph{test\_enum2}.
+Looking back at figure \ref{fig:lldbenum} there are three other enums there where two of them dose not have a value as well, they are named \emph{test\_enum1} and \emph{test\_enum2}.
 Those two enums should have a value but for some reason \emph{LLDB} is not able to evaluate them, but looking at figure \ref{fig:mydebuggerenum} shows the values they should have.
 Also looking at figure \ref{fig:gdbenum} shows the same result as in figure \ref{fig:mydebuggerenum} thus both \emph{GDB} and \gls{erd} is able to evaluate the correct value.
 Going back again to figure \ref{fig:lldbenum} which shows that the value of the attribute \emph{flag} is equal to \emph{false}, but looking at figure \ref{fig:gdbenum} and \ref{fig:lldbenum} shows that the value of \emph{flag} is equal to \emph{true}.

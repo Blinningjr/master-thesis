@@ -23,7 +23,7 @@ In the case of the \emph{Rust} compiler \emph{rustc} it is the \emph{LLVM} libra
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
 The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats that holds all the debug information.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
-To make a debugger that supports both formats would be a lot of extra work that doesn't contribute to solving the main problem of this thesis.
+To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
 Thus it has been decided to only support the \gls{DWARF} format because it has very good documentation.
 
 
@@ -67,7 +67,7 @@ The following is the list of features the debugger is planed to have:
 %Functionalities like this are useful but dose not contributing much to the main problem of this thesis which is debugging optimized code.
 %%Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
 %So to keep this thesis focused on the main problem the feature the debugger will have is restricted to virtually unwinding the stack, evaluating stack frames and there variables and lastly the ability to add and remove breakpoints.
-%The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that doesn't require debug information.
+%The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that does not require debug information.
 
 
 % Limiting supported chips and platforms.

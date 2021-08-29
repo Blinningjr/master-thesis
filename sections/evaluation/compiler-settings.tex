@@ -11,7 +11,7 @@ The \emph{Rust} compiler has some compiler options that the user can set when co
 It also enables the user to access some of the compiler options for \emph{LLVM} that is the backend of the compiler.
 The first part to finding if any of these compiler options effect the debug information generated in a meaningful way is to read what they do and determine if they might do that.
 Then the compiler options need to be tested manually to see if any of them actually have any meaningful effect.
-And that the option doesn't effect the speed of the optimised code in a negative way.
+And that the option does not effect the speed of the optimised code in a negative way.
 This is very hard to do and takes a lot of time to do it properly, thus the testing done will be limited to checking the difference in the \gls{DWARF} file and the debugging experience.
 
 
