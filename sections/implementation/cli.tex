@@ -10,13 +10,13 @@ The input thread repeats this process until the main thread stops it.
 When the main thread receives a message from the input thread it tries to parse it into command.
 The parser works by matching the first word in the input with the names of the commands.
 If there is a match the commands specific parser is used to parse the rest of the input.
-After a command is parsed it is then sent to the debug thread asynchronously.
+After a command is parsed, it is sent to the debug thread asynchronously.
 The main thread then waits for a response from the debug thread, when the response is received it prints it to the console.
-After that is sends a response the the input thread and awaits new messages from both the input thread and the debug thread.
+After that is sends a response to the input thread and awaits new messages from both the input thread and the debug thread.
 
 
 An example of all the communication between the user and the threads can be seen in figure \ref{fig:cliflow}.
-The example also shows what happens when a event is sent from the debug thread to the main thread.
+The example also shows what happens when an event is sent from the debug thread to the main thread.
 
 
 \begin{figure}[h]
