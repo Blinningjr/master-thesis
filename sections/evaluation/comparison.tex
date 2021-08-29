@@ -19,7 +19,7 @@ The reason being that the debug result can be correct but still diffrent from th
 
 \subsubsection{Evalutaion of \emph{Rust} enums}
 The \emph{GDB} debugger gave a wrong answer when debugging the value of a enum named \emph{test\_enum3}, the value that \emph{GDB} can be seen in figure \ref{fig:gdbenum}.
-The expected value is \ref{TODO} which is not the same as what \emph{GDB} gave.
+The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 })} which is not the same as what \emph{GDB} gave.
 
 
 \begin{figure}[h]
