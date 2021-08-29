@@ -16,7 +16,8 @@
 % Making changes to the compiler(rustc and llvm).
 One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
 In the case of the \emph{Rust} compiler \emph{rustc} it is the \emph{LLVM} library that mostly handles the debug information generation.
-\emph{LLVM} is a very lager project that many people are working on and thus improving on \emph{LLVM} is out of scope for this thesis, the same goes for improving \emph{rustc}.
+\emph{LLVM} is a very large project that many people are working on and thus improving on \emph{LLVM} is out of scope for this thesis.
+The same goes for improving \emph{rustc}.
 %Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
 
 
@@ -24,13 +25,13 @@ In the case of the \emph{Rust} compiler \emph{rustc} it is the \emph{LLVM} libra
 The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats that holds all the debug information.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
-Thus it has been decided to only support the \gls{DWARF} format because it has very good documentation.
+Thus it has been decided to only support the \gls{DWARF} format because it has good documentation.
 
 
 % Making changes to DWARF standard.
-The scope of this thesis also dose not include changing or adding to the \gls{DWARF} format.
+The scope of this thesis does also not include changing or adding to the \gls{DWARF} format.
 The main reason is that it takes years for a new version of the standard to be released and thus there is not enough time for this thesis to see and realize that change or addition.
-Another reason is that even if a new version of the \gls{DWARF} format could be release in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler had been updated to use the new standard.
+Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler had been updated to use the new standard.
 %Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
 
 
