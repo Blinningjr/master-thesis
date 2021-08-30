@@ -28,7 +28,7 @@ The figure \ref{fig:dwarfsections} shows all the \gls{DWARF} sections and which 
 The \gls{DWARF} section \emph{.debug\_abbrev} contain all of the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
 Some of the things these abbreviation code are used for are \gls{die} tags and \gls{die} attribute names.
 To translate a abbreviation code one has to compare each entry until the one with the matching abbreviation code is found.
-Checkout section $7.5.3$ in \cite{dwarf} to learn more.
+For further details we refer the reader to section section $7.5.3$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_aranges}}
@@ -37,13 +37,13 @@ Each compilation unit has a range of machine code addresses that are the address
 These ranges consists of a start address followed by a length.
 Thus to find the compilation unit having the information about the current state.
 The user only needs to check if the current address is between the start address and the start address plus the length.
-To read more about this section checkout section $6.1.2$ in \cite{dwarf}.
+For further details we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_frame}}
 In the \gls{DWARF} section \emph{.debug\_frame} the information needed to virtually unwind the call stack is kept.
 This section is completely self-contained and is made up of two structures called \acrfull{cie} and \acrfull{fde}.
-Virtually unwinding the call stack is complex, thus to learn more about that checkout section \ref{sec:stacktrace} and  section $6.4.1$ in \cite{dwarf}
+Virtually unwinding the call stack is complex, thus for further details we refer the reader section \ref{sec:stacktrace} in this document and section $6.4.1$ in \cite{dwarf}
 
 
 \subsubsubsection{\emph{.debug\_info}}
@@ -75,21 +75,21 @@ The relation between these two sections can be seen in the figure \ref{fig:dwarf
 In the section \emph{.debug\_macinfo} the macro information is stored.
 It is stored in entries that each represents the macro after it has been expanded by the compiler.
 These entries are also pointer to by \glspl{die} in the \emph{.debug\_info} section and those pointers can be found in the attribute \emph{DW\_AT\_macinfo}.
-This section is a little bit complex thus to learn more about it read section $6.3$ in \cite{dwarf}.
+This section is a bit complex thus for further details we refer the reader to section $6.3$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_pubnames} and \emph{.debug\_pubtypes}}
 There are two sections for looking up compilation units by the name of functions, variables, types and more.
 The first one is \emph{.debug\_pubnames} which is for finding functions, variables and objects and the other one is for finding types, this section is called \emph{.debug\_pubtypes}.
 Both of these are meant to be used for fast lookup of what unit the search information is located in.
-Checkout section $6.1.1$ in \cite{dwarf} for more information.
+For further details we refer the reader to section $6.1.1$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_ranges}}
 \Glspl{die} that have a set of addresses that are non-contiguous will have an offset to the section \emph{.debug\_ranges} instead of having a address range.
 The offset points to the start of a range list that contain range entries which are used to know which of the machine code addresses the \gls{die} is active.
 The \gls{DWARF} section \emph{.debug\_ranges} is used for storing these lists of ranges.
-Check out section $2.17$ in \cite{dwarf} to learn more about code addresses and ranges.
+For further details we refer the reader to section $2.17$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_str}}
