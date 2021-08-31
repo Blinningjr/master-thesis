@@ -33,3 +33,6 @@
 .\#
 \#*
 
+# aspell backup files
+*.bak
+
