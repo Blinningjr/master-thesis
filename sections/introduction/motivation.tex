@@ -14,9 +14,9 @@
 The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
 That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster than the unoptimized code according to the paper \cite{clang-opt}.
 Thus for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code because the difference is not that large compared to \emph{Rust}.
-But in the case of \emph{Rust} the difference is so large that some programs are too slow to run without optimization.
-This is a problem because debuggers are bad at debugging optimized code and unoptimized code is to slow to run.
-That is way there is a need for better debuggers that can provide a good experience for debugging optimized \emph{Rust} code.
+But in the case of \emph{Rust}, the difference is so large that some programs are too slow to run without optimization.
+This is a problem because debuggers are bad at debugging optimized code, and unoptimized code is to slow to run.
+That is why there is a need for better debuggers that can provide a good experience for debugging optimized \emph{Rust} code.
 
 
 % Debugging is not as important for rust, but is still needed for embedded systems
@@ -28,12 +28,12 @@ However when it comes to embedded applications there is still a need for low lev
 
 % Improving the state of debugging. % TODO: Rewrite this paragraph
 Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which both requires another program to interact with the \gls{mcu}.
-An example of such a program that is commonly used is \emph{openocd}(openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
+An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a bad experience, especially for new developers.
 
 
 % Contributing with a solution written in Rust.
-Most of the debuggers used for \emph{Rust} code are written in other programming languages and there is not a lot of debugging tools written in \emph{Rust} yet.
+Most of the debuggers used for \emph{Rust} code are written in other programming languages, and there is not a lot of debugging tools written in \emph{Rust} yet.
 Thus one of the key motivations is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides.
 
 
