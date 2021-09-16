@@ -7,9 +7,9 @@ It is also used for accessing the registers and memory of the \gls{mcu}.
 
 The debugger is made up of three modules, the first one is called \acrshort{cli}.
 Its main functionality is to handle the input from the console and the output to it.
-The second module is called DebugAdapter, it also handles the input and output but in the form of \gls{dap} messages.
+The second module is called DebugAdapter, it also handles the input and output, but in the form of \gls{dap} messages.
 This module is for supporting \glspl{gui} that use the \gls{dap} protocol to display debug information.
-The last module is called Debugger and it runs in a separate thread from the other two modules.
+The last module is called Debugger, and it runs in a separate thread from the other two modules.
 This is the module one that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
 It is also used to control the debug target.
 Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
@@ -64,17 +64,17 @@ The relation between the libraries can be seen in figure \ref{fig:debugger}.
 The debugger module retrieves debug information by using the \emph{rust-debug} library.
 This library sometimes requires a data structure that contain the values of some registers and memory addresses.
 Those function will return an enum that tells if a value is needed and where that value is located.
-Thus the debugger module will use the \emph{probe-rs} library to read the needed value, which then is added to the data structure.
-This repeats until no more values are needed and the result of the evaluation can be retrieved.
+Thus the debugger module will use the \emph{probe-rs} library to read the needed value, which is then added to the data structure.
+This repeats until no more values are needed, and the result of the evaluation can be retrieved.
 The values in the data structure are removed every time the debug target starts executing again.
-This is so no old values are used and it works because the debug target must be stopped to use related commands.
+This is such that no old values are used, and it works because the debug target must be stopped to use related commands.
 
 
 
 \subsubsubsection{Simultaneous Handling of Request And Events}
 % How the debugger handles request and events simultaneously.
 The debug thread polls the channel for incoming request and the state of the debugger.
-This enables the debug thread to simultaneously handle requests from the user and events from the debug target.
+This enables the debug thread to simultaneously handle requests from the user, and events from the debug target.
 There is a boolean that keeps track if the debug target is running.
 It is used to stop the pulling of the targets state when the debug target is stopped.
 This is done because the debug target cannot start executing on its own.
@@ -88,6 +88,6 @@ The stored stack trace is removed any time the debug target starts executing aga
 This ensures that it always gives the correct values and not the old ones.
 
 
-Another thing to note is that if a request is received to only evaluate one variable, the debugger will then preform a stack trace instead, or read from the temporarily stored stack trace.
+Another thing to note is that if a request is received to only evaluate one variable, the debugger will then perform a stack trace instead, or read from the temporarily stored stack trace.
 This simplifies the implementation a lot and also makes the subsequent evaluation request faster.
 
