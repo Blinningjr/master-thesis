@@ -28,7 +28,7 @@ The figure \ref{fig:dwarfsections} shows all the \gls{DWARF} sections and which 
 The \gls{DWARF} section \emph{.debug\_abbrev} contain all of the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
 Some of the things these abbreviation code are used for are \gls{die} tags and \gls{die} attribute names.
 To translate a abbreviation code one has to compare each entry until the one with the matching abbreviation code is found.
-For further details we refer the reader to section section $7.5.3$ in \cite{dwarf}.
+For further details we refer the reader to section $7.5.3$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_aranges}}
@@ -42,7 +42,7 @@ For further details we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 \subsubsubsection{\emph{.debug\_frame}}
 In the \gls{DWARF} section \emph{.debug\_frame} the information needed to virtually unwind the call stack is kept.
-This section is completely self-contained and is made up of two structures called \acrfull{cie} and \acrfull{fde}.
+This section is completely self-contained, and is made up of two structures called \acrfull{cie} and \acrfull{fde}.
 Virtually unwinding the call stack is complex, thus for further details we refer the reader section \ref{sec:stacktrace} in this document and section $6.4.1$ in \cite{dwarf}
 
 
@@ -53,7 +53,7 @@ All \glspl{die} are stored in trees, which is a common data structure.
 Each compilation unit will have at least on of these trees made up of \glspl{die} and each tree is stored in a \gls{DWARF} unit.
 The trees are structured the same as the source code, which makes it easy to relate the source code to the machine code.
 
-The section \emph{.debug\_info} consist of a number of these \gls{DWARF} units and some other debug information.
+The section \emph{.debug\_info} consist of a number of these \gls{DWARF} units, and some other debug information.
 This is one of the most important sections in \gls{DWARF} because it is used to relate the state of the debug target and the source code, and vice versa.
 
 
@@ -65,28 +65,28 @@ The section $6.2$ in \cite{dwarf} explains in more detail how this information i
 
 
 \subsubsubsection{\emph{.debug\_loc}}
-The location of the variables values are stored in location lists, each entry in the list holds a number of operation that can be used to calculate the location of the value.
+The location of the variables values are stored in location lists, each entry in the list holds a number of operations that can be used to calculate the location of the value.
 All of the location lists are stored in the section \emph{.debug\_loc} and are pointed to by \glspl{die} in the \emph{.debug\_info} section.
 These offsets are most commonly found in the attribute \emph{DW\_AT\_location} which is often present in \glspl{die} representing variables.
 The relation between these two sections can be seen in the figure \ref{fig:dwarfsections}.
 
 
 \subsubsubsection{\emph{.debug\_macinfo}}
-In the section \emph{.debug\_macinfo} the macro information is stored.
+In the section \emph{.debug\_macinfo}, the macro information is stored.
 It is stored in entries that each represents the macro after it has been expanded by the compiler.
-These entries are also pointer to by \glspl{die} in the \emph{.debug\_info} section and those pointers can be found in the attribute \emph{DW\_AT\_macinfo}.
+These entries are also pointed to by \glspl{die} in the \emph{.debug\_info} section, and those pointers can be found in the attribute \emph{DW\_AT\_macinfo}.
 This section is a bit complex thus for further details we refer the reader to section $6.3$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_pubnames} and \emph{.debug\_pubtypes}}
 There are two sections for looking up compilation units by the name of functions, variables, types and more.
-The first one is \emph{.debug\_pubnames} which is for finding functions, variables and objects and the other one is for finding types, this section is called \emph{.debug\_pubtypes}.
+The first one is \emph{.debug\_pubnames} which is for finding functions, variables and objects, and the other one is for finding types, this section is called \emph{.debug\_pubtypes}.
 Both of these are meant to be used for fast lookup of what unit the search information is located in.
 For further details we refer the reader to section $6.1.1$ in \cite{dwarf}.
 
 
 \subsubsubsection{\emph{.debug\_ranges}}
-\Glspl{die} that have a set of addresses that are non-contiguous will have an offset to the section \emph{.debug\_ranges} instead of having a address range.
+\Glspl{die} that have a set of addresses that are non-contiguous will have an offset to the section \emph{.debug\_ranges} instead of having an address range.
 The offset points to the start of a range list that contain range entries which are used to know which of the machine code addresses the \gls{die} is active.
 The \gls{DWARF} section \emph{.debug\_ranges} is used for storing these lists of ranges.
 For further details we refer the reader to section $2.17$ in \cite{dwarf}.
@@ -95,8 +95,8 @@ For further details we refer the reader to section $2.17$ in \cite{dwarf}.
 \subsubsubsection{\emph{.debug\_str}}
 The \gls{DWARF} section \emph{.debug\_str} is used for storing all the strings that is in the debug information.
 An example of these strings are the names of the functions and variables.
-These string are found using a offset that are located in the attribute \emph{DW\_AT\_name}.
-The attribute is found in the function and variable \glspl{die} and the offset is in the form of \emph{DW\_FROM\_strp}.
+These strings are found using an offset that are located in the attribute \emph{DW\_AT\_name}.
+The attribute is found in the function and variable \glspl{die}, and the offset is in the form of \emph{DW\_FROM\_strp}.
 
 
 \subsubsubsection{\emph{.debug\_type}}

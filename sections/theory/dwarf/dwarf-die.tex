@@ -27,11 +27,11 @@ The \glspl{die} representing types are often referred to as type \glspl{die}.
 
 
 \subsubsubsection{Example of a DIE}%\gls{die}}
-Lets look at an example of a \gls{die} that describes a variable.
-The example can be seen in figure \ref{fig:dwarfdie} which is a screen shoot of the output from the program \emph{objdump} run on a \gls{elf} file.
+Looking at an example of a \gls{die} that describes a variable.
+The example can be seen in figure \ref{fig:dwarfdie} which is a screenshot of the output from the program \emph{objdump} run on a \gls{elf} file.
 The first line in the figure begins with a number $8$ which represents the depth in the \gls{die} tree this \gls{die} is located.
-The next number is the current lines offset into this compile unit, all the other lines in the figure also start with there offset.
-Then it says "Abbrev Number: 9" on the same line, this is a  abbreviation code that translates to \emph{DW\_TAG\_variable}.
+The next number is the current lines offset into this compile unit, all the other lines in the figure also start with their offset.
+Then it says "Abbrev Number: 9" on the same line, this is an abbreviation code that translates to \emph{DW\_TAG\_variable}.
 This tag means that the \gls{die} is representing a variable from the source code.
 
 
@@ -47,6 +47,6 @@ The attribute \emph{DW\_AT\_location} seen in figure \ref{fig:dwarfdie} has the 
 The attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the \emph{objdump} tool has evaluated to "str", this is the name of the variable.
 Attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} in the figure contain  offsets into the section \emph{.debug\_line}.
 Those offsets can be evaluated to the source file path and line number that this \gls{die} is generated from.
-Lastly the attribute \emph{DW\_AT\_type} contain a offset into the section \emph{.debug\_types}, that points to a type \gls{die} that has the type information for this variable.
+Lastly the attribute \emph{DW\_AT\_type} contain an offset into the section \emph{.debug\_types}, that points to a type \gls{die} that has the type information for this variable.
 
 

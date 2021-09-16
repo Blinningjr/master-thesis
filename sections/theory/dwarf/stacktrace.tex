@@ -24,7 +24,7 @@ The relevant \gls{cie} and \gls{fde} to an activation can be found using the cod
 Unwinding the stack of activation is done by first evaluating the values of the top activation, read section \ref{sec:subact} to learn how that is done.
 It starts with the top activation because there is too little information known of the other activations.
 Next step is to find the \gls{cie} and \gls{fde} that contain debug info on the next activation.
-When those are known the values of the next activation can be evaluated as describe in section \ref{sec:subact}.
+When those are known the values of the next activation can be evaluated as described in section \ref{sec:subact}.
 This is then repeated for the rest of the activations.
 
 
@@ -32,13 +32,13 @@ This is then repeated for the rest of the activations.
 \subsubsubsection{Subroutine Activation} \label{sec:subact}
 A \emph{subroutine activation} contain information on a subroutine call/activation.
 Each \emph{subroutine activation} contain a code location within the subroutine, it is the location where the subroutine stopped.
-The reason for stopping could be that a breakpoint was hit, it was interrupted by an event or it could be a location were it made a call to the next subroutine.
+The reason for stopping could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the next subroutine.
 
 
 The address of the stopped code location is easily found using the stack pointer of the above activation in the activation stack.
 That is because the return address of the above activation is the stopped code location of the current activation.
 The return address is almost always stored on the stack thus it can easily be read if the stack pointer is known.
-This works for all activations except for the top activation, were the current \gls{pc} value is the stopped code location.
+This works for all activations except for the top activation, where the current \gls{pc} value is the stopped code location.
 
 
 An activation also describes the state of some of the registers where it stopped.
@@ -48,11 +48,11 @@ The rest of the registers are unknown because they have been written over, which
 
 The activations is identified by there \gls{cfa} value. 
 The \gls{cfa} is the value of the stack pointer in the previous stack frame.
-One thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame}(see \cite{dwarf} page 126).
+One thing to note is that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame} (see \cite{dwarf} page 126).
 
 
 Both the values of the \gls{cfa} and the preserved register can be restored using tables located in the \gls{DWARF} section \emph{.debug\_frame}.
-For further details we refer the reader to section \ref{sec:evalcfa}.
+For further details, the reader is referred to section \ref{sec:evalcfa}.
 
 
 
@@ -86,8 +86,8 @@ All of the rules can be read about in the \gls{DWARF} specification \cite{dwarf}
 
 
 Unwinding a register is done by first finding the correct row.
-That is done by finding the closes address that is less than the search one.
-Next step is to evaluate the new value using the register rule on the row, then go to the next row in the table and do the same thing but with the new value.
-Repeat until there are now more rows.
+That is done by finding the closest address that is less than the search one.
+Next step is to evaluate the new value using the register rule on the row, then go to the next row in the table, and do the same thing but with the new value.
+Repeat until there are no more rows.
 That is how to use the table to unwind a register.
 

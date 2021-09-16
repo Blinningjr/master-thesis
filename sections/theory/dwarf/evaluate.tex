@@ -8,7 +8,7 @@
 % TODO: Explain Evaluation of values
 
 The process of evaluating the value of a variable is a bit complicated because there is a lot of variation.
-Thus to simplify the explanation a simple example will be used to explain the main part of evaluating a variable.
+Thus to simplify the explanation, a simple example will be used to explain the main part of evaluating a variable.
 
 
 Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}(it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
@@ -40,33 +40,33 @@ The value of that attribute is a number of operations, performing these operatio
 
 
 In this example the operation in the \emph{DW\_AT\_location} attribute in figure \ref{fig:subprogramexample} is \emph{DW\_OP\_fbreg $-2$}.
-That operation describes that the value is stored in memory at the \emph{frame base} minus $2$(see \cite{dwarf} page 18).
-The \emph{Frame base} is the address to the first variable in the functions stack frame(see \cite{dwarf} page 56).
+That operation describes that the value is stored in memory at the \emph{frame base} minus $2$ (see \cite{dwarf} page 18).
+The \emph{Frame base} is the address to the first variable in the functions stack frame (see \cite{dwarf} page 56).
 
 
 Currently the value of the \emph{frame base} is unknown, but the location of the \emph{frame base}  is described in the \emph{my\_function} \gls{die}.
 The location of the \emph{frame base} is also described in a number of operations.
 Those operations can be found under the attribute \emph{DW\_AT\_frame\_base}.
-Looking at figure \ref{fig:subprogramexample} the \emph{frame base} location is described with the operation \emph{DW\_OP\_reg7}.
-The operation \emph{DW\_OP\_reg7} describe that the value is located in register $7$(see \cite{dwarf} page 27).
+Looking at figure \ref{fig:subprogramexample}, the \emph{frame base} location is described with the operation \emph{DW\_OP\_reg7}.
+The operation \emph{DW\_OP\_reg7} describe that the value is located in register $7$ (see \cite{dwarf} page 27).
 Thus register $7$ needs to be read to get the value of the \emph{frame base}.
 
 
 Now knowing the value of the \emph{frame base} the location of the parameter val can be calculated.
-As mention the location of parameter \emph{val} is the \emph{frame base} minus $2$.
+As mentioned previously, the location of parameter \emph{val} is the \emph{frame base} minus $2$.
 Thus the value of \emph{val} can be read from the memory at address of the \emph{frame base} minus $2$.
-But the value also has to be parsed into the type of \emph{val}, see section \ref{sec:parsingvalue} for how that is done.
+However, the value also has to be parsed into the type of \emph{val}, see section \ref{sec:parsingvalue} for how that is done.
 
 
 \subsubsubsection{Parsing the Raw Value} \label{sec:parsingvalue}
-Now the fist problem with parsing the value of the parameter \emph{val} into the correct type is knowing what type the parameter has, this is where the attribute \emph{DW\_AT\_type} comes in.
+Now the first problem with parsing the value of the parameter \emph{val} into the correct type is knowing what type the parameter has, this is where the attribute \emph{DW\_AT\_type} comes in.
 The value of the \emph{DW\_AT\_type} attribute points to a type \gls{die} tree, which describes the type of the \gls{die}.
 
 
 The offset to the type \gls{die} of the parameter \emph{val} is $0x6233$, as can be seen in figure \ref{fig:subprogramexample}.
 Finding that type \gls{die} is done by going to that offset in the \emph{.debug\_types} section.
 The type \gls{die} for \emph{val} can be seen in figure \ref{fig:basetypeexample}, note that the offset of the \glspl{die} tag is the same as $6233$.
-That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it a standard type that is built into most the languages(see \cite{dwarf} page 75).
+That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it a standard type that is built into most the languages (see \cite{dwarf} page 75).
 
 
 \begin{figure}[h]
@@ -81,7 +81,7 @@ In this example the type \gls{die} has three attributes which are used to descri
 The first attribute is \emph{DW\_AT\_name}, it describes the name of the type.
 In this case the name of the type is \emph{i16}, which can be seen in figure \ref{fig:basetypeexample}.
 The next attribute is \emph{DW\_AT\_encoding}, this attribute describes the encoding of the type.
-An encoding with the value $5$ means that the type is a signed integer\cite{dwarf}.
+An encoding with the value $5$ means that the type is a signed integer \cite{dwarf}.
 The different values for encodings are specified in the \gls{DWARF} specification \cite{dwarf}.
 Now the last attribute is \emph{DW\_AT\_byte\_size}, it describes the size of the type in bytes.
 A byte size of $2$ in this case means that the type is a $16$ bit signed integer.
