@@ -9,7 +9,7 @@ Thus the importance of better debugging tools have become essential to make the 
 This is especially true for debugging  embedded systems because of the close relation to hardware.
 
 
-One of the first types of debugging tools made and one of the most useful is called a debugger.
+One of the first types of debugging tools made, and one of the most useful is called a debugger.
 A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
 It is also able to inspect the debugged program by for example displaying the values of the variables.
 Debuggers are especially useful when programming embedded systems, because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
@@ -24,14 +24,14 @@ It is a complex format that is explained in detail in section \ref{sec:dwarf}.
 
 
 The debug information stored in the \gls{DWARF} file can be used to find the location of variables, in most cases the value of variables are stored in memory on the call stack.
-A stack is a data structure for storing information and is usually used to store all the variables for each function that is currently being executed.
+A stack is a data structure for storing information, and is usually used to store all the variables for each function that is currently being executed.
 Thus a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displayed to the user of the debugger.
 
 
 The main problem with debugging optimized code is that variables are not stored on the call stack, which is in memory.
 Instead they are temporarily stored in registers that are faster to access but cannot hold as much information as the memory.
 This reduces the amount of memory needed and makes the program run faster.
-It also makes debugging a lot harder because the variables are only present in the register for a very short time and thus the debugger will often not have access to that value.
+It also makes debugging a lot harder because the variables are only present in the register for a very short time, and thus the debugger will often not have access to that value.
 Then there is the problem of debugger not being able to utilize all the available debug information.
 
 
