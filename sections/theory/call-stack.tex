@@ -5,9 +5,9 @@
  
 % This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
 
-The values of a computer program needs to be temporary stored somewhere on the computer were they can easily be access while running the program.
+The values of a computer program needs to be temporary stored somewhere on the computer where they can easily be accessed while running the program.
 The two main ways the computer can do this is to either store values in registers or in the memory.
-Registers are very limited in space and are very volatile thus they are good for storing values which are used many times in a short amount of time.
+Registers are very limited in space, and are very volatile thus they are good for storing values which are used many times in a short amount of time.
 Memory is much slower but has a lot more space.
 Memory is thus much more useful for storing values that are not needed right now but will be needed in the future.
 
@@ -30,9 +30,9 @@ Which of the registers that are reserved for special use is different depending 
 
 
 \subsubsection{Call Stack}
-The call stack is a stack in the memory that has the arguments and variables of all the functions that have been called and are not finished executing.
+The call stack is a stack in the memory that has the arguments and variables of all the functions that have been called, and have not finished executing.
 A stack is a data structure that consist of a number of elements that are stacked on top of each other and the only two operations available for a stack is push and pop.
-The push operations adds a new element on top of the stack and the pop operation removes the top element of the stack.
+The push operations adds a new element on top of the stack, and the pop operation removes the top element of the stack.
 Other key characteristics are that it is only the top element that can be accessed, thus to reach the lower elements, all the above elements needs to be popped.
 
 
@@ -40,7 +40,7 @@ Stack/call frames are the elements that make up the call stack.
 Each stack frame has the values of the arguments and variables for one function call.
 Stack frames also usually contain a return address which is a pointer to a machine code instruction.
 This instruction is the next instruction of the previous function that called the current function.
-When a function has finished executing its stack frame will be pop/removed from the stack and the previous function will continue executing. 
+When a function has finished executing, its stack frame will be pop/removed from the stack, and the previous function will continue executing. 
 An example of a call stack and stack frames can be seen in the figure \ref{fig:callstack}.
 
 
