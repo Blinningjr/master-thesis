@@ -20,7 +20,10 @@
 %		\hline
 %		Source & Value \\
 %		\hline
-%		DWARF & TODO \\
+%		\glsfull{pc} & 0x08000604 \\
+%
+%		DWARF Locaiton & (DW_OP_piece: 9; DW_OP_breg13 (r13): 156; DW_OP_piece: 3) \\
+%
 %		Rust Source Code & let mut test\_enum3 = TestEnum::Struct(TestStruct \{ flag: true, num: 123\}); \\
 %		\hline
 %		\hline
@@ -58,7 +61,9 @@
 %		\hline
 %		Source & Value \\
 %		\hline
-%		DWARF & TODO \\
+%		\glsfull{pc} & TODO \\
+%
+%		DWARF Location & (DW_OP_breg13 (r13): 260) \\
 %
 %		Rust Source Code & let mut test\_struct = TestStruct \{ flag: true, num: 123 \}; \\
 %		\hline
@@ -83,27 +88,49 @@
 %	\small
 %	\begin{tabular}{ |p{2cm}|p{8cm}|  }
 %		\hline
-%		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_u16}}} \\ 
+%		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_array}}} \\ 
 %		\hline
 %		\hline
 %		Source & Value \\
 %		\hline
-%		DWARF & TODO \\
-%		Rust Source Code & let mut test\_u16: u16 = 500; \\
+%		\glsfull{pc} & 0x08000604 \\
+%
+%		DWARF Location List Ranges & 000003fc ffffffff 080002b8
+%    00000404 080002f2 0800038e\newline 
+%    0000042d 0800038e 080003ee\newline
+%    00000455 0800048a 080005cc\newline
+%    000004cf 080005cc 080005ce\newline
+%    0000053e 080005ce 080005d0\newline
+%    000005ae 080005d0 080005d2\newline
+%    00000613 080005d2 080005d4\newline
+%    00000679 080005d4 080005d6\newline
+%    000006d4 080005d6 080005d8\newline
+%    00000730 080005d8 080005da\newline
+%    00000781 080005da 080005dc\newline
+%    000007d3 080005dc 080005de\newline
+%    0000081a 080005de 080005e0\newline
+%    00000862 080005e0 080005e2\newline
+%    0000089f 080005e2 080005e4\newline
+%    000008dd 080005e4 080005e6\newline
+%    00000910 080005e6 080005ee\newline
+%    00000944 080005ee 0800067a\newline 
+%    0000096d 08000688 08000694\newline\\
+%
+%		Rust Source Code & let mut test\_array = [-12, 8]; \\
 %		\hline
 %		\hline
 %		Debugger (Version) & Evaluated Result \\
 %		\hline
-%		ERD (0.1.0) & test\_u16 = \textless OutOfRange\textgreater \\
+%		ERD (0.1.0) & test\_array = \textless LocationOutOfRange\textgreater \\
 %
-%		GDB (11.0.90)  & (gdb) p test\_u16\newline
-%		\$ 1 = \textless optimized out\textgreater \\
+%		GDB (11.0.90)  & (gdb) p test\_array\newline
+%		\$ 3 = \textless optimized out\textgreater \\
 %
-%		LLDB (13.0.0) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
+%		LLDB (13.0.0) & TODO \\
 %		\hline
 %	\end{tabular}
-%	\label{table:u16}
-%	\caption{The different debuggers evaluation result for variable \emph{test\_u16}, and the actual soruce code value and DWARF location.}
+%	\label{table:array}
+%	\caption{The different debuggers evaluation result for variable \emph{test\_array}, and the actual soruce code value and DWARF location.}
 %\end{table}
 
 
