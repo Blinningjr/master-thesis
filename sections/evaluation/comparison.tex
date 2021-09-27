@@ -135,7 +135,7 @@ The expected value is \emph{TestEnum::Struct(TestStruct { flag: true, num: 123 }
 Doing the same using \gls{erd} also gives an unexpected value, the result can be seen in  figure \ref{fig:mydebuggerenum}.
 The printing look a bit different but the result from the \gls{erd} debugger tells the user that the enum \emph{test\_enum3} is an enum of type \emph{TestEnum} where the actual variant has been optimized out.
 While \emph{GDB} also tells that \emph{test\_enum3} is of type \emph{TestEnum}, but it also shows that the enum variant is \emph{ITest}.
-As can be seen \emph{GDB} gives the wrong answer because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
+As can be observed in figure \ref{fig:gdbenum}, \emph{GDB} gives the wrong answer because it says that \emph{test\_enum3} is the enum variant \emph{TestEnum::ITest} which is wrong.
 While the \gls{erd} debugger shows that the value has been optimized out which is a more proper response in this case.
 
 
@@ -160,7 +160,7 @@ Doing the same using \emph{LLDB} give almost the same result as \gls{erd}, that 
 
 
 Now when inspecting what is stored in the \gls{DWARF} format it shows that the variant of the enum is optimized out but not the two other values that make up the value stored in the variant.
-The fact that the value that indicate which variant is optimized out makes it impossible for any debugger to evaluate the value stored in the enum.
+The fact that the value indicating the variant type is optimized out makes it impossible for any debugger to evaluate the value stored in the enum.
 This is because the encoding of the bytes is unknown and because the number of bytes to read from the stack is unknown.
 
 
