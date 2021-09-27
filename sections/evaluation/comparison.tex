@@ -6,6 +6,108 @@
 % This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
+
+
+% New Result Tables
+
+%\begin{table}[h]
+%	\centering
+%	\small
+%	\begin{tabular}{ |p{2cm}|p{8cm}|  }
+%		\hline
+%		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_enum3}}} \\ 
+%		\hline
+%		\hline
+%		Source & Value \\
+%		\hline
+%		DWARF & TODO \\
+%		Rust Source Code & let mut test\_enum3 = TestEnum::Struct(TestStruct \{ flag: true, num: 123\}); \\
+%		\hline
+%		\hline
+%		Debugger (Version) & Evaluated Result \\
+%		\hline
+%		ERD (0.1.0) & test\_enum3 = TestEnum \{ \textless \ OptimizedOut \textgreater \} \\
+%
+%		GDB (11.0.90)  & (gdb) p test\_enum3\newline
+%		\$ 1 = nucleo\_rtic\_blinking\_led::TestEnum::ITest(\newline
+%		\textless optimized out\textgreater) \\
+%
+%		LLDB (13.0.0) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_enum3 = \{\newline
+%		\text{\ \ ITest = (0 = 0)}\newline
+%		\text{\ \ UTest = (0 = 0)}\newline
+%		\text{\ \ Struct = \{}\newline
+%		\text{\ \ \ \ 0 = (flag = false, num = 0)}\newline
+%		\text{\ \ \}}\newline
+%		\text{\ \ Non = \{\}}\newline
+%		\} \\
+%		\hline
+%	\end{tabular}
+%	\label{table:enum3}
+%	\caption{The different debuggers evaluation result for variable \emph{test\_enum3}, and the actual soruce code value and DWARF location.}
+%\end{table}
+%
+%
+%\begin{table}[h]
+%	\centering
+%	\small
+%	\begin{tabular}{ |p{2cm}|p{8cm}|  }
+%		\hline
+%		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_struct}}} \\ 
+%		\hline
+%		\hline
+%		Source & Value \\
+%		\hline
+%		DWARF & TODO \\
+%
+%		Rust Source Code & let mut test\_struct = TestStruct \{ flag: true, num: 123 \}; \\
+%		\hline
+%		\hline
+%		Debugger (Version) & Evaluated Result \\
+%		\hline
+%		ERD (0.1.0) & test\_struct = TestStruct \{ num::123, flag::\textless \ OptimizedOut \textgreater \} \\
+%
+%		GDB (11.0.90)  & (gdb) p test\_struct\newline
+%		\$ 1 = nucleo\_rtic\_blinking\_led::TestStruct \{flag: \textless synthetic pointer\textgreater, num: 123\} \\
+%
+%		LLDB (13.0.0) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_struct = (flag = false, num = 123) \\
+%		\hline
+%	\end{tabular}
+%	\label{table:struct}
+%	\caption{The different debuggers evaluation result for variable \emph{test\_struct}, and the actual soruce code value and DWARF location.}
+%\end{table}
+%
+%
+%\begin{table}[h]
+%	\centering
+%	\small
+%	\begin{tabular}{ |p{2cm}|p{8cm}|  }
+%		\hline
+%		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_u16}}} \\ 
+%		\hline
+%		\hline
+%		Source & Value \\
+%		\hline
+%		DWARF & TODO \\
+%		Rust Source Code & let mut test\_u16: u16 = 500; \\
+%		\hline
+%		\hline
+%		Debugger (Version) & Evaluated Result \\
+%		\hline
+%		ERD (0.1.0) & test\_u16 = \textless OutOfRange\textgreater \\
+%
+%		GDB (11.0.90)  & (gdb) p test\_u16\newline
+%		\$ 1 = \textless optimized out\textgreater \\
+%
+%		LLDB (13.0.0) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
+%		\hline
+%	\end{tabular}
+%	\label{table:u16}
+%	\caption{The different debuggers evaluation result for variable \emph{test\_u16}, and the actual soruce code value and DWARF location.}
+%\end{table}
+
+
+%
+
 % Move to above section
 
 The testing and comparing of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
@@ -84,7 +186,7 @@ When evaluating this value \emph{GDB} prints that the value is optimized out whi
 	\centering
 	\includegraphics[width=0.4\textwidth]{gdb10.1-opt2-outofrange-edited.png}
 	\caption{\emph{GDB} debugging result from evaluating variable \emph{test\_u16} when stopped at the software breakpoint in the example code.}
-    	\label{fig:gdboutofrange}
+	\label{fig:gdboutofrange}
 \end{figure}
 
 
@@ -105,9 +207,9 @@ This is because the result that \emph{GDB} generates is used in multiple situati
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{my-debugger-opt2-outofrange-edited.png}
+	\centering
+	\includegraphics[width=0.9\textwidth]{my-debugger-opt2-outofrange-edited.png}
 	\caption{\gls{erd} debugging result from evaluating variable \emph{test\_u16} when stopped at the software breakpoint in the example code.}
-    \label{fig:mydebuggeroutofrange}
+	\label{fig:mydebuggeroutofrange}
 \end{figure}
 
