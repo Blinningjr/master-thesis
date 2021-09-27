@@ -20,7 +20,7 @@
 %		\hline
 %		Source & Value \\
 %		\hline
-%		\glsfull{pc} & 0x08000604 \\
+%		\glsfull{pc} & 0x08000464 \\
 %
 %		DWARF Locaiton & (DW_OP_piece: 9; DW_OP_breg13 (r13): 156; DW_OP_piece: 3) \\
 %
@@ -61,7 +61,7 @@
 %		\hline
 %		Source & Value \\
 %		\hline
-%		\glsfull{pc} & TODO \\
+%		\glsfull{pc} & 0x800059c \\
 %
 %		DWARF Location & (DW_OP_breg13 (r13): 260) \\
 %
@@ -95,26 +95,26 @@
 %		\hline
 %		\glsfull{pc} & 0x08000604 \\
 %
-%		DWARF Location List Ranges & 000003fc ffffffff 080002b8
-%    00000404 080002f2 0800038e\newline 
-%    0000042d 0800038e 080003ee\newline
-%    00000455 0800048a 080005cc\newline
-%    000004cf 080005cc 080005ce\newline
-%    0000053e 080005ce 080005d0\newline
-%    000005ae 080005d0 080005d2\newline
-%    00000613 080005d2 080005d4\newline
-%    00000679 080005d4 080005d6\newline
-%    000006d4 080005d6 080005d8\newline
-%    00000730 080005d8 080005da\newline
-%    00000781 080005da 080005dc\newline
-%    000007d3 080005dc 080005de\newline
-%    0000081a 080005de 080005e0\newline
-%    00000862 080005e0 080005e2\newline
-%    0000089f 080005e2 080005e4\newline
-%    000008dd 080005e4 080005e6\newline
-%    00000910 080005e6 080005ee\newline
-%    00000944 080005ee 0800067a\newline 
-%    0000096d 08000688 08000694\newline\\
+%		DWARF Location List Ranges &	000003fc ffffffff 080002b8
+%    						00000404 080002f2 0800038e\newline 
+%    						0000042d 0800038e 080003ee\newline
+%    						00000455 0800048a 080005cc\newline
+%    						000004cf 080005cc 080005ce\newline
+%    						0000053e 080005ce 080005d0\newline
+%    						000005ae 080005d0 080005d2\newline
+%    						00000613 080005d2 080005d4\newline
+%    						00000679 080005d4 080005d6\newline
+%    						000006d4 080005d6 080005d8\newline
+%    						00000730 080005d8 080005da\newline
+%    						00000781 080005da 080005dc\newline
+%    						000007d3 080005dc 080005de\newline
+%    						0000081a 080005de 080005e0\newline
+%    						00000862 080005e0 080005e2\newline
+%    						0000089f 080005e2 080005e4\newline
+%    						000008dd 080005e4 080005e6\newline
+%    						00000910 080005e6 080005ee\newline
+%    						00000944 080005ee 0800067a\newline 
+%    						0000096d 08000688 08000694\newline\\
 %
 %		Rust Source Code & let mut test\_array = [-12, 8]; \\
 %		\hline
@@ -126,7 +126,7 @@
 %		GDB (11.0.90)  & (gdb) p test\_array\newline
 %		\$ 3 = \textless optimized out\textgreater \\
 %
-%		LLDB (13.0.0) & TODO \\
+%		LLDB (13.0.0) & (int [8]) test_array = \textless variable not available\textgreater \\
 %		\hline
 %	\end{tabular}
 %	\label{table:array}
