@@ -12,12 +12,15 @@
  
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
-The problem this thesis tries to tackle is the problem of improving the debugging experience of using a debugger on optimized \emph{Rust} code for embedded systems.
-This problem can be divided into two parts, the first part is to improve the generation of debug information.
-The second part to create a debugger written in \emph{Rust} that has a better debugging experience for optimized code than the existing debuggers.
+The problem this thesis tries to tackle is the problem of improving the debugging experience of debugging optimized \emph{Rust} code, especially for embedded systems.
+This problem can be divided into three parts, the first part is to improve the generation of debug information.
+The second part to improve the current debugging experience, which can be done by creating a debugger written in \emph{Rust} that provides a better debugging experience for optimized code than the existing debuggers.
+The last part is to provide platform independent debugging library, which simplifies the process of retrieving debug information.
 
 
-The goal is to create a debugger which gives a better debugging experience for optimized \emph{Rust} code on embedded systems than some of the most commonly used debuggers, such as \emph{GDB}, \emph{LLDB}, and to inspire further development for debugging tools in the \emph{Rust} community.
+Thus the main goal is to create a debugger which gives a better debugging experience for optimized \emph{Rust} code on embedded systems than some of the most commonly used debuggers, such as \emph{GDB} and \emph{LLDB}.
+Another goal is to make it simpler to continue work on improving debugging and to inspire further development for debugging tools in the \emph{Rust} community.
+The last goal is to identify some of the problems that make debugging optimized \emph{Rust} code difficult.
 
 
 %There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
