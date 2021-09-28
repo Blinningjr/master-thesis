@@ -22,7 +22,7 @@ Overall I would say that goal of improving debugging of optimized \emph{Rust} co
 
 \subsection{Potential Future Debugging Improvement}
 % Future work that can be done on the llvm
-The ranges for the location information seam to be set a bit to tightly by \emph{LLVM} in some cases, meaning that the value is still in the debugged target for sometime after the range ends.
+The ranges for the location information seam to be set a bit to tightly by \emph{LLVM} in some cases, meaning that the value still is in the debugged target for some time after the end address of the given address range.
 There are three major factors that affects the variable location correctness, they are mentioned in section \ref{subsection:loc-ranges}.
 Thus one potential improvement to debugging would be to improve how the variable location ranges are set.
 
