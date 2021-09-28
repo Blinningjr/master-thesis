@@ -12,14 +12,14 @@
 The testing and comparing of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
 The example code was many times modified to test how well the three debugger handled the different situations.
 This was repeated until one of the debuggers gave an unexpected result.
-There were two of these cases found when the code was compiled with optimization 2.
+There were three of these cases found when the code was compiled with optimization 2.
 To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
 This ensures that all the three debuggers stop on the same instruction.
 
 
 \subsubsection{Evaluation of \emph{Rust} enums}
-When testing the three different debuggers it was discovered that they evaluated \emph{Rust} enums to different values in certain situations.
-The first situation found where this happened, is when the value describing which variant the enum is was optimized out by the compiler.
+When testing the three different debuggers it was discovered that they evaluated \emph{Rust} enums to different values in a certain situation.
+That situation happens when the value describing the variant of a enum is optimized out by the compiler.
 The table \ref{table:enum3} shows a example of this situation, by showing the result of the three debuggers.
 
 \begin{table}[h]
@@ -58,34 +58,34 @@ The table \ref{table:enum3} shows a example of this situation, by showing the re
 		\} \\
 		\hline
 	\end{tabular}
-	\label{table:enum3}
 	\caption{The different debuggers evaluation result for variable \emph{test\_enum3}, and the actual source code value and DWARF location.}
+	\label{table:enum3}
 \end{table}
 
 
 The declared value of the variable \emph{test\_enum3} can be seen in the row called \emph{Rust Source Code} in table \ref{table:enum3}.
-Some important things to note, is that the variant of the enum is called \emph{Struct}, the value of flag is \emph{true} and the value of \emph{num} is $123$.
+Some important things to note is that the variant of the enum is called \emph{Struct}, the value of flag is \emph{true} and the value of \emph{num} is $123$.
 
 
 The location of the variables value can be seen in the row called \emph{DWARF Location} in table \ref{table:enum3}, there it can be seen that the first \gls{DWARF} operation is \emph{DW\_OP\_piece: 9}.
 This operation in short means that the first $9$ bytes of the variable is optimized out, because there are no other operation before it.
 The other two operations describe that the last $3$ bytes of the value is stored in memory at the address stored in the base register $13$ plus the offset $156$.
-This all means that most of the value is optimized out, including the value describing the enum variant.
+This all means that most of \emph{test\_enum3} is optimized out, including the value describing the enum variant.
 
 
 The result from evaluating \emph{test\_enum3} using the debugger \gls{erd} is that the whole enum is optimized out, as can be seen in table \ref{table:enum3}.
 Thus \gls{erd} gives the correct result in this case.
 But looking at the table it can be seen that both \emph{GDB} and \emph{LLDB} give different results.
 \emph{GDB} give the incorrect result in that it says that the variant of the enum is \emph{ITest} when it should be \emph{Struct}.
-\emph{LLDB} dose not give any indication of what enum variant the value is which is correct, instead it shows the value of each enum variation.
-But it gives the wrong value for the variant \emph{Struct}, thus it gives a incorrect result.
+\emph{LLDB} dose not give any indication of what enum variant the value is, instead it shows the value of each enum variation.
+But it gives the wrong value for attributes \emph{flag} and \emph{num} in the variant \emph{Struct}, thus it gives a incorrect result.
 Thus out of the three debuggers it is \gls{erd} that gives the most correct result, in these situations.
 
 
 
 \subsubsection{Evaluation of \emph{Rust} structs}
-When testing the three different debuggers it was discovered that they evaluated \emph{Rust} structs to different values in certain situations.
-The table \ref{table:enum3} shows a example of this situation, by showing the result of the three debuggers.
+When testing the three different debuggers it was discovered that they evaluated \emph{Rust} structs to different values in a certain situation.
+The table \ref{table:struct} shows a example of this situation, by showing the result of the three debuggers.
 
 
 \begin{table}[h]
@@ -115,19 +115,19 @@ The table \ref{table:enum3} shows a example of this situation, by showing the re
 		LLDB (13.0.0) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_struct = (flag = false, num = 123) \\
 		\hline
 	\end{tabular}
-	\label{table:struct}
 	\caption{The different debuggers evaluation result for variable \emph{test\_struct}, and the actual source code value and DWARF location.}
+	\label{table:struct}
 \end{table}
 
 
 The declared value of the variable \emph{test\_struct} can be seen in the row called \emph{Rust Source Code} in table \ref{table:struct}.
-Some important things to note, is that the value of flag is \emph{true} and that the value of \emph{num} is $123$.
+Some important things to note is that the value of flag is \emph{true} and that the value of \emph{num} is $123$.
 
 
 The location of the variables value can be seen in the row called \emph{DWARF Location} in table \ref{table:struct}, there it can be seen that it only has two \gls{DWARF} operation.
 The \gls{DWARF} operation \emph{DW\_OP\_breg13: 260} means that the value is stored in memory, at the address stored in the base register $13$ plus the offset $260$. 
-And the second operation \emph{DW\_OP\_piece: 8} means that the value of the previous operation has the byte size $4$.
-The \emph{test\_struct} is larger then $4$ bytes which in this case means that the attribute \emph{flag} is optimized out.
+And the second operation \emph{DW\_OP\_piece: 8} means that the size of the value stored in the address of the previous operation is $4$ bytes.
+The variable \emph{test\_struct} is larger then $4$ bytes, which in this case means that the attribute \emph{flag} is optimized out.
 
 
 The result from evaluating \emph{test\_struct} using the debugger \gls{erd} is that the the attribute \emph{num} has the value $123$ and the attribute \emph{flag} is optimized out, as can be seen in table \ref{table:struct}.
@@ -172,8 +172,8 @@ The table \ref{table:u16} shows a example of this situation, by showing the resu
 		LLDB (13.0.0) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
 		\hline
 	\end{tabular}
-	\label{table:u16}
 	\caption{The different debuggers evaluation result for variable \emph{test\_u16}, and the actual source code value and DWARF location.}
+	\label{table:u16}
 \end{table}
 
 
@@ -181,18 +181,17 @@ The declared value of the variable \emph{test\_u16} can be seen in the row calle
 The location of the variable is not describe in the table because it has none.
 Instead the machine code instruction ranges for the location list entries are shown, they are found in the row called \emph{DWARF Location List Ranges}.
 The first column of the ranges shows the start address of the range and the second column shows the end address of the range.
-The first row has a larger start address because it is the first entry of the list and has special rues.
+The first  entry has a larger start address because the first entry has special rules.
 This means that there is only one location list entry in this case.
 
 
-The \gls{pc} value in the table \ref{table:u16} is $0x08001290$ which a lot more then $0x080004d0$, which is the end address of the only location list entry for the variable.
+The \gls{pc} value in the table \ref{table:u16} is $0x08001290$, which is not between the range $0x080002f4$ to $0x080004d0$.
 This means that \emph{test\_u16} will or has had a value, but correctly it dose not have one.
 
 
 The result of evaluating \emph{test\_u16} using \gls{erd} is \emph{\textless OutOfRange\textgreater}, as can be seen in table \ref{table:u16}.
-That is a unique message that is only used when the location list entries are not in range of the current \gls{pc}.
+That is a unique message that is only used when the \gls{pc} value is not in range of any location list entry.
 The debugger \emph{LLDB} gives the same result, except that the message is worded a bit differently.
-However, the result from \emph{GDB} is not as descriptive because it uses the same message in this situation as it does when a value is completely optimized out.
+However, the result from \emph{GDB} is not as good, because it is less descriptive.
 Thus both \emph{LLDB} and \gls{erd} are more verbose and descriptive then \emph{GDB} in these situations.
-
 
