@@ -48,10 +48,35 @@ Using \gls{erd} made the debugging experience a lot better because it dose not n
 The reason for it being better it that it takes fewer steps to start debugging.
 
 
+\subsection{Accuracy of the \gls{DWARF} Location Ranges}\label{subsection:loc-ranges}
+% The accuracy of the Location list entry ranges.
+While working on \emph{rust-debug} and \gls{erd} it was discovered that values can sometimes live longer on the debugged target then described in \gls{DWARF}.
+This means that some of the values can potentially be read when \gls{DWARF} says that they have no location.
+
+
+The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors that effect the variable location fidelity, they are:
+
+\begin{enumerate}
+  \item Instruction Selection
+  \item Register allocation
+  \item Block layout
+\end{enumerate}
+
+The documentation about the three major factors does not mention a lot about how the ranges could be set to tight.
+Thus to be able to find if this can be improved on, one has to have a good understanding of \emph{LLVM}, which is out of scope for this thesis.
+
+
+The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.
+One situation they mention is that location changes is ignored for the prologue and epilogue code of a function.
+But this should not be a problem because most debugger will step over the prologue and epilogue code.
+
+
+
 \subsection{Contributing to the Rust Debug Community}
 % My Results Compared to expected results
 This problem is huge and complex so to really make a change more people have to contribute.
 One of the best ways of getting more people involved is by making it easier to contribute.
 The debugging library \emph{rust-debug} does just that by simplifying the process of retrieving debug information from \gls{DWARF}.
 %If more developers start using \emph{rust-debug} will force the library to also become better and intern also force \emph{gimli-rs}, \emph{rustc}, \emph{LLVM} and \gls{DWARF} to become better.
+
 

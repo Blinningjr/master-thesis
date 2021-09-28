@@ -20,14 +20,11 @@ Which makes the library a good contribution to the \emph{Rust} debugging communi
 Overall I would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot more that needs to be done.
 
 
-\subsection{Future Debugging Improvement}
-% Future work that can be done on the debuger side.
-One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
-This causes the variables to be overwritten when they are not needed anymore.
-That fact makes debugging very hard because the user has to stop the execution when the variable still exist.
-But if the debugger is able to get the last value of the variable and store it.
-The last known value of the variable could be displayed to the user if it is out of range.
-There is no time to make a solution for this problem, thus this will have to be left for future work.
+\subsection{Potential Future Debugging Improvement}
+% Future work that can be done on the llvm
+The ranges for the location information seam to be set a bit to tightly by \emph{LLVM} in some cases, meaning that the value is still in the debugged target for sometime after the range ends.
+There are three major factors that affects the variable location correctness, they are mentioned in section \ref{subsection:loc-ranges}.
+Thus one potential improvement to debugging would be to improve how the variable location ranges are set.
 
 
 \subsection{Future Debugger Improvement}
@@ -37,6 +34,15 @@ Thus there is many more features that could be added.
 One important one is the ability to evaluate expressions which is left to be done as future work.
 This is a hard problem because the evolution of the expressions should work exactly the same as the \emph{Rust} compiler.
 Thus it would be best if the same code could be used so that it does not need to be written twice.
+
+
+% Future work that can be done on the debuger side.
+One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
+This causes the variables to be overwritten when they are not needed anymore.
+That fact makes debugging very hard because the user has to stop the execution when the variable still exist.
+But if the debugger is able to get the last value of the variable and store it.
+The last known value of the variable could be displayed to the user if it is out of range.
+There is no time to make a solution for this problem, thus this will have to be left for future work.
 
 
 %\subsection{Future Debugger Library Improvement}
