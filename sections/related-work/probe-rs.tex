@@ -8,3 +8,21 @@ It uses their other tools in their library to access and control the debug targe
 They also use the \emph{gimli-rs} library for reading the \gls{DWARF} format.
 
 
+The main difference between \emph{probe-rs} and the debugging library \emph{rust-debug} presented in section \ref{subsection:rust-debug} of this thesis, is that \emph{rust-debug} is designed to be platform independent.
+The \emph{probe-rs} library is designed to provide tools for embedded \glspl{mcu} and debug probes only.
+While \emph{rust-debug} is designed to provide a layer of abstraction over the \gls{DWARF} debug format, which simplifies the process of retrieving debug information from \emph{DWARF}.
+
+The main pros of \emph{rust-debug} compared to \emph{probe-rs} are:
+\begin{itemize}
+  \item Platform independent.
+  \item Less dependencies.
+  \item Has a wider range of use cases.
+\end{itemize}
+
+The main cons of \emph{rust-debug} compared to \emph{probe-rs} are:
+\begin{itemize}
+  \item A little bit more complex to use.
+  \item Requires that the user provide the functionality of reading the debug targets memory and registers.
+  \item The code is a bit more complex.
+\end{itemize}
+
