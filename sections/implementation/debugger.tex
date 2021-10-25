@@ -71,9 +71,9 @@ This is such that no old values are used, and it works because the debug target 
 
 
 
-\subsubsubsection{Simultaneous Handling of Request And Events}
+\subsubsubsection{Simultaneous Handling of Requests And Events}
 % How the debugger handles request and events simultaneously.
-The debug thread polls the channel for incoming request and the state of the debugger.
+The debug thread polls the channel for incoming request and the state of the debug target.
 This enables the debug thread to simultaneously handle requests from the user, and events from the debug target.
 There is a boolean that keeps track if the debug target is running.
 It is used to stop the pulling of the targets state when the debug target is stopped.
@@ -83,11 +83,11 @@ This is done because the debug target cannot start executing on its own.
 \subsubsubsection{Optimization of Repeated Variable Evaluation}
 % How it handles request for stackframes and variables.
 To improve on the performance of the debugger it will temporarily store the values of the stack trace.
-This allows for fast repetitive look up of information present in the stack trace.
+This allows for fast repetitive lookup of information present in the stack trace.
 The stored stack trace is removed any time the debug target starts executing again.
 This ensures that it always gives the correct values and not the old ones.
 
 
 Another thing to note is that if a request is received to only evaluate one variable, the debugger will then perform a stack trace instead, or read from the temporarily stored stack trace.
-This simplifies the implementation a lot and also makes the subsequent evaluation request faster.
+This simplifies the implementation a lot and also makes the subsequent evaluation requests faster.
 

@@ -27,7 +27,7 @@ Some of the main functionality that \emph{rust-debug} provides are the following
 \end{itemize}
 
 There is more functionalities that \emph{rust-debug} provides but they are not noticeable.
-The code of this library is in the git repository \cite{rust-debug}.
+The code of this library is in the \emph{GIT} repository \cite{rust-debug}.
 
 
 
@@ -77,7 +77,7 @@ The variable information contains the following:
 
 \begin{itemize}
   \item Variables name.
-  \item Variables type
+  \item Variables type.
   \item Variables location in the source file.
   \item The locations of the variables value in registers and memory.
   \item The evaluated value of the variable.
@@ -113,7 +113,7 @@ This is done using a data structure that works similar to the data structure des
 
 The first step of evaluating the variables is finding the \gls{die} of the subroutine that the activation is related to.
 This is done using the function described in section \ref{sec:funcdie}.
-After that the \gls{die} tree is search through for variable \glspl{die}, starting at the subroutine \gls{die}.
+After that the \gls{die} tree is searched through for variable \glspl{die}, starting at the subroutine \gls{die}.
 All the variable \glspl{die} found are added to a list.
 Each variable in the list is then evaluated as described in section \ref{sec:ievalvar}.
 If there is a missing value from memory then the response from the evaluation of the variable is returned.

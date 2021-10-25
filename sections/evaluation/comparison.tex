@@ -9,10 +9,10 @@
 
 % Move to above section
 
-The testing and comparing of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
+The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
 The example code was many times modified to test how well the three debugger handled the different situations.
 This was repeated until one of the debuggers gave an unexpected result.
-There were three of these cases found when the code was compiled with optimization 2.
+There was three of these cases found where the code was compiled with optimization 2.
 To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
 This ensures that all the three debuggers stop on the same instruction.
 
@@ -133,6 +133,7 @@ The variable \emph{test\_struct} is larger then $4$ bytes, which in this case me
 The result from evaluating \emph{test\_struct} using the debugger \gls{erd} is that the the attribute \emph{num} has the value $123$ and the attribute \emph{flag} is optimized out, as can be seen in table \ref{table:struct}.
 Thus \gls{erd} is able to evaluate the correct value, but \emph{GDB} gives a even better result.
 Because \emph{GDB} points out that the attribute \emph{flag} is a synthetic pointer.
+A synthetic pointer is a pointer that is never derefrenced and thus the actual value is not needed. 
 Lastly the debugger \emph{LLDB} says that the value of \emph{flag} is \emph{false} which is incorrect.
 Thus out of the three debugger \emph{GDB} is the most descriptive and correct, in these situations.
 
@@ -178,7 +179,7 @@ The table \ref{table:u16} shows a example of this situation, by showing the resu
 
 
 The declared value of the variable \emph{test\_u16} can be seen in the row called \emph{Rust Source Code} in table \ref{table:u16}.
-The location of the variable is not describe in the table because it has none.
+The location of the variable is not described in the table because it has none.
 Instead the machine code instruction ranges for the location list entries are shown, they are found in the row called \emph{DWARF Location List Ranges}.
 The first column of the ranges shows the start address of the range and the second column shows the end address of the range.
 The first  entry has a larger start address because the first entry has special rules.

@@ -7,15 +7,15 @@
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
 
-The \emph{Rust} compiler has some compiler options that the user can set when compiling a project that effect the code generation and the debug information.
+The \emph{Rust} compiler has some compiler options that the user can set when compiling a project that affect the code generation and the debug information.
 It also enables the user to access some of the compiler options for \emph{LLVM} that is the backend of the compiler.
-The first part to finding if any of these compiler options effect the debug information generated in a meaningful way is to read what they do and determine if they might do that.
-Then the compiler options need to be tested manually to see if any of them actually have any meaningful effect, and that the option does not affect the speed of the optimised code in a negative way.
+The first part to finding if any of these compiler options affect the debug information generated in a meaningful way is to read what they do and determine if they might do that.
+Then the compiler options need to be tested manually to see if any of them actually have any meaningful effect, and that the option does not affect the speed of the optimized code in a negative way.
 This is very hard to do and takes a lot of time to do it properly, thus the testing done will be limited to checking the difference in the \gls{DWARF} file and the debugging experience.
 
 
 \subsubsection{Settings \emph{debuginfo} and \emph{opt-level}}
-When going through all the possible \emph{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there where two that have the most impact on the amount of debug information generated.
+When going through all the possible \emph{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there were two that had the most impact on the amount of debug information generated.
 The most important one of these is the flag named \emph{debuginfo} which controls the amount of debug information generated.
 It has three options, the first is option $0$ which means that no debug info will be generated.
 The second option is $1$ which will only generate the line tables and the last is option $3$ which generates all the debug information it can.
@@ -37,7 +37,7 @@ These two flags set to \emph{`yes`} can ensures that the debugger can unwind the
 
 
 \subsubsection{\emph{LLVM} Settings}
-Looking through all the \emph{LLVM} arguments that is available through \emph{rustc} yielded one more argument that effects the debug information generated.
+Looking through all the \emph{LLVM} arguments that is available through \emph{rustc} yielded one more argument that affects the debug information generated.
 The argument is named \emph{debugify-level} and controls the kind of debug information that is added to the \gls{DWARF} file.
 There are two options for this argument, the first is called \emph{"location+variables"} and adds locations and variables to \gls{DWARF}.
 The other option is called \emph{"locations"} and only adds locations to \gls{DWARF}.
