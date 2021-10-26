@@ -15,9 +15,9 @@
 
 % Making changes to the compiler(rustc and llvm).
 One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
-In the case of the \emph{Rust} compiler \emph{rustc} it is the \emph{LLVM} library that mostly handles the debug information generation.
+In the case of the \emph{Rust} compiler \emph{"rustc"}  it is the \emph{LLVM} library that mostly handles the debug information generation.
 \emph{LLVM} is a very large project that many people are working on, and thus improving on \emph{LLVM} is out of scope for this thesis.
-The same goes for improving \emph{rustc}.
+The same goes for improving \emph{"rustc"}.
 %Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
 
 
@@ -59,7 +59,7 @@ The following is the list of features the debugger is planned to have:
   \item Evaluate variables.
   \item Find source code location of functions and variables.
   \item A \acrfull{cli}.
-  \item Support the \emph{Microsoft} \acrfull{dap}.
+  \item The debugger is planned to support the \emph{Microsoft} \acrfull{dap}.
 \end{itemize}
 
 
@@ -73,11 +73,11 @@ The following is the list of features the debugger is planned to have:
 
 % Limiting supported chips and platforms.
 When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these things differ depending on the hardware.
-The following are some of the things it requires:
+The following are some of the hardware properties it requires:
 
 \begin{itemize}
   \item Number of registers.
-  \item Which of the registers are the special ones, an example is the \gls{pc} register.
+  \item Which of the registers that are considerd special.
   \item The endianness of the memory.
   \item The machine code instruction set the \gls{mcu} is using/supports.
 \end{itemize}

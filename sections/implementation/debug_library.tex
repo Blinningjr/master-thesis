@@ -26,7 +26,7 @@ Some of the main functionality that \emph{rust-debug} provides are the following
   \item Finding the \gls{die} that represents a function using the name.
 \end{itemize}
 
-There is more functionalities that \emph{rust-debug} provides but they are not noticeable.
+There is more functionalities that \emph{rust-debug} provides but they are not noteworthy.
 The code of this library is in the \emph{GIT} repository \cite{rust-debug}.
 
 
@@ -53,6 +53,7 @@ One of the requirements for evaluating the value of a variable is access to the 
 Instead, the library uses a data structure which contain the values of the registers and memory.
 This keeps the library hardware independent.
 The data structure also has some function for reading and adding values.
+Thus it is the user of the library that has to add the values to the data structure.
 
 
 The register and memory data structure is used as an argument to the functions in the library.
@@ -66,26 +67,23 @@ This repeats until the function give a result that says it has completed its tas
 % Explain the evaluation of vairbles.
 The \emph{rust-debug} library has a structure called \emph{VariableCreator}, it takes a reference to a \gls{DWARF} unit and \gls{die}.
 The \gls{die} has to be one that represents a variable.
-When the data structure is created, it will extract some important information about the variable from the \gls{die}.
-
-
-A constructed \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and memory data structure.
+When the data structure is created, it will extract some important information about the variable from the \gls{die}. A constructed \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and memory data structure.
 This method evaluates the variable as described in section \ref{sec:evaluate-variable} and the \gls{DWARF} specification \cite{dwarf}.
 The return value of the method is an enum that is used for telling the user if a value is missing from the register and memory data structure or not.
 Then there exists another method for retrieving the variable information containing the evaluated value.
 The variable information contains the following:
 
 \begin{itemize}
-  \item Variables name.
-  \item Variables type.
-  \item Variables location in the source file.
-  \item The locations of the variables value in registers and memory.
+  \item Variable name.
+  \item Variable type.
+  \item Variable location in the source file.
+  \item The locations of the variable value in registers and memory.
   \item The evaluated value of the variable.
 \end{itemize}
 
 
 \subsubsection{Finding a functions DIE} \label{sec:funcdie}
-The \emph{rust-debug} library has a function for finding a \gls{die} that represents a function, using the name of the function.
+The \emph{rust-debug} library has a function for finding a \gls{die} that represents a function using the name of that function.
 The function also needs a machine code address to find the correct compilation unit.
 
 
@@ -104,7 +102,7 @@ It returns a result when it has found the subroutine \gls{die} with the searched
 % Explain the evaluation of stackframe 
 The \emph{rust-debug} library has a data structure called \emph{Stacktrace}, which works very similarly to the data structure describe in section \ref{sec:ievalvar}.
 However, \emph{Stacktrace} is used to virtually unwind the call stack and evaluate all the variables in it.
-The call stack is unwind as described in section \ref{sec:stacktrace} and the \gls{DWARF} specification \cite{dwarf}.
+The call stack is unwound as described in section \ref{sec:stacktrace} and the \gls{DWARF} specification \cite{dwarf}.
 This results in a stack of activations, which most importantly contain restored register values and stack pointers.
 
 

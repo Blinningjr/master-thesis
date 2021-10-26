@@ -18,21 +18,22 @@ However they are also a very useful tool for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
-The debug information is then stored in a file, the file is formatted using special file format designed to be read by a debugger or another debugging tool.
-One of the most popular of these file formats is the format: \gls{DWARF}.
+The debug information is then stored in a file, the file is formatted using a special file format designed to be read by a debugger or another debugging tool.
+One of the most popular of these file formats is the format \gls{DWARF}.
 It is a complex format that is explained in detail in section \ref{sec:dwarf}.
 
 
-The debug information stored in the \gls{DWARF} file can be used to find the location of variables, in most cases the value of variables are stored in memory on the call stack.
-A stack is a data structure for storing information, and is usually used to store all the variables for each function that is currently being executed.
+The debug information stored in the \gls{DWARF} file can be used to find the location of variables.
+In most cases the value of variables are stored in memory on the call stack.
+A stack is a data structure for storing information and is usually used to store all the variables for each function that is currently being executed.
 Thus a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displayed to the user of the debugger.
 
 
 The main problem with debugging optimized code is that variables are not stored on the call stack, which is in memory.
-Instead they are temporarily stored in registers that are faster to access but cannot hold as much information as the memory.
+Instead they are temporarily stored in registers which is a faster type of memory but it cannot hold as much information as other memory.
 This reduces the amount of memory needed and makes the program run faster.
 It also makes debugging a lot harder because the variables are only present in the register for a very short time, and thus the debugger will often not have access to that value.
-Then there is the problem of debugger not being able to utilize all the available debug information.
+%Then there is the problem of debuggers not being able to utilize all the available debug information.
 
 
 \subsection{Background}

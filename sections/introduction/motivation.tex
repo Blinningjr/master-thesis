@@ -11,9 +11,9 @@
 
 
 % Optimized rust code is up to 100 faster.
-The main motivation is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
-That is a very large difference in speed compared to other compilers like \emph{Clang} for example, were the optimized code is about 1-3 times faster than the unoptimized code according to the paper \cite{clang-opt}.
-Thus for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code because the difference is not that large compared to \emph{Rust}.
+A motivation for this thesis is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
+That is a very large difference in speed compared to other languages like \emph{C} for example, were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
+Thus for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code because the difference is not that large compared to \emph{Rust} code.
 But in the case of \emph{Rust}, the difference is so large that some programs are too slow to run without optimization.
 This is a problem because debuggers are bad at debugging optimized code, and unoptimized code is to slow to run.
 That is why there is a need for better debuggers that can provide a good experience for debugging optimized \emph{Rust} code.
@@ -21,9 +21,10 @@ That is why there is a need for better debuggers that can provide a good experie
 
 % Debugging is not as important for rust, but is still needed for embedded systems
 An argument against the need of debugging embedded systems is that the \emph{Rust} compiler will catch most of the errors.
-This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}. 
+This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}.
+Because most \emph{C} and \emph{C++} compilers does not have any limitations on how pointers can be used. 
 Thus there is less need for a debugger that can debug \emph{Rust} code than there are debuggers that can debug \emph{C} and \emph{C++} code.
-However when it comes to embedded applications there is still a need for debugging, with such a debugger.
+However when it comes to embedded applications there is still a need for debugging with such a debugger.
 Because those applications are often very important and need to work correctly, thus having a tool that can inspect the correctness is very important.
 
 

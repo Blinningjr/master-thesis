@@ -1,5 +1,5 @@
 % Explain how the CLI is implemented.
-The \emph{CLI} is a very simple one, that has a separate thread for reading the input called input thread.
+The \emph{CLI} is a very simple one, that has a separate thread for reading the input called the input thread.
 The input is read from the console constantly until the user enters a line of text.
 Then the inputted line is sent to the main thread.
 After that the input thread waits for a response, the type of the response is a boolean.
@@ -17,6 +17,7 @@ After that it sends a response to the input thread and awaits new messages from 
 
 An example of all the communication between the user and the threads can be seen in figure \ref{fig:cliflow}.
 The example also shows what happens when an event is sent from the debug thread to the main thread.
+An event is a message telling the debugger that the debug target has change state from runnning to stoped or vice versa.
 
 
 \begin{figure}[h]

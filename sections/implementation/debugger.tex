@@ -7,10 +7,11 @@ It is also used for accessing the registers and memory of the \gls{mcu}.
 
 The debugger is made up of three modules, the first one is called \acrshort{cli}.
 Its main functionality is to handle the input from the console and the output to it.
-The second module is called DebugAdapter, it also handles the input and output, but in the form of \gls{dap} messages.
+The second module is called DebugAdapter.
+It also handles the input and output, but in the form of \gls{dap} messages.
 This module is for supporting \glspl{gui} that use the \gls{dap} protocol to display debug information.
 The last module is called Debugger, and it runs in a separate thread from the other two modules.
-This is the module one that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
+This is the module that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
 It is also used to control the debug target.
 Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
 Also all of the code for \gls{erd} can be found in this git repository \cite{erd}.
@@ -32,7 +33,7 @@ Also all of the code for \gls{erd} can be found in this git repository \cite{erd
 \subimport{}{debug_adapter.tex}
 
 
-\subsubsection{The Debugger module}
+\subsubsection{The Debugger Module}
 The debugger module is designed as a server that listens for commands through a channel.
 It is running in a separate thread from the \acrshort{cli} and the debug adapter, which is called the debug thread.
 There is two states in which the debug thread can be in, that is in the attached or detached state.

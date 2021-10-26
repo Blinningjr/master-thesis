@@ -24,16 +24,17 @@ Thus it is clear from the description in the \emph{rustc book} that this flag sh
 
 The other key compiler option is the optimization flag named \emph{opt-level}.
 It controls the amount of optimization done to the code and which type of optimization, size or speed.
-Comparing the different optimization levels the debug information got less and less when a higher optimization level was set on a simple blink code example.
+Comparing the different optimization levels the debug information in \gls{DWARF} got less and less when a higher optimization level was set on a simple blink code example.
 The highest optimization level for speed is $3$ and the result from using is that the debug information got very limited, thus making it extremely hard to debug.
 In the testing of the three optimization level $1$, $2$ and $3$ it seems that optimization level $2$ worked the best for debugging without making the program too slow.
 
 
 \subsubsection{Settings \emph{force-frame-pointers} and \emph{force-unwind-tables}}
 There are two other \emph{rustc} compiler option flags that are important for debugging but sometimes not necessary depending on the target.
-The first one is called \emph{force-frame-pointers} it forces the use of frame pointers according to the documentation \cite{rustc-book-codegen}.
+The first one is called \emph{force-frame-pointers}. 
+It forces the use of frame pointers according to the documentation \cite{rustc-book-codegen}.
 The other one is called \emph{force-unwind-tables} which forces the compiler to generate unwind tables in the \gls{DWARF} file, according to the documentation \cite{rustc-book-codegen}.
-These two flags set to \emph{`yes`} can ensures that the debugger can unwind the stack and display the callstack to the user.
+These two flags set to \emph{`yes`} can ensure that the debugger can unwind the stack and display the callstack to the user.
 
 
 \subsubsection{\emph{LLVM} Settings}
