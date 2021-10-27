@@ -89,6 +89,6 @@ The stored stack trace is removed any time the debug target starts executing aga
 This ensures that it always gives the correct values and not the old ones.
 
 
-Another thing to note is that if a request is received to only evaluate one variable, the debugger will then perform a stack trace instead, or read from the temporarily stored stack trace.
+Note that if a request is received to evaluate one variable, the debugger will then perform a stack trace instead, or read from the temporarily stored stack trace.
 This simplifies the implementation a lot and also makes the subsequent evaluation requests faster.
 

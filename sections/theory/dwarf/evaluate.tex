@@ -11,7 +11,7 @@ The process of evaluating the value of a variable is a bit complicated because t
 Thus to simplify the explanation, a simple example will be used to explain the main part of evaluating a variable.
 
 
-Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function}(it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
+Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
 The function has a parameter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}.
 Which means that it is a parameter to the function \emph{my\_function}.
 It is this parameter \emph{val} that will be used as an example of how to evaluating a variable.
@@ -25,7 +25,7 @@ It is this parameter \emph{val} that will be used as an example of how to evalua
 \end{figure}
 
 
-A key thing to note is that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
+Take note to the fact that the function \gls{die} called \emph{my\_function} has two attribute called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
 Those attributes describe the range of \gls{pc} values in which the function is executing.
 There is also some other attributes in the example that will not be mentioned because they are not needed for determining the value of the attribute.
 
@@ -85,6 +85,6 @@ An encoding with the value $5$ means that the type is a signed integer \cite{dwa
 The different values for encodings are specified in the \gls{DWARF} specification \cite{dwarf}.
 Now the last attribute is \emph{DW\_AT\_byte\_size}, it describes the size of the type in bytes.
 A byte size of $2$ in this case means that the type is a $16$ bit signed integer.
-Now that the type of \emph{val} is known the only thing left to do is to parse the bytes of the value into a signed $16$ bit integer.
+Now that the type of \emph{val} is known the last step left to do is to parse the bytes of the value into a signed $16$ bit integer.
 
 

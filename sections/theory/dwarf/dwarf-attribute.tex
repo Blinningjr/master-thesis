@@ -7,10 +7,9 @@
 
 % TODO: Explain DWARF Attribute
 
-The information in the \glspl{die} are stored in attributes these attributes consists of a name and a value.
+All the information stored in \glspl{die}, are stored in unique attributes, these attributes consists of a name and a value.
 The name of the attribute is used to know what the value of the attribute should be used for.
 It is also used to differentiate the different attributes.
 All of the attributes names start with \emph{DW\_AT\_}, and then some name that describes the attribute, an example is the name attribute \emph{DW\_AT\_name}.
 In the \gls{DWARF} file the name of the attributes will be abbreviated to their abbreviation code that can be decoded using the \emph{.debug\_abbrev} section.
-A \gls{die} can only have one of the same attribute, but there is no other limit to what attributes it can have.
 
