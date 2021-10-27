@@ -7,7 +7,9 @@
 
 The values of a computer program need to be temporary stored somewhere on the computer where they can easily be accessed while running the program.
 The two main ways the computer can do this is to either store values in registers or in the memory.
-Registers are very limited in space, and are very volatile thus they are good for storing values which are used many times in a short amount of time.
+Registers are very limited in space, and are very volatile.
+Volatile in this case means that new values get written to the register often.
+Thus registers are good for storing values which are used many times in a very short amount of time.
 Memory is much slower but has a lot more space.
 Memory is thus much more useful for storing values that are not needed right now but will be needed in the future.
 
@@ -41,7 +43,7 @@ Each stack frame has the values of the arguments and variables for one function 
 Stack frames also usually contain a return address which is a pointer to a machine code instruction.
 This instruction is the next instruction of the previous function that called the current function.
 When a function has finished executing, its stack frame will be popped/removed from the stack, and the previous function will continue executing. 
-An example of a call stack and stack frames can be seen in the figure \ref{fig:callstack}.
+An example of a call stack and stack frames can be seen in figure \ref{fig:callstack}.
 The values to the right in the figure are addresses and they start with \emph{0x} because they are in hexadecimal.
 
 
