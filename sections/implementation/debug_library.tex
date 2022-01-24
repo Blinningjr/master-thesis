@@ -4,7 +4,7 @@
 Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
 The \emph{Rust} library \emph{gimli-rs} simplifies that problem by providing data structures and functions for reading the \gls{DWARF} sections.
 However, the library requires a lot of knowledge about the \gls{DWARF} format to use.
-Thus the \emph{rust-debug} library was created to make it even easier to get the debug information.
+Thus, the \emph{rust-debug} library was created to make it even easier to get the debug information.
 Figure \ref{fig:rustdebug} shows how the two libraries and the \gls{elf} file are connected.
 
 
@@ -26,22 +26,22 @@ Some of the main functionality that \emph{rust-debug} provides are the following
   \item Finding the \gls{die} that represents a function using the name.
 \end{itemize}
 
-There is more functionalities that \emph{rust-debug} provides but they are not noteworthy.
+There are more functionalities that \emph{rust-debug} provides, but they are not noteworthy.
 The code of this library is in the \emph{GIT} repository \cite{rust-debug}.
 
 
 
 \subsubsection{Retrieving Source File Location}
-% Explain the evaluation of source informaiton % TODO
-Some of the \glspl{die} in \gls{DWARF} have attributes that starts with \emph{DW\_AT\_decl\_}.
+% Explain the evaluation of source information % TODO
+Some \glspl{die} in \gls{DWARF} have attributes that starts with \emph{DW\_AT\_decl\_}.
 These attributes contain information on where in the source file the \gls{die} was declared.
-This include file path, line number and column number.
+This includes file path, line number and column number.
 The library \emph{rust-debug} has a function for retrieving the value of all these attributes from a given \gls{die}.
 
 
 The attribute  \emph{DW\_AT\_decl\_file} which contain the file path of where the \gls{die} was declared has a file index as its value.
 Every compilation unit has a line number information table that contain file paths which are indexed.
-Thus the \emph{rust-debug} library will search for the matching index in the table to find the file path.
+Thus, the \emph{rust-debug} library will search for the matching index in the table to find the file path.
 Finding the line and column number does not require any lookup.
 
 
@@ -53,7 +53,7 @@ One of the requirements for evaluating the value of a variable is access to the 
 Instead, the library uses a data structure which contain the values of the registers and memory.
 This keeps the library hardware independent.
 The data structure also has some function for reading and adding values.
-Thus it is the user of the library that has to add the values to the data structure.
+Thus, it is the user of the library that has to add the values to the data structure.
 
 
 The register and memory data structure is used as an argument to the functions in the library.
@@ -64,7 +64,7 @@ This repeats until the function give a result that says it has completed its tas
 
 
 \subsubsection{Evaluating Variables} \label{sec:ievalvar}
-% Explain the evaluation of vairbles.
+% Explain the evaluation of variables.
 The \emph{rust-debug} library has a structure called \emph{VariableCreator}, it takes a reference to a \gls{DWARF} unit and \gls{die}.
 The \gls{die} has to be one that represents a variable.
 When the data structure is created, it will extract some important information about the variable from the \gls{die}. A constructed \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and memory data structure.
@@ -115,11 +115,11 @@ After that the \gls{die} tree is searched through for variable \glspl{die}, star
 All the variable \glspl{die} found are added to a list.
 Each variable in the list is then evaluated as described in section \ref{sec:ievalvar}.
 If there is a missing value from memory then the response from the evaluation of the variable is returned.
-Because the data structure works similar to the one in section \ref{sec:ievalvar}, it can continue from were it last stopped.
+Because the data structure works similar to the one in section \ref{sec:ievalvar}, it can continue from where it last stopped.
 
 
 \subsubsection{Finding Breakpoint Location}
-% Explain how to get breakpoint locaiton.
+% Explain how to get breakpoint location.
 The \emph{rust-debug} library has a function that finds a machine code location using a source file location.
 This machine code location is the closest one that represents the line in the source code.
 The function requires a file path and line number, but it also can take a column number.
@@ -128,7 +128,7 @@ The function requires a file path and line number, but it also can take a column
 The mentioned function works by first finding out which compilation unit contains information on the inputted file path.
 It does this by looping through all the file entries in the line number information table for every compilation unit.
 Each line number information table entry have rows that each contain information on a line from the source code.
-Thus all the rows with the search line numbers are added to a list.
+Thus, all the rows with the search line numbers are added to a list.
 The machine code address of the first element in this list is returned if no column line was inputted to the function.
 Otherwise, it is the one with the closest column number that is returned.
 

@@ -26,7 +26,7 @@ All the \gls{DWARF} sections are stored in a \gls{elf} file, which is a binary f
 
 
 \subsubsubsection{\emph{.debug\_abbrev}}
-The \gls{DWARF} section \emph{.debug\_abbrev} contain all of the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
+The \gls{DWARF} section \emph{.debug\_abbrev} contain all the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
 These abbreviation codes are used for \gls{die} tags, \gls{die} attribute names and more.
 To translate an abbreviation code one has to compare each entry until the one with the matching abbreviation code is found.
 For further details we refer the reader to section $7.5.3$ in \cite{dwarf}.
@@ -35,8 +35,8 @@ For further details we refer the reader to section $7.5.3$ in \cite{dwarf}.
 \subsubsubsection{\emph{.debug\_aranges}}
 The \gls{DWARF} section \emph{.debug\_aranges} is used to lookup compilation units using machine code addresses.
 Each compilation unit has a range of machine code addresses that are the addresses that the compilation unit has information on.
-These ranges consists of a start address followed by a length.
-Thus to find the compilation unit having the information about the current state, the user only needs to check if the current address is between the start address and the start address plus the length.
+These ranges consist of a start address followed by a length.
+Thus, to find the compilation unit having the information about the current state, the user only needs to check if the current address is between the start address and the start address plus the length.
 For further details we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 
@@ -66,7 +66,7 @@ The section $6.2$ in \cite{dwarf} explains in more detail how this information i
 
 \subsubsubsection{\emph{.debug\_loc}}
 The location of the variables values are stored in location lists, each entry in the list holds a number of operations that can be used to calculate the location of the value.
-All of the location lists are stored in the section \emph{.debug\_loc} and are pointed to by \glspl{die} in the \emph{.debug\_info} section.
+All the location lists are stored in the section \emph{.debug\_loc} and are pointed to by \glspl{die} in the \emph{.debug\_info} section.
 These offsets are most commonly found in the attribute \emph{DW\_AT\_location} which is often present in \glspl{die} representing variables.
 The relation between these two sections can be seen in figure \ref{fig:dwarfsections}.
 

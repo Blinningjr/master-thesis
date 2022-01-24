@@ -11,7 +11,7 @@ Virtually unwinding the call stack is done by recursively unwinding a stack of \
 It is called virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
 Every subroutine in the call stack has an activation and a stack frame.
 Because the activation often has the value of the stack pointer, the related stack frame is also known.
-Thus successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
+Thus, successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
 
 
 The debug information needed to unwind activations are stored in the \gls{DWARF} section \emph{.debug\_frame}.
@@ -41,12 +41,12 @@ The return address is almost always stored on the stack thus it can easily be re
 This works for all activations except for the top activation, where the current \gls{pc} value is the stopped code location.
 
 
-An activation also describes the state of some of the registers where it stopped.
+An activation also describes the state of some registers where it stopped.
 Those are the registers that are preserved thanks to the prologue and epilogue code of the subroutine.
 The rest of the registers are unknown because they have been written over, which makes them impossible to recover.
 
 
-The activations is identified by there \gls{cfa} value. 
+The activations are identified by there \gls{cfa} value. 
 The \gls{cfa} is the value of the stack pointer in the previous stack frame.
 Note that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame} (see \cite{dwarf} page 126).
 
@@ -82,7 +82,7 @@ Some of them are easy to use such as the register rule \emph{undefined}.
 This rule means that it is impossible to unwind that register.
 Other ones require some calculations such as the register rule \emph{offset(N)}, where the \emph{N} is a signed offset.
 This rule means that the register value is stored at the \gls{cfa} address plus the offset $N$.
-All of the rules can be read about in the \gls{DWARF} specification \cite{dwarf} on page 128.
+All the rules can be read about in the \gls{DWARF} specification \cite{dwarf} on page 128.
 
 
 Unwinding a register is done by first finding the correct row.

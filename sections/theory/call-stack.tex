@@ -9,7 +9,7 @@ The values of a computer program need to be temporary stored somewhere on the co
 The two main ways the computer can do this is to either store values in registers or in the memory.
 Registers are very limited in space, and are very volatile.
 Volatile in this case means that new values get written to the register often.
-Thus registers are good for storing values which are used many times in a very short amount of time.
+Thus, registers are good for storing values which are used many times in a very short amount of time.
 Memory is much slower but has a lot more space.
 Memory is thus much more useful for storing values that are not needed right now but will be needed in the future.
 
@@ -26,7 +26,7 @@ While the heap contain all the dynamically allocated values.
 \subsubsection{Registers}
 Computer registers are small memory spaces that are of fixed size.
 These registers can store any type of data as long as it fits within the size limit of the registers.
-Some of the registers are reserved for special use, one of the most important ones is the \acrfull{pc} register.
+Some registers are reserved for special use, one of the most important ones is the \acrfull{pc} register.
 This register always holds the address of the next machine code instruction that will be executed.
 Which of the registers that are reserved for special use is different depending on the processor.
 
@@ -34,7 +34,7 @@ Which of the registers that are reserved for special use is different depending 
 \subsubsection{Call Stack}
 The call stack is a stack in the memory that has the arguments and variables of all the functions that have been called, and have not finished executing.
 A stack is a data structure that consists of a number of elements that are stacked on top of each other and the only two operations available for a stack is push and pop.
-The push operations adds a new element on top of the stack, and the pop operation removes the top element of the stack.
+The push operations will add an element on top of the stack, and the pop operation removes the top element of the stack.
 Other key characteristics are that it is only the top element that can be accessed, thus to reach the lower elements, all the above elements needs to be popped.
 
 
@@ -44,7 +44,7 @@ Stack frames also usually contain a return address which is a pointer to a machi
 This instruction is the next instruction of the previous function that called the current function.
 When a function has finished executing, its stack frame will be popped/removed from the stack, and the previous function will continue executing. 
 An example of a call stack and stack frames can be seen in figure \ref{fig:callstack}.
-The values to the right in the figure are addresses and they start with \emph{0x} because they are in hexadecimal.
+The values to the right in the figure are addresses, and they start with \emph{0x} because they are in hexadecimal.
 
 
 \begin{figure}[h]
