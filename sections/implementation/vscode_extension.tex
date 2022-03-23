@@ -1,8 +1,19 @@
 % Explain the implementation of the vscode explanation.
-The \emph{VSCode} extension for the debugger \emph{Embedded Rust Debugger} is a very simple and bare bones implementation.
-\emph{Microsoft} provides an \gls{api} which can be used to start a debugging session and some trackers for logging.
-The implementation of the extensions uses that \gls{api} to create a debugging session and a tracker that logs all the sent and received messages.
-The tracker also logs all the errors.
-There are some configuration done to the debugging session, most of it is for the \gls{dap} messages being sent.
-All of the code for the extension is in the \emph{GIT} repository \cite{erd-vscode}.
+Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool called \emph{TODO} \ref{TODO}, that will generate a empty extension.
+They also have a lot of documentation on how to get started with creating a extension.
+The documentation mentions how to create debug extensions.
+There is two different types of debug extensions, the first is a extension that implements a debug adapter for a specific debugger.
+These often require a lot work because a debug adapter needs to translate the \gls{dap} protocol messages to command that the debugger understands.
+Thus, depending on the debugger it can require a lot of work to get this working well.
+The other type of debug extension is just a wrapper for the debugger that already implements the \gls{dap} protocol.
+These extension are very simple to create because the they only need to start the debugger and connect to it using the \emph{dap} protocol.
+I refer the reader to \emph{Microsofts} documentations \ref{TODO} for further reading.
+
+The debugger \emph{Embedded Rust Debugger} implements the \gls{dap} protocol over a \gls{tcp} server.
+Thus, the \emph{VSCode} extension is just a wrapper that starts the debugger \gls{tcp} server and then connects to it.
+Connecting to the debugger server over \gls{tcp} is very easy to do, because \emph{Microsoft} has a library called \emph{VSCode} that does that for you.
+The extension also captures the logs of the debugger and outputs them to the user using the \emph{VSCode} library.
+
+There are also some configurations that the user of the \emph{Embedded Rust Debugger} can set in the \emph{launch.json} file.
+The available configurations are defined in a \emph{json} file called \emph{TODO} in the extension project.
 
