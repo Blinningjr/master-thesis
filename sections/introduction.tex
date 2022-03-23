@@ -1,4 +1,4 @@
-% Give the reader an overview of the area.
+% Give the reader an overview of the rea.
 % Try to focus on the scientific area, but do not forget the red thread that binds the rest of the introduction together.
 
 A key part of programming has always been debugging the computer program.
@@ -36,30 +36,258 @@ It also makes debugging a lot harder because the variables are only present in t
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
 
 
+
 \subsection{Background}
-\subimport{introduction/}{background.tex}
+%\subimport{introduction/}{background.tex}
+% What has been done already, and why does this work need to be solved.
+% Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
+% Describe the background to your work.
+
+
+In the \emph{Rust} programming language community there is no large project focusing on creating a debugger.
+There is even less focus on improving the debugging of optimized \emph{Rust} code.
+One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main parts of the project is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debug probes.
+One of their newest tools that has not been released yet is a debugger that uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
+
+
+When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no focus on improving debugging for optimized code in the \emph{LLVM} project.
+
 
 
 \subsection{Motivation}
-\subimport{introduction/}{motivation.tex}
+%\subimport{introduction/}{motivation.tex}
+% Why is your work important? Typically this section relates strongly to the problems that you define in 1.3.
+% The motivations can be societal, economical, or other things, but try and look past the task at hand and find out what impact your results will have.
+
+% Motivations bullet points
+%	* Optimized rust code is up to 100 faster.
+% 	* Improving the state of debugging.
+% 	* Contributing with a solution written in Rust.
+% 	* Contributing a debug rust library / simplifying debugging.
+% 	* Shinning a light on the obstacles.
+%	* Companies spend lot of money on testing but not on verifying if there program is correct, which debugging is a important tool for verifying.
+
+
+% Optimized rust code is up to 100 faster.
+A motivation for this thesis is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
+That is a very large difference in speed compared to other languages like \emph{C} for example, were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
+Thus for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code because the difference is not that large compared to \emph{Rust} code.
+But in the case of \emph{Rust}, the difference is so large that some programs are too slow to run without optimization.
+This is a problem because debuggers are bad at debugging optimized code as explained in the introduction, and unoptimized code is to slow to run.
+That is why there is a need for better debuggers that can provide a good experience for debugging optimized \emph{Rust} code.
+
+
+% Debugging is not as important for rust, but is still needed for embedded systems
+An argument against the need of debugging embedded systems is that the \emph{Rust} compiler will catch most of the errors.
+This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}.
+Because most \emph{C} and \emph{C++} compilers have very few limitations on how pointers can be used, and the pointed to value can be removed without the pointer still exists. 
+Thus, there is less need for a debugger that can debug \emph{Rust} code than there are debuggers that can debug \emph{C} and \emph{C++} code.
+However, when it comes to embedded applications there is still a need for debugging with such a debugger.
+One reason is because they use \emph{Memory-mapped I/O} to preform input/output (\emph{I/O}) between the \emph{CPU} and peripheral devices.
+Thus a debugger can easily see how the two interact by inspecting the memory that is it mapped to.
+Another reason is that it is more common to have hardware bugs, and a debugger can be used to verify that a problem comes from a hardware bug.
+
+
+% Improving the state of debugging. % TODO: Rewrite this paragraph
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which both requires another program to interact with the \gls{mcu}.
+An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
+This complicates the process of debugging and makes for a needlessly complex experience, especially for new developers.
+
+
+% Contributing with a solution written in Rust.
+Many of the debuggers used for debugging \emph{Rust} code are written in other programming languages, and there is not a lot of debugging tools written in \emph{Rust} yet.
+Thus, one of the key motivations is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides.
+
+
+%% Contributing a debug rust library / simplifying debugging.
+%Another way this thesis contributes to the \emph{Rust} community is by making a library that simplifies the process of retrieving information from the debug information.
+%This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
+%Which will hopefully lead to more work being done on the compiler to improve the debugging situation for unoptimized and  optimized \emph{Rust} code.
+
 
 
 \subsection{Problem definition}
 \label{sec:problemdefinition}
-\subimport{introduction/}{problem-definition.tex}
+%\subimport{introduction/}{problem-definition.tex}
+% This is really the section you should start writing first, even if it's located as 1.3.
+% What scientific problems are you solving in your thesis.
+% The reason why you should start defining these is that they define what you should write in all the other sections.
+% The introduction gives an overview of the area of your problems.
+% The background offers the background to why you are working with your problems.
+% The motivation gives a motivation to why you are solving the problems.
+% The related work described work which relates to your problems.
+% The implementation describes how you have implemented a solution to your problems.
+% The evaluation evaluates whether you have actually solved your problems.
+% The discussion discusses each individual problem, how you addressed it, alternative solutions and shortcomings, etc.
+% The conclusions and future work describes the final outcome of how you solved your problems and what is left to do. 
+ 
+% If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
+
+The problem this thesis tries to tackle is the problem of improving the debugging experience for optimized \emph{Rust} code, especially for embedded systems.
+This problem can be divided into three parts, the first part is to improve the generation of debug information.
+The second part to improve the current user experience, which can be done by creating a debugger written in \emph{Rust} that provides a better debugging experience for optimized code than the existing debuggers.
+The last part is to provide platform independent debugging library, which simplifies the process of retrieving debug information.
+
+
+The main goal is to create a debugger which gives a better debugging experience for optimized \emph{Rust} code on embedded systems than some of the most commonly used debuggers, such as \emph{GDB} and \emph{LLDB}.
+Another goal is to make it simpler to continue work on improving debugging and to inspire further development for debugging tools in the \emph{Rust} community.
+The last goal is to identify some of the problems that make debugging optimized \emph{Rust} code difficult.
+
+
+%There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
+%The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
+%This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
+%Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
+%The first problem then is to look at the different options that can be set for the \gls{rustc} compiler to improve the generations of debug information without impacting the optimization of the code to much.
+%Speed of the resulting code is still a big priority because the unoptimized \emph{Rust} code is very slow compared to the other languages.
+%
+%
+%The second problem is looking at the available debug information that the \gls{rustc} compiler generates for optimized code and creating a debugger that utilizes that information to the fullest.
+%This problem has two parts to it, the first being retrieving the needed information from the debug information.
+%This will be the hardest part and is the most important for improving the debugging for optimized code.
+%The second part is to display the debug information to the user in a user friendly way.
+%
+%
+%The goal of solving these to problems is to create a debugger that gives a better debugging experience for optimized \emph{Rust} code on embedded systems then some of the most commonly used debuggers, such as \gls{GDB} and \gls{LLDB}.
+%And to inspire further development for debugging tools in the \emph{Rust} community.
+
 
 
 %\subsection{Equality and ethics}
 %\subimport{introduction/}{equality-and-ethics.tex}
+%TODO
+
+% Equality and ethics are learning objectives for the program and should be reflected upon in the thesis if applicable.
+% This section can be omitted if not at all relevant to the problem definition, but in many cases the thesis topic touches upon these topics even if it is outside the scope of the work itself and in such cases a single paragraph may be sufficient to cover the reflection.
+
+
 
 %\subsection{Sustainability}
 %\subimport{introduction/}{sustainability.tex}
+%TODO
+
+% Similar to the equality and ethics section this is one of the learning objectives for the program and should be reflected upon in the thesis if applicable.
+% For a quick overview of what is considered to be included in sustainability you can see the united nations list of sustainability goals:
+% https://www.un.org/sustainabledevelopment/sustainable-development-goals/ 
+
 
 
 \subsection{Delimitations}
-\subimport{introduction/}{delimitations.tex}
+%\subimport{introduction/}{delimitations.tex}
+% Describe what is not covered in the thesis.
+% Things you realize may have to be addressed to create a complete solution, but that would be too much work, or that may simply be out of the scope of your scientific area.
+
+
+% Delimitations
+% 	* Making changes to the compiler(llvm).
+%	* Focusing on the bare minimum of debugger features.
+%	* Making changes to DWARF standard.
+%	* Limiting supported chips and platforms.
+%	* Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html
+%	* Limiting the depth of detail how dwarf works.
+%	* Limiting it to a CLI and DAP server plus extension.
+
+
+
+% Making changes to the compiler(rustc and llvm).
+One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
+In the case of the \emph{Rust} compiler \emph{"rustc"}  it is the \emph{LLVM} library that mostly handles the debug information generation.
+\emph{LLVM} is a very large project that many people are working on, and thus improving on \emph{LLVM} is out of scope for this thesis.
+The same goes for improving \emph{"rustc"}.
+%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
+
+
+% Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
+The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats that holds all the debug information.
+One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
+To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
+Thus it has been decided to only support the \gls{DWARF} format because it has good documentation.
+
+
+% Making changes to DWARF standard.
+The scope of this thesis does also not include changing or adding to the \gls{DWARF} format.
+The main reason is that it takes years for a new version of the standard to be released, and thus there is not enough time for this thesis to see, and realize that change or addition.
+Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler would be updated to use the new standard.
+%Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
+
+
+% Will not explain every detail in dwarf.
+The \gls{DWARF} format is very complex but provides good documentation.
+Thus the explanation of \gls{DWARF} in section \ref{sec:dwarf} will not go into every detail of \gls{DWARF}.
+Instead it will focus on explaining the minimum theory to understand the implementation of the debugger.
+For further details we refer the reader to \cite{dwarf}.
+
+
+%% Focusing on the bare minimum of debugger features
+Today there are a lot of different debugging features that a debugger can have.
+Many of them are advanced and complicated to implement, thus it is decided to limit the amount of features to the ones that are most important.
+The following is the list of features the debugger is planned to have:
+
+\begin{itemize}
+  \item Controlling the debugging target by:
+  \begin{itemize}
+    \item Starting/Continuing execution.
+    \item Stopping/Halting execution.
+    \item Reset execution.
+  \end{itemize}
+  \item Set and remove breakpoints.
+  \item Virtually unwind the call stack.
+  \item Evaluate variables.
+  \item Find source code location of functions and variables.
+  \item A \acrfull{cli}.
+  \item The debugger is planned to support the \emph{Microsoft} \acrfull{dap}.
+\end{itemize}
+
+
+%Many of the debuggers today have a lot of functionality to help the user understand what is happening in the program that they are debugging.
+%An example of these functionality are debuggers that support the ability to go backwards in the program.
+%Functionalities like this are useful but dose not contributing much to the main problem of this thesis which is debugging optimized code.
+%%Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
+%So to keep this thesis focused on the main problem the feature the debugger will have is restricted to virtually unwinding the stack, evaluating stack frames and there variables and lastly the ability to add and remove breakpoints.
+%The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that does not require debug information.
+
+
+% Limiting supported chips and platforms.
+When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.
+The following are some of the hardware properties that needs to be known:
+
+\begin{itemize}
+  \item Number of registers.
+  \item Which of the registers that are considered special.
+  \item The endianness of the memory.
+  \item The machine code instruction set the \gls{mcu} is using/supports.
+\end{itemize}
+
+%To support all the different \glspl{mcu} would be too much work for this thesis.
+%Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available at hand, and it will only support the \emph{arm Thumb mode} instruction set.
+%The debugger will be design to work with other similar \gls{mcu} but to test and grantee that it will work with them is to much work for this thesis.
+
+
+%% Limiting it to a CLI and DAP server plus a VSCode extension.
+%Another part of this thesis is the interaction between the user and the debugger.
+%Existing debugger like \emph{GDB} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
+%From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
+%A \emph{CLI} is not that much work to implement but a \acrshort{gui} takes a lot of work to implement.
+%Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \acrshort{gui} and the debugger.
+%This protocol is called \acrfull{dap}\cite{dap} and is used by \emph{VSCode}.
+%Thus the scope of the debugger will include implementing the \acrshort{dap} protocol and a simple extension for \emph{VSCode}.
+
+
+%% Limiting the depth of detail how dwarf works.
+%The \gls{DWARF} format is very extensive and supports a lot of different program languages, the specifications for the different languages are a little different from each other.
+%Because this thesis is about \emph{Rust} code the thesis will only go into detail in how to read the \gls{DWARF} format for \emph{Rust}.
+%The specification for the \gls{DWARF} format is also very good at explaining how the information is structured.
+%Thus a this thesis will not go into all the detail in how to read the \gls{DWARF} format instead it will focus on explaining how the information in the \gls{DWARF} format can be used in combination to get important information that the user wants.
+
+% TODO: Add sources where needed in this subsection
+
 
 
 %\subsection{Thesis structure}
 %\subimport{introduction/}{thesis-structure.tex}
+% Describe how the rest of your thesis is organized.
+% (e.g. In section 2 we discuss, in section 3 there is a... etc.).
+% This is really just to help guide the reader to where different parts of your work can be found.
 
+%TODO

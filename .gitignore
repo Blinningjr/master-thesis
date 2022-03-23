@@ -36,3 +36,5 @@
 # aspell backup files
 *.bak
 
+# output directory
+output/
