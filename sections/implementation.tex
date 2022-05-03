@@ -12,7 +12,7 @@
 The implementation is separated into three different smaller projects.
 The first being a debug library called \emph{rust-debug}.
 This library simplifies the process of retrieving debug information from the \gls{DWARF} format.
-The second project is the debugger \gls{erd} and the last one is a \emph{VSCode} extension for \gls{erd}.
+The second project is the debugger \gls{erdb} and the last one is a \emph{VSCode} extension for \gls{erdb}.
 
 
 \section{Debugging Library \emph{rust-debug}}
@@ -156,7 +156,7 @@ Otherwise, it is the one with the closest column number that is returned.
 
 \section{Embedded Rust Debugger}
 % Explain the genral stucture of the debugger
-The debugger \acrfull{erd} is implemented using the debugging library \emph{rust-debug}.
+The debugger \acrfull{erdb} is implemented using the debugging library \emph{rust-debug}.
 That library provides all the needed functionalities for retrieving debug information from the \gls{DWARF} format.
 The debugger also uses the \emph{probe-rs} library for controlling the \gls{mcu}.
 It is also used for accessing the registers and memory of the \gls{mcu}.
@@ -171,7 +171,7 @@ The last module is called Debugger, and it runs in a separate thread from the ot
 This is the module that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
 It is also used to control the debug target.
 Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
-Also, all the code for \gls{erd} can be found in this git repository \cite{erd}.
+Also, all the code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 
 \begin{figure}[h]

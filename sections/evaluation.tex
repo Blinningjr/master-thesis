@@ -10,7 +10,7 @@
 To evaluate the solution to the problem (see section \ref{sec:problemdefinition}) there are two criteria.
 The first one is how much more debug information does the solution get from the compiler compared to compiling without the set flags.
 This is to evaluate the first part of the problem.
-For the second part of the problem the debugger \gls{erd} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
+For the second part of the problem the debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
 The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
 Thus, it is these two debuggers that will be compared to the presented debugger.
 The reason being that they are the two debuggers that are supported by the \emph{Rust} development team according to there \emph{rustc-dev-guide} \cite{rust-dev-guide}.
@@ -145,13 +145,13 @@ The other two operations describe that the last $3$ bytes of the value is stored
 This all means that most of \emph{test\_enum3} is optimized out, including the value describing the enum variant.
 
 
-The result from evaluating \emph{test\_enum3} using the debugger \gls{erd} is that the whole enum is optimized out, as can be seen in table \ref{table:enum3}.
-Thus, \gls{erd} gives the correct result in this case.
+The result from evaluating \emph{test\_enum3} using the debugger \gls{erdb} is that the whole enum is optimized out, as can be seen in table \ref{table:enum3}.
+Thus, \gls{erdb} gives the correct result in this case.
 But looking at the table it can be seen that both \emph{GDB} and \emph{LLDB} give different results.
 \emph{GDB} give the incorrect result in that it says that the variant of the enum is \emph{ITest} when it should be \emph{Struct}.
 \emph{LLDB} does not give any indication of what enum variant the value is, instead it shows the value of each enum variation.
 But it gives the wrong value for attributes \emph{flag} and \emph{num} in the variant \emph{Struct}, thus it gives an incorrect result.
-Thus out of the three debuggers it is \gls{erd} that gives the most correct result, in these situations.
+Thus out of the three debuggers it is \gls{erdb} that gives the most correct result, in these situations.
 
 
 
@@ -202,8 +202,8 @@ And the second operation \emph{DW\_OP\_piece: 8} means that the size of the valu
 The variable \emph{test\_struct} is larger than $4$ bytes, which in this case means that the attribute \emph{flag} is optimized out.
 
 
-The result from evaluating \emph{test\_struct} using the debugger \gls{erd} is that the attribute \emph{num} has the value $123$ and the attribute \emph{flag} is optimized out, as can be seen in table \ref{table:struct}.
-Thus, \gls{erd} is able to evaluate the correct value, but \emph{GDB} gives an even better result.
+The result from evaluating \emph{test\_struct} using the debugger \gls{erdb} is that the attribute \emph{num} has the value $123$ and the attribute \emph{flag} is optimized out, as can be seen in table \ref{table:struct}.
+Thus, \gls{erdb} is able to evaluate the correct value, but \emph{GDB} gives an even better result.
 Because \emph{GDB} points out that the attribute \emph{flag} is a synthetic pointer.
 A synthetic pointer is a pointer that is never dereferenced, and thus the actual value is not needed. 
 Lastly the debugger \emph{LLDB} says that the value of \emph{flag} is \emph{false} which is incorrect.
@@ -262,8 +262,8 @@ The \gls{pc} value in the table \ref{table:u16} is $0x08001290$, which is not be
 This means that \emph{test\_u16} will or has had a value, but correctly it does not have one.
 
 
-The result of evaluating \emph{test\_u16} using \gls{erd} is \emph{\textless OutOfRange\textgreater}, as can be seen in table \ref{table:u16}.
+The result of evaluating \emph{test\_u16} using \gls{erdb} is \emph{\textless OutOfRange\textgreater}, as can be seen in table \ref{table:u16}.
 That is a unique message that is only used when the \gls{pc} value is not in range of any location list entry.
 The debugger \emph{LLDB} gives the same result, except that the message is worded a bit differently.
 However, the result from \emph{GDB} is not as good, because it is less descriptive.
-Thus, both \emph{LLDB} and \gls{erd} are more verbose and descriptive than \emph{GDB} in these situations.
+Thus, both \emph{LLDB} and \gls{erdb} are more verbose and descriptive than \emph{GDB} in these situations.

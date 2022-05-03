@@ -44,13 +44,13 @@ It is called \emph{cortex-debug} and its git repository can be found here \cite{
 % My Results Compared to expected results
 The experience of debugging \emph{Rust} code on embedded systems with both \emph{LLDB} and \emph{GDB} is not very good.
 There is a lot of configurations that has to be done and both require a program like \emph{openocd} that handles the communication between the debugger and the target device.
-Using \gls{erd} made the debugging experience a lot better because it does not need to use a program like \emph{openocd}.
+Using \gls{erdb} made the debugging experience a lot better because it does not need to use a program like \emph{openocd}.
 The reason for it being better it that it takes fewer steps to start debugging.
 
 
 \section{Accuracy of the \gls{DWARF} Location Ranges}\label{section:loc-ranges}
 % The accuracy of the Location list entry ranges.
-While working on \emph{rust-debug} and \gls{erd} it was discovered that values can sometimes live longer on the debugged target then described in \gls{DWARF}.
+While working on \emph{rust-debug} and \gls{erdb} it was discovered that values can sometimes live longer on the debugged target then described in \gls{DWARF}.
 This means that some of the values can potentially be read when \gls{DWARF} says that they have no location.
 
 

@@ -7,9 +7,9 @@ Because the settings found did not do much or were well known before, thus there
 
 
 But the result from comparing the debuggers was a success.
-The main reason for this is that the debugger \gls{erd} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
+The main reason for this is that the debugger \gls{erdb} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
 While both of the two supported debugger by the \emph{Rust} team evaluated the wrong value in some special cases.
-The debugger \gls{erd} was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
+The debugger \gls{erdb} was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
 
 
 The debugging library \emph{rust-debug} was also successful in simplifying the process of retrieving debug information from \gls{DWARF}.
@@ -29,7 +29,7 @@ Thus one potential improvement to debugging would be to improve how the variable
 
 \section{Future Debugger Improvement}
 % Future work that can be done on the debuger side.
-The debugger \gls{erd} only supports the most important functionalities of a debugger.
+The debugger \gls{erdb} only supports the most important functionalities of a debugger.
 Thus there is many more features that could be added.
 One important one is the ability to evaluate expressions which is left to be done as future work.
 This is a hard problem because the evolution of the expressions should work exactly the same as the \emph{Rust} compiler.
