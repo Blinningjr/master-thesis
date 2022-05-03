@@ -1,5 +1,5 @@
 %\documentclass{article}
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt, a4paper]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{import}
 \usepackage{hyperref} % - Package for including hyperlinks in the document.
@@ -43,6 +43,14 @@ sorting=ynt
 
 
 
+%% Patch for blank pages between chapters
+%% which disables the current page style
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
 %\title{Improving Debugging For Optimized Rust Code}
 %\date{\today}
 %\author{Niklas Lundberg, inaule-6@student.ltu.se}
@@ -56,7 +64,6 @@ sorting=ynt
 %
 %\maketitle
 %\thispagestyle{empty}
-%\newpage
 
 \begin{titlepage}
     \centering
@@ -78,11 +85,10 @@ sorting=ynt
 \end{titlepage}
 
 
-\section*{Abstract}
+\chapter*{Abstract}
 \label{sec:abstract}
 \import{sections/}{abstract.tex}
 
-\newpage
 \tableofcontents 
 \clearpage
 
@@ -92,43 +98,38 @@ sorting=ynt
 \listoftables
 \clearpage
 
-\printglossary[type=\acronymtype]
-\label{sec:acronym}
-\clearpage
-
-\section{Introduction}
+\chapter{Introduction}
 \label{sec:introfuction}
 \import{sections/}{introduction.tex}
 
-\newpage
-\section{Related work}
+\chapter{Related work}
 \label{sec:relatedwork}
 \import{sections/}{related-work.tex}
 
-\newpage
-\section{Theory}
+\chapter{Theory}
 \label{sec:theory}
 \import{sections/}{theory.tex}
 
-\newpage
-\section{Implementation}
+\chapter{Implementation}
 \label{sec:implementation}
 \import{sections/}{implementation.tex}
 
-\newpage
-\section{Evaluation}
+\chapter{Evaluation}
 \label{sec:evaluation}
 \import{sections/}{evaluation.tex}
 
-\newpage
-\section{Discussion}
+\chapter{Discussion}
 \label{sec:discussion}
 \import{sections/}{discussion.tex}
 
-\newpage
-\section{Conclusions and future work}
+\chapter{Conclusions and future work}
 \label{sec:conclusions}
 \import{sections/}{conclusions-and-future-work.tex}
+
+
+\clearpage
+\printglossary[type=\acronymtype]
+\label{sec:acronym}
 
 \clearpage
 \printbibliography
