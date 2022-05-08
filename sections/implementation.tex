@@ -9,10 +9,10 @@
 % 4.2 System components / System komponenter
 % 4.3 ...
 
-The implementation is separated into three different smaller projects.
-The first being a debug library called \emph{rust-debug}.
-This library simplifies the process of retrieving debug information from the \gls{DWARF} format.
-The second project is the debugger \gls{erdb} and the last one is a \emph{VSCode} extension for \gls{erdb}.
+There are three different project that make up the implementation.
+The first being a debug library called \emph{rust-debug}, which purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
+The second project is the debugger \gls{erdb}, that implements the \gls{dap} protocol.
+And the last one is a \emph{VSCode} extension that launches the \gls{erdb} debugger and connect to it.
 
 
 \section{Debugging Library \emph{rust-debug}}
@@ -22,46 +22,39 @@ The second project is the debugger \gls{erdb} and the last one is a \emph{VSCode
 % Explain why this library was made.
 Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
 The \emph{Rust} library \emph{gimli-rs} simplifies that problem by providing data structures and functions for reading the \gls{DWARF} sections.
-However, the library requires a lot of knowledge about the \gls{DWARF} format to use.
-Thus, the \emph{rust-debug} library was created to make it even easier to get the debug information.
-Figure \ref{fig:rustdebug} shows how the two libraries and the \gls{elf} file are connected.
+However, the library requires the user to be knowledgeable about the \gls{DWARF} format, the target system and the programming language/compiler used.
+Thus, the \emph{rust-debug} library was created to make it possible to get information from the \gls{DWARF} format for someone without that knowledge.
 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{rust_debug.png}
-	\caption{A diagram showing the relation between the \emph{ELF} file and the two libraries \emph{rust-debug} and \emph{gimli-rs}.}
-	\label{fig:rustdebug}
-\end{figure}
-
-
-Some of the main functionality that \emph{rust-debug} provides are the following:
+Some of the main functionality that \emph{rust-debug} provides easy solutions for are the following:
 
 \begin{itemize}
-  \item Retrieving the source file location for functions, variables, types and more.
+  \item Retrieving the source code file location for functions, variables, types and more.
   \item Virtually unwinding the call stack.
   \item Evaluating variables.
   \item Translating source file line number to the nearest machine code address.
   \item Finding the \gls{die} that represents a function using the name.
 \end{itemize}
 
-There are more functionalities that \emph{rust-debug} provides, but they are not noteworthy.
-The code of this library is in the \emph{GIT} repository \cite{rust-debug}.
+There are more functionalities that \emph{rust-debug} provides, but they are less noteworthy.
+The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 
 
 
-\subsection{Retrieving Source File Location}
+\subsection{Retrieving Source Code File Location}
 % Explain the evaluation of source information % TODO
-Some \glspl{die} in \gls{DWARF} have attributes that starts with \emph{DW\_AT\_decl\_}.
-These attributes contain information on where in the source file the \gls{die} was declared.
-This includes file path, line number and column number.
-The library \emph{rust-debug} has a function for retrieving the value of all these attributes from a given \gls{die}.
+In the \emph{DWARF} format there are three attributes that contain information on where in the source code a \gls{die} is generated from.
+These attributes are used to relate whcihc 
 
 
-The attribute  \emph{DW\_AT\_decl\_file} which contain the file path of where the \gls{die} was declared has a file index as its value.
-Every compilation unit has a line number information table that contain file paths which are indexed.
-Thus, the \emph{rust-debug} library will search for the matching index in the table to find the file path.
-Finding the line and column number does not require any lookup.
+In most cases the user of a debugger wants to know which source code file and line the current debug information refers to.
+This can only be done, if the debug information is stored in a \gls{die} that has attributes which names start with \emph{DW\_AT\_decl\_}.
+There are three of these attributes, they are the following:
+
+the most important one is named \emph{DW\_AT\_decl\_file}, it contains a file index number which can be used to get the source code file path and name.
+Retrieving the file path and  name from a file index, is done by doing a lookup in the current compilation units line number information table.
+The other two attributes are named \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}, and contain the line and column number respectively.
+
+The library \emph{rust-debug} simplifies the process of retrieving the source code location information, in .
 
 
 \subsection{Accessing Memory And Registers}

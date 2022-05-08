@@ -18,40 +18,35 @@ However, they are also a very useful tool for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
-The debug information is then stored in a file, the file is formatted using a special file format designed to be read by a debugger or another debugging tool.
-One of the most popular of these file formats is the format \gls{DWARF}.
-It is a complex format that is explained in detail in section \ref{sec:dwarf}.
+The debug information is stored in a file, the information is stored in a special format designed to be read by a debugger or other debugging tools.
+One of the most popular of these formats is called \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
 
 
-The debug information stored in the \gls{DWARF} file can be used to find the location of variables.
-In most cases the value of variables are stored in memory on the call stack.
-A stack is a data structure for storing information and is usually used to store all the variables for each function that is currently being executed.
-Thus, a debugger can use the debug information to find the location of a variable and then evaluate the value of it, which is then displayed to the user of the debugger.
+The debug information stored in the \gls{DWARF} file can be used to find the location of the variables values.
+Which in most cases are stored on the call stack in memory, section \ref{sec:callstack} explains what a call stack is.
+The debug information also contain the data type information of the variable, it is used to interpret the raw value of variable found in memory into a typed value.
 
 
-The main problem with debugging optimized code is that variables are not stored on the call stack, which is in memory.
-Instead, they are temporarily stored in registers which is a faster type of memory, but it cannot hold as much information as other memory.
-This reduces the amount of memory needed and makes the program run faster.
-It also makes debugging a lot harder because the variables are only present in the register for a very short time, and thus the debugger will often not have access to that value.
+The main problem with debugging optimized code is that values of variables are sometimes stored in registers.
+Registers are faster to access then other memory and has a much lower capacity.
+Thus, storing values there often increases the speed of the programs, but the values are not persistent, because they get overwritten.
+This makes debugging a lot harder because the values are very short lived compared to values that are stored on the call stack.
+Which often have the same life span as the stack frame.
+I refer the reader to section \ref{sec:regmem} for more detailed information about registers and memory.
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
-
 
 
 \section{Background}
 % What has been done already, and why does this work need to be solved.
 % Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
 % Describe the background to your work.
-
-
-In the \emph{Rust} programming language community there is no large project focusing on creating a debugger.
-There is even less focus on improving the debugging of optimized \emph{Rust} code.
-One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main parts of the project is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
-Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debug probes.
-One of their newest tools that has not been released yet is a debugger that uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
-
+In the \emph{Rust} programming language community there was no project focusing on creating a debugger for embedded systems when this thesis was started.
+There was even less focus on improving the debugging of optimized \emph{Rust} code.
+One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main goals of the project is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools for interact with a range of \glspl{mcu} and debugging probes.
+One of their newest tools that has not been released yet is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
 
 When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no focus on improving debugging for optimized code in the \emph{LLVM} project.
-
 
 
 \section{Motivation}
@@ -71,24 +66,24 @@ When it comes to improving generation of debug information there is some work be
 A motivation for this thesis is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
 That is a very large difference in speed compared to other languages like \emph{C} for example, were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
 Thus for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code because the difference is not that large compared to \emph{Rust} code.
-But in the case of \emph{Rust}, the difference is so large that some programs are too slow to run without optimization.
+But in the case of \emph{Rust}, the difference is so large that some programs are too slow to run on \glspl{mcu} without optimization.
 This is a problem because debuggers are bad at debugging optimized code as explained in the introduction, and unoptimized code is to slow to run.
-That is why there is a need for better debuggers that can provide a good experience for debugging optimized \emph{Rust} code.
+That is why there is a need for better debuggers that can provide a good experience when debugging optimized \emph{Rust} code.
 
 
 % Debugging is not as important for rust, but is still needed for embedded systems
 An argument against the need of debugging embedded systems is that the \emph{Rust} compiler will catch most of the errors.
 This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}.
-Because most \emph{C} and \emph{C++} compilers have very few limitations on how pointers can be used, and the pointed to value can be removed without the pointer still exists. 
+Because most \emph{C} and \emph{C++} compilers have very few restrictions on how pointers can be used, and the value pointed to thus can be removed while the pointer still exists. 
 Thus, there is less need for a debugger that can debug \emph{Rust} code than there are debuggers that can debug \emph{C} and \emph{C++} code.
 However, when it comes to embedded applications there is still a need for debugging with such a debugger.
-One reason is because they use \emph{Memory-mapped I/O} to preform input/output (\emph{I/O}) between the \emph{CPU} and peripheral devices.
-Thus a debugger can easily see how the two interact by inspecting the memory that is it mapped to.
-Another reason is that it is more common to have hardware bugs, and a debugger can be used to verify that a problem comes from a hardware bug.
+One reason is because \emph{Memory-mapped I/O} is used to preform input/output (\emph{I/O}) between the \emph{CPU} and peripheral devices.
+And a debugger is very good tool for showing the state of these peripheral, which makes the development and testing much easier.
+Another reason is that hardware bugs are much easier to find if it is possible to inspect the state of a device easily.
 
 
 % Improving the state of debugging. % TODO: Rewrite this paragraph
-Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which both requires another program to interact with the \gls{mcu}.
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which at the time of writhing this both requires another program to interact with the \gls{mcu}.
 An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a needlessly complex experience, especially for new developers.
 
@@ -99,10 +94,9 @@ Thus, one of the key motivations is to write a debugger in \emph{Rust}, which wi
 
 
 %% Contributing a debug rust library / simplifying debugging.
-%Another way this thesis contributes to the \emph{Rust} community is by making a library that simplifies the process of retrieving information from the debug information.
-%This is important because it makes retrieving debug information simpler for new developers to start contributing to the \emph{Rust} debug community.
-%Which will hopefully lead to more work being done on the compiler to improve the debugging situation for unoptimized and  optimized \emph{Rust} code.
-
+Currently there knowledge needed to write debugging tools that utalisizes the information stored in the \gls{DWARF} format is very high.
+Thus, another motivation is to make a abstraction layer that reduced the amount of knowledge needed to some degree.
+This will be achieved by creating a debugging library, which hopefully will help other get information from the \gls{DWARF} format and help them understand it better.
 
 
 \section{Problem definition}
@@ -121,39 +115,22 @@ Thus, one of the key motivations is to write a debugger in \emph{Rust}, which wi
  
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
-The problem this thesis tries to tackle is the problem of improving the debugging experience for optimized \emph{Rust} code, especially for embedded systems.
-This problem can be divided into three parts, the first part is to improve the generation of debug information.
-The second part to improve the current user experience, which can be done by creating a debugger written in \emph{Rust} that provides a better debugging experience for optimized code than the existing debuggers.
-The last part is to provide platform independent debugging library, which simplifies the process of retrieving debug information.
+The main problem of this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
+The scope of that problem is to big for one master thesis, thus the focus will be on laying the groundwork for solving the problem.
+There are two goals that needs to be achieved for this to be consider done.
 
 
-The main goal is to create a debugger which gives a better debugging experience for optimized \emph{Rust} code on embedded systems than some of the most commonly used debuggers, such as \emph{GDB} and \emph{LLDB}.
-Another goal is to make it simpler to continue work on improving debugging and to inspire further development for debugging tools in the \emph{Rust} community.
-The last goal is to identify some of the problems that make debugging optimized \emph{Rust} code difficult.
+Implement a debugger with the minimum needed functionality for debugging optimized \emph{Rust} code on a embedded system, is the fist goal.
+This debugger is required to be designed so that it is easy to use and can easily be improved upon.
+The list in section \ref{sec:delimitations} lists the minimum needed features that this debugger needs to have.
 
 
-%There are two main problem that this thesis tries to tackle to improve the experience of debugging optimized code for embedded systems.
-%The fist problem is about the generation of the debug information, if more debug information can be generated then there is more information the debugger can retrieve an show the user.
-%This is also were the problem starts with debugging optimized code, because debuggers needs the debug information to understand the relation between the source code and the machine code.
-%Thus it is very important that the compiler generates as much debug information as possible, because there is nothing that can be done later to get more information.
-%The first problem then is to look at the different options that can be set for the \gls{rustc} compiler to improve the generations of debug information without impacting the optimization of the code to much.
-%Speed of the resulting code is still a big priority because the unoptimized \emph{Rust} code is very slow compared to the other languages.
-%
-%
-%The second problem is looking at the available debug information that the \gls{rustc} compiler generates for optimized code and creating a debugger that utilizes that information to the fullest.
-%This problem has two parts to it, the first being retrieving the needed information from the debug information.
-%This will be the hardest part and is the most important for improving the debugging for optimized code.
-%The second part is to display the debug information to the user in a user friendly way.
-%
-%
-%The goal of solving these to problems is to create a debugger that gives a better debugging experience for optimized \emph{Rust} code on embedded systems then some of the most commonly used debuggers, such as \gls{GDB} and \gls{LLDB}.
-%And to inspire further development for debugging tools in the \emph{Rust} community.
-
+The second goal is to research future possible solutions for improving debugging of optimized \emph{Rust} code, and discussing there pros and cons.
+For this goal to be consider achieved, this thesis should at least bring up three possible solutions.
+These solutions should not only discussing what can be done on the debugging side of the problem, but how the compiler can be improved.
 
 
 %\section{Equality and ethics}
-%TODO
-
 % Equality and ethics are learning objectives for the program and should be reflected upon in the thesis if applicable.
 % This section can be omitted if not at all relevant to the problem definition, but in many cases the thesis topic touches upon these topics even if it is outside the scope of the work itself and in such cases a single paragraph may be sufficient to cover the reflection.
 
@@ -169,6 +146,7 @@ The last goal is to identify some of the problems that make debugging optimized 
 
 
 \section{Delimitations}
+\label{sec:delimitations}
 % Describe what is not covered in the thesis.
 % Things you realize may have to be addressed to create a complete solution, but that would be too much work, or that may simply be out of the scope of your scientific area.
 
@@ -218,7 +196,7 @@ Today there are a lot of different debugging features that a debugger can have.
 Many of them are advanced and complicated to implement, thus it is decided to limit the amount of features to the ones that are most important.
 The following is the list of features the debugger is planned to have:
 
-\begin{itemize}
+\begin{itemize} \label{list:debuggerfeatures}
   \item Controlling the debugging target by:
   \begin{itemize}
     \item Starting/Continuing execution.
