@@ -161,20 +161,59 @@ These solutions should not only discussing what can be done on the debugging sid
 %	* Limiting it to a CLI and DAP server plus extension.
 
 
+%% Focusing on the bare minimum of debugger features
+Currently there are a lot of different debugging features that other debugger have.
+Many of them are advanced and complicated to implement.
+Thus, it is decided to limit the amount of features to the ones that are most important, to keep the scope of this thesis reasonable.
+The following is the list of features the debugger is required to have:
 
-% Making changes to the compiler(rustc and llvm).
-One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
-In the case of the \emph{Rust} compiler \emph{"rustc"}  it is the \emph{LLVM} library that mostly handles the debug information generation.
-\emph{LLVM} is a very large project that many people are working on, and thus improving on \emph{LLVM} is out of scope for this thesis.
-The same goes for improving \emph{"rustc"}.
-%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
+\begin{itemize} \label{list:debuggerfeatures}
+  \item Controlling the debugging target by:
+  \begin{itemize}
+    \item Starting/Continuing execution.
+    \item Stopping/Halting execution.
+    \item Reset execution.
+    \item Stepping one machine code instruction.
+  \end{itemize}
+  \item Set and remove breakpoints.
+  \item Virtually unwind the call stack.
+  \item Evaluating variables and there types.
+  \item Finding source code location of functions and variables.
+  \item A \acrfull{cli}.
+  \item Support the \emph{Microsoft} \acrfull{dap}.
+\end{itemize}
+
+
+% Limited to only supporting one chip and platform.
+Debugging embedded systems requires the debugger knows certain information about the target system, like the architecture.
+Supporting every \gls{mcu} out there would be to big of a scope for this thesis.
+Thus, the debugger is only required to work with the target system that is available.
+Which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
+
+%% Limiting supported chips and platforms.
+%When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.
+%The following are some of the hardware properties that needs to be known:
+%
+%\begin{itemize}
+%  \item Number of registers.
+%  \item Which of the registers that are considered special.
+%  \item The endianness of the memory.
+%  \item The machine code instruction set the \gls{mcu} is using/supports.
+%\end{itemize}
+
+%% Making changes to the compiler(rustc and llvm).
+%One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
+%In the case of the \emph{Rust} compiler \emph{"rustc"}  it is the \emph{LLVM} library that mostly handles the debug information generation.
+%\emph{LLVM} is a very large project that many people are working on, and thus improving on \emph{LLVM} is out of scope for this thesis.
+%The same goes for improving \emph{"rustc"}.
+%%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
 
 
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
-The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats that holds all the debug information.
+The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
-Thus it has been decided to only support the \gls{DWARF} format because it has good documentation.
+Thus it has been decided to only support the \gls{DWARF} format, because it has good documentation.
 
 
 % Making changes to DWARF standard.
@@ -191,27 +230,6 @@ Instead it will focus on explaining the minimum theory to understand the impleme
 For further details we refer the reader to \cite{dwarf}.
 
 
-%% Focusing on the bare minimum of debugger features
-Today there are a lot of different debugging features that a debugger can have.
-Many of them are advanced and complicated to implement, thus it is decided to limit the amount of features to the ones that are most important.
-The following is the list of features the debugger is planned to have:
-
-\begin{itemize} \label{list:debuggerfeatures}
-  \item Controlling the debugging target by:
-  \begin{itemize}
-    \item Starting/Continuing execution.
-    \item Stopping/Halting execution.
-    \item Reset execution.
-  \end{itemize}
-  \item Set and remove breakpoints.
-  \item Virtually unwind the call stack.
-  \item Evaluate variables.
-  \item Find source code location of functions and variables.
-  \item A \acrfull{cli}.
-  \item The debugger is planned to support the \emph{Microsoft} \acrfull{dap}.
-\end{itemize}
-
-
 %Many of the debuggers today have a lot of functionality to help the user understand what is happening in the program that they are debugging.
 %An example of these functionality are debuggers that support the ability to go backwards in the program.
 %Functionalities like this are useful but dose not contributing much to the main problem of this thesis which is debugging optimized code.
@@ -219,17 +237,6 @@ The following is the list of features the debugger is planned to have:
 %So to keep this thesis focused on the main problem the feature the debugger will have is restricted to virtually unwinding the stack, evaluating stack frames and there variables and lastly the ability to add and remove breakpoints.
 %The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that does not require debug information.
 
-
-% Limiting supported chips and platforms.
-When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.
-The following are some of the hardware properties that needs to be known:
-
-\begin{itemize}
-  \item Number of registers.
-  \item Which of the registers that are considered special.
-  \item The endianness of the memory.
-  \item The machine code instruction set the \gls{mcu} is using/supports.
-\end{itemize}
 
 %To support all the different \glspl{mcu} would be too much work for this thesis.
 %Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available at hand, and it will only support the \emph{arm Thumb mode} instruction set.
