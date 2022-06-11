@@ -82,7 +82,7 @@ And a debugger is very good tool for showing the state of these peripheral, whic
 Another reason is that hardware bugs are much easier to find if it is possible to inspect the state of a device easily.
 
 
-% Improving the state of debugging. % TODO: Rewrite this paragraph
+% Improving the state of debugging.
 Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which at the time of writhing this both requires another program to interact with the \gls{mcu}.
 An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a needlessly complex experience, especially for new developers.
@@ -137,8 +137,6 @@ These solutions should not only discussing what can be done on the debugging sid
 
 
 %\section{Sustainability}
-%TODO
-
 % Similar to the equality and ethics section this is one of the learning objectives for the program and should be reflected upon in the thesis if applicable.
 % For a quick overview of what is considered to be included in sustainability you can see the united nations list of sustainability goals:
 % https://www.un.org/sustainabledevelopment/sustainable-development-goals/ 
@@ -209,8 +207,8 @@ Which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
 %%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
 
 
-% Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html % TODO
-The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats.
+% Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html 
+The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \ref{llvm-dbs}.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
 Thus it has been decided to only support the \gls{DWARF} format, because it has good documentation.
@@ -259,7 +257,6 @@ For further details we refer the reader to \cite{dwarf}.
 %The specification for the \gls{DWARF} format is also very good at explaining how the information is structured.
 %Thus a this thesis will not go into all the detail in how to read the \gls{DWARF} format instead it will focus on explaining how the information in the \gls{DWARF} format can be used in combination to get important information that the user wants.
 
-% TODO: Add sources where needed in this section
 
 
 
@@ -268,4 +265,3 @@ For further details we refer the reader to \cite{dwarf}.
 % (e.g. In section 2 we discuss, in section 3 there is a... etc.).
 % This is really just to help guide the reader to where different parts of your work can be found.
 
-%TODO
