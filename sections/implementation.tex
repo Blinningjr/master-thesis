@@ -28,7 +28,7 @@ Thus, the \emph{rust-debug} library was created to make it possible to get infor
 Some of the main functionality that \emph{rust-debug} provides easy solutions for are the following:
 
 \begin{itemize}
-  \item Retrieving the source code file location for functions, variables, types and more.
+  \item Retrieving the source code file location for were functions, variables, types and more are declared.
   \item Virtually unwinding the call stack.
   \item Evaluating variables.
   \item Translating source file line number to the nearest machine code address.
@@ -41,24 +41,29 @@ The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 
 
 \subsection{Retrieving Source Code File Location}
-% Explain the evaluation of source information % TODO
-In the \emph{DWARF} format there are three attributes that contain information on where in the source code a \gls{die} is generated from.
-These attributes are used to relate whcihc 
+% Explain the evaluation of source information 
+In the \emph{DWARF} format, the source code location of where any type of data was declared, is stored in three attributes on the \gls{die} that represents that data.
+One of the attributes contain indirect information about which file the data was declared, another contain the line number and the last one contain the column number.
 
 
-In most cases the user of a debugger wants to know which source code file and line the current debug information refers to.
-This can only be done, if the debug information is stored in a \gls{die} that has attributes which names start with \emph{DW\_AT\_decl\_}.
-There are three of these attributes, they are the following:
-
-the most important one is named \emph{DW\_AT\_decl\_file}, it contains a file index number which can be used to get the source code file path and name.
-Retrieving the file path and  name from a file index, is done by doing a lookup in the current compilation units line number information table.
-The other two attributes are named \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}, and contain the line and column number respectively.
-
-The library \emph{rust-debug} simplifies the process of retrieving the source code location information, in .
+The attribute contain the file path and name information is called \emph{DW\_AT\_decl\_file}.
+It does not contain the file path and name directly, instead it contains a file index.
+This file index is used to lookup the file path and name in a table called, \emph{line number information table}.
+There is one such table in each compilation unit, and the file index $0$ is special.
+File index $0$ is reserved for when a source file can not be specified.
 
 
-\subsection{Accessing Memory And Registers}
-% Explain the evaluation part. % TODO
+The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column} respectively.
+Thus, they are much easier to retrieve.
+
+
+\emph{rust-debug} provides a function that performs the lookup file index lookup, and it also gets the line and column numbers.
+It requires that a \gls{die} and related compilation unit is given.
+But, the library has other function for retrieving the required information.
+
+
+\subsection{Accessing Memory And Registers} % TODO
+% Explain the evaluation part.
 % Explain the stored target memory and registers
 One of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
 \emph{rust-debug} does not have that functionality because it should be hardware independent as much as possible.
