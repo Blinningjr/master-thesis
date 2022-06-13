@@ -58,13 +58,20 @@ Thus, they are much easier to retrieve.
 
 
 \emph{rust-debug} provides a function that performs the lookup file index lookup, and it also gets the line and column numbers.
-It requires that a \gls{die} and related compilation unit is given.
+The function requires that a \gls{die} and related compilation unit is given.
 But, the library has other function for retrieving the required information.
 
 
 \subsection{Accessing Memory And Registers} % TODO
 % Explain the evaluation part.
 % Explain the stored target memory and registers
+Some of the functionalities in the \gls{dwarf} format requires access to register and memory values.
+One of these functionalities is the evaluation of current variable value.
+Accessing the debug targets registers and memory is a different problem from reading and using the \gls{dwarf} format.
+Thus, \emph{rust-debug} requires the user of the library to provide a solution for the problem.
+
+
+% OLD 
 One of the requirements for evaluating the value of a variable is access to the registers and memory of the debug target.
 \emph{rust-debug} does not have that functionality because it should be hardware independent as much as possible.
 Instead, the library uses a data structure which contain the values of the registers and memory.
