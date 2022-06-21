@@ -62,7 +62,7 @@ The function requires that a \gls{die} and related compilation unit is given.
 But, the library has other function for retrieving the required information.
 
 
-\subsection{Accessing Memory And Registers} % TODO
+\subsection{Accessing Memory And Registers}
 % Explain the evaluation part.
 % Explain the stored target memory and registers
 Some of the functionalities in the \gls{dwarf} format requires access to register and memory values.
@@ -71,19 +71,21 @@ One of them, is the evaluation of variables values.
 
 Accessing the debug targets registers and memory is a different problem from reading and using the \gls{dwarf} format.
 Thus, \emph{rust-debug} lets the user of the library solve that problem.
-This has the benefit that any existing solutions can be used, like \emph{probe-rs}. % todo
+This has the benefit that any existing solutions can be used, like \emph{probe-rs}.
 But it also has one downside, \emph{rust-debug} is a little bit harder to use because of extra work the user has to do.
 
 
 All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library called \emph{Registers}.
 This struct contains a \emph{HashMap} with the register numbers and there corresponding values.
 It also contains the register number of some special registers, like the \gls{pc} register.
-Thus, it is up to the user that the correct register numbers and values are stored on the struct.  % TODO reference embedded-rust-debug code as an example
+Thus, it is up to the user that the correct register numbers and values are stored on the struct.  
+An example on how this can be implemented can be found in the git repository for \gls{erdb} \ref{erdb}.
 
 
 The functionalities that requires access to the memory of the debug target, requires a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
-This trait is very simple and only has one function, which is for reading \emph{x} amount of bytes at a address given.
-% TODO reference embedded-rust-debug code as an example 
+This trait is very simple and only has one function, which is for reading a varied amount of bytes at a given address.
+Thus, the user can create a struct that implements that function almost however they want.
+An example on how this can be implemented using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \ref{erdb}.
 
 
 
