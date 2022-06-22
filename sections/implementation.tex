@@ -89,30 +89,30 @@ An example on how this can be implemented using the \emph{probe-rs} library can 
 
 
 
-\subsection{Evaluating Variables} \label{sec:ievalvar}  % TODO: Rewrite for the latest implementation
+\subsection{Evaluating Variables} \label{sec:ievalvar}
 % Explain the evaluation of variables.
 To make evaluating the value of a variable and retrieving other information about the variable easy, \emph{rust-debug} provides a struct called \emph{Variable}.
+That struct only has one function called \emph{get_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
+The \emph{rust-debug} \emph{Variable} struct may contain the following information:
 
-
-% OLD
-The \emph{rust-debug} library has a structure called \emph{VariableCreator}, it takes a reference to a \gls{DWARF} unit and \gls{die}.
-The \gls{die} has to be one that represents a variable.
-When the data structure is created, it will extract some important information about the variable from the \gls{die}. A constructed \emph{VariableCreator} struct has a method for evaluating the value of the variable that requires the register and memory data structure.
-This method evaluates the variable as described in section \ref{sec:evaluate-variable} and the \gls{DWARF} specification \cite{dwarf}.
-The return value of the method is an enum that is used for telling the user if a value is missing from the register and memory data structure or not.
-Then there exists another method for retrieving the variable information containing the evaluated value.
-The variable information contains the following:
 
 \begin{itemize}
   \item Variable name.
-  \item Variable type.
-  \item Variable location in the source file.
-  \item The locations of the variable value in registers and memory.
-  \item The evaluated value of the variable.
+  \item Variable value, type and location on the debug target. All this information is stored in a tree structure.
+  \item Variable declaration location, the file, line and column.
 \end{itemize}
 
 
-\subsection{Finding a functions DIE} \label{sec:funcdie}
+All the information in the \emph{Variable} struct may not be present, because not all \glspl{die} contain the information the struct may have.
+
+
+The evaluated value of a variable is represented in a tree structure which is very similar to how the information is stored in the \gls{DWARF} format.
+But, the value of each branch is evaluated into a value of one of the basic types, such as a signed integer.
+Thus, it removes the hardest part of evaluating a variable, without losing the flexibility of the \gls{DWARF} format.
+The only down side of this solution is that it requires the user understand how variables are structure in the \gls{DWARF} format.
+
+
+\subsection{Finding a functions DIE} \label{sec:funcdie} % TODO
 The \emph{rust-debug} library has a function for finding a \gls{die} that represents a function using the name of that function.
 The function also needs a machine code address to find the correct compilation unit.
 
