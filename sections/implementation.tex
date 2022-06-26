@@ -92,7 +92,7 @@ An example on how this can be implemented using the \emph{probe-rs} library can 
 \subsection{Evaluating Variables} \label{sec:ievalvar}
 % Explain the evaluation of variables.
 To make evaluating the value of a variable and retrieving other information about the variable easy, \emph{rust-debug} provides a struct called \emph{Variable}.
-That struct only has one function called \emph{get_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
+That struct only has one function called \emph{get\_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
 The \emph{rust-debug} \emph{Variable} struct may contain the following information:
 
 
@@ -155,10 +155,10 @@ It also includes the variable information that retrieved using the function desc
 
 
 
-\subsection{Finding Breakpoint Location} % TODO
+\subsection{Finding Breakpoint Location}
 % Explain how to get breakpoint location. 
-The \emph{rust-debug} library has a function that finds a machine code location using a source file location.
-This machine code location is the closest one that represents the line in the source code.
+The \emph{rust-debug} library has a function that finds a machine code address using a source code location.
+This machine code location is the closest one that represents the given line in the source code.
 The function requires a file path and line number, but it also can take a column number.
 
 
@@ -174,22 +174,23 @@ Otherwise, it is the one with the closest column number that is returned.
 
 \section{Embedded Rust Debugger}
 % Explain the genral stucture of the debugger
-The debugger \acrfull{erdb} is implemented using the debugging library \emph{rust-debug}.
-That library provides all the needed functionalities for retrieving debug information from the \gls{DWARF} format.
-The debugger also uses the \emph{probe-rs} library for controlling the \gls{mcu}.
-It is also used for accessing the registers and memory of the \gls{mcu}.
+The debugger \acrfull{erdb} is implemented using the debugging library \emph{rust-debug}, which requires the \emph{gimli-rs} library.
+\emph{rust-debug} provides all the needed functionalities for retrieving debug information from the \gls{DWARF} format.
+The debugger also uses the \emph{probe-rs} library for controlling the debug target, it is also used for accessing the registers and memory of the debug target.
 
 
 The debugger is made up of three modules, the first one is called \acrshort{cli}.
-Its main functionality is to handle the input from the console and the output to it.
+Its main functionality is to handle the input and output from the console.
 The second module is called \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
-This module is for supporting \glspl{gui} that use the \gls{dap} protocol to display debug information.
-The last module is called Debugger, and it runs in a separate thread from the other two modules.
-This is the module that uses the \emph{rust-debug} and \emph{probe-rs} library to get debug information.
-It is also used to control the debug target.
+These \gls{dap} messages are sent through a \arc{tcp} connection, and is for supporting the \gls{dap} protocol.
+The last module is called \emph{Debugger}, it is for getting debug information and controlling the debug target.
+
+
+
+The debugger is implemented asynchronously, because all the modules handle input, either from the user or from the debug target.
+Thus, the main function of the debugger waits for input from any of the modules, and then handles them.
 Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
-Also, all the code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 
 \begin{figure}[h]
@@ -200,35 +201,44 @@ Also, all the code for \gls{erdb} can be found in this git repository \cite{erdb
 \end{figure}
 
 
-\subsection{The CLI module}
+The code for \gls{erdb} can be found in this git repository \cite{erdb}.
+
+
+\subsection{The CLI Module} % TODO
 % Explain how the CLI is implemented.
-The \emph{CLI} is a very simple one, that has a separate thread for reading the input called the input thread.
-The input is read from the console constantly until the user enters a line of text.
-Then the inputted line is sent to the main thread.
-After that the input thread waits for a response, the type of the response is boolean.
-If the response boolean is true then the program will stop, otherwise it starts reading the console for new input again.
-The input thread repeats this process until the main thread stops it.
+The \acrshort{cli} module is very simple, it only has two jobs.
+The first is to parse the input into a request that the \emph{Debugger} module can understand.
+And the second is to convert the responses it gets from the \emph{Debugger} module to text, and output that text to the terminal.
 
 
-When the main thread receives a message from the input thread it tries to parse it into command.
-The parser works by matching the first word in the input with the names of the commands.
-If there is a match the commands specific parser is used to parse the rest of the input.
-After a command is parsed, it is sent to the debug thread asynchronously.
-The main thread then waits for a response from the debug thread, when the response is received the main thread prints it to the console.
-After that it sends a response to the input thread and awaits new messages from both the input thread and the debug thread.
-
-
-An example of all the communication between the user and the threads can be seen in figure \ref{fig:cliflow}.
-The example also shows what happens when an event is sent from the debug thread to the main thread.
-An event is a message telling the debugger that the debug target has change state from running to stopped or vice versa.
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{cli_flow.png}
-	\caption{A diagram showing the communication between the user/actor and the three different threads.}
-	\label{fig:cliflow}
-\end{figure}
+% OLD
+%The \emph{CLI} is a very simple one, that has a separate thread for reading the input called the input thread.
+%The input is read from the console constantly until the user enters a line of text.
+%Then the inputted line is sent to the main thread.
+%After that the input thread waits for a response, the type of the response is boolean.
+%If the response boolean is true then the program will stop, otherwise it starts reading the console for new input again.
+%The input thread repeats this process until the main thread stops it.
+%
+%
+%When the main thread receives a message from the input thread it tries to parse it into command.
+%The parser works by matching the first word in the input with the names of the commands.
+%If there is a match the commands specific parser is used to parse the rest of the input.
+%After a command is parsed, it is sent to the debug thread asynchronously.
+%The main thread then waits for a response from the debug thread, when the response is received the main thread prints it to the console.
+%After that it sends a response to the input thread and awaits new messages from both the input thread and the debug thread.
+%
+%
+%An example of all the communication between the user and the threads can be seen in figure \ref{fig:cliflow}.
+%The example also shows what happens when an event is sent from the debug thread to the main thread.
+%An event is a message telling the debugger that the debug target has change state from running to stopped or vice versa.
+%
+%
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{cli_flow.png}
+%	\caption{A diagram showing the communication between the user/actor and the three different threads.}
+%	\label{fig:cliflow}
+%\end{figure}
 
 
 
