@@ -40,7 +40,7 @@ The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 
 
 
-\subsection{Retrieving Source Code File Location}
+\subsection{Retrieving Source Code File Location} \label{sec:decl}
 % Explain the evaluation of source information 
 In the \emph{DWARF} format, the source code location of where any type of data was declared, is stored in three attributes on the \gls{die} that represents that data.
 One of the attributes contain indirect information about which file the data was declared, another contain the line number and the last one contain the column number.
@@ -134,29 +134,29 @@ Thus, the function \gls{die} can easily be found by tracking all the function \g
 %It returns a result when it has found the subroutine \gls{die} with the searched name, or when there are no more \glspl{die} to check.
 
 
-\subsection{Unwinding Call Stack}
-% Explain the evaluation of call stack % TODO
+\subsection{Unwinding the Call Stack}
+% Explain the evaluation of call stack 
 % Explain the evaluation of stackframe 
-The \emph{rust-debug} library has a data structure called \emph{Stacktrace}, which works very similarly to the data structure describe in section \ref{sec:ievalvar}.
-However, \emph{Stacktrace} is used to virtually unwind the call stack and evaluate all the variables in it.
-The call stack is unwound as described in section \ref{sec:stacktrace} and the \gls{DWARF} specification \cite{dwarf}.
-This results in a stack of activations, which most importantly contain restored register values and stack pointers.
+
+The \emph{rust-debug} library has a function for virtually unwinding the current call stack, and it does it in two separate steps.
+Unwinding the call stack to get all the register values for each stack frame, is the first step.
+The second step is to find the subroutine and to evaluate all the variables for each stack frame.
 
 
-All the variables in each of the activations are then evaluated using the restored register values.
-This is done using a data structure that works similar to the data structure describe in section \ref{sec:ievalvar}.
-
-The first step of evaluating the variables is finding the \gls{die} of the subroutine that the activation is related to.
-This is done using the function described in section \ref{sec:funcdie}.
-After that the \gls{die} tree is searched through for variable \glspl{die}, starting at the subroutine \gls{die}.
-All the variable \glspl{die} found are added to a list.
-Each variable in the list is then evaluated as described in section \ref{sec:ievalvar}.
-If there is a missing value from memory then the response from the evaluation of the variable is returned.
-Because the data structure works similar to the one in section \ref{sec:ievalvar}, it can continue from where it last stopped.
+Unwinding the call stack to get the register values is done by a separate function, which returns a \emph{Vec} of \emph{CallFrame} structs.
+Where each \emph{CallFrame} struct contain information about each of the stack frames.
+The most important information the struct contains is the unwound register values, but it also contain other useful information, such as the start and end memory address of the stack frame.
+All the information in the struct is retrieved using the method described in section \ref{sec:stacktrace}.
 
 
-\subsection{Finding Breakpoint Location}
-% Explain how to get breakpoint location.
+In the second step, the function loops through all the \emph{CallFrame} structs and tries to retrieved all the information it can about the stack frame.
+This includes the name of the subroutine and the declaration location, which is found using the function describe in section \ref{sec:decl}.
+It also includes the variable information that retrieved using the function describe in section \ref{sec:ievalvar}.
+
+
+
+\subsection{Finding Breakpoint Location} % TODO
+% Explain how to get breakpoint location. 
 The \emph{rust-debug} library has a function that finds a machine code location using a source file location.
 This machine code location is the closest one that represents the line in the source code.
 The function requires a file path and line number, but it also can take a column number.
