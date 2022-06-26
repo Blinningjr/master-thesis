@@ -77,7 +77,7 @@ But it also has one downside, \emph{rust-debug} is a little bit harder to use be
 
 All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library called \emph{Registers}.
 This struct contains a \emph{HashMap} with the register numbers and there corresponding values.
-It also contains the register number of some special registers, like the \arc{pc} register.
+It also contains the register number of some special registers, like the \acrshort{pc} register.
 Thus, it is up to the user that the correct register numbers and values are stored on the struct.  
 An example on how this can be implemented can be found in the git repository for \gls{erdb} \ref{erdb}.
 
@@ -180,10 +180,10 @@ The debugger also uses the \emph{probe-rs} library for controlling the debug tar
 
 
 The debugger is made up of three modules, the first one is called \acrshort{cli}.
-Its main functionality is to handle the input and output from the console.
+Its main functionality is to handle the input and output from the terminal.
 The second module is called \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
-These \gls{dap} messages are sent through a \arc{tcp} connection, and is for supporting the \gls{dap} protocol.
+These \gls{dap} messages are sent through a \acrshort{tcp} connection, and is for supporting the \gls{dap} protocol.
 The last module is called \emph{Debugger}, it is for getting debug information and controlling the debug target.
 
 
@@ -204,46 +204,34 @@ Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
 The code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 
-\subsection{The CLI Module} % TODO
+\subsection{The CLI Module} 
 % Explain how the CLI is implemented.
-The \acrshort{cli} module is very simple, it only has two jobs.
-The first is to parse the input into a request that the \emph{Debugger} module can understand.
+The \acrshort{cli} module has two jobs, the first is to read and parse the input into a request that the \emph{Debugger} module can understand from the terminal.
 And the second is to convert the responses it gets from the \emph{Debugger} module to text, and output that text to the terminal.
 
 
-% OLD
-%The \emph{CLI} is a very simple one, that has a separate thread for reading the input called the input thread.
-%The input is read from the console constantly until the user enters a line of text.
-%Then the inputted line is sent to the main thread.
-%After that the input thread waits for a response, the type of the response is boolean.
-%If the response boolean is true then the program will stop, otherwise it starts reading the console for new input again.
-%The input thread repeats this process until the main thread stops it.
-%
-%
-%When the main thread receives a message from the input thread it tries to parse it into command.
-%The parser works by matching the first word in the input with the names of the commands.
-%If there is a match the commands specific parser is used to parse the rest of the input.
-%After a command is parsed, it is sent to the debug thread asynchronously.
-%The main thread then waits for a response from the debug thread, when the response is received the main thread prints it to the console.
-%After that it sends a response to the input thread and awaits new messages from both the input thread and the debug thread.
-%
-%
-%An example of all the communication between the user and the threads can be seen in figure \ref{fig:cliflow}.
-%The example also shows what happens when an event is sent from the debug thread to the main thread.
-%An event is a message telling the debugger that the debug target has change state from running to stopped or vice versa.
-%
-%
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=0.9\textwidth]{cli_flow.png}
-%	\caption{A diagram showing the communication between the user/actor and the three different threads.}
-%	\label{fig:cliflow}
-%\end{figure}
+Reading the input from the terminal is done asynchronously, thus other tasks can be done while the \acrshort{cli} wait for the user input.
+When a new line has been entered, the \acrshort{cli} module will try to parse the string into a \emph{DebugRequest} enum.
+The string is parsed by first matching the first word in the string to a command.
+Each command has a parser that is then used to parse the rest of the string.
+The resulting \emph{DebugRequest} enum is then return to the main function, and then sent to the \emph{Debugger} module.
 
 
 
+After the \emph{Debugger} module has done its work, the result it outputted to the terminal.
+This is done by sending the \emph{DebugResponse} enum, that the \emph{Debugger} module returned, to a function that has a match for each of the enum variants.
+Each of the variants have a unique message that is outputted to the terminal, and the messages often contain data from the \emph{DebugResponse} enum.
+If the input text can not be parsed, a helpful message is printed to the terminal.
 
-\subsection{The Debug Adapter module}
+
+
+There is also a \emph{DebugEvent} enum, that is outputted to the terminal in the same way the \emph{DebugResponse} is.
+The \emph{DebugEvent} enum is created by another task, which polls the debug target state.
+That tasks main job is to report if the debug target has halted the program that is being debugged.
+
+
+
+\subsection{The Debug Adapter module} % TODO
 % Explain the implementaiton of the debug adapeter
 
 
@@ -277,7 +265,7 @@ If the debug adapter gets an event from the debug thread, the debug adapter will
 
 
 
-\subsection{The Debugger Module}
+\subsection{The Debugger Module} % TODO
 The debugger module is designed as a server that listens for commands through a channel.
 It is running in a separate thread from the \acrshort{cli} and the debug adapter, which is called the debug thread.
 There are two states in which the debug thread can be in, that is in the attached or detached state.
@@ -305,7 +293,7 @@ The relation between the libraries can be seen in figure \ref{fig:debugger}.
 \end{figure}
 
 
-\subsubsection{Retrieving Debug Information}
+\subsubsection{Retrieving Debug Information} % TODO
 The debugger module retrieves debug information by using the \emph{rust-debug} library.
 This library sometimes requires a data structure that contain the values of some registers and memory addresses.
 Those function will return an enum that tells if a value is needed and where that value is located.
@@ -316,7 +304,7 @@ This is such that no old values are used, and it works because the debug target 
 
 
 
-\subsubsection{Simultaneous Handling of Requests And Events}
+\subsubsection{Simultaneous Handling of Requests And Events} % TODO
 % How the debugger handles request and events simultaneously.
 The debug thread polls the channel for incoming request and the state of the debug target.
 This enables the debug thread to simultaneously handle requests from the user, and events from the debug target.
@@ -325,7 +313,7 @@ It is used to stop the pulling of the targets state when the debug target is sto
 This is done because the debug target cannot start executing on its own.
 
 
-\subsubsection{Optimization of Repeated Variable Evaluation}
+\subsubsection{Optimization of Repeated Variable Evaluation} % TODO
 % How it handles request for stackframes and variables.
 To improve on the performance of the debugger it will temporarily store the values of the stack trace.
 This allows for fast repetitive lookup of information present in the stack trace.
@@ -337,7 +325,7 @@ Note that if a request is received to evaluate one variable, the debugger will t
 This simplifies the implementation a lot and also makes the subsequent evaluation requests faster.
 
 
-\section{VSCode Extension}
+\section{VSCode Extension} % TODO
 % Explain the implementation of the vscode explanation.
 Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool called \emph{TODO} \ref{TODO}, that will generate a empty extension.
 They also have a lot of documentation on how to get started with creating a extension.
