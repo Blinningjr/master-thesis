@@ -79,13 +79,13 @@ All the functionalities in \emph{rust-debug} that requires access to the registe
 This struct contains a \emph{HashMap} with the register numbers and there corresponding values.
 It also contains the register number of some special registers, like the \acrshort{pc} register.
 Thus, it is up to the user that the correct register numbers and values are stored on the struct.  
-An example on how this can be implemented can be found in the git repository for \gls{erdb} \ref{erdb}.
+An example on how this can be implemented can be found in the git repository for \gls{erdb} \cite{erdb}.
 
 
 The functionalities that requires access to the memory of the debug target, requires a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
 This trait is very simple and only has one function, which is for reading a varied amount of bytes at a given address.
 Thus, the user can create a struct that implements that function almost however they want.
-An example on how this can be implemented using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \ref{erdb}.
+An example on how this can be implemented using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \cite{erdb}.
 
 
 
@@ -196,7 +196,7 @@ Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{debugger_structure.png}
-	\caption{Diagram showing the structure of ERD.}
+	\caption{Diagram showing the structure of \gls{erdb}.}
 	\label{fig:ERDStruct}
 \end{figure}
 

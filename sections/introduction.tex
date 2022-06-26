@@ -208,7 +208,7 @@ Which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
 
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html 
-The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \ref{llvm-dbs}.
+The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \cite{llvm-dbs}.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
 Thus it has been decided to only support the \gls{DWARF} format, because it has good documentation.
