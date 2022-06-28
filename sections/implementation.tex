@@ -231,37 +231,18 @@ That tasks main job is to report if the debug target has halted the program that
 
 
 
-\subsection{The Debug Adapter module} % TODO
+\subsection{The Debug Adapter module}
 % Explain the implementaiton of the debug adapeter
 
-
-% Overview description of the debug adapter and the flow of communication from the user to the debugger.
-The debug adapter is implemented as a \gls{tcp} server in the main thread.
-When a new \gls{tcp} connection is made the debug thread is started.
-After it has started the main thread starts listening for \gls{dap} messages on the \gls{tcp} connection.
+All the \gls{dap} communication is handled in the debug adapter module.
+The main job of this module is to translate \gls{dap} messages into request, which are forwarded to the debugger module.
+It also handles the translation of the responses and events from the debugger module.
 
 
-The first \gls{dap} messages are for communicating the \gls{dap} functionalities that the client and the debugger has.
-These first \gls{dap} messages also contain some configuration for debugger module in the debug thread, those configuration are forwarded to the debug thread.
-After that the debug adapter will continuously pull for messages from the \gls{tcp} client and the debug thread, until a message is received.
-
-
-When the debug adapter receives a \gls{dap} message from the client, it is translated into one or more commands.
-Those commands are then sent one by one to the debugger module in the debug thread.
-The responses from those commands are then used to make a response to the clients \gls{dap} message.
-If the debug adapter gets an event from the debug thread, the debug adapter will translate it into a \gls{dap} message and send it to the client.
-
-
-
-%% Add a flow cart of the communication? % TODO
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=0.9\textwidth]{user_dap_debug.png}
-%	\caption{A diagram showing the comunication between the user/actor, \emph{VSCode} and the debugger \emph{Embedded Rust Debugger}.}
-%	\label{fig:userDAP}
-%\end{figure}
-
-
+The \gls{dap} protocol communicates through \gls{tcp}, thus the debug adapter module has a \gls{tcp} server.
+All of the \gls{tcp} communication is handled asynchronously, this is to enable the other tasks to run simultaneously.
+Currently only one \gls{tcp} connection can be open at a time.
+That is because the rest of the system does not yet support multiple simultaneous debugging session.
 
 
 
