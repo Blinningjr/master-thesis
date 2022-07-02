@@ -9,6 +9,8 @@
 % 4.2 System components / System komponenter
 % 4.3 ...
 
+% TODO: Explain design methods used. Modulare, Singelthon and so on.
+
 There are three different project that make up the implementation.
 The first being a debug library called \emph{rust-debug}, which purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
 The second project is the debugger \gls{erdb}, that implements the \gls{dap} protocol.
@@ -246,32 +248,20 @@ That is because the rest of the system does not yet support multiple simultaneou
 
 
 
-\subsection{The Debugger Module} % TODO
-The debugger module is designed as a server that listens for commands through a channel.
-It is running in a separate thread from the \acrshort{cli} and the debug adapter, which is called the debug thread.
-There are two states in which the debug thread can be in, that is in the attached or detached state.
-The two states are different in that the attached state can access the debug target and the \gls{DWARF} file.
+\subsection{The Debugger Module}
+The debugger module mainly consist of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
+But it also keeps track of the debug targets state.
+The struct only has two methods for accomplishing this, one for them is for polling the state of the debug target.
+And the other method called \emph{handle_request} takes a \emph{DebugRequest} as a argument, and calls a function based on the argument.
+The method also returns a \emph{DebugResponse} with the result.
 
 
-The debug thread is started by the main thread and starts in the detached state.
-In the detached state only the configuration and exit commands work.
-The other commands require that the debug target is attached.
-But if one of those commands is received then the debug thread will try to enter the attached state.
-This can only happen if all the required configuration are set.
-If one of the configuration are missing then an error will be sent as a response.
+In general flow when the \emph{handle_request} method is called is as follows.
+First the \emph{DebugRequest} enum is matched and a check is done to see that all the required information is present.
+Then, the debugger module will preform some task to related to the given argument.
+Which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
+Lastly the result is returned using the enum \emph{DebugResponse}.
 
-
-When the debug thread is in the attached state it can use the \emph{rust-debug} library to retrieve debug information.
-It can also use the \emph{probe-rs} library for controlling the debug target and reading the registers and memory.
-The relation between the libraries can be seen in figure \ref{fig:debugger}.
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{debugger.png}
-	\caption{A diagram showing the relations between the debugger, the \emph{ELF} file, the debug target and the two libraries \emph{rust-debug} and \emph{probe-rs}.}
-	\label{fig:debugger}
-\end{figure}
 
 
 \subsubsection{Retrieving Debug Information} % TODO
