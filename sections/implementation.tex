@@ -271,13 +271,14 @@ Those values are retrieved from the debug target using \emph{probe-rs}.
 
 
 
-\subsubsection{Simultaneous Handling of Requests And Events} % TODO
+\subsubsection{Simultaneous Handling of Requests And Events}
 % How the debugger handles request and events simultaneously.
-The debug thread polls the channel for incoming request and the state of the debug target.
-This enables the debug thread to simultaneously handle requests from the user, and events from the debug target.
-There is a boolean that keeps track if the debug target is running.
-It is used to stop the pulling of the targets state when the debug target is stopped.
-This is done because the debug target cannot start executing on its own.
+The state of the debug target is polled every $100$ millisecond, to detect if the debug target has continued of stopped the program execution.
+In the time between the polls other tasks can be handled, such as parsing the input from the \arc{cli} or doing a stack trace.
+This is possible because there is a asynchronously function which sleeps for $100$ millisecond, afterwards it polls the debug target state.
+That function repeats as long as the debug target is being debugged.
+Thus, the debugger can simultaneously handle both input from the user and state changes in the debug target.
+A state change in the debug target is called a event in \gls{erdb}.
 
 
 
