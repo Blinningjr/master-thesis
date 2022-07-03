@@ -256,7 +256,7 @@ And the other method called \emph{handle_request} takes a \emph{DebugRequest} as
 The method also returns a \emph{DebugResponse} with the result.
 
 
-In general flow when the \emph{handle_request} method is called is as follows.
+The general flow when the \emph{handle_request} method is called is as follows.
 First the \emph{DebugRequest} enum is matched and a check is done to see that all the required information is present.
 Then, the debugger module will preform some task to related to the given argument.
 Which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
@@ -264,14 +264,10 @@ Lastly the result is returned using the enum \emph{DebugResponse}.
 
 
 
-\subsubsection{Retrieving Debug Information} % TODO
+\subsubsection{Retrieving Debug Information}
 The debugger module retrieves debug information by using the \emph{rust-debug} library.
-This library sometimes requires a data structure that contain the values of some registers and memory addresses.
-Those function will return an enum that tells if a value is needed and where that value is located.
-Thus, the debugger module will use the \emph{probe-rs} library to read the needed value, which is then added to the data structure.
-This repeats until no more values are needed, and the result of the evaluation can be retrieved.
-The values in the data structure are removed every time the debug target starts executing again.
-This is such that no old values are used, and it works because the debug target must be stopped to use related commands.
+That library sometimes require values from the debug target, such as the values stored in some registers and memory addresses.
+Those values are retrieved from the debug target using \emph{probe-rs}.
 
 
 
@@ -284,16 +280,19 @@ It is used to stop the pulling of the targets state when the debug target is sto
 This is done because the debug target cannot start executing on its own.
 
 
-\subsubsection{Optimization of Repeated Variable Evaluation} % TODO
+
+\subsubsection{Optimization of Repeated Variable Evaluation}
 % How it handles request for stackframes and variables.
-To improve on the performance of the debugger it will temporarily store the values of the stack trace.
-This allows for fast repetitive lookup of information present in the stack trace.
-The stored stack trace is removed any time the debug target starts executing again.
-This ensures that it always gives the correct values and not the old ones.
+To improve on the performance of the debugger, all the variables and stack frames are temporarily stored.
+This allows for fast repetitive lookup of debug information.
+All of this temporarily stored information is removed when the state of the debug target changes.
+This is to ensures that the correct information is returned.
 
 
-Note that if a request is received to evaluate one variable, the debugger will then perform a stack trace instead, or read from the temporarily stored stack trace.
-This simplifies the implementation a lot and also makes the subsequent evaluation requests faster.
+Note that if a request is received to evaluate one variable, the debugger will then perform a whole stack trace instead.
+This simplifies the implementation a lot, it also makes the subsequent evaluation requests faster.
+Because, the value does not need to be evaluate, instead it can be taken from temporarily stored information.
+
 
 
 \section{VSCode Extension} % TODO
