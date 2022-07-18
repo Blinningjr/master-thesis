@@ -252,11 +252,11 @@ That is because the rest of the system does not yet support multiple simultaneou
 The debugger module mainly consist of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
 But it also keeps track of the debug targets state.
 The struct only has two methods for accomplishing this, one for them is for polling the state of the debug target.
-And the other method called \emph{handle_request} takes a \emph{DebugRequest} as a argument, and calls a function based on the argument.
+And the other method called \emph{handle\_request} takes a \emph{DebugRequest} as a argument, and calls a function based on the argument.
 The method also returns a \emph{DebugResponse} with the result.
 
 
-The general flow when the \emph{handle_request} method is called is as follows.
+The general flow when the \emph{handle\_request} method is called is as follows.
 First the \emph{DebugRequest} enum is matched and a check is done to see that all the required information is present.
 Then, the debugger module will preform some task to related to the given argument.
 Which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
@@ -274,7 +274,7 @@ Those values are retrieved from the debug target using \emph{probe-rs}.
 \subsubsection{Simultaneous Handling of Requests And Events}
 % How the debugger handles request and events simultaneously.
 The state of the debug target is polled every $100$ millisecond, to detect if the debug target has continued of stopped the program execution.
-In the time between the polls other tasks can be handled, such as parsing the input from the \arc{cli} or doing a stack trace.
+In the time between the polls other tasks can be handled, such as parsing the input from the \acrshort{cli} or doing a stack trace.
 This is possible because there is a asynchronously function which sleeps for $100$ millisecond, afterwards it polls the debug target state.
 That function repeats as long as the debug target is being debugged.
 Thus, the debugger can simultaneously handle both input from the user and state changes in the debug target.
@@ -296,22 +296,25 @@ Because, the value does not need to be evaluate, instead it can be taken from te
 
 
 
-\section{VSCode Extension} % TODO
+\section{VSCode Extension}
 % Explain the implementation of the vscode explanation.
-Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool called \emph{TODO} \ref{TODO}, that will generate a empty extension.
+Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool called \emph{vscode-generator-code} \cite{vscode-generator-code}, that will generate a empty extension.
 They also have a lot of documentation on how to get started with creating a extension.
-The documentation mentions how to create debug extensions.
+
+
 There is two different types of debug extensions, the first is a extension that implements a debug adapter for a specific debugger.
 These often require a lot work because a debug adapter needs to translate the \gls{dap} protocol messages to command that the debugger understands.
 Thus, depending on the debugger it can require a lot of work to get this working well.
 The other type of debug extension is just a wrapper for the debugger that already implements the \gls{dap} protocol.
-These extension are very simple to create because the they only need to start the debugger and connect to it using the \emph{dap} protocol.
-I refer the reader to \emph{Microsofts} documentations \ref{TODO} for further reading.
+These extension are very simple to create, because they only need to start the debugger and connect to it using the \emph{dap} protocol.
+To learn more about \emph{VSCode} debug extension, I refer the reader to \emph{Microsofts} documentations \cite{vscode-debugger-extension-doc} for further reading.
+
 
 The debugger \emph{Embedded Rust Debugger} implements the \gls{dap} protocol over a \gls{tcp} server.
 Thus, the \emph{VSCode} extension is just a wrapper that starts the debugger \gls{tcp} server and then connects to it.
 Connecting to the debugger server over \gls{tcp} is very easy to do, because \emph{Microsoft} has a library called \emph{VSCode} that does that for you.
 The extension also captures the logs of the debugger and outputs them to the user using the \emph{VSCode} library.
 
-There are also some configurations that the user of the \emph{Embedded Rust Debugger} can set in the \emph{launch.json} file.
-The available configurations are defined in a \emph{json} file called \emph{TODO} in the extension project.
+
+There are also some configurations that the user of the \gls{erdb} can set in the \emph{launch.json} file.
+The available configurations are defined in a \emph{json} file called \emph{package.json} in the extension project \cite{erdb-vscode}.
