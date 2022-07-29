@@ -116,11 +116,11 @@ Table \ref{table:enum3} shows an example of this situation, by showing the resul
 		ERD & test\_enum3 = 
 		TestEnum \{ \textless \ OptimizedOut \textgreater \ \}\\
 
-		GDB (11.0.90)  & (gdb) p test\_enum3\newline
+		GDB (12.1)  & (gdb) p test\_enum3\newline
 		\$ 1 = nucleo\_rtic\_blinking\_led::TestEnum::ITest(\newline
 		\textless optimized out\textgreater) \\
 
-		LLDB (13.0.0) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_enum3 = \{\newline
+		LLDB (14.0.6) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_enum3 = \{\newline
 		\text{\ \ ITest = (0 = 0)}\newline
 		\text{\ \ UTest = (0 = 0)}\newline
 		\text{\ \ Struct = \{}\newline
@@ -181,10 +181,10 @@ The table \ref{table:struct} shows an example of this situation, by showing the 
 		\hline
 		ERD & test\_struct = TestStruct \{ num::123, flag::\textless \ OptimizedOut \textgreater \} \\
 
-		GDB (11.0.90)  & (gdb) p test\_struct\newline
+		GDB (12.1)  & (gdb) p test\_struct\newline
 		\$ 1 = nucleo\_rtic\_blinking\_led::TestStruct \{flag: \textless synthetic pointer\textgreater, num: 123\} \\
 
-		LLDB (13.0.0) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_struct = (flag = false, num = 123) \\
+		LLDB (14.0.6) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_struct = (flag = false, num = 123) \\
 		\hline
 	\end{tabular}
 	\caption{The different debuggers evaluation result for variable \emph{test\_struct}, and the actual source code value and DWARF location.}
@@ -239,10 +239,10 @@ The table \ref{table:u16} shows an example of this situation, by showing the res
 		\hline
 		ERD & test\_u16 = \textless OutOfRange\textgreater \\
 
-		GDB (11.0.90)  & (gdb) p test\_u16\newline
+		GDB (12.1)  & (gdb) p test\_u16\newline
 		\$ 1 = \textless optimized out\textgreater \\
 
-		LLDB (13.0.0) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
+		LLDB (14.0.6) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
 		\hline
 	\end{tabular}
 	\caption{The different debuggers evaluation result for variable \emph{test\_u16}, and the actual source code value and DWARF location.}
