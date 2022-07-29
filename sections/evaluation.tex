@@ -98,7 +98,7 @@ Table \ref{table:enum3} shows an example of this situation, by showing the resul
 		\hline
 		Debugger (Version) & Evaluated Result \\
 		\hline
-		ERD & test\_enum3 = 
+		ERDB & test\_enum3 = 
 		TestEnum \{ \textless \ OptimizedOut \textgreater \ \}\\
 
 		GDB (12.1)  & (gdb) p test\_enum3\newline
@@ -164,7 +164,7 @@ The table \ref{table:struct} shows an example of this situation, by showing the 
 		\hline
 		Debugger (Version) & Evaluated Result \\
 		\hline
-		ERD & test\_struct = TestStruct \{ num::123, flag::\textless \ OptimizedOut \textgreater \} \\
+		ERDB & test\_struct = TestStruct \{ num::123, flag::\textless \ OptimizedOut \textgreater \} \\
 
 		GDB (12.1)  & (gdb) p test\_struct\newline
 		\$ 1 = nucleo\_rtic\_blinking\_led::TestStruct \{flag: \textless synthetic pointer\textgreater, num: 123\} \\
@@ -222,7 +222,7 @@ The table \ref{table:u16} shows an example of this situation, by showing the res
 		\hline
 		Debugger (Version) & Evaluated Result \\
 		\hline
-		ERD & test\_u16 = \textless OutOfRange\textgreater \\
+		ERDB & test\_u16 = \textless OutOfRange\textgreater \\
 
 		GDB (12.1)  & (gdb) p test\_u16\newline
 		\$ 1 = \textless optimized out\textgreater \\
