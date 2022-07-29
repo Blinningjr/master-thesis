@@ -11,9 +11,6 @@ There are three problems that this thesis tries to solve, they are mentioned in 
 The three following section will go thought how each of the problems were evaluate and what the results are.
 
 
-
-
-
 \section{Evaluating \emph{rust-debug}}
 The debugging library \emph{rust-debug} aims to solve the problem of it being difficult to get debug information from the \gls{DWARF} format.
 Where the difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the debug information wanted.
@@ -34,5 +31,27 @@ The amount of \emph{Rust} code in \emph{rust-debug} is more then double that of 
 Thus, \emph{rust-debug} has made it significantly easier to get some debug information.
 
 
+
 \section{Evaluating \emph{ERDB}} % TODO
+% List all the features it has.
+One of the requirements set in the section \ref{sec:problemDef} was that \gls{erdb} needs to implement some of the most common debugging features.
+A list of these features is can be found in section \ref{sec:delimitations}.
+\gls{erdb} implements all of those mentioned features, but there are two of them that is not fully supported.
+
+
+% stepping, sw breakpoints, 
+Currently \gls{erdb} only supports hardware breakpoints, thus there is a limit to how many breakpoints can be set.
+To have more breakpoints the debugger needs to support software breakpoints, which will make it possible to have a lot more breakpoints.
+The other feature that is not fully supported are the different stepping variants.
+Stepping one machine code instruction is currently the only supported stepping function.
+But, it would have been very useful if it supported stepping one source code instruction.
+
+
+% TODO: Dose not require external program for embedded systems.
+
+
+
+% TODO: Compare to erdb, gdb and lldb.
+
 \section{Debugging Optimized Out Variables} % TODO
+
