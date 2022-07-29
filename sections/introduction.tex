@@ -116,18 +116,25 @@ This will be achieved by creating a debugging library, which hopefully will help
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
 The main problem of this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
-The scope of that problem is to big for one master thesis, thus the focus will be on laying the groundwork for solving the problem.
-There are two goals that needs to be achieved for this to be consider done.
+This will be achieve by creating a new debugger and debugging library that aims to solve three problems.
 
 
-Implement a debugger with the minimum needed functionality for debugging optimized \emph{Rust} code on a embedded system, is the fist goal.
-This debugger is required to be designed so that it is easy to use and can easily be improved upon.
-The list in section \ref{sec:delimitations} lists the minimum needed features that this debugger needs to have.
+One of the problems is that two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, requires another program to debug embedded systems.
+This problem makes both of them harder to use and is overall a bad user experience.
 
 
-The second goal is to research future possible solutions for improving debugging of optimized \emph{Rust} code, and discussing there pros and cons.
-For this goal to be consider achieved, this thesis should at least bring up three possible solutions.
-These solutions should not only discussing what can be done on the debugging side of the problem, but how the compiler can be improved.
+Another problem is that both \emph{GDB} and \emph{LLDB} often only display that variables have been optimized out.
+This happens very often when debugging optimized code, even with the less aggressive optimization options.
+Also, the message display by the debuggers should contain more information about why the variable was optimized out.
+
+
+The last problem is that retrieving debugging information form the \gls{DWARF} format is difficult to do. 
+This makes creating tools that need debug information difficult and time consuming to implemented, when they don't need to be.
+
+
+Thus, the goals for this thesis is to create a new debugger and library that fix the problems mentioned above.
+The debugger and library should support the most common debugging features, they are listed in section \ref{sec:delimitations}.
+
 
 
 %\section{Equality and ethics}
