@@ -47,8 +47,11 @@ Stepping one machine code instruction is currently the only supported stepping f
 But, it would have been very useful if it supported stepping one source code instruction.
 
 
-% TODO: Dose not require external program for embedded systems.
-
+% Dose not require external program for embedded systems.
+One of the main goals of \gls{erdb} was to improve the user experience, by mainly removing the hassle of using a external program to debug embedded systems.
+\gls{erdb} has achieved this goal by using the \emph{probe-rs} library.
+\emph{probe-rs} allows \gls{erdb} to access the debug target without starting another program, which greatly improves the user experience.
+There is also a \emph{vscode} extension for \gls{erdb} that makes the user experience equally as good as other debuggers.
 
 
 % TODO: Compare to erdb, gdb and lldb.
