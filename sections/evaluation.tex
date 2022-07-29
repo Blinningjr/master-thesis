@@ -6,264 +6,33 @@
 % This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
-
-To evaluate the solution to the problem (see section \ref{sec:problemdefinition}) there are two criteria.
-The first one is how much more debug information does the solution get from the compiler compared to compiling without the set flags.
-This is to evaluate the first part of the problem.
-For the second part of the problem the debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
-The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
-Thus, it is these two debuggers that will be compared to the presented debugger.
-The reason being that they are the two debuggers that are supported by the \emph{Rust} development team according to there \emph{rustc-dev-guide} \cite{rust-dev-guide}.
-The criteria they will be compared to is how well the debuggers can retrieve debug information from optimized code and how well they can display that information to the user.
-Because getting the information is important but it is pretty much useless if it is not displayed in an user friendly way.
-
-
-\section{Compiler Setting Comparison}
-\label{sec:settingscomparison}
-% Describe the test setup to verify that your problems from 1.3 have been solved.
-% This can be done in different ways depending on focus of your problems.
-% Some problems may purely objective, such as "improve the performance of X compared to Y".
-% These are easy to evaluate since you simply need to compare the performance, and perhaps compare against a few more technologies that you have listed in Section 2 (related work).
-% In other cases the problems may be very subjective, such as "Create a mobile app that can be used while driving, and which shows the most fuel efficient time to change gear".
-% This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
-% Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
-
-
-The \emph{Rust} compiler has some compiler options that the user can set when compiling a project that affect the code generation and the debug information.
-It also enables the user to access some of the compiler options for \emph{LLVM} that is the backend of the compiler.
-The first part to finding if any of these compiler options affect the debug information generated in a meaningful way is to read what they do and determine if they might do that.
-Then the compiler options need to be tested manually to see if any of them actually have any meaningful effect, and that the option does not affect the speed of the optimized code in a negative way.
-This is very hard to do and takes a lot of time to do it properly, thus the testing done will be limited to checking the difference in the \gls{DWARF} file and the debugging experience.
-
-
-\subsection{Settings \emph{debuginfo} and \emph{opt-level}}
-When going through all the possible \emph{rustc} compiler options for code generation that are listed in the \emph{rustc book} \cite{rustc-book-codegen}, there were two that had the most impact on the amount of debug information generated.
-The most important one of these is the flag named \emph{debuginfo} which controls the amount of debug information generated.
-It has three options, the first is option $0$ which means that no debug info will be generated.
-The second option is $1$ which will only generate the line tables and the last is option $3$ which generates all the debug information it can.
-Thus it is clear from the description in the \emph{rustc book} that this flag should always be set to $3$ when debugging.
-
-
-The other key compiler option is the optimization flag named \emph{opt-level}.
-It controls the amount of optimization done to the code and which type of optimization, size or speed.
-Comparing the different optimization levels the debug information in \gls{DWARF} got less and less when a higher optimization level was set on a simple blink code example.
-The highest optimization level for speed is $3$ and the result from using is that the debug information got very limited, thus making it extremely hard to debug.
-In the testing of the three optimization level $1$, $2$ and $3$ it seems that optimization level $2$ worked the best for debugging without making the program too slow.
-
-
-\subsection{Settings \emph{force-frame-pointers} and \emph{force-unwind-tables}}
-There are two other \emph{rustc} compiler option flags that are important for debugging but sometimes not necessary depending on the target.
-The first one is called \emph{force-frame-pointers}. 
-It forces the use of frame pointers according to the documentation \cite{rustc-book-codegen}.
-The other one is called \emph{force-unwind-tables} which forces the compiler to generate unwind tables in the \gls{DWARF} file, according to the documentation \cite{rustc-book-codegen}.
-These two flags set to \emph{`yes`} can ensure that the debugger can unwind the stack and display the callstack to the user.
-
-
-\subsection{\emph{LLVM} Settings}
-Looking through all the \emph{LLVM} arguments that is available through \emph{rustc} yielded one more argument that affects the debug information generated.
-The argument is named \emph{debugify-level} and controls the kind of debug information that is added to the \gls{DWARF} file.
-There are two options for this argument, the first is called \emph{"location+variables"} and adds locations and variables to \gls{DWARF}.
-The other option is called \emph{"locations"} and only adds locations to \gls{DWARF}.
-When testing out both of these options on optimized code there were no noticeable difference in the debugging experience and no noticeable difference in the  \gls{DWARF} file.
+% TODO: Remove
+There are three problems that this thesis tries to solve, they are mentioned in section \ref{sec:problemDef}.
+The three following section will go thought how each of the problems were evaluate and what the results are.
 
 
 
-\section{Debugger Comparison}
-\label{sec:debuggercomparison}
-% Describe the test setup to verify that your problems from 1.3 have been solved.
-% This can be done in different ways depending on focus of your problems.
-% Some problems may purely objective, such as "improve the performance of X compared to Y".
-% These are easy to evaluate since you simply need to compare the performance, and perhaps compare against a few more technologies that you have listed in Section 2 (related work).
-% In other cases the problems may be very subjective, such as "Create a mobile app that can be used while driving, and which shows the most fuel efficient time to change gear".
-% This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
-% Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
 
-% Move to above section
-
-The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
-The example code was many times modified to test how well the three debugger handled the different situations.
-This was repeated until one of the debuggers gave an unexpected result.
-There was three of these cases found where the code was compiled with optimization 2.
-To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
-This ensures that all the three debuggers stop on the same instruction.
+\section{Evaluating \emph{rust-debug}}
+The debugging library \emph{rust-debug} aims to solve the problem of it being difficult to get debug information from the \gls{DWARF} format.
+Where the difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the debug information wanted.
+Thus, one way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.
 
 
-\subsection{Evaluation of \emph{Rust} Enums}
-When testing the three different debuggers it was discovered that they evaluated \emph{Rust} enums to different values in a certain situation.
-That situation happens when the value describing the variant of an enum is optimized out by the compiler.
-Table \ref{table:enum3} shows an example of this situation, by showing the result of the three debuggers.
-
-\begin{table}[h]
-	\centering
-	\small
-	\begin{tabular}{ |p{2cm}|p{8cm}|  }
-		\hline
-		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_enum3}}} \\ 
-		\hline
-		\hline
-		Source & Value \\
-		\hline
-%		\acrfull{pc} & 0x08000464 \\
-
-		DWARF Location & (DW\_OP\_piece: 9; DW\_OP\_breg13 (r13): 156; DW\_OP\_piece: 3) \\
-
-		Rust Source Code & let mut test\_enum3 = TestEnum::Struct(TestStruct \{ flag: true, num: 123\}); \\
-		\hline
-		\hline
-		Debugger (Version) & Evaluated Result \\
-		\hline
-		ERD & test\_enum3 = 
-		TestEnum \{ \textless \ OptimizedOut \textgreater \ \}\\
-
-		GDB (12.1)  & (gdb) p test\_enum3\newline
-		\$ 1 = nucleo\_rtic\_blinking\_led::TestEnum::ITest(\newline
-		\textless optimized out\textgreater) \\
-
-		LLDB (14.0.6) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_enum3 = \{\newline
-		\text{\ \ ITest = (0 = 0)}\newline
-		\text{\ \ UTest = (0 = 0)}\newline
-		\text{\ \ Struct = \{}\newline
-		\text{\ \ \ \ 0 = (flag = false, num = 0)}\newline
-		\text{\ \ \}}\newline
-		\text{\ \ Non = \{\}}\newline
-		\} \\
-		\hline
-	\end{tabular}
-	\caption{The different debuggers evaluation result for variable \emph{test\_enum3}, and the actual source code value and DWARF location.}
-	\label{table:enum3}
-\end{table}
+Unfortunately there is no other debugger that has the exact same features as \gls{erdb}.
+And it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
 
 
-The declared value of the variable \emph{test\_enum3} can be seen in the row called \emph{Rust Source Code} in table \ref{table:enum3}.
-Note that the variant of the enum is called \emph{Struct}, the value of flag is \emph{true} and the value of \emph{num} is $123$.
+Instead the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
+The number of \emph{Rust} code lines will be counted using the tool \emph{tokei} \cite{tokei}.
+\emph{rust-debug} contains $3550$ lines of \emph{Rust} code, and the debugger module contains $1310$ lines.
+Also, the whole debugger \gls{erdb} contains $2834$ lines of \emph{Rust} code.
 
 
-The location of the variables value can be seen in the row called \emph{DWARF Location} in table \ref{table:enum3}, there it can be seen that the first \gls{DWARF} operation is \emph{DW\_OP\_piece: 9}.
-This operation in short means that the first $9$ bytes of the variable is optimized out, because there are no other operation before it.
-The other two operations describe that the last $3$ bytes of the value is stored in memory at the address stored in the base register $13$ plus the offset $156$.
-This all means that most of \emph{test\_enum3} is optimized out, including the value describing the enum variant.
+The amount of \emph{Rust} code in \emph{rust-debug} is more then double that of the debugger module in \gls{erdb}.
+Thus, \emph{rust-debug} has made it significantly easier to get some debug information.
 
 
-The result from evaluating \emph{test\_enum3} using the debugger \gls{erdb} is that the whole enum is optimized out, as can be seen in table \ref{table:enum3}.
-Thus, \gls{erdb} gives the correct result in this case.
-But looking at the table it can be seen that both \emph{GDB} and \emph{LLDB} give different results.
-\emph{GDB} give the incorrect result in that it says that the variant of the enum is \emph{ITest} when it should be \emph{Struct}.
-\emph{LLDB} does not give any indication of what enum variant the value is, instead it shows the value of each enum variation.
-But it gives the wrong value for attributes \emph{flag} and \emph{num} in the variant \emph{Struct}, thus it gives an incorrect result.
-Thus out of the three debuggers it is \gls{erdb} that gives the most correct result, in these situations.
-
-
-
-\subsection{Evaluation of \emph{Rust} structs}
-When testing the three different debuggers it was discovered that they evaluated \emph{Rust} structs to different values in a certain situation.
-The table \ref{table:struct} shows an example of this situation, by showing the result of the three debuggers.
-
-
-\begin{table}[h]
-	\centering
-	\small
-	\begin{tabular}{ |p{2cm}|p{8cm}|  }
-		\hline
-		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_struct}}} \\ 
-		\hline
-		\hline
-		Source & Value \\
-		\hline
-%		\acrfull{pc} & 0x800059c \\
-
-		DWARF Location & (DW\_OP\_breg13 (r13): 48; DW\_OP\_piece: 4) \\
-
-		Rust Source Code & let mut test\_struct = TestStruct \{ flag: true, num: 123 \}; \\
-		\hline
-		\hline
-		Debugger (Version) & Evaluated Result \\
-		\hline
-		ERD & test\_struct = TestStruct \{ num::123, flag::\textless \ OptimizedOut \textgreater \} \\
-
-		GDB (12.1)  & (gdb) p test\_struct\newline
-		\$ 1 = nucleo\_rtic\_blinking\_led::TestStruct \{flag: \textless synthetic pointer\textgreater, num: 123\} \\
-
-		LLDB (14.0.6) & (nucleo\_rtic\_blinking\_led::TestEnum) test\_struct = (flag = false, num = 123) \\
-		\hline
-	\end{tabular}
-	\caption{The different debuggers evaluation result for variable \emph{test\_struct}, and the actual source code value and DWARF location.}
-	\label{table:struct}
-\end{table}
-
-
-The declared value of the variable \emph{test\_struct} can be seen in the row called \emph{Rust Source Code} in table \ref{table:struct}.
-Note that the value of flag is \emph{true} and that the value of \emph{num} is $123$.
-
-
-The location of the variables value can be seen in the row called \emph{DWARF Location} in table \ref{table:struct}, there it can be seen that it only has two \gls{DWARF} operation.
-The \gls{DWARF} operation \emph{DW\_OP\_breg13: 260} means that the value is stored in memory, at the address stored in the base register $13$ plus the offset $260$. 
-And the second operation \emph{DW\_OP\_piece: 8} means that the size of the value stored in the address of the previous operation is $4$ bytes.
-The variable \emph{test\_struct} is larger than $4$ bytes, which in this case means that the attribute \emph{flag} is optimized out.
-
-
-The result from evaluating \emph{test\_struct} using the debugger \gls{erdb} is that the attribute \emph{num} has the value $123$ and the attribute \emph{flag} is optimized out, as can be seen in table \ref{table:struct}.
-Thus, \gls{erdb} is able to evaluate the correct value, but \emph{GDB} gives an even better result.
-Because \emph{GDB} points out that the attribute \emph{flag} is a synthetic pointer.
-A synthetic pointer is a pointer that is never dereferenced, and thus the actual value is not needed. 
-Lastly the debugger \emph{LLDB} says that the value of \emph{flag} is \emph{false} which is incorrect.
-Thus out of the three debugger \emph{GDB} is the most descriptive and correct, in these situations.
-
-
-
-\subsection{Displaying Optimized Out Variables}
-There is one more situation where the result of the debuggers are a bit different.
-That situation is when a variable is optimized out, but only temporarily.
-The table \ref{table:u16} shows an example of this situation, by showing the result of the three debuggers.
-
-
-\begin{table}[h]
-	\centering
-	\small
-	\begin{tabular}{ |p{2cm}|p{8cm}|  }
-		\hline
-		\multicolumn{2}{|c|}{\textbf{The debuggers evaluation results for variable \emph{test\_u16}}} \\ 
-		\hline
-		\hline
-		Source & Value \\
-		\hline
-		\acrfull{pc} & 0x08001290 \\
-
-		DWARF Location List Ranges & 0xffffffff 	0x080002f4\newline
-    					     0x080004a4 	0x080004d0\\
-
-		Rust Source Code & let mut test\_u16: u16 = 500; \\
-		\hline
-		\hline
-		Debugger (Version) & Evaluated Result \\
-		\hline
-		ERD & test\_u16 = \textless OutOfRange\textgreater \\
-
-		GDB (12.1)  & (gdb) p test\_u16\newline
-		\$ 1 = \textless optimized out\textgreater \\
-
-		LLDB (14.0.6) & (unsigned short) test\_u16 = \textless variable not available\textgreater \\
-		\hline
-	\end{tabular}
-	\caption{The different debuggers evaluation result for variable \emph{test\_u16}, and the actual source code value and DWARF location.}
-	\label{table:u16}
-\end{table}
-
-
-The declared value of the variable \emph{test\_u16} can be seen in the row called \emph{Rust Source Code} in table \ref{table:u16}.
-The location of the variable is not described in the table because it has none.
-Instead, the machine code instruction ranges for the location list entries are shown, they are found in the row called \emph{DWARF Location List Ranges}.
-The first column of the ranges shows the start address of the range and the second column shows the end address of the range.
-The first  entry has a larger start address because the first entry has special rules.
-This means that there is only one location list entry in this case.
-
-
-The \gls{pc} value in the table \ref{table:u16} is $0x08001290$, which is not between the range $0x080002f4$ to $0x080004d0$.
-This means that \emph{test\_u16} will or has had a value, but correctly it does not have one.
-
-
-The result of evaluating \emph{test\_u16} using \gls{erdb} is \emph{\textless OutOfRange\textgreater}, as can be seen in table \ref{table:u16}.
-That is a unique message that is only used when the \gls{pc} value is not in range of any location list entry.
-The debugger \emph{LLDB} gives the same result, except that the message is worded a bit differently.
-However, the result from \emph{GDB} is not as good, because it is less descriptive.
-Thus, both \emph{LLDB} and \gls{erdb} are more verbose and descriptive than \emph{GDB} in these situations.
+\section{Evaluating \emph{ERDB}} % TODO
+\section{Debugging Optimized Out Variables} % TODO
