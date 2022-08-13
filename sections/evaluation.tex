@@ -50,26 +50,67 @@ There is also a \emph{vscode} extension for \gls{erdb} that makes the user exper
 
 
 
-\section{Debugger Comparison On Optimized code} % TODO
+\section{Debugger Comparison} % TODO
 \label{sec:debuggercomparison}
 % TODO: Compare to erdb, gdb and lldb.
 
+% TODO: Mention the testing of the three debuggers.
+
+The debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
+The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
+They are also the two debuggers that are supported by the \emph{Rust} development team according to there \emph{rustc-dev-guide} \cite{rust-dev-guide}.
+%The criteria they will be compared to is how well the debuggers can retrieve debug information from optimized code and how well they can display that information to the user.
+%Because getting the information is important but it is pretty much useless if it is not displayed in an user friendly way.
+
+
+The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
+The example code was many times modified to test how well the three debugger handled different situations.
+This was repeated until one of the debuggers gave an unexpected result.
+
+
+To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
+This ensures that all the three debuggers stop on the same instruction.
+Also, the latest released version of each compiler was used to keep the comparison fair.
+At the time of writing the latest versions of debuggers are:
+
+\begin(itemize)
+\item \emph{GDB} 12.1
+\item \emph{LLDB} 14.0.6
+\item \gls{erdb} 0.2.0 % TODO: Do a release
+\end(itemize)
+
+
+
+
+\subsection{Unoptimized Code Comparison}
+All of the debuggers were first tested on unoptimized \emph{Rust} code, to see that the debuggers were correctly installed and configured.
+While testing them there were some differences between the debuggers that are interesting.
+The largest one being that \emph{LLDB} is not able to evaluate \emph{Rust}\emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
+
+
+Another difference found is that both \emph{LLDB} and \emph{GDB} evaluated a \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
+In the \emph{Rust} source code the \emph{f32} was assigned the value of $10.2$, and all the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal.
+Reading those raw bytes as a $32$ bit float using little endian, gives $10.2$.
+
+
+
+\subsection{Optimized Code Comparison} % TODO:
+When debugging the code with optimization $2$, \emph{LLDB} showed no variables at all.
+And, \emph{GDB} showed wrong values on both a \emph{i64} and a \emph{u64}.
+\emph{GDB} read the values a $32$ bit integers instead of $64$ bit.
+Note that \emph{GDB} is able to evaluated both of the values correctly when the code is not optimized.
+
+
+
+
+
+
+
+% TODO: Mention that there has not been much improvement.
+% TODO: Mention the result of older version.
 
 
 % OLD
-%The debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
-%The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
-%They are also the two debuggers that are supported by the \emph{Rust} development team according to there \emph{rustc-dev-guide} \cite{rust-dev-guide}.
-%The criteria they will be compared to is how well the debuggers can retrieve debug information from optimized code and how well they can display that information to the user.
-%Because getting the information is important but it is pretty much useless if it is not displayed in an user friendly way.
-%
-%
-%The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
-%The example code was many times modified to test how well the three debugger handled the different situations.
-%This was repeated until one of the debuggers gave an unexpected result.
-%There was three of these cases found where the code was compiled with optimization 2.
-%To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
-%This ensures that all the three debuggers stop on the same instruction.
 %
 %
 %
