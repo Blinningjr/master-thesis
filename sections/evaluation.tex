@@ -6,7 +6,7 @@
 % This problem will require a user-study in which several persons drive without the application, you calculate the fuel consumption, then they drive with the application and then you calculate the fuel consumption again.
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
-\section{Evaluating \emph{rust-debug}}
+\section{Evaluating \emph{rust-debug}} \label{sec:evalrd}
 The debugging library \emph{rust-debug} aims to solve the problem of it being difficult to get debug information from the \gls{DWARF} format.
 Where the difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the debug information wanted.
 Thus, one way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.

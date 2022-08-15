@@ -6,7 +6,22 @@
 
 % Overall Discussion of how the problem is solved
 
-\section{Debug Experience For Optimized Rust Code}
+\section{Usefulness of \emph{rust-debug}} % TODO: Change name of section
+Using the \emph{rust-debug} library makes it a lot easier to get debug information form \gls{DWARF}.
+One reason, is that it takes a lot less knowledge about \gls{DWARF} to retrieve debug information.
+The documentation for \emph{rust-debug} is a lot less text then the specification for the \gls{DWARF} format.
+Which makes it a lot faster and easier to get debug information using \emph{rust-debug}.
+
+
+Also, the amount of code needed to get the debug information is a lot less using \emph{rust-debug}, as the result of section \ref{sec:evalrd} shows.
+Using the amount of code lines to measure complexity is not the best method.
+But, when the difference is so large it is hard to deny that the completely has reduced. 
+
+
+\section{User experience of \gls{erdb}} % TODO: Write section
+
+
+\section{Debug Experience For Optimized Rust Code} %TODO: Rewrite sectino
 % My Results Compared to expected results
 At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
