@@ -13,49 +13,42 @@ The documentation for \emph{rust-debug} is a lot less text then the specificatio
 Which makes it a lot faster and easier to get debug information using \emph{rust-debug}.
 
 
-Also, the amount of code needed to get the debug information is a lot less using \emph{rust-debug}, as the result of section \ref{sec:evalrd} shows.
+Also, the amount of code needed to get the debug information is a lot less using \emph{rust-debug}, as the result of section \ref{sec:evalrd} show.
 Using the amount of code lines to measure complexity is not the best method.
 But, when the difference is so large it is hard to deny that the completely has reduced. 
 
 
-\section{User experience of \gls{erdb}} % TODO: Write section
-All the features that were planed for \gls{erdb} where successfully implemented.
-Some of the features are less complete then others.
-The least complete feature is the \gls{cli}.
-There are a lot of quality of life features that would improve it.
+
+%\section{User experience of \gls{erdb}} % TODO: Write section
+%All the features that were planed for \gls{erdb} where successfully implemented.
+%Some of the features are less complete then others.
+%The least complete feature is the \gls{cli}.
+%There are a lot of quality of life features that would improve it.
 
 
-\section{Debug Experience For Optimized Rust Code} %TODO: Rewrite sectino
+\section{Debug Experience For Optimized Rust Code} %TODO: Rewrite section
 % My Results Compared to expected results
 At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
-Thus it was thought that those variables were completely removed from the optimized code.
-But as it turns out they were not, instead they were just optimized out at that particular point.
+Thus, it was thought that those variables were not completely removed from the optimized code.
+But it turn out that \emph{GDB} was right in that they were completely optimized out.
 
 
-Keeping these expectation in mind the result in section \ref{sec:debuggercomparison} were a bit disappointing.
-The only improvement that could be made for this problem is that different messages are displayed for the different cases.
-This makes it much clearer to the user how the variable is optimized out.
+Keeping these expectation in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
+Because, the goal was to create a debugger that could improve on this problem.
 
 
-Unexpectedly there was another problem with the debuggers \emph{GDB} and \emph{LLDB} that could be improved on.
-That problem is that both mentioned debuggers had problems with the evaluation of the \emph{Rust} \emph{enum} type.
-The reason for this problem is that many other programming language does not allow \emph{enums} to have any value stored in them like \emph{Rust} allows.
-
-
-The \emph{LLDB} debugger had much more problems with this then \emph{GDB} which only gave the wrong value when the enum variant was optimized out.
-Thus unexpectedly the debugger in this thesis could improve on that by evaluating the correct value and by showing a correct optimization out messages, which \emph{GDB} did not do.
-There is a \emph{VSCode} extension that fixes the problem of \emph{GDB} displaying the wrong variant of enum when the variant is optimized out.
-It is called \emph{cortex-debug} and its git repository can be found here \cite{cortex-debug}.
-%and in the case of the value of the  enum variant being optimized out it could display that it was optimized out, thus not giving the wrong value as \emph{GDB} does.
+Unexpectedly, both \emph{GDB} \emph{LLDB} has other smaller problems.
+Such as \emph{GDB} parsed $64$ bit integers as $32$ bit.
+Those small problems might be specific to the debuggers \gls{cli}, and thus not present in other releases of the debuggers.
+But, the problems show that \emph{erdb} has some small advantages.
 
 
 \subsection{Debugging Rust Code on Embedded Systems}
 % My Results Compared to expected results
 The experience of debugging \emph{Rust} code on embedded systems with both \emph{LLDB} and \emph{GDB} is not very good.
-There is a lot of configurations that has to be done and both require a program like \emph{openocd} that handles the communication between the debugger and the target device.
-Using \gls{erdb} made the debugging experience a lot better because it does not need to use a program like \emph{openocd}.
-The reason for it being better it that it takes fewer steps to start debugging.
+There is a lot of configurations that has to be done, and both require a program like \emph{openocd} that handles the communication between the debugger and the target device.
+Using \gls{erdb} is easier, because it removes the step of starting a separate program.
 
 
 \section{Accuracy of the \gls{DWARF} Location Ranges}\label{section:loc-ranges}
@@ -77,6 +70,6 @@ Thus to be able to find if this can be improved on, one has to have a good under
 
 
 The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.
-One situation they mention is that location changes is ignored for the prologue and epilogue code of a function.
-But this should not be a problem because most debuggers will step over the prologue and epilogue code.
+One situation they mention, is that location changes is ignored for the prologue and epilogue code of a function.
+But, this should not be a problem, because most debuggers will step over the prologue and epilogue code.
 
