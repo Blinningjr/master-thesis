@@ -2,22 +2,20 @@
 % It also outlines things that are left to do to reach a full solution, or to integrate your solution with something else.
 
 % The conclusion from the results
-The result from testing and comparing the different settings in the compiler is a bit disappointing.
-Because the settings found did not do much or were well known before, thus there was no real improvement.
+
+The result from comparing the debuggers was a bit disappointing.
+Because, \gls{erdb} was not able to improve on the main problem with debugging optimized code.
+Which is that many times the debugger gives no useful information about the state.
+Often because the variables are optimized out, thus making it difficult for the user to understand the state of the program.
 
 
-But the result from comparing the debuggers was a success.
-The main reason for this is that the debugger \gls{erdb} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
-While both of the two supported debugger by the \emph{Rust} team evaluated the wrong value in some special cases.
-The debugger \gls{erdb} was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
+The debugging library \emph{rust-debug} is successful in simplifying the process of retrieving debug information from \gls{DWARF}.
+It is a extremely versatile library because it has very few requirements, where \emph{gimli-rs} is one of the requirements.
+Also, it does not block the user from using \emph{gimli-rs} directly.
 
 
-The debugging library \emph{rust-debug} was also successful in simplifying the process of retrieving debug information from \gls{DWARF}.
-The key design feature that makes it very useful, is that it is designed to be platform independent.
-Which makes the library a good contribution to the \emph{Rust} debugging community.
-
-
-Overall we would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot more that needs to be done.
+Overall I would say that the goal of this thesis was achieved, but that there is still a lot that needs to be done.
+Both to the development of debugging tools, and the compiler.
 
 
 \section{Potential Future Debugging Improvement}
@@ -31,7 +29,7 @@ Thus one potential improvement to debugging would be to improve how the variable
 % Future work that can be done on the debuger side.
 The debugger \gls{erdb} only supports the most important functionalities of a debugger.
 Thus there is many more features that could be added.
-One important one is the ability to evaluate expressions which is left to be done as future work.
+One important one is the ability to evaluate expressions, which is left to be done as future work.
 This is a hard problem because the evolution of the expressions should work exactly the same as the \emph{Rust} compiler.
 Thus it would be best if the same code could be used so that it does not need to be written twice.
 
@@ -39,10 +37,9 @@ Thus it would be best if the same code could be used so that it does not need to
 % Future work that can be done on the debuger side.
 One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
 This causes the variables to be overwritten when they are not needed anymore.
-That fact makes debugging very hard because the user has to stop the execution when the variable still exist.
-But if the debugger is able to get the last value of the variable and store it.
-The last known value of the variable could be displayed to the user if it is out of range.
-There is no time to make a solution for this problem, thus this will have to be left for future work.
+That fact makes debugging very hard, because the user has to halt the execution when the variable still exist.
+But, if the debugger is able to get the last value of the variable and store it.
+The last known value of the variable could be displayed to the user instead.
 
 
 %\section{Future Debugger Library Improvement}
