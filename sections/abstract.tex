@@ -2,15 +2,17 @@ Debugging is an essential part of programming.
 At this moment there is no debugger that is good at debugging optimized \emph{Rust} code.
 It is a problem because unoptimized \emph{Rust} code is very slow compared to optimized.
 The ability of debugging optimized code is especially important for embedded systems because of the close relation to hardware.
-Thus a tool like a debugger is very useful because it enables the developer to see what is happening in the hardware when debugging embedded systems.
+Thus, a tool like a debugger is very useful because it enables the developer to see what is happening in the hardware when debugging embedded systems.
 
 
-To improve debugging for optimized \emph{Rust} code this thesis will research the available compiler settings that affect the generation of debug information.
-Also a debugger called \acrshort{erdb} written in \emph{Rust} will be presented and the goal with it is to improve debugging for embedded systems running \emph{Rust} code.
-This thesis will explain the implementation of \acrshort{erdb} and the debug information format \acrshort{DWARF}.
+To improve debugging for optimized \emph{Rust} code, this thesis presents a debugger called \acrshort{erdb}.
+And a debugging library called \emph{rust-debug}.
+The goal of the library is to make it easier to make debugging tools, by making it easier to get debug information from the \gls{DWARF} format.
 
 
-The debugger \acrshort{erdb} will be compared to other well known \emph{Rust} debuggers to see if it improved on the experience of debugging optimized \emph{Rust} code on embedded systems.
-The comparison shows that it did improve on debugging the \emph{Rust} enum type and temporarily optimized out values.
-However there is still many improvements that can be made to debugging optimized \emph{Rust} code.
+This thesis will explain the implementation of \acrshort{erdb} and \emph{rust-debug}, it will also explain how the debug information format \acrshort{DWARF} works.
+
+
+The debugger \acrshort{erdb} will be compared to other debuggers to see if it achieved its goal.
+Comparing the debuggers showed that the biggest problem with debugging optimized code is that there is not enough debug information produced by the compiler.
 

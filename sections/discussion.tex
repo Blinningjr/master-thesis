@@ -9,7 +9,7 @@
 \section{Usefulness of \emph{rust-debug}} % TODO: Change name of section
 Using the \emph{rust-debug} library makes it a lot easier to get debug information form \gls{DWARF}.
 One reason, is that it takes a lot less knowledge about \gls{DWARF} to retrieve debug information.
-The documentation for \emph{rust-debug} is a lot less text then the specification for the \gls{DWARF} format.
+The documentation for \emph{rust-debug} is a lot less text than the specification for the \gls{DWARF} format.
 Which makes it a lot faster and easier to get debug information using \emph{rust-debug}.
 
 
@@ -31,10 +31,10 @@ But, when the difference is so large it is hard to deny that the completely has 
 At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
 Thus, it was thought that those variables were not completely removed from the optimized code.
-But it turn out that \emph{GDB} was right in that they were completely optimized out.
+But it turns out that \emph{GDB} was right in that they were completely optimized out.
 
 
-Keeping these expectation in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
+Keeping these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
 Because, the goal was to create a debugger that could improve on this problem.
 
 
@@ -54,7 +54,7 @@ Using \gls{erdb} is easier, because it removes the step of starting a separate p
 \section{Accuracy of the \gls{DWARF} Location Ranges}\label{section:loc-ranges}
 % The accuracy of the Location list entry ranges.
 While working on \emph{rust-debug} and \gls{erdb} it was discovered that values can sometimes live longer on the debugged target then described in \gls{DWARF}.
-This means that some of the values can potentially be read when \gls{DWARF} says that they have no location.
+This means that some values can potentially be read when \gls{DWARF} says that they have no location.
 
 
 The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors that effect the variable location fidelity, they are:
@@ -66,7 +66,7 @@ The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors t
 \end{enumerate}
 
 The documentation about the three major factors does not mention a lot about how the ranges could be set to tight.
-Thus to be able to find if this can be improved on, one has to have a good understanding of \emph{LLVM}, which is out of scope for this thesis.
+Thus, to be able to find if this can be improved on, one has to have a good understanding of \emph{LLVM}, which is out of scope for this thesis.
 
 
 The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.

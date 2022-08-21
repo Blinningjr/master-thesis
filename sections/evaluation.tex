@@ -16,13 +16,13 @@ Unfortunately there is no other debugger that has the exact same features as \gl
 And it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
 
 
-Instead the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
+Instead, the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
 The number of \emph{Rust} code lines will be counted using the tool \emph{tokei} \cite{tokei}.
 \emph{rust-debug} contains $3550$ lines of \emph{Rust} code, and the debugger module contains $1310$ lines.
 Also, the whole debugger \gls{erdb} contains $2834$ lines of \emph{Rust} code.
 
 
-The amount of \emph{Rust} code in \emph{rust-debug} is more then double that of the debugger module in \gls{erdb}.
+The amount of \emph{Rust} code in \emph{rust-debug} is more than double that of the debugger module in \gls{erdb}.
 Thus, \emph{rust-debug} has made it significantly easier to get some debug information.
 
 
@@ -35,7 +35,7 @@ A list of these features is can be found in section \ref{sec:delimitations}.
 
 
 % stepping, sw breakpoints, 
-Currently \gls{erdb} only supports hardware breakpoints, thus there is a limit to how many breakpoints can be set.
+Currently, \gls{erdb} only supports hardware breakpoints, thus there is a limit to how many breakpoints can be set.
 To have more breakpoints the debugger needs to support software breakpoints, which will make it possible to have a lot more breakpoints.
 The other feature that is not fully supported are the different stepping variants.
 Stepping one machine code instruction is currently the only supported stepping function.
@@ -43,10 +43,10 @@ But, it would have been very useful if it supported stepping one source code ins
 
 
 % Dose not require external program for embedded systems.
-One of the main goals of \gls{erdb} was to improve the user experience, by mainly removing the hassle of using a external program to debug embedded systems.
+One of the main goals of \gls{erdb} was to improve the user experience, by mainly removing the hassle of using an external program to debug embedded systems.
 \gls{erdb} has achieved this goal by using the \emph{probe-rs} library.
 \emph{probe-rs} allows \gls{erdb} to access the debug target without starting another program, which greatly improves the user experience.
-There is also a \emph{vscode} extension for \gls{erdb} that makes the user experience equally as good as other debuggers.
+There is also a \emph{vscode} extension for \gls{erdb} that makes the user experience as good as other debuggers.
 
 
 
@@ -83,9 +83,9 @@ At the time of writing the latest versions of debuggers are:
 
 
 \subsection{Unoptimized Code Comparison}
-All of the debuggers were first tested on unoptimized \emph{Rust} code, to see that the debuggers were correctly installed and configured.
+All the debuggers were first tested on unoptimized \emph{Rust} code, to see that the debuggers were correctly installed and configured.
 While testing them there were some differences between the debuggers that are interesting.
-The largest one being that \emph{LLDB} is not able to evaluate \emph{Rust}\emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
+The largest one being that \emph{LLDB} is not able to evaluate \emph{Rust} \emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
 
 
 Another difference found is that both \emph{LLDB} and \emph{GDB} evaluated a \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
@@ -105,10 +105,10 @@ It did not have this problem when debugging the same code but unoptimized.
 
 
 Compared to the other debuggers \gls{erdb} did not have any problems with evaluating variables.
-But, it sometimes do not give the correct stack trace when there are inline functions.
+But, it sometimes does not give the correct stack trace when there are inline functions.
 This problem has only occurs on optimized code.
 
 
-All of the three debuggers where equally bad when it comes to the main problem of debugging optimized code.
+All the three debuggers where equally bad when it comes to the main problem of debugging optimized code.
 Which is the problem of many variables being optimized out, which makes debugging optimized code very hard.
 
