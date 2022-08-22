@@ -23,15 +23,15 @@ One of the most popular of these formats is called \gls{DWARF}, it is a complex 
 
 
 The debug information stored in the \gls{DWARF} file can be used to locate the values of variables.
-Which in most cases are stored on the call stack in memory, section \ref{sec:callstack} explains what a call stack is.
+That in most cases are stored on the call stack in memory, section \ref{sec:callstack} explains what a call stack is.
 The debug information also contain the data type information of the variable, it is used to interpret the raw value of variable found in memory into a typed value.
 
 
 The main problem with debugging optimized code is variables are sometimes located in registers.
 Registers are faster to access then other memory and has a much lower capacity.
 Thus, storing variables there often increases the speed of the programs, but the variables are not persistent, because they get overwritten.
-This makes debugging a lot harder because the variables are very short-lived compared to variables that are located on the call stack.
-Which often have the same life span as the stack frame.
+This makes debugging a lot harder, because the variables are very short-lived compared to variables that are located on the heap or call stack.
+That mostly have the same life span as the stack frame.
 I refer the reader to section \ref{sec:regmem} for more detailed information about registers and memory.
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
 
@@ -192,8 +192,7 @@ The following is the list of features the debugger is required to have:
 % Limited to only supporting one chip and platform.
 Debugging embedded systems requires the debugger knows certain information about the target system, like the architecture.
 Supporting every \gls{mcu} out there would be to big of a scope for this thesis.
-Thus, the debugger is only required to work with the target system that is available.
-Which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
+Thus, the debugger is only required to work with the target system that is available, which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
 %% Limiting supported chips and platforms.
 %When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.

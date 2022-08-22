@@ -4,9 +4,8 @@
 % The conclusion from the results
 
 The result from comparing the debuggers was a bit disappointing.
-Because, \gls{erdb} was not able to improve on the main problem with debugging optimized code.
-Which is that many times the debugger gives no useful information about the state.
-Often because the variables are optimized out, thus making it difficult for the user to understand the state of the program.
+Because, \gls{erdb} was not able to improve on the main problem with debugging optimized code, which is that variables are often displayed as optimized out.
+Thus, making it impossible for the user to understand what it happening in the program.
 
 
 The debugging library \emph{rust-debug} is successful in simplifying the process of retrieving debug information from \gls{DWARF}.

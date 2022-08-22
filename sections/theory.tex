@@ -37,7 +37,7 @@ Computer registers are small memory spaces that are of fixed size.
 These registers can store any type of data as long as it fits within the size limit of the registers.
 Some registers are reserved for special use, one of the most important ones is the \acrfull{pc} register.
 This register always holds the address of the next machine code instruction that will be executed.
-Which of the registers that are reserved for special use is different depending on the processor.
+The registers that are reserved for special use is different depending on the processor architecture.
 
 
 \subsection{Call Stack}
@@ -392,8 +392,7 @@ Thus, to simplify the explanation, a simple example will be used to explain the 
 
 
 Taking a look at the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
-The function has a parameter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}.
-Which means that it is a parameter to the function \emph{my\_function}.
+The function has a parameter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
 It is this parameter \emph{val} that will be used as an example of how to evaluate a variable.
 
 

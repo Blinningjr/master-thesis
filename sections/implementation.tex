@@ -258,8 +258,7 @@ The method also returns a \emph{DebugResponse} with the result.
 
 The general flow when the \emph{handle\_request} method is called is as follows.
 First the \emph{DebugRequest} enum is matched, and a check is done to see that all the required information is present.
-Then, the debugger module will preform some task to related to the given argument.
-Which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
+Then, the debugger module will preform some task related to the given argument, which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
 Lastly the result is returned using the enum \emph{DebugResponse}.
 
 
