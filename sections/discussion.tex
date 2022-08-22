@@ -28,7 +28,7 @@ However, when the difference is so large it is hard to deny that the completely 
 
 \section{Debug Experience For Optimized Rust Code} %TODO: Rewrite section
 % My Results Compared to expected results
-At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
+At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables located in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
 Thus, it was thought that those variables were not completely removed from the optimized code.
 However, it turns out that \emph{GDB} was right in that they were completely optimized out.
@@ -53,8 +53,8 @@ Using \gls{erdb} is easier, because it removes the step of starting a separate p
 
 \section{Accuracy of the \gls{DWARF} Location Ranges}\label{section:loc-ranges}
 % The accuracy of the Location list entry ranges.
-While working on \emph{rust-debug} and \gls{erdb} it was discovered that values can sometimes live longer on the debugged target then described in \gls{DWARF}.
-This means that some values can potentially be read when \gls{DWARF} says that they have no location.
+While working on \emph{rust-debug} and \gls{erdb} it was discovered that variables can sometimes live longer on the debugged target then described in \gls{DWARF}.
+This means that some variables can potentially be read when \gls{DWARF} says that they have no location.
 
 
 The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors that effect the variable location fidelity, they are:

@@ -13,24 +13,24 @@ One of the first types of debugging tools made, and one of the most useful is ca
 A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
 It is also able to inspect the debugged program by for example displaying the values of the variables.
 Debuggers are especially useful when programming embedded systems, because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
-Thus giving the developer a complete view of what the program is doing.
-However, they are also a very useful tool for testing.
+This gives the developer a complete view of what the program is doing.
+Debuggers are also a very useful tool for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
-The debug information is stored in a file, the information is stored in a special format designed to be read by a debugger or other debugging tools.
+The debug information is stored in a file, where the information is stored in a special format, designed to be read by a debugger or other debugging tools.
 One of the most popular of these formats is called \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
 
 
-The debug information stored in the \gls{DWARF} file can be used to find the location of the variables values.
+The debug information stored in the \gls{DWARF} file can be used to locate the values of variables.
 Which in most cases are stored on the call stack in memory, section \ref{sec:callstack} explains what a call stack is.
 The debug information also contain the data type information of the variable, it is used to interpret the raw value of variable found in memory into a typed value.
 
 
-The main problem with debugging optimized code is that values of variables are sometimes stored in registers.
+The main problem with debugging optimized code is variables are sometimes located in registers.
 Registers are faster to access then other memory and has a much lower capacity.
-Thus, storing values there often increases the speed of the programs, but the values are not persistent, because they get overwritten.
-This makes debugging a lot harder because the values are very short-lived compared to values that are stored on the call stack.
+Thus, storing variables there often increases the speed of the programs, but the variables are not persistent, because they get overwritten.
+This makes debugging a lot harder because the variables are very short-lived compared to variables that are located on the call stack.
 Which often have the same life span as the stack frame.
 I refer the reader to section \ref{sec:regmem} for more detailed information about registers and memory.
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
@@ -129,7 +129,7 @@ Also, the message display by the debuggers should contain more information about
 
 
 The last problem is that retrieving debugging information form the \gls{DWARF} format is difficult to do. 
-This makes creating tools that require debug information difficult and time-consuming to implemented, when they don't need to be.
+This makes creating tools that require debug information difficult and time-consuming to implemented, when it does not need to be.
 
 
 Thus, the goals for this thesis is to create a new debugger and library that fix the problems mentioned above.
