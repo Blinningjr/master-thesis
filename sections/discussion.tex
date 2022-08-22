@@ -15,7 +15,7 @@ Which makes it a lot faster and easier to get debug information using \emph{rust
 
 Also, the amount of code needed to get the debug information is a lot less using \emph{rust-debug}, as the result of section \ref{sec:evalrd} show.
 Using the amount of code lines to measure complexity is not the best method.
-But, when the difference is so large it is hard to deny that the completely has reduced. 
+However, when the difference is so large it is hard to deny that the completely has reduced. 
 
 
 
@@ -31,7 +31,7 @@ But, when the difference is so large it is hard to deny that the completely has 
 At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables with values stored in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
 Thus, it was thought that those variables were not completely removed from the optimized code.
-But it turns out that \emph{GDB} was right in that they were completely optimized out.
+However, it turns out that \emph{GDB} was right in that they were completely optimized out.
 
 
 Keeping these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
@@ -41,7 +41,7 @@ Because, the goal was to create a debugger that could improve on this problem.
 Unexpectedly, both \emph{GDB} \emph{LLDB} has other smaller problems.
 Such as \emph{GDB} parsed $64$ bit integers as $32$ bit.
 Those small problems might be specific to the debuggers \gls{cli}, and thus not present in other releases of the debuggers.
-But, the problems show that \emph{erdb} has some small advantages.
+However, the problems show that \emph{erdb} has some small advantages.
 
 
 \subsection{Debugging Rust Code on Embedded Systems}
@@ -71,5 +71,5 @@ Thus, to be able to find if this can be improved on, one has to have a good unde
 
 The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.
 One situation they mention, is that location changes is ignored for the prologue and epilogue code of a function.
-But, this should not be a problem, because most debuggers will step over the prologue and epilogue code.
+However, this should not be a problem, because most debuggers will step over the prologue and epilogue code.
 

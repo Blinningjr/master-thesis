@@ -11,10 +11,10 @@
 
 % TODO: Explain design methods used. Modulare, Singelthon and so on.
 
-There are three different project that make up the implementation.
-The first being a debug library called \emph{rust-debug}, which purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
+There are three different project that make up the implementation, the first being a debug library called \emph{rust-debug}.
+Its purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
 The second project is the debugger \gls{erdb}, that implements the \gls{dap} protocol.
-And the last one is a \emph{VSCode} extension that launches the \gls{erdb} debugger and connect to it.
+The last one is a \emph{VSCode} extension that launches the \gls{erdb} debugger and connect to it.
 
 
 \section{Debugging Library \emph{rust-debug}}
@@ -61,7 +61,7 @@ Thus, they are much easier to retrieve.
 
 \emph{rust-debug} provides a function that performs the lookup file index lookup, and it also gets the line and column numbers.
 The function requires that a \gls{die} and related compilation unit is given.
-But, the library has other function for retrieving the required information.
+However, the library has other function for retrieving the required information.
 
 
 \subsection{Accessing Memory And Registers}
@@ -74,7 +74,7 @@ One of them, is the evaluation of variables values.
 Accessing the debug targets registers and memory is a different problem from reading and using the \gls{DWARF} format.
 Thus, \emph{rust-debug} lets the user of the library solve that problem.
 This has the benefit that any existing solutions can be used, like \emph{probe-rs}.
-But it also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user has to do.
+It also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user has to do.
 
 
 All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library called \emph{Registers}.
@@ -109,7 +109,7 @@ All the information in the \emph{Variable} struct may not be present, because no
 
 
 The evaluated value of a variable is represented in a tree structure which is very similar to how the information is stored in the \gls{DWARF} format.
-But, the value of each branch is evaluated into a value of one of the basic types, such as a signed integer.
+However, the value of each branch is evaluated into a value of one of the basic types, such as a signed integer.
 Thus, it removes the hardest part of evaluating a variable, without losing the flexibility of the \gls{DWARF} format.
 The only downside of this solution is that it requires the user understand how variables are structure in the \gls{DWARF} format.
 
@@ -208,8 +208,8 @@ The code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 \subsection{The CLI Module} 
 % Explain how the CLI is implemented.
-The \acrshort{cli} module has two jobs, the first is to read and parse the input into a request that the \emph{Debugger} module can understand from the terminal.
-And the second is to convert the responses it gets from the \emph{Debugger} module to text, and output that text to the terminal.
+The \acrshort{cli} module has two jobs, the first is to read and parse the input from the terminal into a request that the \emph{Debugger} module can understand.
+The second is to convert the responses it gets from the \emph{Debugger} module to text, and output that text to the terminal.
 
 
 Reading the input from the terminal is done asynchronously, thus other tasks can be done while the \acrshort{cli} wait for the user input.
@@ -250,9 +250,9 @@ That is because the rest of the system does not yet support multiple simultaneou
 
 \subsection{The Debugger Module}
 The debugger module mainly consist of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
-But it also keeps track of the debug targets state.
-The struct only has two methods for accomplishing this, one for them is for polling the state of the debug target.
-And the other method called \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
+Another of its jobs is to keeps track of the debug targets state.
+This struct only has two methods for accomplishing it jobs, one for them is for polling the state of the debug target.
+The other method called \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
 The method also returns a \emph{DebugResponse} with the result.
 
 

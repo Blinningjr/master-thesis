@@ -13,7 +13,7 @@ Thus, one way to measure if \emph{rust-debug} makes it easier to retrieve debug 
 
 
 Unfortunately there is no other debugger that has the exact same features as \gls{erdb}.
-And it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
+Also, it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
 
 
 Instead, the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
@@ -39,7 +39,7 @@ Currently, \gls{erdb} only supports hardware breakpoints, thus there is a limit 
 To have more breakpoints the debugger needs to support software breakpoints, which will make it possible to have a lot more breakpoints.
 The other feature that is not fully supported are the different stepping variants.
 Stepping one machine code instruction is currently the only supported stepping function.
-But, it would have been very useful if it supported stepping one source code instruction.
+It would have been very useful if it supported stepping one source code instruction.
 
 
 % Dose not require external program for embedded systems.
@@ -104,8 +104,8 @@ Also, it wrote all $8$ bit integers in hexadecimal format, but the values were c
 It did not have this problem when debugging the same code but unoptimized.
 
 
-Compared to the other debuggers \gls{erdb} did not have any problems with evaluating variables.
-But, it sometimes does not give the correct stack trace when there are inline functions.
+Compared to the other debuggers, \gls{erdb} did not have any problems with evaluating variables.
+However, it sometimes does not give the correct stack trace when there are inline functions.
 This problem has only occurs on optimized code.
 
 
