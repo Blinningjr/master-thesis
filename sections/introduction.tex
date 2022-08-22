@@ -46,7 +46,7 @@ One of the larger project focusing on debugging is called \emph{gimli-rs}, one o
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools for interact with a range of \glspl{mcu} and debugging probes.
 One of their newest tools that is in early development is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
 
-When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no focus on improving debugging for optimized code in the \emph{LLVM} project.
+When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no clear focus on improving debugging for optimized code in the \emph{LLVM} project.
 
 
 \section{Motivation}
@@ -83,20 +83,20 @@ Another reason is that hardware bugs are much easier to find if it is possible t
 
 
 % Improving the state of debugging.
-Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLVM} and \emph{GDB}, which at the time of writhing this both requires another program to interact with the \gls{mcu}.
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLDB} (part of the \emph{LLVM} project) and \emph{GDB}, which at the time of writhing this both requires another program to interact with the \gls{mcu}.
 An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
 This complicates the process of debugging and makes for a needlessly complex experience, especially for new developers.
 
 
 % Contributing with a solution written in Rust.
 Many of the debuggers used for debugging \emph{Rust} code are written in other programming languages, and there is not a lot of debugging tools written in \emph{Rust} yet.
-Thus, one of the key motivations is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides.
+Thus, one of the key motivations is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides, and excellent ecosystem that Rust provides.
 
 
-%% Contributing a debug rust library / simplifying debugging.
-Currently, there knowledge needed to write debugging tools that utilizes the information stored in the \gls{DWARF} format is very high.
-Thus, another motivation is to make an abstraction layer that reduced the amount of knowledge needed to some degree.
-This will be achieved by creating a debugging library, which hopefully will help others get information from the \gls{DWARF} format and help them understand it better.
+%%% Contributing a debug rust library / simplifying debugging.
+%Currently, there knowledge needed to write debugging tools that utilizes the information stored in the \gls{DWARF} format is very high.
+%Thus, another motivation is to make an abstraction layer that reduced the amount of knowledge needed to some degree.
+%This will be achieved by creating a debugging library, which hopefully will help others get information from the \gls{DWARF} format and help them understand it better.
 
 
 \section{Problem definition} \label{sec:problemDef}
@@ -116,23 +116,22 @@ This will be achieved by creating a debugging library, which hopefully will help
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
 The main problem of this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
-This will be achieved by creating a new debugger and debugging library that aims to solve three problems.
+This will be achieved by creating a new debugger and debugging library that aims to solve the three following problems:
 
-
-One of the problems is that two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, requires another program to debug embedded systems.
+\begin{itemize}
+\item Two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, requires another program to debug embedded systems.
 This problem makes both of them harder to use and is overall a bad user experience.
 
-
-Another problem is that both \emph{GDB} and \emph{LLDB} often only display that variables have been optimized out.
+\item Both \emph{GDB} and \emph{LLDB} often display that variables have been optimized out.
 This happens very often when debugging optimized code, even with the less aggressive optimization options.
-Also, the message display by the debuggers should contain more information about why the variable was optimized out.
+The messages that they give are very vague and can make it impossible to understand what is happening the program.
 
-
-The last problem is that retrieving debugging information form the \gls{DWARF} format is difficult to do. 
+\item Retrieving debugging information form the \gls{DWARF} format is difficult to do. 
 This makes creating tools that require debug information difficult and time-consuming to implemented, when it does not need to be.
 
+\end{itemize}
 
-Thus, the goals for this thesis is to create a new debugger and library that fix the problems mentioned above.
+The goals for this thesis is to create a new debugger and library that fix the problems mentioned above.
 The debugger should also support the most common debugging features, they are listed in section \ref{sec:delimitations}.
 
 
