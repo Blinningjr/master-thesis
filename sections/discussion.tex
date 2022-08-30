@@ -10,7 +10,7 @@
 Using the \emph{rust-debug} library makes it a lot easier to get debug information form \gls{DWARF}.
 One reason, is that it takes a lot less knowledge about \gls{DWARF} to retrieve debug information.
 The documentation for \emph{rust-debug} is a lot less text than the specification for the \gls{DWARF} format.
-Thus it takes less time to read and understand, which makes it easier use and get debug information.
+Thus, it takes less time to read and understand, which makes it easier use and get debug information.
 
 
 Also, the amount of code needed to get the debug information is a lot less using \emph{rust-debug}, as the result of section \ref{sec:evalrd} show.
@@ -28,18 +28,18 @@ However, when the difference is so large it is hard to deny that the completely 
 
 \section{Debug Experience For Optimized Rust Code} %TODO: Rewrite section
 % My Results Compared to expected results
-At the beginning of this thesis it was thought that \emph{GDB} was not able to evaluate variables located in registers.
+At the beginning of this thesis, it was thought that \emph{GDB} was not able to evaluate variables located in registers.
 This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
 Thus, it was thought that those variables were not completely removed from the optimized code.
 However, it turns out that \emph{GDB} was right in that they were completely optimized out.
 
 
 Keeping these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
-Because, the goal was to create a debugger that could improve on this problem.
+Because the goal was to create a debugger that could improve on this problem.
 
 
 Unexpectedly, both \emph{GDB} \emph{LLDB} has other smaller problems.
-Such as \emph{GDB} parsed $64$ bit integers as $32$ bit.
+Such as \emph{GDB} parsed $64$-bit integers as $32$-bit.
 Those small problems might be specific to the debuggers \gls{cli}, and thus not present in other releases of the debuggers.
 However, the problems show that \emph{erdb} has some small advantages.
 
@@ -66,7 +66,7 @@ The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors t
 \end{enumerate}
 
 The documentation about the three major factors does not mention a lot about how the ranges could be set to tight.
-Thus, to be able to find if this can be improved on, one has to have a good understanding of \emph{LLVM}, which is out of scope for this thesis.
+Thus, to be able to find if this can be improved on, there has to be a good understanding of \emph{LLVM}, which is out of scope for this thesis.
 
 
 The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.

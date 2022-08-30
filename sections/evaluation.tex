@@ -12,7 +12,7 @@ Where the difficult part is that it requires many lines of code and knowledge ab
 Thus, one way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.
 
 
-Unfortunately there is no other debugger that has the exact same features as \gls{erdb}.
+Unfortunately, there is no other debugger that has the exact same features as \gls{erdb}.
 Also, it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
 
 
@@ -30,7 +30,7 @@ Thus, \emph{rust-debug} has made it significantly easier to get some debug infor
 \section{Evaluating \emph{ERDB}} % TODO
 % List all the features it has.
 One of the requirements set in the section \ref{sec:problemDef} was that \gls{erdb} needs to implement some of the most common debugging features.
-A list of these features is can be found in section \ref{sec:delimitations}.
+A list of these features can be found in section \ref{sec:delimitations}.
 \gls{erdb} implements all of those mentioned features, but there are two of them that is not fully supported.
 
 
@@ -58,7 +58,7 @@ There is also a \emph{vscode} extension for \gls{erdb} that makes the user exper
 
 The debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
 The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
-They are also the two debuggers that are supported by the \emph{Rust} development team according to there \emph{rustc-dev-guide} \cite{rust-dev-guide}.
+They are also the two debuggers that are supported by the \emph{Rust} development team according to the \emph{rustc-dev-guide} \cite{rust-dev-guide}.
 %The criteria they will be compared to is how well the debuggers can retrieve debug information from optimized code and how well they can display that information to the user.
 %Because getting the information is important but it is pretty much useless if it is not displayed in an user friendly way.
 
@@ -89,15 +89,15 @@ The largest one being that \emph{LLDB} is not able to evaluate \emph{Rust} \emph
 
 
 Another difference found is that both \emph{LLDB} and \emph{GDB} evaluated a \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
-In the \emph{Rust} source code the \emph{f32} was assigned the value of $10.2$, and all the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal.
-Reading those raw bytes as a $32$ bit float using little endian, gives $10.2$.
+In the \emph{Rust} source code, the \emph{f32} was assigned the value of $10.2$, and all the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal.
+Reading those raw bytes as a $32$-bit float using little endian, gives $10.2$.
 
 
 
 \subsection{Optimized Code Comparison} % TODO:
 Debugging the code with optimization $2$, \emph{LLDB} differed a bit from the other two debuggers.
 It is still not able to evaluate \emph{Rust enums}.
-Also, it wrote all $8$ bit integers in hexadecimal format, but the values were correct.
+Also, it wrote all $8$-bit integers in hexadecimal format, but the values were correct.
 
 
 \emph{GDB} differed in that it evaluated all the $64$ bit integers as $32$ bit integers, thus it showed the wrong values.
@@ -106,7 +106,7 @@ It did not have this problem when debugging the same code but unoptimized.
 
 Compared to the other debuggers, \gls{erdb} did not have any problems with evaluating variables.
 However, it sometimes does not give the correct stack trace when there are inline functions.
-This problem has only occurs on optimized code.
+This problem has only occurred on optimized code.
 
 
 All the three debuggers where equally bad when it comes to the main problem of debugging optimized code, which is the problem of many variables being optimized out.

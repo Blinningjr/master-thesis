@@ -45,14 +45,14 @@ The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 \subsection{Retrieving Source Code File Location} \label{sec:decl}
 % Explain the evaluation of source information 
 In the \emph{DWARF} format, the source code location of where any type of data was declared, is stored in three attributes on the \gls{die} that represents that data.
-One of the attributes contain indirect information about which file the data was declared, another contain the line number and the last one contain the column number.
+One of the attributes contain indirect information about which file the data was declared, another contains the line number and the last one contains the column number.
 
 
 The attribute contains the file path and name information is called \emph{DW\_AT\_decl\_file}.
 It does not contain the file path and name directly, instead it contains a file index.
 This file index is used to look up the file path and name in a table called, \emph{line number information table}.
 There is one such table in each compilation unit, and the file index $0$ is special.
-File index $0$ is reserved for when a source file can not be specified.
+File index $0$ is reserved for when a source file cannot be specified.
 
 
 The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column} respectively.
@@ -74,7 +74,7 @@ One of them, is the evaluation of variables.
 Accessing the debug targets registers and memory is a different problem from reading and using the \gls{DWARF} format.
 Thus, \emph{rust-debug} lets the user of the library solve that problem.
 This has the benefit that any existing solutions can be used, like \emph{probe-rs}.
-It also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user has to do.
+It also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user must do.
 
 
 All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library called \emph{Registers}.
@@ -85,7 +85,7 @@ An example on how this can be implemented can be found in the git repository for
 
 
 The functionalities that require access to the memory of the debug target, requires a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
-This trait is very simple and only has one function, which is for reading a varied amount of bytes at a given address.
+This trait is very simple and only has one function, which is for reading a varied number of bytes at a given address.
 Thus, the user can create a struct that implements that function almost however they want.
 An example on how this can be implemented using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \cite{erdb}.
 
@@ -100,8 +100,8 @@ The \emph{rust-debug} \emph{Variable} struct may contain the following informati
 
 \begin{itemize}
   \item Variable name.
-  \item Variable value, type and location on the debug target. All this information is stored in a tree structure.
-  \item Variable declaration location, the file, line and column.
+  \item Variable value, type, and location on the debug target. All this information is stored in a tree structure.
+  \item Variable declaration location, the file, line, and column.
 \end{itemize}
 
 
@@ -166,7 +166,7 @@ The function requires a file path and line number, but it also can take a column
 
 The mentioned function works by first finding out which compilation unit contains information on the inputted file path.
 It does this by looping through all the file entries in the line number information table for every compilation unit.
-Each line number information table entry have rows that each contain information on a line from the source code.
+Each line number information table entry has rows that each contain information on a line from the source code.
 Thus, all the rows with the search line numbers are added to a list.
 The machine code address of the first element in this list is returned if no column line was inputted to the function.
 Otherwise, it is the one with the closest column number that is returned.
@@ -185,7 +185,7 @@ The debugger is made up of three modules, the first one is called \acrshort{cli}
 Its main functionality is to handle the input and output from the terminal.
 The second module is called \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
-These \gls{dap} messages are sent through a \acrshort{tcp} connection, and is for supporting the \gls{dap} protocol.
+These \gls{dap} messages are sent through a \acrshort{tcp} connection and is for supporting the \gls{dap} protocol.
 The last module is called \emph{Debugger}, it is for getting debug information and controlling the debug target.
 
 
@@ -223,7 +223,7 @@ The resulting \emph{DebugRequest} enum is then return to the main function, and 
 After the \emph{Debugger} module has done its work, the result it outputted to the terminal.
 This is done by sending the \emph{DebugResponse} enum, that the \emph{Debugger} module returned, to a function that has a match for each of the enum variants.
 Each of the variants have a unique message that is outputted to the terminal, and the messages often contain data from the \emph{DebugResponse} enum.
-If the input text can not be parsed, a helpful message is printed to the terminal.
+If the input text cannot be parsed, a helpful message is printed to the terminal.
 
 
 
@@ -249,7 +249,7 @@ That is because the rest of the system does not yet support multiple simultaneou
 
 
 \subsection{The Debugger Module}
-The debugger module mainly consist of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
+The debugger module mainly consists of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
 Another of its jobs is to keeps track of the debug targets state.
 This struct only has two methods for accomplishing it jobs, one for them is for polling the state of the debug target.
 The other method called \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
@@ -265,17 +265,17 @@ Lastly the result is returned using the enum \emph{DebugResponse}.
 
 \subsubsection{Retrieving Debug Information}
 The debugger module retrieves debug information by using the \emph{rust-debug} library.
-That library sometimes require values from the debug target, such as the values stored in some registers and memory addresses.
+That library sometimes requires values from the debug target, such as the values stored in some registers and memory addresses.
 Those values are retrieved from the debug target using \emph{probe-rs}.
 
 
 
 \subsubsection{Simultaneous Handling of Requests And Events}
 % How the debugger handles request and events simultaneously.
-The state of the debug target is polled every $100$ millisecond, to detect if the debug target has continued of stopped the program execution.
+The state of the debug target is polled every $100\text{th}$ millisecond, to detect if the debug target has continued of stopped the program execution.
 In the time between the polls other tasks can be handled, such as parsing the input from the \acrshort{cli} or doing a stack trace.
-This is possible because there is an asynchronous function which sleeps for $100$ millisecond, afterwards it polls the debug target state.
-That function repeats as long as the debug target is being debugged.
+This is possible because there is an asynchronous function which sleeps for $100$ milliseconds, afterwards it polls the debug target state.
+That function repeats if the debug target is being debugged.
 Thus, the debugger can simultaneously handle both input from the user and state changes in the debug target.
 A state change in the debug target is called an event in \gls{erdb}.
 
@@ -285,7 +285,7 @@ A state change in the debug target is called an event in \gls{erdb}.
 % How it handles request for stackframes and variables.
 To improve on the performance of the debugger, all the variables and stack frames are temporarily stored.
 This allows for fast repetitive lookup of debug information.
-All of this temporarily stored information is removed when the state of the debug target changes.
+All this temporarily stored information is removed when the state of the debug target changes.
 This is to ensure that the correct information is returned.
 
 
@@ -311,7 +311,7 @@ To learn more about \emph{VSCode} debug extension, I refer the reader to \emph{M
 
 The debugger \emph{Embedded Rust Debugger} implements the \gls{dap} protocol over a \gls{tcp} server.
 Thus, the \emph{VSCode} extension is just a wrapper that starts the debugger \gls{tcp} server and then connects to it.
-Connecting to the debugger server over \gls{tcp} is very easy to do, because \emph{Microsoft} has a library called \emph{VSCode} that does that for you.
+Connecting to the debugger server over \gls{tcp} is very easy to do because \emph{Microsoft} has a library called \emph{VSCode} that does that for you.
 The extension also captures the logs of the debugger and outputs them to the user using the \emph{VSCode} library.
 
 
