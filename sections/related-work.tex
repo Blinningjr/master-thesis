@@ -14,7 +14,7 @@ One of the most common approaches is to make the optimizations transparent to th
 The paper \cite{edselc.2-52.0-8497669319919920107} takes this approach by providing visual aids to the user.
 These visual aids are annotations and highlights on both the source and machine code which helps the user understand how the source and machine code relate to each other.
 Some other papers that take the same approach are \cite{adl1996source, edselc.2-52.0-002842706219940105}.
-The two main problems with this approach is that the debug information size get a lot larger, and the compilation times get longer as well.
+The two main problems with this approach are that the debug information size gets a lot larger, and the compilation times gets longer as well.
 
 
 Another approach is to dynamically deoptimize the subroutine that is being debugged as described in the paper \cite{edselc.2-52.0-002699386519920107}.
@@ -42,7 +42,7 @@ They also use the \emph{gimli-rs} library for reading the \gls{DWARF} format.
 The main difference between \emph{probe-rs} and the debugging library \emph{rust-debug}, presented in section \ref{section:rust-debug} of this thesis, is that \emph{rust-debug} is designed to be platform and architecture independent.
 The \emph{probe-rs} library is designed to provide tools for embedded \glspl{mcu} and debug probes only.
 While \emph{rust-debug} is designed to provide a layer of abstraction over the \gls{DWARF} debug format, which simplifies the process of retrieving debug information from \gls{DWARF}.
-Another difference is that there debugger is not able to evaluate some of the more complex data structures in \gls{DWARF}, but \emph{rust-debug} is able to evaluate them.
+Another difference is that the \emph{probe-rs} debugger is not able to evaluate some of the more complex data structures in \gls{DWARF}, but \emph{rust-debug} can evaluate them.
 
 The main pros of \emph{rust-debug} compared to \emph{probe-rs} are:
 \begin{itemize}
