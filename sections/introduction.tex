@@ -2,7 +2,7 @@
 % Try to focus on the scientific area, but do not forget the red thread that binds the rest of the introduction together.
 
 A key part of programming has always been debugging the computer program.
-Debugging is the process of finding and resolving errors, flaws or faults in computer programs.
+Debugging is the process of finding and resolving errors, flaws, or faults in computer programs.
 These errors, flaws or faults are also commonly referred to as a bug or bugs in the field of computer science.
 Debugging has become more difficult to do over the years because of the increasing complexity of computer programs and the hardware.
 Thus, the importance of better debugging tools have become essential to make the process of debugging easier and more time efficient.
@@ -12,7 +12,7 @@ This is especially true for debugging  embedded systems because of the close rel
 One of the first types of debugging tools made, and one of the most useful is called a debugger.
 A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
 It is also able to inspect the debugged program by for example displaying the values of the variables.
-Debuggers are especially useful when programming embedded systems, because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
+Debuggers are especially useful when programming embedded systems because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
 This gives the developer a complete view of what the program is doing.
 Debuggers are also a very useful tool for testing.
 
@@ -30,7 +30,7 @@ The debug information also contain the data type information of the variable, it
 The main problem with debugging optimized code is variables are sometimes located in registers.
 Registers are faster to access then other memory and has a much lower capacity.
 Thus, storing variables there often increases the speed of the programs, but the variables are not persistent, because they get overwritten.
-This makes debugging a lot harder, because the variables are very short-lived compared to variables that are located on the heap or call stack.
+This makes debugging a lot harder because the variables are very short-lived compared to variables that are located on the heap or call stack.
 That mostly have the same life span as the stack frame.
 I refer the reader to section \ref{sec:regmem} for more detailed information about registers and memory.
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
@@ -42,7 +42,7 @@ I refer the reader to section \ref{sec:regmem} for more detailed information abo
 % Describe the background to your work.
 In the \emph{Rust} programming language community there was no project focusing on creating a debugger for embedded systems when this thesis was started.
 There was even less focus on improving the debugging of optimized \emph{Rust} code.
-One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main goals of the project is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools for interact with a range of \glspl{mcu} and debugging probes.
 One of their newest tools that is in early development is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
 
@@ -64,7 +64,7 @@ When it comes to improving generation of debug information there is some work be
 
 % Optimized rust code is up to 100 faster.
 A motivation for this thesis is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
-That is a very large difference in speed compared to other languages like \emph{C} for example, were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
+This can be compared to other languages, for example \emph{C} were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
 Thus, for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code, because the difference is not that large compared to \emph{Rust} code.
 However, in the case of \emph{Rust}, the difference is so large that some programs are too slow to run on \glspl{mcu} without optimization.
 This is a problem because debuggers are bad at debugging optimized code as explained in the introduction, and unoptimized code is too slow to run.
@@ -127,11 +127,11 @@ This happens very often when debugging optimized code, even with the less aggres
 The messages that they give are very vague and can make it impossible to understand what is happening the program.
 
 \item Retrieving debugging information form the \gls{DWARF} format is difficult to do. 
-This makes creating tools that require debug information difficult and time-consuming to implemented, when it does not need to be.
+This makes creating tools that require debug information difficult and time-consuming to implement when it does not need to be.
 
 \end{itemize}
 
-The goals for this thesis is to create a new debugger and library that fix the problems mentioned above.
+The goal for this thesis is to create a new debugger and library that fix the problems mentioned above.
 The debugger should also support the most common debugging features, they are listed in section \ref{sec:delimitations}.
 
 
@@ -168,7 +168,7 @@ The debugger should also support the most common debugging features, they are li
 %% Focusing on the bare minimum of debugger features
 Currently, there are a lot of different debugging features that other debugger have.
 Many of them are advanced and complicated to implement.
-Thus, it is decided to limit the amount of features to the ones that are most important, to keep the scope of this thesis reasonable.
+Thus, it is decided to limit the number of features to the ones that are most important, to keep the scope of this thesis reasonable.
 The following is the list of features the debugger is required to have:
 
 \begin{itemize} \label{list:debuggerfeatures}
@@ -190,7 +190,7 @@ The following is the list of features the debugger is required to have:
 
 % Limited to only supporting one chip and platform.
 Debugging embedded systems requires the debugger knows certain information about the target system, like the architecture.
-Supporting every \gls{mcu} out there would be to big of a scope for this thesis.
+Supporting every \gls{mcu} out there would be too big of a scope for this thesis.
 Thus, the debugger is only required to work with the target system that is available, which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
 %% Limiting supported chips and platforms.
@@ -216,12 +216,12 @@ Thus, the debugger is only required to work with the target system that is avail
 The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \cite{llvm-dbs}.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
 To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
-Thus, it has been decided to only support the \gls{DWARF} format, because it has good documentation.
+Thus, it has been decided to only support the \gls{DWARF} format because it has good documentation.
 
 
 % Making changes to DWARF standard.
 The scope of this thesis does also not include changing or adding to the \gls{DWARF} format.
-The main reason is that it takes years for a new version of the standard to be released, and thus there is not enough time for this thesis to see, and realize that change or addition.
+The main reason for this is that it takes years for a new version of the standard to be released, and thus it is not possible for this thesis to include such a change or addition.
 Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler would be updated to use the new standard.
 %Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
 
