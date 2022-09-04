@@ -14,13 +14,13 @@
  
 % This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
 
-The variables of a computer program need to be temporary stored somewhere on the computer where they can easily be accessed while running the program.
+The variables of a computer program need to be temporary stored somewhere on the computer where they can be easily accessed while running the program.
 The two main ways the computer can do this is to either store variables in registers or in the memory.
-Registers are very limited in space, and are very volatile.
+Registers are very limited in space and are very volatile.
 Volatile in this case means that new variables get written to the register often.
 Thus, registers are good for storing variables which are used many times, in a very short amount of time.
 Memory is much slower but has a lot more space.
-Memory is thus much more useful for storing variables that are not needed right now but will be needed in the future.
+Memory is therefore much more useful for storing variables that are not needed right now but will be needed in the future.
 
 
 It is the compiler that decide when and if a variable will be stored in registers or memory.
@@ -57,7 +57,7 @@ An example of a call stack and stack frames can be seen in figure \ref{fig:calls
 The values to the right in the figure are addresses, and they start with \emph{0x} because they are in hexadecimal.
 
 
-\begin{figure}[h]
+\begin{figure}[!htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{call-stack.png}
 	\caption{A visual example of how a stack and stack frames can look.}
@@ -115,8 +115,8 @@ That is to give the programmer a deeper understanding of what is happening.
 
 
 There is no better tool for understanding a program then a debugger.
-That is because a debugger can display the state of a program, and it gives the program control of the execution.
-Thus, a debugger enables a program to inspect every part of a program, this is especially true for modern debuggers, which have a lot more advanced features.
+That is because a debugger can display the state of a program and it has control of its execution.
+A debugger enables inspection of every part of a program, this is especially true for modern debuggers, which have a lot more advanced features.
 
 
 \subsection{Debugger}
@@ -143,11 +143,11 @@ Stepping is the process of continuing the execution of the target program for on
 Lastly, resetting means that the target program will start execution from the beginning.
 
 
-Most debugger display the state of the target program relative to the source code.
+Most debuggers display the state of the target program relative to the source code.
 This means that if the target program has stopped, most debuggers will translate the location in the machine code it stopped on into the location of the source instruction from where the machine code instruction was generated from.
 They also often let the user set the breakpoint in the source code, and translate that to the closest machine code instruction.
 Other features most debuggers have is the ability to show a stack trace, variables and to evaluate expression.
-There are a lot more functionalities that a debugger can have, but these are some of the most common.
+There are a lot more functionalities that a debugger can have, but these are some of the most common ones.
 
 
 
@@ -165,8 +165,8 @@ There are a lot more functionalities that a debugger can have, but these are som
 This section will explain how the debug information format \acrfull{DWARF} version $4$ is structured, and how the different parts can be used to get debug information.
 However, it will not explain every detail about the \gls{DWARF} format, because the \gls{DWARF} specification already does that.
 Instead, this section will focus on giving the reader an understanding of what type of information is stored in the \gls{DWARF} format.
-In addition to give some simple examples of how that information can be used to get the value of a variable for example.
-Thus, we refer the reader to the \gls{DWARF} specification \cite{dwarf} for more details.
+In addition it will give some simple examples of how that information can be used to get the value of a variable for example.
+For more details see the \gls{DWARF} specification \cite{dwarf}.
 
 
 % Explain DWARF Sections
@@ -180,10 +180,10 @@ Thus, we refer the reader to the \gls{DWARF} specification \cite{dwarf} for more
 
 
 % TODO: Explain DWARF Sections
-The \gls{DWARF} format is divided into sections that all have different information and purpose.
-These sections use offsets from the start of other sections to point to information in the other section, most of these offsets can be found in specific \gls{DWARF} attributes \ref{sec:dwarfattributes}.
-The figure \ref{fig:dwarfsections} shows all the \gls{DWARF} sections and which ones point to each other.
-All the \gls{DWARF} sections are stored in an \gls{elf} file, which is a binary file format that is divided into different sections.
+The \gls{DWARF} format is divided into sections that all contain different information and have a different purpose.
+These sections use offsets from the start of other sections to point to information in the other sections, most of these offsets can be found in specific \gls{DWARF} attributes \ref{sec:dwarfattributes}.
+The figure \ref{fig:dwarfsections} shows the \gls{DWARF} sections and which ones point to each other.
+The \gls{DWARF} sections are stored in an \gls{elf} file, which is a binary file format that is divided into different sections.
 The \gls{elf} format contains a table describing what each of its sections contains and where they begin and end.
 
 
@@ -194,14 +194,14 @@ The \gls{elf} format contains a table describing what each of its sections conta
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{dwarf-sections}
-	\caption{Diagram of all the different \gls{DWARF} sections and their relations to each other.}
+	\caption{Diagram of the different \gls{DWARF} sections and their relations to each other.}
 	\label{fig:dwarfsections}
 \end{figure}
 
 
 \subsubsection{\emph{.debug\_abbrev}}
 The \gls{DWARF} section \emph{.debug\_abbrev} contains all the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
-These abbreviation codes are used for \gls{die} tags, \gls{die} attribute names and more.
+These abbreviation codes are used for \acrfull{die} tags, \gls{die} attribute names and more.
 To translate an abbreviation code each entry must be compared until the one with the matching abbreviation code is found.
 For further details we refer the reader to section $7.5.3$ in \cite{dwarf}.
 
@@ -259,7 +259,7 @@ For further details we refer the reader to section $6.1.1$ in \cite{dwarf}.
 
 \subsubsection{\emph{.debug\_ranges}}
 \Glspl{die} that have a set of addresses that are non-contiguous will have an offset to the section \emph{.debug\_ranges} instead of having an address range.
-The offset points to the start of a range list that contain range entries which are used to know which of the machine code addresses the \gls{die} is active.
+The offset points to the start of a range list that contain range entries which are used to know in which of the machine code addresses the \gls{die} is active.
 The \gls{DWARF} section \emph{.debug\_ranges} is used for storing these lists of ranges.
 For further details we refer the reader to section $2.17$ in \cite{dwarf}.
 
@@ -303,7 +303,7 @@ It also says which programming language the source file is written in as well as
 A \gls{die} in the tree can have multiple children.
 The relationship between the parent \gls{die}, and the children is that all the children belong to the parent \gls{die}.
 An example of this is if there is a function \gls{die}, then the children of the function \gls{die} will be \glspl{die} that represent parameters and variables that are declared in that function.
-Thus, if the source code has a function declared in a function then one of the children to the first functions \gls{die} will be the second functions \gls{die}.
+For example, if the source code has a function declared in an other function then one of the children to the first functions \gls{die} will be the second functions \gls{die}.
 This makes it is easy for the debugger to know everything about a function by going through all its children.
 
 
@@ -367,7 +367,7 @@ This tag means that the \gls{die} is representing a variable from the source cod
 \end{figure}
 
 
-The attribute \emph{DW\_AT\_location} seen in figure \ref{fig:dwarfdie} has the information of where the variable is stored on the debug target.
+The attribute \emph{DW\_AT\_location} (seen in figure \ref{fig:dwarfdie}) has the information of where the variable is stored on the debug target.
 The attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the \emph{objdump} tool has evaluated to ``str'', this is the name of the variable.
 Attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} in the figure contain  offsets into the section \emph{.debug\_line}.
 Those offsets can be evaluated to the source file path and line number that this \gls{die} is generated from.
@@ -388,7 +388,7 @@ Lastly the attribute \emph{DW\_AT\_type} contain an offset into the section \emp
 % TODO: Explain Evaluation of values
 
 The process of evaluating the value of a variable is a bit complicated because there is a lot of variation.
-Thus, to simplify the explanation, an simple example will be used to explain the main part of evaluating a variable.
+To simplify, an example will be used to explain the method of evaluating a variable.
 
 
 In the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
@@ -503,8 +503,8 @@ This is then repeated for the rest of the activations.
 
 % ###############################################
 \subsubsection{Subroutine Activation} \label{sec:subact}
-A \emph{subroutine activation} contain information on a subroutine call/activation.
-Each \emph{subroutine activation} contain a code location within the subroutine, it is the location where the subroutine stopped.
+A \emph{subroutine activation} contains information on a subroutine call/activation.
+Each \emph{subroutine activation} contains a code location within the subroutine, it is the location where the subroutine stopped.
 The reason for stopping could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the next subroutine.
 
 
