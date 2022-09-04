@@ -22,17 +22,15 @@ The debug information is stored in a file, where the information is stored in a 
 One of the most popular of these formats is called \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
 
 
-The debug information stored in the \gls{DWARF} file can be used to locate the values of variables.
-That in most cases are stored on the call stack in memory, section \ref{sec:callstack} explains what a call stack is.
-The debug information also contain the data type information of the variable, it is used to interpret the raw value of variable found in memory into a typed value.
+The debug information stored in the \gls{DWARF} file can be used to locate the values of variables, that, in most cases, are stored on the call stack in memory (section \ref{sec:callstack} explains what a call stack is).
+The debug information also contain the data type information of the variable, it is used to interpret the raw value of a variable found in memory into a typed value.
 
 
-The main problem with debugging optimized code is variables are sometimes located in registers.
+The main problem with debugging optimized code is that variables are sometimes located in registers.
 Registers are faster to access then other memory and has a much lower capacity.
 Thus, storing variables there often increases the speed of the programs, but the variables are not persistent, because they get overwritten.
 This makes debugging a lot harder because the variables are very short-lived compared to variables that are located on the heap or call stack.
-That mostly have the same life span as the stack frame.
-I refer the reader to section \ref{sec:regmem} for more detailed information about registers and memory.
+I refer the reader to section \ref{sec:regmem} for more detailed information about registers, the call stack, and the heap.
 %Then there is the problem of debuggers not being able to utilize all the available debug information.
 
 
@@ -40,11 +38,11 @@ I refer the reader to section \ref{sec:regmem} for more detailed information abo
 % What has been done already, and why does this work need to be solved.
 % Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
 % Describe the background to your work.
-In the \emph{Rust} programming language community there was no project focusing on creating a debugger for embedded systems when this thesis was started.
-There was even less focus on improving the debugging of optimized \emph{Rust} code.
-One of the larger project focusing on debugging is called \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
-Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools for interact with a range of \glspl{mcu} and debugging probes.
-One of their newest tools that is in early development is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
+In the \emph{Rust} programming language community there has not been any  project focusing on creating a debugger for embedded systems when this thesis was started.
+And even less focus on improving the debugging of optimized \emph{Rust} code.
+One of the larger projects focusing on debugging is called \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debugging probes.
+One of their newest tools, that is in early development, is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
 
 When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no clear focus on improving debugging for optimized code in the \emph{LLVM} project.
 
@@ -64,33 +62,33 @@ When it comes to improving generation of debug information there is some work be
 
 % Optimized rust code is up to 100 faster.
 A motivation for this thesis is that optimized \emph{Rust} code can be $10-100$ times faster than unoptimized code according to the \emph{Rust} performance book \cite{perf-book}.
-This can be compared to other languages, for example \emph{C} were the optimized code can be about 1-3 times faster than the unoptimized code as can be seen in the paper \cite{clang-opt}.
+This can be compared to other languages, for example \emph{C} were the optimized code can be about 1-3 times faster than the unoptimized code, as can be seen in the paper \cite{clang-opt}.
 Thus, for a language like \emph{C}, it is much more acceptable to not be able to debug optimized code, because the difference is not that large compared to \emph{Rust} code.
 However, in the case of \emph{Rust}, the difference is so large that some programs are too slow to run on \glspl{mcu} without optimization.
-This is a problem because debuggers are bad at debugging optimized code as explained in the introduction, and unoptimized code is too slow to run.
+This is a problem because debuggers are bad at debugging optimized code, as explained in the introduction, and unoptimized code is too slow to run.
 That is why there is a need for better debuggers that can provide a good experience when debugging optimized \emph{Rust} code.
 
 
 % Debugging is not as important for rust, but is still needed for embedded systems
 An argument against the need of debugging embedded systems is that the \emph{Rust} compiler will catch most of the errors.
-This is especially true regarding pointers and memory access, which are two common causes of bugs in programming languages like \emph{C} and \emph{C++}.
-Because most \emph{C} and \emph{C++} compilers have very few restrictions on how pointers can be used, and the value pointed to thus can be removed while the pointer still exists. 
+This is especially true regarding pointers and memory access, which are the two most common causes of bugs in programming languages like \emph{C} and \emph{C++}.
+Because most \emph{C} and \emph{C++} compilers have very few restrictions on how pointers can be used, and the value pointed to can therefore be removed while the pointer still exists. 
 Thus, there is less need for a debugger that can debug \emph{Rust} code than there are debuggers that can debug \emph{C} and \emph{C++} code.
 However, when it comes to embedded applications there is still a need for debugging with such a debugger.
 One reason is because \emph{Memory-mapped I/O} is used to preform input/output (\emph{I/O}) between the \emph{CPU} and peripheral devices.
-Also, a debugger is very good tool for showing the state of these peripheral, which makes the development and testing much easier.
+Also, a debugger is a very good tool for showing the state of these peripherals, which makes the development and testing much easier.
 Another reason is that hardware bugs are much easier to find if it is possible to inspect the state of a device easily.
 
 
 % Improving the state of debugging.
-Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLDB} (part of the \emph{LLVM} project) and \emph{GDB}, which at the time of writhing this both requires another program to interact with the \gls{mcu}.
-An example of such a program that is commonly used is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
-This complicates the process of debugging and makes for a needlessly complex experience, especially for new developers.
+Another motivation for creating a debugger for embedded systems is that the two supported debuggers for \emph{Rust} by the \emph{Rust} team are \emph{LLDB} (part of the \emph{LLVM} project) and \emph{GDB}, which at the time of writhing both require another program to interact with the \gls{mcu}.
+An example of such a program, that is commonly used, is \emph{openocd} (openocd homepage \cite{openocd}), which needs to be setup as a \emph{GDB} server that the debugger connects to.
+This complicates the process of debugging, especially for new developers.
 
 
 % Contributing with a solution written in Rust.
 Many of the debuggers used for debugging \emph{Rust} code are written in other programming languages, and there is not a lot of debugging tools written in \emph{Rust} yet.
-Thus, one of the key motivations is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety that \emph{Rust} provides, and excellent ecosystem that Rust provides.
+Thus, one of the key motivations for this thesis is to write a debugger in \emph{Rust}, which will also lead to the debugger having all the benefit of memory safety, and the excellent ecosystem that Rust provides.
 
 
 %%% Contributing a debug rust library / simplifying debugging.
@@ -115,8 +113,8 @@ Thus, one of the key motivations is to write a debugger in \emph{Rust}, which wi
  
 % If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
 
-The main problem of this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
-This will be achieved by creating a new debugger and debugging library that aims to solve the three following problems:
+The main problem addressed by this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
+This will be achieved by creating a new debugger and debugging library solving the three following problems:
 
 \begin{itemize}
 \item Two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, requires another program to debug embedded systems.
@@ -124,15 +122,15 @@ This problem makes both of them harder to use and is overall a bad user experien
 
 \item Both \emph{GDB} and \emph{LLDB} often display that variables have been optimized out.
 This happens very often when debugging optimized code, even with the less aggressive optimization options.
-The messages that they give are very vague and can make it impossible to understand what is happening the program.
+The messages that they give are very vague and can make it impossible to understand what is happening in the program.
 
-\item Retrieving debugging information form the \gls{DWARF} format is difficult to do. 
-This makes creating tools that require debug information difficult and time-consuming to implement when it does not need to be.
+\item Retrieving debugging information from the \gls{DWARF} format is difficult to do. 
+This makes creating tools that require debug information difficult and time-consuming to implement.
 
 \end{itemize}
 
-The goal for this thesis is to create a new debugger and library that fix the problems mentioned above.
-The debugger should also support the most common debugging features, they are listed in section \ref{sec:delimitations}.
+The goal for this thesis is to create a new debugger and library that addresses the problems mentioned above.
+The debugger should also support the most common debugging features, listed in section \ref{sec:delimitations}.
 
 
 
@@ -166,9 +164,9 @@ The debugger should also support the most common debugging features, they are li
 
 
 %% Focusing on the bare minimum of debugger features
-Currently, there are a lot of different debugging features that other debugger have.
+Currently, there are a lot of different debugging features that other debuggers have.
 Many of them are advanced and complicated to implement.
-Thus, it is decided to limit the number of features to the ones that are most important, to keep the scope of this thesis reasonable.
+Therefore, it is decided to limit the number of features to the ones that are most important, limiting the scope of this thesis.
 The following is the list of features the debugger is required to have:
 
 \begin{itemize} \label{list:debuggerfeatures}
@@ -189,9 +187,9 @@ The following is the list of features the debugger is required to have:
 
 
 % Limited to only supporting one chip and platform.
-Debugging embedded systems requires the debugger knows certain information about the target system, like the architecture.
+Debugging embedded systems requires that the debugger knows certain information about the target system, e.g. the architecture.
 Supporting every \gls{mcu} out there would be too big of a scope for this thesis.
-Thus, the debugger is only required to work with the target system that is available, which is a \emph{Nucleo-64, STM32F401RET6 64 pin}.
+Thus, the debugger is only required to work with the target system \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
 %% Limiting supported chips and platforms.
 %When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.
@@ -215,8 +213,8 @@ Thus, the debugger is only required to work with the target system that is avail
 % Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html 
 The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \cite{llvm-dbs}.
 One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
-To make a debugger that supports both formats would be a lot of extra work that does not contribute to solving the main problem of this thesis.
-Thus, it has been decided to only support the \gls{DWARF} format because it has good documentation.
+To make a debugger that supports both formats would require a lot of extra work that does not contribute to solving the main problems of this thesis.
+Therefore, it has been decided to only support the \gls{DWARF} format because it has good documentation.
 
 
 % Making changes to DWARF standard.
@@ -227,8 +225,8 @@ Another reason is that even if a new version of the \gls{DWARF} format could be 
 
 
 % Will not explain every detail in dwarf.
-The \gls{DWARF} format is very complex but provides good documentation.
-Thus, the explanation of \gls{DWARF} in section \ref{sec:dwarf} will not go into every detail of \gls{DWARF}.
+The \gls{DWARF} format is very complex but it is very well documented.
+Due to this, the description in section \ref{sec:dwarf} will not go into every detail of \gls{DWARF}.
 Instead, it will focus on explaining the minimum theory to understand the implementation of the debugger.
 For further details we refer the reader to \cite{dwarf}.
 
