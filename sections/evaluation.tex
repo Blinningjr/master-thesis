@@ -7,9 +7,9 @@
 % Then you collect the objective measurements (fuel consumption comparisons) and the subjective opinions from the users about whether the application was unobtrusive, usable, etc. (typically via a questionnaire).
 
 \section{Evaluating \emph{rust-debug}} \label{sec:evalrd}
-The debugging library \emph{rust-debug} aims to solve the problem of it being difficult to get debug information from the \gls{DWARF} format.
-Where the difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the debug information wanted.
-Thus, one way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.
+The debugging library \emph{rust-debug} aims to solve the problem of getting debug information from the \gls{DWARF} format.
+The difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the wanted debug information.
+One way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.
 
 
 Unfortunately, there is no other debugger that has the exact same features as \gls{erdb}.
@@ -17,7 +17,7 @@ Also, it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, 
 
 
 Instead, the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
-The number of \emph{Rust} code lines will be counted using the tool \emph{tokei} \cite{tokei}.
+The number of \emph{Rust} code lines was counted using the tool \emph{tokei} \cite{tokei}.
 \emph{rust-debug} contains $3550$ lines of \emph{Rust} code, and the debugger module contains $1310$ lines.
 Also, the whole debugger \gls{erdb} contains $2834$ lines of \emph{Rust} code.
 
@@ -31,11 +31,11 @@ Thus, \emph{rust-debug} has made it significantly easier to get some debug infor
 % List all the features it has.
 One of the requirements set in the section \ref{sec:problemDef} was that \gls{erdb} needs to implement some of the most common debugging features.
 A list of these features can be found in section \ref{sec:delimitations}.
-\gls{erdb} implements all of those mentioned features, but there are two of them that is not fully supported.
+\gls{erdb} implements all of those mentioned features, but there are two of them that are not fully supported.
 
 
 % stepping, sw breakpoints, 
-Currently, \gls{erdb} only supports hardware breakpoints, thus there is a limit to how many breakpoints can be set.
+Currently, \gls{erdb} only supports hardware breakpoints, creating a limit to how many breakpoints can be set.
 To have more breakpoints the debugger needs to support software breakpoints, which will make it possible to have a lot more breakpoints.
 The other feature that is not fully supported are the different stepping variants.
 Stepping one machine code instruction is currently the only supported stepping function.
@@ -64,9 +64,7 @@ They are also the two debuggers that are supported by the \emph{Rust} developmen
 
 
 The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
-The example code was many times modified to test how well the three debugger handled different situations.
-This was repeated until one of the debuggers gave an unexpected result.
-
+The example code was modified to test how well the three debugger handled different situations.
 
 To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
 This ensures that all the three debuggers stop on the same instruction.
@@ -85,7 +83,7 @@ At the time of writing the latest versions of debuggers are:
 \subsection{Unoptimized Code Comparison}
 All the debuggers were first tested on unoptimized \emph{Rust} code, to see that the debuggers were correctly installed and configured.
 While testing them there were some differences between the debuggers that are interesting.
-The largest one being that \emph{LLDB} is not able to evaluate \emph{Rust} \emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
+The most significant one being that \emph{LLDB} is not able to evaluate \emph{Rust} \emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
 
 
 Another difference found is that both \emph{LLDB} and \emph{GDB} evaluated a \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
