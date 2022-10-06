@@ -14,7 +14,7 @@ A debugger is a program that allows the developer to control the debugged progra
 It is also able to inspect the debugged program by for example displaying the values of the variables.
 Debuggers are especially useful when programming embedded systems because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
 This gives the developer a complete view of what the program is doing.
-Debuggers are also a very useful tool for testing.
+Debuggers are also useful tools for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
@@ -38,8 +38,7 @@ I refer the reader to section \ref{sec:regmem} for more detailed information abo
 % What has been done already, and why does this work need to be solved.
 % Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
 % Describe the background to your work.
-In the \emph{Rust} programming language community there has not been any  project focusing on creating a debugger for embedded systems when this thesis was started.
-And even less focus on improving the debugging of optimized \emph{Rust} code.
+In the \emph{Rust} programming language community there are very few projects focusing on debugging embedded systems, and even less focus on improving the debugging of optimized \emph{Rust} code.
 One of the larger projects focusing on debugging is called \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debugging probes.
 One of their newest tools, that is in early development, is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
