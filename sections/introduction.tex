@@ -1,54 +1,50 @@
-% Give the reader an overview of the rea.
-% Try to focus on the scientific area, but do not forget the red thread that binds the rest of the introduction together.
-
-A key part of programming has always been debugging the computer program.
+A crucial part of programming has always been debugging the computer program.
 Debugging is the process of finding and resolving errors, flaws, or faults in computer programs.
-These errors, flaws or faults are also commonly referred to as a bug or bugs in the field of computer science.
-Debugging has become more difficult to do over the years because of the increasing complexity of computer programs and the hardware.
-Thus, the importance of better debugging tools have become essential to make the process of debugging easier and more time efficient.
-This is especially true for debugging  embedded systems because of the close relation to hardware.
+These errors, flaws, or faults are also commonly referred to as a bug or bugs in the field of computer science.
+Debugging has become more challenging because of the increasing complexity of computer programs and hardware.
+Thus, better debugging tools have become essential to make the debugging process more accessible and time efficient.
+It is especially true for debugging embedded systems because of their close relation to hardware.
 
 
-One of the first types of debugging tools made, and one of the most useful types is a debugger.
-A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
-It is also able to inspect the debugged program by for example displaying the values of the variables.
+One of the first debugging tools made, and one of the most valuable types, is a debugger.
+A debugger is a program that allows the developer to control the debugged program in some ways, for example, continuing, halting, and resetting.
+It can also inspect the debugged program by, for example, displaying the values of the variables.
 Debuggers are especially useful when programming embedded systems because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
-This gives the developer a complete view of what the program is doing.
-Debuggers are also useful tools for testing.
+It gives the developer a complete view of what the program is doing.
+Debuggers are also valuable tools for testing.
 
 
 Debugging today works by having the compilers generate debug information when compiling the program.
-The debug information is stored in a file, where the information is stored in a special format, designed to be read by a debugger or other debugging tools.
-One of the most popular of these formats is named \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
+The debug information is stored in a file in a unique format designed to be read by a debugger or other debugging tools.
+One of the most popular formats is named 
+\gls{DWARF}, and it is a complex format that section \ref{sec:dwarf} explains.
 
 
-The debug information stored in the \gls{DWARF} file can be used to locate the values of variables, that, in most cases, are stored on the call stack in memory (section \ref{sec:callstack} explains what a call stack is).
-The debug information also contain the data type information of the variable, it is used to interpret the raw value of a variable found in memory into a typed value.
+The debug information stored in the \gls{DWARF} file can be used to locate the values of variables that, in most cases, are stored on the call stack in memory (section \ref{sec:callstack} explains what a call stack is).
+The debug information also contains the data type information of the variable.
+The debug information is used to interpret the raw value of a variable found in memory into a typed value.
 
 
-The main problem with debugging optimized code is that variables are sometimes located in registers.
-Registers are faster to access then other memory and has a much lower capacity.
-Thus, storing variables there often increases the speed of the programs, but the variables are not persistent, because they get overwritten.
-This makes debugging a lot harder because the variables are very short-lived compared to variables that are located on the heap or call stack.
-I refer the reader to section \ref{sec:regmem} for more detailed information about registers, the call stack, and the heap.
-%Then there is the problem of debuggers not being able to utilize all the available debug information.
+Variables stored in registers are a significant problem with debugging optimized code.
+Registers are faster to access than other memory and have a much lower capacity.
+Thus, storing variables there often increases the speed of the programs, but the variables are not persistent because they get overwritten.
+It makes debugging a lot harder because the variables are very short-lived compared to variables located on the heap or call stack.
+We refer the reader to section \ref{sec:regmem} for more detailed information about registers, the call stack, and the heap.
 
 
 \section{Background}
-% What has been done already, and why does this work need to be solved.
-% Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
-% Describe the background to your work.
-In the \emph{Rust} programming language community there are very few projects focusing on debugging embedded systems, and even less focus on improving the debugging of optimized \emph{Rust} code.
-One of the larger projects focusing on debugging is named \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
-Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debugging probes.
-One of their newest tools, that is in early development, is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
+In the \emph{Rust} programming language community, very few projects focus on debugging embedded systems and even less on improving the debugging of optimized \emph{Rust} code.
+One of the larger projects focusing on debugging is named \emph{gimli-rs}.
+One of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with various \glspl{mcu} and debugging probes.
+One of their newest tools which are in early development, is a debugger that also uses the \emph{gimli-rs} library to read the DWARF file.
 
-When it comes to improving generation of debug information there is some work being done on the \emph{LLVM} project, but there is no clear focus on improving debugging for optimized code in the \emph{LLVM} project.
+
+There is some work done on the \emph{LLVM} project to improve the generation of debugging information.
+However, there is no clear focus on improving debugging for optimized code in the \emph{LLVM} project.
 
 
 \section{Motivation}
-% Why is your work important? Typically this section relates strongly to the problems that you define in 1.3.
-% The motivations can be societal, economical, or other things, but try and look past the task at hand and find out what impact your results will have.
 
 % Motivations bullet points
 %	* Optimized rust code is up to 100 faster.
