@@ -11,7 +11,7 @@
 
 % TODO: Explain design methods used. Modulare, Singelthon and so on.
 
-There are three different projects that make up the implementation, the first being a debug library called \emph{rust-debug}.
+There are three different projects that make up the implementation, the first being a debug library named \emph{rust-debug}.
 Its purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
 The second project is the debugger \gls{erdb}, that implements the \gls{dap} protocol.
 The last project is a \emph{VSCode} extension that launches the \gls{erdb} debugger and connects to it.
@@ -47,9 +47,9 @@ In the \emph{DWARF} format, the source code location of where any type of data w
 One of the attributes contain indirect information about which file the data was declared, another contains the line number and the last one contains the column number.
 
 
-The attribute contains the file path and name information is called \emph{DW\_AT\_decl\_file}.
+The attribute contains the file path and name information is named \emph{DW\_AT\_decl\_file}.
 It does not contain the file path and name directly, instead it contains a file index.
-This file index is used to look up the file path and name in a table called, \emph{line number information table}.
+This file index is used to look up the file path and name in a table named, \emph{line number information table}.
 There is one such table in each compilation unit, and the file index $0$ is special.
 File index $0$ is reserved for when a source file cannot be specified.
 
@@ -60,7 +60,6 @@ Thus, they are much easier to retrieve.
 
 \emph{rust-debug} provides a function that performs the lookup file index lookup, and it also gets the line and column numbers.
 The function requires that a \gls{die} and related compilation unit is given.
-However, the library has other function for retrieving the required information.
 
 
 \subsection{Accessing Memory And Registers}
@@ -76,7 +75,7 @@ This has the benefit that any existing solutions can be used, like \emph{probe-r
 It also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user must do.
 
 
-All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library called \emph{Registers}.
+All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library named \emph{Registers}.
 This struct contains a \emph{HashMap} with the register numbers and there corresponding values.
 It also contains the register number of some special registers, like the \acrshort{pc} register.
 Thus, it is up to the user that the correct register numbers and values are stored on the struct.  
@@ -92,8 +91,8 @@ An example on how this can be implemented using the \emph{probe-rs} library can 
 
 \subsection{Evaluating Variables} \label{sec:ievalvar}
 % Explain the evaluation of variables.
-To make evaluating the value of a variable and retrieving other information about the variable easy, \emph{rust-debug} provides a struct called \emph{Variable}.
-That struct only has one function called \emph{get\_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
+To make evaluating the value of a variable and retrieving other information about the variable easy, \emph{rust-debug} provides a struct named \emph{Variable}.
+That struct only has one function named \emph{get\_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
 The \emph{rust-debug} \emph{Variable} struct may contain the following information:
 
 
@@ -110,7 +109,7 @@ All the information in the \emph{Variable} struct may not be present, because no
 The evaluated value of a variable is represented in a tree structure which is very similar to how the information is stored in the \gls{DWARF} format.
 However, the value of each branch is evaluated into a value of one of the basic types, such as a signed integer.
 Thus, it removes the hardest part of evaluating a variable, without losing the flexibility of the \gls{DWARF} format.
-The only downside of this solution is that it requires the user understand how variables are structure in the \gls{DWARF} format.
+The only downside of this solution is that it requires the user to understand how variables are structure in the \gls{DWARF} format.
 
 
 \subsection{Finding the current function} \label{sec:funcdie} % TODO: Explain in more detail what the function does.
@@ -180,12 +179,12 @@ The debugger \acrfull{erdb} is implemented using the debugging library \emph{rus
 The debugger also uses the \emph{probe-rs} library for controlling the debug target, it is also used for accessing the registers and memory of the debug target.
 
 
-The debugger is made up of three modules, the first one is called \acrshort{cli}.
+The debugger is made up of three modules, the first one is named \acrshort{cli}.
 Its main functionality is to handle the input and output from the terminal.
-The second module is called \emph{DebugAdapter}.
+The second module is named \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
 These \gls{dap} messages are sent through a \acrshort{tcp} connection and is for supporting the \gls{dap} protocol.
-The last module is called \emph{Debugger}, it is for getting debug information and controlling the debug target.
+The last module is named \emph{Debugger}, it is for getting debug information and controlling the debug target.
 
 
 
@@ -248,10 +247,10 @@ This is because the rest of the system does not yet support multiple simultaneou
 
 
 \subsection{The Debugger Module}
-The debugger module mainly consists of one struct called \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
+The debugger module mainly consists of one struct named \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
 Another of its jobs is to keeps track of the debug targets state.
 This struct only has two methods for accomplishing it jobs, one for polling the state of the debug target.
-The other method called \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
+The other method named \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
 The method also returns a \emph{DebugResponse} with the result.
 
 
@@ -276,7 +275,7 @@ In the time between the polls other tasks can be handled, such as parsing the in
 This is possible because there is an asynchronous function which sleeps for $100$ milliseconds, afterwards it polls the debug target state.
 That function repeats if the debug target is being debugged.
 Thus, the debugger can simultaneously handle both input from the user and state changes in the debug target.
-A state change in the debug target is called an event in \gls{erdb}.
+A state change in the debug target is referred to as an event in \gls{erdb}.
 
 
 
@@ -296,7 +295,7 @@ Because, the value does not need to be evaluated, instead it can be taken from t
 
 \section{VSCode Extension}
 % Explain the implementation of the vscode explanation.
-Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool called \emph{vscode-generator-code} \cite{vscode-generator-code}, that will generate a empty extension.
+Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool named \emph{vscode-generator-code} \cite{vscode-generator-code}, that will generate a empty extension.
 The provided documentations also explain how to get started with creating an extension.
 
 
@@ -310,9 +309,9 @@ To learn more about \emph{VSCode} debug extension read \emph{Microsofts} documen
 
 The debugger \emph{Embedded Rust Debugger} implements the \gls{dap} protocol over a \gls{tcp} server.
 The \emph{VSCode} extension is just a wrapper that starts the debugger \gls{tcp} server and then connects to it.
-Connecting to the debugger server over \gls{tcp} is very easy to do because \emph{Microsoft} has a library called \emph{VSCode} that does that for you.
+Connecting to the debugger server over \gls{tcp} is very easy to do because \emph{Microsoft} has a library named \emph{VSCode} that does that for you.
 The extension also captures the logs of the debugger and outputs them to the user using the \emph{VSCode} library.
 
 
 There are also some configurations that the user of the \gls{erdb} can set in the \emph{launch.json} file.
-The available configurations are defined in a \emph{json} file called \emph{package.json} in the extension project \cite{erdb-vscode}.
+The available configurations are defined in a \emph{json} file named \emph{package.json} in the extension project \cite{erdb-vscode}.

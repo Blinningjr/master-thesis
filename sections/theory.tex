@@ -134,11 +134,11 @@ The two main functionalities of a debugger, is firstly the ability to control th
 Secondly it is the ability to inspect the state of the target program.
 
 
-Some of the most common ways a debugger can control a target program is by starting, stopping, stepping, and resetting the execution.
-Starting the execution means that the target program continues the execution from the current stopped location, this also called continuing.
-Stopping the target program or halting it, can often be done in two ways, the first is to stop the execution where it currently is, the other way is to set a breakpoint.
+Some of the most common ways a debugger can control a target program is by continuing, halting, stepping, and resetting the execution.
+Continuing the execution means that the target program continues the execution from the current stopped location.
+Halting the target program, can often be done in two ways, the first is to stop the execution where it currently is, the other way is to set a breakpoint.
 A breakpoint is a point in the code that if reached will stop the target program immediately.
-Breakpoints are very useful for inspecting certain point in the code, while the other way of stopping is more used when the stopping location is unknown.
+Breakpoints are very useful for inspecting certain point in the code, while the other way of halting is more used when the haltng location is unknown.
 Stepping is the process of continuing the execution of the target program for only a moment, often just until the next source code line is reached, but there are many variants of stepping.
 Lastly, resetting means that the target program will start execution from the beginning.
 
@@ -216,7 +216,7 @@ For further details we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 \subsubsection{\emph{.debug\_frame}}
 In the \gls{DWARF} section \emph{.debug\_frame} the information needed to virtually unwind the call stack is kept.
-This section is completely self-contained, and is made up of two structures called \acrfull{cie} and \acrfull{fde}.
+This section is completely self-contained, and is made up of two structures named \acrfull{cie} and \acrfull{fde}.
 Virtually unwinding the call stack is complex, thus, for further details we refer the reader section \ref{sec:stacktrace} in this document and section $6.4.1$ in \cite{dwarf}
 
 
@@ -252,7 +252,7 @@ This section is too complex, for further details we refer the reader to section 
 
 \subsubsection{\emph{.debug\_pubnames} and \emph{.debug\_pubtypes}}
 There are two sections for looking up compilation units by the name of functions, variables, types and more.
-The first one is \emph{.debug\_pubnames} which is for finding functions, variables, and objects, and the other one is for finding types, this section is called \emph{.debug\_pubtypes}.
+The first one is \emph{.debug\_pubnames} which is for finding functions, variables, and objects, and the other one is for finding types, this section is named \emph{.debug\_pubtypes}.
 Both of these are meant to be used for fast lookup of what unit the search information is located in.
 For further details we refer the reader to section $6.1.1$ in \cite{dwarf}.
 
@@ -303,7 +303,7 @@ It also says which programming language the source file is written in as well as
 A \gls{die} in the tree can have multiple children.
 The relationship between the parent \gls{die}, and the children is that all the children belong to the parent \gls{die}.
 An example of this is if there is a function \gls{die}, then the children of the function \gls{die} will be \glspl{die} that represent parameters and variables that are declared in that function.
-For example, if the source code has a function declared in another function then one of the children to the first functions \gls{die} will be the second functions \gls{die}.
+For example, if the source code has a function declared in another function then one of the children to the first function's \gls{die} will be the second functions \gls{die}.
 This makes it is easy for the debugger to know everything about a function by going through all its children.
 
 
@@ -352,9 +352,9 @@ In the \gls{DWARF} file the name of the attributes will be abbreviated to their 
 
 
 \subsubsection{Example of a DIE}
-An example of a \gls{die} can be seen in figure \ref{fig:dwarfdie}, the figure is a screenshot of the output from the program \emph{objdump} run on a \gls{elf} file.
-The first line in the figure begins with a number $8$ which represents the depth in the \gls{die} tree this \gls{die} is located.
-The next number is the current lines offset into this compile unit, all the other lines in the figure also start with their offset.
+An example of a \gls{die} can be seen in figure \ref{fig:dwarfdie}, the figure is a screenshot of the output from the program \emph{objdump} run on an \gls{elf} file.
+The first line in the figure begins with a number $8$ which represents the depth in the \gls{die} tree where this \gls{die} is located.
+The next number is the current line's offset into this compile unit, all the other lines in the figure also start with their offset.
 Then comes "Abbrev Number: 9" on the same line, this is an abbreviation code that translates to \emph{DW\_TAG\_variable}.
 This tag means that the \gls{die} is representing a variable from the source code.
 
@@ -362,7 +362,7 @@ This tag means that the \gls{die} is representing a variable from the source cod
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{dwarf-die.png}
-	\caption{An example of a \gls{die} representing a variable named \emph{ptr}. This example is the output of the tool \emph{objdump} run on a \gls{DWARF} file.}
+	\caption{An example of a \gls{die} representing a variable named \emph{ptr}. This example is the output of the tool \emph{objdump} run on an \gls{elf} file.}
 	\label{fig:dwarfdie}
 \end{figure}
 
@@ -392,19 +392,19 @@ To simplify, an example will be used to explain the method of evaluating a varia
 
 
 In the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
-The function has a parameter called \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
+The function has a parameter named \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
 It is this parameter \emph{val} that will be used as an example of how to evaluate a variable.
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{subprogram-example.png}
-	\caption{An example of a subprogram and parameter \gls{die}. This example is the output of the program \emph{objdump} run on a \gls{DWARF} file.}
+	\caption{An example of a subprogram and parameter \gls{die}. This example is the output of the program \emph{objdump} run on an \gls{elf} file.}
 	\label{fig:subprogramexample}
 \end{figure}
 
 
-Take note to the fact that the function \gls{die} called \emph{my\_function} has two attributes called \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
+Take note to the fact that the function \gls{die} named \emph{my\_function} has two attributes named \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
 Those attributes describe the range of \gls{pc} values in which the function is executing.
 There is also some other attributes in the example that will not be mentioned because they are not needed for determining the value of the attribute.
 
@@ -414,7 +414,7 @@ There is also some other attributes in the example that will not be mentioned be
 
 
 \subsubsection{Finding Raw Value Location}
-Examining the \gls{die} for the argument \emph{val} there is an attribute there called \emph{DW\_AT\_location}.
+Examining the \gls{die} for the argument \emph{val} there is an attribute named \emph{DW\_AT\_location}.
 The value of that attribute is a number of operations, performing these operations will give the location of the variable.
 
 
@@ -431,7 +431,7 @@ The operation \emph{DW\_OP\_reg7} describe that the value is located in register
 Thus register $7$ needs to be read to get the value of the \emph{frame base}.
 
 
-Now knowing the value of the \emph{frame base} the location of the parameter val can be calculated.
+Now that the value of the \emph{frame base} is known we can proceed to calculate the location of the parameter \emph{val}.
 As mentioned previously, the location of parameter \emph{val} is the \emph{frame base} minus $2$.
 Thus, the value of \emph{val} can be read from the memory at address of the \emph{frame base} minus $2$.
 However, the value also has to be parsed into the type of \emph{val}, see section \ref{sec:parsingvalue} for how that is done.
@@ -451,7 +451,7 @@ That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it i
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{basetype-example.png}
-	\caption{An example of a base type \gls{die}. This example is the output of the program \emph{objdump} run on a \gls{DWARF} file.}
+	\caption{An example of a base type \gls{die}. This example is the output of the program \emph{objdump} run on a \gls{elf} file.}
 	\label{fig:basetypeexample}
 \end{figure}
 
@@ -481,16 +481,16 @@ Now that the type of \emph{val} is known the last step left to do is to parse th
 % TODO: Explain Unwinding call stack
 
 Virtually unwinding the call stack is done by recursively unwinding a stack of \emph{subroutine activations}.
-It is called virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
+It is named virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
 Every subroutine in the call stack has an activation and a stack frame.
 Because the activation often has the value of the stack pointer, the related stack frame is also known.
 Thus, successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
 
 
 The debug information needed to unwind activations are stored in the \gls{DWARF} section \emph{.debug\_frame}.
-That section is made up of two data structures, one is called \gls{fde}.
+That section is made up of two data structures, one is named \gls{fde}.
 A \gls{fde} contains a table used for unwinding registers and the \gls{cfa} of an activation.
-The other data structure is called \gls{cie}, it contains information that is shared among many \glspl{fde}.
+The other data structure is named \gls{cie}, it contains information that is shared among many \glspl{fde}.
 The relevant \gls{cie} and \gls{fde} to an activation can be found using the code location where it is stopped.
 
 
@@ -505,7 +505,7 @@ This is then repeated for the rest of the activations.
 \subsubsection{Subroutine Activation} \label{sec:subact}
 A \emph{subroutine activation} contains information on a subroutine call/activation.
 Each \emph{subroutine activation} contains a code location within the subroutine, it is the location where the subroutine stopped.
-The reason for stopping could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the next subroutine.
+The reason for halting could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the next subroutine.
 
 
 The address of the stopped code location is easily found using the stack pointer of the above activation in the activation stack.
@@ -550,7 +550,7 @@ See figure \ref{fig:stacktracetable} for a visual of how the tables are structur
 \end{figure}
 
 
-There are several virtual unwinding rules, the ones for the registers are called register rules.
+There are several virtual unwinding rules, the ones for the registers are named register rules.
 Some of them are easy to use such as the register rule \emph{undefined}.
 This rule means that it is impossible to unwind that register.
 Other ones require some calculations such as the register rule \emph{offset(N)}, where the \emph{N} is a signed offset.

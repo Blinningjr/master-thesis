@@ -9,7 +9,7 @@ Thus, the importance of better debugging tools have become essential to make the
 This is especially true for debugging  embedded systems because of the close relation to hardware.
 
 
-One of the first types of debugging tools made, and one of the most useful is called a debugger.
+One of the first types of debugging tools made, and one of the most useful types is a debugger.
 A debugger is a program that allows the developer to control the debugged program in some ways, for example stopping, starting and resetting.
 It is also able to inspect the debugged program by for example displaying the values of the variables.
 Debuggers are especially useful when programming embedded systems because a debugger enables the developer to inspect what is happening in the \gls{mcu}.
@@ -19,7 +19,7 @@ Debuggers are also useful tools for testing.
 
 Debugging today works by having the compilers generate debug information when compiling the program.
 The debug information is stored in a file, where the information is stored in a special format, designed to be read by a debugger or other debugging tools.
-One of the most popular of these formats is called \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
+One of the most popular of these formats is named \gls{DWARF}, it is a complex format that is explained in section \ref{sec:dwarf}.
 
 
 The debug information stored in the \gls{DWARF} file can be used to locate the values of variables, that, in most cases, are stored on the call stack in memory (section \ref{sec:callstack} explains what a call stack is).
@@ -39,7 +39,7 @@ I refer the reader to section \ref{sec:regmem} for more detailed information abo
 % Typically if the masters project is issued by a company it is because the company already has one part, but wish to improve it or extend it somehow.
 % Describe the background to your work.
 In the \emph{Rust} programming language community there are very few projects focusing on debugging embedded systems, and even less focus on improving the debugging of optimized \emph{Rust} code.
-One of the larger projects focusing on debugging is called \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
+One of the larger projects focusing on debugging is named \emph{gimli-rs}, one of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with a range of \glspl{mcu} and debugging probes.
 One of their newest tools, that is in early development, is a debugger that also uses the \emph{gimli-rs} library to read the \gls{DWARF} file.
 
@@ -229,41 +229,4 @@ Due to this, the description in section \ref{sec:dwarf} will not go into every d
 Instead, it will focus on explaining the minimum theory to understand the implementation of the debugger.
 For further details we refer the reader to \cite{dwarf}.
 
-
-%Many of the debuggers today have a lot of functionality to help the user understand what is happening in the program that they are debugging.
-%An example of these functionality are debuggers that support the ability to go backwards in the program.
-%Functionalities like this are useful but dose not contributing much to the main problem of this thesis which is debugging optimized code.
-%%Which is that most of the source code variables get optimized away and thus making it extremely hard to understand what is happening in the code.
-%So to keep this thesis focused on the main problem the feature the debugger will have is restricted to virtually unwinding the stack, evaluating stack frames and there variables and lastly the ability to add and remove breakpoints.
-%The debugger will also have the ability to control the program by stopping, continuing and stepping an instruction which are important debugger functionalities that does not require debug information.
-
-
-%To support all the different \glspl{mcu} would be too much work for this thesis.
-%Thus the debugger is limited to work with the \emph{Nucleo-64 STM32F401} card because it is the one that was available at hand, and it will only support the \emph{arm Thumb mode} instruction set.
-%The debugger will be design to work with other similar \gls{mcu} but to test and grantee that it will work with them is to much work for this thesis.
-
-
-%% Limiting it to a CLI and DAP server plus a VSCode extension.
-%Another part of this thesis is the interaction between the user and the debugger.
-%Existing debugger like \emph{GDB} both have a \emph{CLI} and a \acrfull{gui}, thus it is up to the user which one they want to use.
-%From a usability perspective the debugger in this thesis should also have both of the option for the user to choose from.
-%A \emph{CLI} is not that much work to implement but a \acrshort{gui} takes a lot of work to implement.
-%Luckily \emph{Microsoft} has made a protocol for debuggers that specifies an adapter that handles the communication between the \acrshort{gui} and the debugger.
-%This protocol is called \acrfull{dap}\cite{dap} and is used by \emph{VSCode}.
-%Thus the scope of the debugger will include implementing the \acrshort{dap} protocol and a simple extension for \emph{VSCode}.
-
-
-%% Limiting the depth of detail how dwarf works.
-%The \gls{DWARF} format is very extensive and supports a lot of different program languages, the specifications for the different languages are a little different from each other.
-%Because this thesis is about \emph{Rust} code the thesis will only go into detail in how to read the \gls{DWARF} format for \emph{Rust}.
-%The specification for the \gls{DWARF} format is also very good at explaining how the information is structured.
-%Thus a this thesis will not go into all the detail in how to read the \gls{DWARF} format instead it will focus on explaining how the information in the \gls{DWARF} format can be used in combination to get important information that the user wants.
-
-
-
-
-%\section{Thesis structure}
-% Describe how the rest of your thesis is organized.
-% (e.g. In section 2 we discuss, in section 3 there is a... etc.).
-% This is really just to help guide the reader to where different parts of your work can be found.
 
