@@ -1,17 +1,13 @@
 Debugging is an essential part of programming.
-At this moment there is no debugger that is good at debugging optimized \emph{Rust} code.
-It is a problem because unoptimized \emph{Rust} code is very slow compared too optimized.
-The ability of debugging optimized code is especially important for embedded systems because of the close relation to hardware.
-Thus, a tool like a debugger is very useful because it enables the developer to see what is happening in the hardware when debugging embedded systems.
+No debugger is good at debugging optimized \emph{Rust} code, which is a problem because unoptimized \emph{Rust} code is slow compared to optimized.
+The ability to debug optimized code is essential for embedded systems because of the close relation to hardware.
+Thus, a tool like a debugger is handy because it enables the developer to see what is happening in the hardware when debugging embedded systems. 
 
+This thesis presents a debugger named \acrshort{erdb} and a debugging library named \emph{rust-debug}.
+The goal of the library is to make it easier to create debugging tools by simplifying the process of retrieving debug information from the \acrshort{DWARF} format.
+The goal of \acrshort{erdb} is to improve debugging for optimized \emph{Rust} code. 
 
-To improve debugging for optimized \emph{Rust} code, this thesis presents a debugger named \acrshort{erdb} and a debugging library named \emph{rust-debug}.
-The goal of the library is to make it easier to create debugging tools, by simplifying the process of retrieving debug information from the \acrshort{DWARF} format.
+This thesis will explain the design and implementation of \acrshort{erdb} and rust-debug, and it will also explain how the debug information format \acrshort{DWARF} works.
 
-
-This thesis will explain the design and implementation of \acrshort{erdb} and \emph{rust-debug}, it will also explain how the debug information format \acrshort{DWARF} works.
-
-
-The debugger \acrshort{erdb} will be compared to other debuggers to see if it achieved its goal.
-Comparing the debuggers showed that the biggest problem with debugging optimized code is that there is not enough debug information produced by the compiler.
-
+\acrshort{erdb} will be compared to other debuggers to see if it has achieved its goal.
+The result highlight that the problem is in the compiler not generating the needed debug information.
