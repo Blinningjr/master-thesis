@@ -72,136 +72,67 @@ Thus, one of the critical motivations for this thesis is to write a debugger in 
 
 
 \section{Problem definition} \label{sec:problemDef}
-%\subimport{introduction/}{problem-definition.tex}
-% This is really the section you should start writing first, even if it's located as 1.3.
-% What scientific problems are you solving in your thesis.
-% The reason why you should start defining these is that they define what you should write in all the other sections.
-% The introduction gives an overview of the area of your problems.
-% The background offers the background to why you are working with your problems.
-% The motivation gives a motivation to why you are solving the problems.
-% The related work described work which relates to your problems.
-% The implementation describes how you have implemented a solution to your problems.
-% The evaluation evaluates whether you have actually solved your problems.
-% The discussion discusses each individual problem, how you addressed it, alternative solutions and shortcomings, etc.
-% The conclusions and future work describes the final outcome of how you solved your problems and what is left to do. 
- 
-% If you write your problems first it is so much easier to write all the other sections because you already know what the focus of each section should be. It prevents a lot of the writers block that people often suffer from.
-
-The main problem addressed by this thesis is to improve the experience of debugging optimized \emph{Rust} code on embedded systems.
-This will be achieved by creating a new debugger and debugging library solving the three following problems:
+This thesis's main problem is improving the experience of debugging optimized \emph{Rust} code on embedded systems.
+It will be achieved by creating a new debugger and debugging library solving the three following problems:
 
 \begin{itemize}
-\item Two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, requires another program to debug embedded systems.
-This problem makes both of them harder to use and is overall a bad user experience.
+  \item Two of the most popular debuggers, \emph{GDB} and \emph{LLDB}, require another program to debug embedded systems.
+This problem makes both of them harder to use and is a bad user experience.
 
-\item Both \emph{GDB} and \emph{LLDB} often display that variables have been optimized out.
-This happens very often when debugging optimized code, even with the less aggressive optimization options.
-The messages that they give are very vague and can make it impossible to understand what is happening in the program.
+\item Both \emph{GDB} and \emph{LLDB} often display that variables are optimized out when debugging optimized code, even with the less aggressive optimization options.
+Their messages are very vague and can make it impossible to understand what is happening in the program.
 
-\item Retrieving debugging information from the \gls{DWARF} format is difficult to do. 
-This makes creating tools that require debug information difficult and time-consuming to implement.
-
+\item Retrieving debugging information from the \emph{DWARF} format is challenging to do.
+It makes creating tools that require debug information difficult and time-consuming to implement.
 \end{itemize}
 
-The goal for this thesis is to create a new debugger and library that addresses the problems mentioned above.
-The debugger should also support the most common debugging features, listed in section \ref{sec:delimitations}.
-
-
-
-%\section{Equality and ethics}
-% Equality and ethics are learning objectives for the program and should be reflected upon in the thesis if applicable.
-% This section can be omitted if not at all relevant to the problem definition, but in many cases the thesis topic touches upon these topics even if it is outside the scope of the work itself and in such cases a single paragraph may be sufficient to cover the reflection.
-
-
-
-%\section{Sustainability}
-% Similar to the equality and ethics section this is one of the learning objectives for the program and should be reflected upon in the thesis if applicable.
-% For a quick overview of what is considered to be included in sustainability you can see the united nations list of sustainability goals:
-% https://www.un.org/sustainabledevelopment/sustainable-development-goals/ 
-
+This thesis aims to create a new debugger and library that addresses the problems mentioned above.
+The debugger should also support the most common debugging features listed in section \ref{sec:delimitations}.
 
 
 \section{Delimitations}
 \label{sec:delimitations}
-% Describe what is not covered in the thesis.
-% Things you realize may have to be addressed to create a complete solution, but that would be too much work, or that may simply be out of the scope of your scientific area.
-
-
-% Delimitations
-% 	* Making changes to the compiler(llvm).
-%	* Focusing on the bare minimum of debugger features.
-%	* Making changes to DWARF standard.
-%	* Limiting supported chips and platforms.
-%	* Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html
-%	* Limiting the depth of detail how dwarf works.
-%	* Limiting it to a CLI and DAP server plus extension.
-
-
-%% Focusing on the bare minimum of debugger features
 Currently, there are a lot of different debugging features that other debuggers have.
 Many of them are advanced and complicated to implement.
-Therefore, it is decided to limit the number of features to the ones that are most important, limiting the scope of this thesis.
+Therefore, the number of features is limited to the most important ones, limiting the scope of this thesis.
 The following is the list of features the debugger is required to have:
+
 
 \begin{itemize} \label{list:debuggerfeatures}
   \item Controlling the debugging target by:
   \begin{itemize}
-    \item Starting/Continuing execution.
-    \item Stopping/Halting execution.
+    \item Continuing execution.
+    \item Halting execution.
     \item Reset execution.
     \item Stepping
   \end{itemize}
   \item Set and remove breakpoints.
   \item Virtually unwind the call stack.
-  \item Evaluating variables and there types.
+  \item Evaluating variables and thir types.
   \item Finding source code location of functions and variables.
   \item A \acrfull{cli}.
   \item Support the \emph{Microsoft} \acrfull{dap}.
 \end{itemize}
 
 
-% Limited to only supporting one chip and platform.
-Debugging embedded systems requires that the debugger knows certain information about the target system, e.g. the architecture.
-Supporting every \gls{mcu} out there would be too big of a scope for this thesis.
+Debugging embedded systems requires that the debugger knows specific information about the target system, e.g., the architecture.
+Supporting every \gls{mcu} out there would be too big of scope for this thesis.
 Thus, the debugger is only required to work with the target system \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
-%% Limiting supported chips and platforms.
-%When debugging code on embedded systems the debugger needs to know a lot about the hardware, and some of these hardware properties differ depending on the hardware.
-%The following are some of the hardware properties that needs to be known:
-%
-%\begin{itemize}
-%  \item Number of registers.
-%  \item Which of the registers that are considered special.
-%  \item The endianness of the memory.
-%  \item The machine code instruction set the \gls{mcu} is using/supports.
-%\end{itemize}
 
-%% Making changes to the compiler(rustc and llvm).
-%One of the main problems for getting a debugger to work for optimized code is getting the compiler to generate all the debug information needed.
-%In the case of the \emph{Rust} compiler \emph{"rustc"}  it is the \emph{LLVM} library that mostly handles the debug information generation.
-%\emph{LLVM} is a very large project that many people are working on, and thus improving on \emph{LLVM} is out of scope for this thesis.
-%The same goes for improving \emph{"rustc"}.
-%%Thus this thesis is limited in solving this problem by using existing configurations for \emph{rustc} and \gls{LLVM}.
+The compiler backend \emph{LLVM} that \emph{rustc} uses support two debugging file formats, according to their documentation \cite{llvm-dbs}.
+One is the format \gls{DWARF}, and the other is \emph{CodeView} which \emph{Microsoft} develops.
+To make a debugger that supports both formats would require much extra work that does not contribute to solving the main problems of this thesis.
+Therefore, it has been decided only to support the \gls{DWARF} format because it has good documentation.
 
 
-% Limiting to only support DWARF debug info and not the CodeView format. Source: https://llvm.org/docs/SourceLevelDebugging.html 
-The compiler backend \emph{LLVM} that \emph{rustc} uses supports two debugging file formats, according to their documentation \cite{llvm-dbs}.
-One of them is the format \gls{DWARF}, the other one is \emph{CodeView} which is developed by \emph{Microsoft}.
-To make a debugger that supports both formats would require a lot of extra work that does not contribute to solving the main problems of this thesis.
-Therefore, it has been decided to only support the \gls{DWARF} format because it has good documentation.
+This thesis's scope also does not include changing or adding to the \gls{DWARF} format.
+The main reason for this is that it takes years for a new version of the standard to be released; therefore, this thesis cannot include such a change or addition.
+Another reason is that it would take some time before the Rust compiler implements the new version.
 
 
-% Making changes to DWARF standard.
-The scope of this thesis does also not include changing or adding to the \gls{DWARF} format.
-The main reason for this is that it takes years for a new version of the standard to be released, and thus it is not possible for this thesis to include such a change or addition.
-Another reason is that even if a new version of the \gls{DWARF} format could be released in the span of this thesis, it would take a lot of time before the \emph{Rust} compiler would be updated to use the new standard.
-%Currently the newest \gls{DWARF} version is 5 but the \emph{Rust} compiler still uses the \gls{DWARF} 4 format.
-
-
-% Will not explain every detail in dwarf.
-The \gls{DWARF} format is very complex, but it is very well documented.
+The \gls{DWARF} format is very complex but well-documented.
 Due to this, the description in section \ref{sec:dwarf} will not go into every detail of \gls{DWARF}.
 Instead, it will focus on explaining the minimum theory to understand the implementation of the debugger.
-For further details we refer the reader to \cite{dwarf}.
-
+For further details, we refer the reader to \cite{dwarf}.
 
