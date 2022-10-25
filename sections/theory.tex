@@ -7,54 +7,47 @@
 
 \section{Registers and Memory}
 \label{sec:regmem}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-The values of a computer program need to be temporary stored somewhere on the computer where they can be easily accessed while running the program.
-The two main ways the computer can do this is to either store values in registers or in the memory.
+The two main places a computer stores values are in registers or the memory.
 Registers are very limited in space and are very volatile.
-Volatile in this case means that new values get written to the register often.
-Thus, registers are good for storing values which are used many times, in a very short amount of time.
+Volatile, in this case, means that new values get written to the register often.
+Thus, registers are suitable for storing values used many times in a concise amount of time.
 Memory is much slower but has a lot more space.
-Memory is therefore much more useful for storing values that are not needed right now but will be needed in the future.
+Therefore, it is better for storing long-lived values.
 
 
-It is the compiler that decide when and if a value will be stored in registers or memory.
-The compiler decides this when compiling the computer program, which means that the developer usually has very little control over where the values are stored.
+The compiler decides when and where values are stored, and it decides this during the compilation of the program.
+Therefore, the developer has little control over where the values are stored.
 
 
 Values located in memory are either stored on the call stack or the heap.
 The call stack holds all the values of arguments and variables for all the called functions that have not finished execution.
-While the heap contains all the dynamically allocated values.
+In contrast, the heap contains all the dynamically allocated values.
 
 
 \subsection{Registers}
 Computer registers are small memory spaces that are of fixed size.
-These registers can store any type of data if it fits within the size limit of the registers.
-Some registers are reserved for special use, one of the most important ones is the \acrfull{pc} register.
-This register always holds the address of the next machine code instruction that will be executed.
-The registers that are reserved for special use is different depending on the processor architecture.
+These registers can store any data if it fits within the size limit.
+Some registers are reserved for a particular use.
+The \acrfull{pc} register is among the most important and contains the succeeding machine code instructions to be executed.
+The registers reserved for a particular use differ depending on the processor architecture.
 
 
 \subsection{Call Stack}
 \label{sec:callstack}
-The call stack is a stack in the memory that has the values of arguments and variables for all the functions that have been called and have not finished executing.
-A stack is a data structure that consists of several elements that are stacked on top of each other and the only two operations available for a stack is push and pop.
+The call stack consists of each function call that has not terminated.
+A stack is a data structure consisting of several elements stacked on top of each other, and the only two operations available for a stack are push and pop.
 The push operations will add an element on top of the stack, and the pop operation removes the top element of the stack.
-Other key characteristics are that it is only the top element that can be accessed, thus to reach the lower elements, all the above elements needs to be popped.
+Another critical characteristic is that only the top element can be accessed; therefore, all the above elements need to be popped to reach the lower elements.
+
 
 
 Stack/call frames are the elements that make up the call stack.
-Each stack frame contain the values of the arguments and variables for a function call, stack frames also contain a return address usually.
-When a function is finished the return address is written to the \acrshort{pc} register, this makes the program jump to the return address.
-The return address usually points back to the previous function, which called the function.
+Each stack frame contains the values of the arguments and variables for a function call, and stack frames usually contain a return address.
+When a function is finished, the return address is written to the \acrshort{pc} register, making the program jump to the return address.
+The return address usually points back to the previous function.
 Also, when a function has finished executing, its stack frame will be popped/removed from the stack.
-An example of a call stack and stack frames can be seen in figure \ref{fig:callstack}.
-The values to the right in the figure are addresses, and they start with \emph{0x} because they are in hexadecimal.
+See figure \ref{fig:callstack} for an example of a call stack and stack frames.
+The values starting with \emph{0x} to the right in the figure are hexadecimal addresses.
 
 
 \begin{figure}[!htb]
@@ -65,130 +58,76 @@ The values to the right in the figure are addresses, and they start with \emph{0
 \end{figure}
 
 
-%\subsection{Heap}
-%TODO
-
-
 
 \section{Prologue and Epilogue Code}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
+Some registers need to be preserved during the execution of a subroutine.
+The prologue code pushes those registers onto the call stack at the start of the subroutine.
+At the end of the subroutine, the epilogue code pops the stored registers from the stack.
+It is the compiler that generates the prologue and epilogue code.
 
 
-Registers that need to be preserved during the execution of a subroutine will be pushed onto the call stack.
-This is done by the prologue code that is executed at the start of the subroutine.
-Then, when the subroutine is finished executing, the stored register are popped from the stack.
-This is done by the epilogue code that is at the end of the subroutine.
-The prologue and epilogue code is generated by the compiler.
-
-
-Note that the prologue and epilogue code are not always continuous blocks of code that are in the beginning and end of a subroutine.
-Instead, sometimes store and read operations are moved into the subroutine.
-There are more of these special cases that the compiler does, and some that are hardware specific, to learn more about them see \cite{dwarf} page 126-127.
+Note that the prologue and epilogue code is only sometimes continuous blocks of code at the beginning and end of a subroutine. 
+Read  \cite{dwarf} pages 126-127 to learn more about the prologue an epilogue.
 
 
 
 \section{Debugging}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
 Debugging refers to the process of finding and resolving errors, flaws, or faults in computer programs.
-In computer science an error, flaw, or fault is often referred to as a bug.
-Bugs are the cause for software behaving in an unexpected way.
-Most bugs arise from badly written code, lack of communication between the developers and lack of programming knowledge.
+A bug is an error, flaw, or fault in computer science.
+Bugs are the cause of software behaving unexpectedly.
+Most bugs arise from poorly written code, lack of communication between the developers, and lack of programming knowledge.
 
 
 There are multiple methods to debug computer programs.
-One of the most common methods is testing, where some input is sent into the code, and then the result is compared to the expected result.
-The amount of code being tested in a test can vary from just one function to the whole program.
-Another method of debugging is to do a control flow analysis to see which order the instructions, statements, or function calls are done in.
-There are a lot more methods to debug computer programs, but they all try to achieve the same thing.
+One of the most common methods is testing, which is done by sending some input to the code and comparing the result to the expected result.
+The amount of code tested in a test can vary from one function to the whole program.
+Another debugging method is a control flow analysis, which analyzes the order in which the instructions, statements, or function calls are.
+There are many more methods to debug computer programs, but they all try to achieve the same thing.
 That is, to give the programmer a deeper understanding of what is happening.
 
 
-There is no better tool for understanding a program then a debugger.
-That is because a debugger can display the state of a program and it has control of its execution.
-A debugger enables inspection of every part of a program, this is especially true for modern debuggers, which have a lot more advanced features.
+There is no better tool for understanding a program than a debugger.
+That is because a debugger can display the state of a program, and it has control of its execution.
+A debugger enables the inspection of every part of a program, which is especially true for modern debuggers with much more advanced features.
 
 
 \subsection{Debugger}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
+A \emph{debugger} is a computer program used to test and debug other computer programs.
+The two main functionalities of a debugger are, firstly, the ability to control the execution of the target program.
+Secondly, it is the ability to inspect the state of the target program.
 
 
-A debugger is a computer program that is used for testing and debugging other computer programs.
-The program that is being debugged is often referred to as the target program.
-The two main functionalities of a debugger, is firstly the ability to control the execution of the target program.
-Secondly it is the ability to inspect the state of the target program.
-
-
-Some of the most common ways a debugger can control a target program is by continuing, halting, stepping, and resetting the execution.
+Some of the most common ways a debugger can control a target program are by continuing, halting, stepping, and resetting the execution.
 Continuing the execution means that the target program continues the execution from the current stopped location.
-Halting the target program, can often be done in two ways, the first is to stop the execution where it currently is, the other way is to set a breakpoint.
-A breakpoint is a point in the code that if reached will stop the target program immediately.
-Breakpoints are very useful for inspecting certain point in the code, while the other way of halting is more used when the haltng location is unknown.
-Stepping is the process of continuing the execution of the target program for only a moment, often just until the next source code line is reached, but there are many variants of stepping.
+Halting the target program can often be done in two ways, the first is to stop the execution where it currently is, and the other way is to set a breakpoint.
+A breakpoint is a point in the code that, if reached, will stop the target program immediately.
+Breakpoints are very useful for inspecting specific points in the code, while the other way of halting is used more when the location is unknown.
+Stepping in the process of continuing the target program execution for only a moment, often just until the following source code line is reached, there are many stepping variants.
 Lastly, resetting means that the target program will start execution from the beginning.
 
 
 Most debuggers display the state of the target program relative to the source code.
-This means that if the target program has stopped, most debuggers will translate the location in the machine code it stopped on into the location of the source instruction from where the machine code instruction was generated from.
-They also often let the user set the breakpoint in the source code, and translate that to the closest machine code instruction.
-Other features most debuggers have is the ability to show a stack trace, variables (type and content) and to evaluate expression.
+If the target program has stopped, most debuggers will translate the location in the machine code it stopped on into the location of the source instruction from where the machine code instruction from which it was generated.
+They also often let the user set the breakpoint in the source code and translate that to the closest machine code instruction.
+Other features most debuggers have is the ability to show a stack trace, variables (type and content), and evaluate an expression.
 There are a lot more functionalities that a debugger can have, but these are some of the most common ones.
-
 
 
 \section{DWARF}
 \label{sec:dwarf}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
+This section will explain how the debug information format \acrfull{DWARF} version $4$ is structured and what functionality the different sections have.
+However, it will not explain every detail about the \gls{DWARF} format because the \gls{DWARF} specification already does that.
+Instead, this section will focus on the type of information stored in the \gls{DWARF} format and how to use it.
+For more details, see the \gls{DWARF} specification \cite{dwarf}.
 
 
-% Explain what this section will contain.
-This section will explain how the debug information format \acrfull{DWARF} version $4$ is structured, and how the different parts can be used to get debug information.
-However, it will not explain every detail about the \gls{DWARF} format, because the \gls{DWARF} specification already does that.
-Instead, this section will focus on giving the reader an understanding of what type of information is stored in the \gls{DWARF} format.
-In addition it will give some simple examples of how that information can be used to get the value of a variable for example.
-For more details see the \gls{DWARF} specification \cite{dwarf}.
-
-
-% Explain DWARF Sections
 \subsection{Dwarf Sections}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-
-% TODO: Explain DWARF Sections
-The \gls{DWARF} format is divided into sections that all contain different information and have a different purpose.
-These sections use offsets from the start of other sections to point to information in the other sections, most of these offsets can be found in specific \gls{DWARF} attributes \ref{sec:dwarfattributes}.
-The figure \ref{fig:dwarfsections} shows the \gls{DWARF} sections and which ones point to each other.
-The \gls{DWARF} sections are stored in an \gls{elf} file, which is a binary file format that is divided into different sections.
+The \gls{DWARF} format consists of sections containing different information.
+Pointers consisting of different offsets connect some sections.
+Many \gls{DWARF} attributes contain these offsets. See section \ref{sec:dwarfattributes} for information about attributes.
+Figure \ref{fig:dwarfsections} shows the \ref{DWARF} sections and which ones point to each other.
+All \ref{DWARF} sections are stored in an \gls{elf} file, a binary file format divided into different sections.
 The \gls{elf} format contains a table describing what each of its sections contains and where they begin and end.
-
-
-%All of the sections are not in every version of \gls{DWARF} and are sometimes changed from version to version.
-%Thus the following explanations are specific for \gls{DWARF} version $4$ but can sometimes also apply for other versions, checkout Appendix F in \cite{dwarf} for more information on the changes done from older versions.
 
 
 \begin{figure}[h]
