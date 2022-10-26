@@ -10,7 +10,7 @@
 The two main places a computer stores values are in registers or the memory.
 Registers are very limited in space and are very volatile.
 Volatile, in this case, means that new values get written to the register often.
-Thus, registers are suitable for storing values used many times in a concise amount of time.
+Therefore, registers are suitable for storing values used many times in a concise amount of time.
 Memory is much slower but has a lot more space.
 Therefore, it is better for storing long-lived values.
 
@@ -139,10 +139,10 @@ The \gls{elf} format contains a table describing what each of its sections conta
 
 
 \subsubsection{\emph{.debug\_abbrev}}
-The \gls{DWARF} section \emph{.debug\_abbrev} contains all the abbreviation tables which are used to translate abbreviation codes into its official \gls{DWARF} names.
-These abbreviation codes are used for \acrfull{die} tags, \gls{die} attribute names and more.
-To translate an abbreviation code each entry must be compared until the one with the matching abbreviation code is found.
-For further details we refer the reader to section $7.5.3$ in \cite{dwarf}.
+The \gls{DWARF} section \emph{.debug\_abbrev} contains all the abbreviation tables used to translate abbreviation codes into their official \gls{DWARF} names.
+Abbreviation codes are used in \acrfull{die} tags, \gls{die} attribute names, and more.
+An abbreviation code is translated by looping through the entries in one of the abbreviation tables until it finds the matching one.
+For further details, we refer the reader to section $7.5.3$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_aranges}}
