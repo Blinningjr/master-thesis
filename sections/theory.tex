@@ -246,30 +246,15 @@ It makes it easy for the debugger to know everything about a function by going t
 
 
 \subsection{Dwarf Debugging Information Entry}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-% TODO: Explain DWARF Die
-
 One of the most important data structures in the \gls{DWARF} format is the \gls{die}.
-A \gls{die} is low level representation of a small part of the source code.
-Some of the most common source code objects the \glspl{die} represent are functions, variables and types.
-The \glspl{die} are found in a tree structure referred to as a \gls{die} tree.
+A \gls{die} is a low-level representation of a small part of the source code.
+The most common source code objects that the \glspl{die} represent are functions, variables, and types.
+The \glspl{die} are in a tree structure called a \gls{die} tree.
 Each \gls{die} tree will often represent a whole compile unit or a type from the source code.
-The ones representing compile units are found in the \gls{DWARF} section \emph{.debug\_info}, while the ones representing type are found in the \gls{DWARF} section \emph{.debug\_type}.
-The \glspl{die} representing types are often referred to as type \glspl{die}.
+The ones representing compile units are found in the \gls{DWARF} section \emph{.debug\_info}, while the ones representing type are in the \gls{DWARF} section \emph{.debug\_type}.
+The \glspl{die} representing types are called type \glspl{die}.
 
 
-%The information stored in \glspl{die} are all in the form of \gls{DWARF} attributes.
-%There are a lot of different attributes a \gls{die} can have, but they never have more then one of the same.
-%The information in the attributes varies a lot depending on what attribute it is.
-
-
-% TODO: Explain DWARF Attributes
 \subsubsection{Dwarf Attribute}\label{sec:dwarfattributes}
 % Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
 % In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
