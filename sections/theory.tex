@@ -161,12 +161,14 @@ Therefore, for further details, we refer the reader to section \ref{sec:stacktra
 
 
 \subsubsection{\emph{.debug\_info}}
-Most of the information about the source code is stored in \glspl{die} which are low-level representation of the source code.
-\glspl{die} have a tag that describes what it represents, an example tag is \emph{DW\_TAG\_variable} which means that the \gls{die} represents a variable from the source code.
-All \glspl{die} are stored in trees, each one of the trees is a \gls{DWARF} compilation unit or a partial one.
+Most of the information about the source code is in \glspl{die} which are a low-level representation of the source code.
+\glspl{die} have a tag that describes what it represents.
+An example tag is \emph{DW\_TAG\_variable}, meaning that the \gls{die} represents a variable from the source code.
+All \glspl{die} are stored in trees.
+Each one of the trees is a \gls{DWARF} compilation unit or a partial one.
 The trees are structured the same as the source code, which makes it easy to relate the source code to the machine code.
-The section \emph{.debug\_info} consist of a number of these \gls{DWARF} units, and some other debug information.
-Thus, this is one of the most useful sections in \gls{DWARF}, because it is used to relate the state of the debug target and the source code, and vice versa.
+The section \emph{.debug\_info} consists of several \gls{DWARF} units, and some other debug information.
+Therefore, this is one of the most valuable sections in \gls{DWARF} because it contains the relation between the state of the debug target and the source code and vice versa.
 
 
 \subsubsection{\emph{.debug\_line}}
