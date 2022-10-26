@@ -214,10 +214,9 @@ For further details, we refer the reader to section $2.17$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_str}}
-The \gls{DWARF} section \emph{.debug\_str} is used for storing all the strings that is in the debug information.
-An example of these strings are the names of the functions and variables.
-These strings are found using an offset that are located in the attribute \emph{DW\_AT\_name}.
-The attribute is found in the function and variable \glspl{die}, and the offset is in the form of \emph{DW\_FROM\_strp}.
+The DWARF section \emph{.debug\_str} is for storing all the debug information strings.
+An example of these strings is the names of the functions and variables.
+\glspl{die} representing variables and functions will have an offset that points to these strings in the attribute \emph{DW\_AT\_name}. 
 
 
 \subsubsection{\emph{.debug\_type}}
