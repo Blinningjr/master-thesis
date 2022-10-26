@@ -154,9 +154,10 @@ For further details, we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_frame}}
-In the \gls{DWARF} section \emph{.debug\_frame} the information needed to virtually unwind the call stack is kept.
-This section is completely self-contained, and is made up of two structures named \acrfull{cie} and \acrfull{fde}.
-Virtually unwinding the call stack is complex, thus, for further details we refer the reader section \ref{sec:stacktrace} in this document and section $6.4.1$ in \cite{dwarf}
+In the \gls{DWARF} section \emph{.debug\_frame}, the information needed to unwind the call stack virtually is kept.
+It consists of two structures named \acrfull{cie} and \acrfull{fde} and is entirely self-contained.
+Virtually unwinding the call stack is complex.
+Therefore, for further details, we refer the reader to section \ref{sec:stacktrace} in this document and section $6.4.1$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_info}}
