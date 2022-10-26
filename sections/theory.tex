@@ -207,10 +207,10 @@ For further details, we refer the reader to section $6.1.1$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_ranges}}
-\Glspl{die} that have a set of addresses that are non-contiguous will have an offset to the section \emph{.debug\_ranges} instead of having an address range.
-The offset points to the start of a range list that contain range entries which are used to know in which of the machine code addresses the \gls{die} is active.
-The \gls{DWARF} section \emph{.debug\_ranges} is used for storing these lists of ranges.
-For further details we refer the reader to section $2.17$ in \cite{dwarf}.
+\glspl{die} with a set of non-contiguous addresses will have an offset to the section \emph{.debug\_ranges} instead of an address range.
+The offset points to the start of a range list containing range entries, which are for knowing which of the machine code addresses the \gls{die} is active.
+The \gls{DWARF} section \emph{.debug\_ranges} is for storing these lists of ranges.
+For further details, we refer the reader to section $2.17$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_str}}
