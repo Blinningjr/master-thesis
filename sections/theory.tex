@@ -188,6 +188,11 @@ See figure \ref{fig:dwarfsections} for a graph showing the relationship between 
 
 
 \subsubsection{\emph{.debug\_macinfo}}
+The \emph{.debug\_macinfo} section contains all the macro information stored in entries representing the macro after the compiler has expanded it.
+Some \glspl{die} in the \gls{DWARF} section \emph{.debug\_info} point to these entries, and those pointers are in the \glspl{die} attribute \emph{DW\_AT\_macinfo}.
+For further information, we refer the reader to section $6.3$ in \cite{dwarf}.
+
+
 In the section \emph{.debug\_macinfo}, the macro information is stored.
 It is stored in entries that each represents the macro after it has been expanded by the compiler.
 These entries are also pointed to by \glspl{die} in the \emph{.debug\_info} section, and those pointers can be found in the attribute \emph{DW\_AT\_macinfo}.
