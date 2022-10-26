@@ -172,10 +172,11 @@ Therefore, this is one of the most valuable sections in \gls{DWARF} because it c
 
 
 \subsubsection{\emph{.debug\_line}}
-The \gls{DWARF} section \emph{.debug\_line} holds the needed information to find the machine addresses which are generated from a certain line and column in the source file.
-It is also used to store the source directory, file name, line number and column.
-Then the \glspl{die} will store pointers to the source location information in the section \emph{.debug\_line} enabling the debugger to know the source location of a \gls{die}.
-The section $6.2$ in \cite{dwarf} explains in more detail how this information is stored in the \emph{.debug\_line} section.
+The \gls{DWARF} section \emph{.debug\_line} holds the needed information to find the machine addresses generated from a specific line and column in the source file.
+It contains the source directory, file name, line number, and column number.
+Pointers to this information are in some \glspl{die}.
+Therefore, enabling the debugger to get the source location of a \gls{die}.
+Section $6.2$ in \cite{dwarf} explains more about the information in the \emph{.debug\_line} section.
 
 
 \subsubsection{\emph{.debug\_loc}}
