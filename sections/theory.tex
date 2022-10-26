@@ -146,11 +146,11 @@ For further details, we refer the reader to section $7.5.3$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_aranges}}
-The \gls{DWARF} section \emph{.debug\_aranges} is used to lookup compilation units using machine code addresses.
-Each compilation unit has a range of machine code addresses that are the addresses that the compilation unit has information on.
-These ranges consist of a start address followed by a length.
-Thus, to find the compilation unit having the information about the current state, the user only needs to check if the current address is between the start address and the start address plus the length.
-For further details we refer the reader to section $6.1.2$ in \cite{dwarf}.
+All the information needed to look up compilation units using machine code addresses is in the \gls{DWARF} section \emph{.debug\_aranges}.
+Compilation units contain debugging information for a range of machine code addresses.
+Each compilation unit has a start address followed by a length.
+Therefore, to find the correct compilation, the user only needs to check if the current address is between the start address and the start address plus the length.
+For further details, we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 
 \subsubsection{\emph{.debug\_frame}}
