@@ -180,10 +180,11 @@ Section $6.2$ in \cite{dwarf} explains more about the information in the \emph{.
 
 
 \subsubsection{\emph{.debug\_loc}}
-The location of the variables is stored in location lists, each entry in the list holds a number of operations that can be used to calculate the location of the value.
-All the location lists are stored in the section \emph{.debug\_loc} and are pointed to by \glspl{die} in the \emph{.debug\_info} section.
-These offsets are most commonly found in the attribute \emph{DW\_AT\_location} which is often present in \glspl{die} representing variables.
-The relation between these two sections can be seen in figure \ref{fig:dwarfsections}.
+The location of the variables is in location lists, which are in the \emph{.debug\_loc} section.
+Each location list entry holds several operations that, when performed, will yield the location of a value.
+Some \glspl{die} in the \emph{.debug\_info} section have attributes that point to entries in the location lists.
+The most common of these attributes is named \emph{DW\_AT\_location}, which is often present in \glspl{die} representing variables.
+See figure \ref{fig:dwarfsections} for a graph showing the relationship between these two sections.
 
 
 \subsubsection{\emph{.debug\_macinfo}}
