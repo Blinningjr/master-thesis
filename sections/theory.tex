@@ -256,20 +256,12 @@ The \glspl{die} representing types are called type \glspl{die}.
 
 
 \subsubsection{Dwarf Attribute}\label{sec:dwarfattributes}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-% TODO: Explain DWARF Attribute
-
-All the information stored in \glspl{die}, are stored in unique attributes, these attributes consist of a name and a value.
-The name of the attribute is used to know what the value of the attribute should be used for.
-It is also used to differentiate the different attributes.
-All the attributes' names start with \emph{DW\_AT\_}, and then some name that describes the attribute, an example is the name attribute \emph{DW\_AT\_name}.
-In the \gls{DWARF} file the name of the attributes will be abbreviated to their abbreviation code that can be decoded using the \emph{.debug\_abbrev} section.
+All the information stored in \glspl{die} is in unique attributes.
+These attributes consist of a name and a value.
+The attribute's name is unique and describes what type of information the attribute's value has.
+All the attribute names start with \emph{DW\_AT\_}, and then some name that describes the attribute.
+An example is the name attribute \emph{DW\_AT\_name}. 
+In the \gls{DWARF} file, the name of the attributes is abbreviated to its abbreviation code which can be decoded using the \emph{.debug\_abbrev} section.
 
 
 \subsubsection{Example of a DIE}
