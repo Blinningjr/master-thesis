@@ -265,11 +265,14 @@ In the \gls{DWARF} file, the name of the attributes is abbreviated to its abbrev
 
 
 \subsubsection{Example of a DIE}
-An example of a \gls{die} can be seen in figure \ref{fig:dwarfdie}, the figure is a screenshot of the output from the program \emph{objdump} run on an \gls{elf} file.
-The first line in the figure begins with a number $8$ which represents the depth in the \gls{die} tree where this \gls{die} is located.
-The next number is the current line's offset into this compile unit, all the other lines in the figure also start with their offset.
-Then comes "Abbrev Number: 9" on the same line, this is an abbreviation code that translates to \emph{DW\_TAG\_variable}.
-This tag means that the \gls{die} is representing a variable from the source code.
+Figure \ref{fig:dwarfdie} shows an example of a \gls{die}.
+The figure is a screenshot of the output from the program \emph{objdump} run on an \gls{elf} file.
+The first line in the figure begins with the number $8$, representing the depth in the \gls{die} tree where this \gls{die} is located.
+The following number is the current lines offset into this compile unit.
+All the other lines in the figure also start with their offset.
+Then comes" Abbrev Number: $9$" on the same line.
+It is an abbreviation code that translates to \emph{DW\_TAG\_variable}.
+This tag means that the \gls{die} represents a variable from the source code.
 
 
 \begin{figure}[h]
@@ -280,15 +283,13 @@ This tag means that the \gls{die} is representing a variable from the source cod
 \end{figure}
 
 
-The attribute \emph{DW\_AT\_location} (seen in figure \ref{fig:dwarfdie}) has the information of where the variable is stored on the debug target.
-The attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the \emph{objdump} tool has evaluated to ``str'', this is the name of the variable.
-Attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} in the figure contain  offsets into the section \emph{.debug\_line}.
-Those offsets can be evaluated to the source file path and line number that this \gls{die} is generated from.
-Lastly the attribute \emph{DW\_AT\_type} contain an offset into the section \emph{.debug\_types}, that points to a type \gls{die} that has the type information for this variable.
+The attribute \emph{DW\_AT\_location} (seen in figure \ref{fig:dwarfdie}) has information about where the variable is stored on the debug target.
+The attribute \emph{DW\_AT\_name} has an offset into the \gls{DWARF} section \emph{.debug\_str} that the \emph{objdump} tool has evaluated to ``str'', which is the variable's name.
+Attributes \emph{DW\_AT\_decl\_file} and \emph{DW\_AT\_decl\_line} in the figure contain offsets into the section \emph{.debug\_line}.
+Those offsets can be used to find the source file path and the line number from which the \gls{die} was generated.
+Lastly, the attribute \emph{DW\_AT\_type} contains an offset into the section \emph{.debug\_types}, which points to a type \gls{die} that has the type information for this variable.
 
 
-
-% TODO: Explain evaluation
 \subsection{Evaluate Variable}
 \label{sec:evaluate-variable}
 % Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
