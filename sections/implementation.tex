@@ -11,16 +11,15 @@
 
 % TODO: Explain design methods used. Modulare, Singelthon and so on.
 
-There are three different projects that make up the implementation, the first being a debug library named \emph{rust-debug}.
-Its purpose is to simplify the process of retrieving debug information from the \gls{DWARF} format.
-The second project is the debugger \gls{erdb}, that implements the \gls{dap} protocol.
+Three projects comprise the implementation, the first being a debug library named \emph{rust-debug}.
+Its purpose is to simplify retrieving debug information from the \gls{DWARF} format.
+The second project is the debugger \gls{erdb} which implements the \gls{dap} protocol.
 The last project is a \emph{VSCode} extension that launches the \gls{erdb} debugger and connects to it.
 
 
 \section{Debugging Library \emph{rust-debug}}
 \label{section:rust-debug}
 % Explain the implementation of the library rust-debug
-
 % Explain why this library was made.
 Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
 The \emph{Rust} library \emph{gimli-rs} simplifies that problem by providing data structures and functions for reading the \gls{DWARF} sections.
