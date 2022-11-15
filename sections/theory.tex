@@ -292,22 +292,14 @@ Lastly, the attribute \emph{DW\_AT\_type} contains an offset into the section \e
 
 \subsection{Evaluate Variable}
 \label{sec:evaluate-variable}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-% TODO: Explain Evaluation of values
-
-The process of evaluating the value of a variable is a bit complicated because there is a lot of variation.
-To simplify, an example will be used to explain the method of evaluating a variable.
+Evaluating a variable's value is complicated because there are many data types and combinations of data types.
+Therefore, the following example is presented to simplify the explanation.
 
 
-In the example in figure \ref{fig:subprogramexample} there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
-The function has a parameter named \emph{val} which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}, it is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
-It is this parameter \emph{val} that will be used as an example of how to evaluate a variable.
+In the example, in figure \ref{fig:subprogramexample}, there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
+The function has a parameter named \emph{val}, which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}.
+It is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
+This parameter \emph{val} will be used as an example of how to evaluate a variable.
 
 
 \begin{figure}[h]
@@ -318,13 +310,9 @@ It is this parameter \emph{val} that will be used as an example of how to evalua
 \end{figure}
 
 
-Take note to the fact that the function \gls{die} named \emph{my\_function} has two attributes named \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
+Take note that the function \gls{die} named \emph{my\_function} has two attributes named \emph{DW\_AT\_low\_pc} and \emph{DW\_AT\_high\_pc}.
 Those attributes describe the range of \gls{pc} values in which the function is executing.
-There is also some other attributes in the example that will not be mentioned because they are not needed for determining the value of the attribute.
-
-
-%Another important thing to note is that the example explained is a very simple one meaning that there is a lot more different \gls{DWARF} operation for finding the location of a variable and also a lot more different tags for the type \glspl{die}.
-%All the various tags for type \glspl{die} requires a unique explanation to how it should be used thus the explanation of each one of them can be read about in the \gls{DWARF} specification \cite{dwarf}, the same goes for the different \gls{DWARF} operations.
+Other attributes in the example will not be mentioned because they are not needed to determine the attribute's value.
 
 
 \subsubsection{Finding Raw Value Location}
