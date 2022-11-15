@@ -133,7 +133,6 @@ It also includes the variable information retrieved using the function described
 
 
 \subsection{Finding Breakpoint Location}
-% Explain how to get breakpoint location. 
 The \emph{rust-debug} library has a function that finds a machine code address using a source code location.
 This machine code location is the closest one that represents the given line in the source code.
 The function requires a file path and line number, but it also can take a column number.
@@ -141,11 +140,10 @@ The function requires a file path and line number, but it also can take a column
 
 The mentioned function works by first finding out which compilation unit contains information on the inputted file path.
 It does this by looping through all the file entries in the line number information table for every compilation unit.
-Each line number information table entry has rows that each contain information on a line from the source code.
+Each line number information table entry has rows containing information on a line from the source code.
 All the rows with the search line numbers are added to a list.
-The machine code address of the first element in this list is returned if no column line was inputted to the function.
-Otherwise, it is the one with the closest column number that is returned.
-
+The machine code address of the first element in this list is returned if no column line was inputted into the function.
+Otherwise, the one with the closest column number is returned.
 
 
 
