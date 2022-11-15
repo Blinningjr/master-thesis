@@ -106,26 +106,12 @@ Therefore, it removes the most challenging part of evaluating a variable without
 The only downside of this solution is that it requires the user to understand how variables are structured in the \gls{DWARF} format.
 
 
-\subsection{Finding the current function} \label{sec:funcdie} % TODO: Explain in more detail what the function does.
+\subsection{Finding the current function} \label{sec:funcdie}
 When debugging, knowing the current function that is being executed is very useful.
-Finding that function can be done by finding the function \gls{die} that is the furthest down the \gls{die} tree, in the branch where the current address is in range.
+Finding that function can be done by finding the function \gls{die}, which is the furthest down the \gls{die} tree, in the branch where the current address is in range.
 Thus, the function \gls{die} can easily be found by tracking all the function \glspl{die} while going down the \gls{die} tree.
-\emph{rust-debug} makes this even easier by providing a function that does exactly this.
+\emph{Rust-debug} makes this even easier by providing a function that does exactly this.
 
-
-% OLD
-%The \emph{rust-debug} library has a function for finding a \gls{die} that represents a function using the name of that function.
-%The function also needs a machine code address to find the correct compilation unit.
-%
-%
-%The correct compilation unit can be found using a code address.
-%Every compilation unit has an address range that can be used to see if the machine code is from that compilation unit.
-%Thus searching for the correct one is done by going through each unit, and checking if the address is in the range.
-%
-%
-%When the compilation unit is known, the \gls{die} representing the subroutine can be found by searching the \gls{die} tree of the unit.
-%This is done by going down the path of the tree where the machine code address is in range.
-%It returns a result when it has found the subroutine \gls{die} with the searched name, or when there are no more \glspl{die} to check.
 
 
 \subsection{Unwinding the Call Stack}
