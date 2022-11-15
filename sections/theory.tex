@@ -370,40 +370,32 @@ In this case, a byte size of $2$ means that the type is a $16$-bit signed intege
 The last step is to parse the bytes of the value into a signed $16$-bit integer.
 
 
-% TODO: Explain stacktrace
 \subsection{Virtually Unwind the Call Stack}
 \label{sec:stacktrace}
-% Primarily this section should be about scientific methods and theories you need to evaluate/compare/invent to solve your problems from 1.3.
-% In some cases it may be ok to describe different technologies, but the purpose is to describe something and then draw a conclusion from that.
-% Example, if you decide to discuss different databases, it may be for the purpose of selecting the best type for your implementation later on (based on for example data representation, scalability, speed, etc.).
-% Optimally the problems in 1.3 are not solved by anyone else yet, in which case this section needs to describe how to solve them (new algorithms, mathematical approaches, etc.).
- 
-% This section can have a lot of subsections (3.1, 3.2, 3.3, etc).
-
-% TODO: Explain Unwinding call stack
-
-Virtually unwinding the call stack is done by recursively unwinding a stack of \emph{subroutine activations}.
+The call stack is virtually unwinding by recursively unwinding a stack of \emph{subroutine activations}.
 It is named virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
 Every subroutine in the call stack has an activation and a stack frame.
-Because the activation often has the value of the stack pointer, the related stack frame is also known.
-Thus, successfully unwinding all the \emph{subroutine activations} will result in complete understanding of the state of the call stack.
+Because the activation often has the stack pointer value, the related stack frame is also known.
+Thus, successfully unwinding all the \emph{subroutine activations} will result in a complete understanding of the state of the call stack.
 
 
 The debug information needed to unwind activations are stored in the \gls{DWARF} section \emph{.debug\_frame}.
-That section is made up of two data structures, one is named \gls{fde}.
-A \gls{fde} contains a table used for unwinding registers and the \gls{cfa} of an activation.
-The other data structure is named \gls{cie}, it contains information that is shared among many \glspl{fde}.
+That section is made up of two data structures.
+One is named \gls{fde}.
+An \gls{fde} contains a table used for unwinding registers and the \gls{cfa} of an activation.
+The other data structure is named \gls{cie}.
+It contains information that is shared among many \glspl{fde}.
 The relevant \gls{cie} and \gls{fde} to an activation can be found using the code location where it is stopped.
 
 
-Unwinding the stack of activation is done by first evaluating the values of the top activation, see section \ref{sec:subact} to learn how that is done.
-It starts with the top activation because there is too little information known of the other activations.
-Next step is to find the \gls{cie} and \gls{fde} that contain debug info on the next activation.
-When those are known the values of the next activation can be evaluated as described in section \ref{sec:subact}.
-This is then repeated for the rest of the activations.
+Unwinding the stack of activation is done by first evaluating the values of the top activation.
+See section \ref{sec:subact} to learn how that is done.
+It starts with the top activation because too little information about the other activations is known.
+The next step is to find the \gls{cie} and \gls{fde} that contain debug info on the subsequent activation.
+When those are known, the values of the subsequent activation can be evaluated as described in section \ref{sec:subact}.
+The unwinding is then repeated for the rest of the activations.
 
 
-% ###############################################
 \subsubsection{Subroutine Activation} \label{sec:subact}
 A \emph{subroutine activation} contains information on a subroutine call/activation.
 Each \emph{subroutine activation} contains a code location within the subroutine, it is the location where the subroutine stopped.
