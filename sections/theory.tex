@@ -340,14 +340,15 @@ See section \ref{sec:parsingvalue} for how to parse the value into the correct t
 
 
 \subsubsection{Parsing the Raw Value} \label{sec:parsingvalue}
-Now the first problem with parsing the value of the parameter \emph{val} into the correct type is to know what type the parameter has, this is where the attribute \emph{DW\_AT\_type} comes in.
+The first problem with parsing the value of the parameter \emph{val} into the correct type is to know what type the parameter has, and this is where the attribute \emph{DW\_AT\_type} comes in.
 The value of the \emph{DW\_AT\_type} attribute points to a type \gls{die} tree, which describes the type of the \gls{die}.
 
 
-The offset to the type \gls{die} of the parameter \emph{val} is $0x6233$, as can be seen in figure \ref{fig:subprogramexample}.
+The offset to the type \gls{die} of the parameter val is $0x6233$, as shown in figure \ref{fig:subprogramexample}.
 Finding that type \gls{die} is done by going to that offset in the \emph{.debug\_types} section.
-The type \gls{die} for \emph{val} can be seen in figure \ref{fig:basetypeexample}, note that the offset of the \glspl{die} tag is the same as $6233$.
-That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it is a standard type that is built into most the languages (see \cite{dwarf} page 75).
+  The type \gls{die} for \emph{val} can be seen in figure \ref{fig:basetypeexample}.
+  Note that the offset of the \glspl{die} tag is the same as $0x6233$.
+  That type \gls{die} has the tag \emph{DW\_TAG\_base\_type}, which means it is a standard type built into most languages (see \cite{dwarf} page 75).
 
 
 \begin{figure}[h]
@@ -358,16 +359,15 @@ That type \gls{die} has the tag \emph{DW\_TAG\_base\_type} which means that it i
 \end{figure}
 
 
-In this example the type \gls{die} has three attributes which are used to describe the type.
-The first attribute is \emph{DW\_AT\_name}, it describes the name of the type.
-In this case the name of the type is \emph{i16}, which can be seen in figure \ref{fig:basetypeexample}.
-The next attribute is \emph{DW\_AT\_encoding}, this attribute describes the encoding of the type.
-An encoding with the value $5$ means that the type is a signed integer \cite{dwarf}.
+In this example, the type \gls{die} has three attributes that are used to describe the type.
+The first attribute is \emph{DW\_AT\_name}, which describes the type's name.
+In this case, the name of the type is \emph{i16}, which can be seen in figure \ref{fig:basetypeexample}.
+The following attribute is \emph{DW\_AT\_encoding}, which describes the type's encoding.
+Encoding with the value $5$ means that the type is a signed integer \cite{dwarf}.
 The different values for encoding are specified in the \gls{DWARF} specification \cite{dwarf}.
-Now the last attribute is \emph{DW\_AT\_byte\_size}, it describes the size of the type in bytes.
-A byte size of $2$ in this case means that the type is a $16$ bit signed integer.
-Now that the type of \emph{val} is known the last step left to do is to parse the bytes of the value into a signed $16$ bit integer.
-
+The last attribute is \emph{DW\_AT\_byte\_size}, which describes the type size in bytes.
+In this case, a byte size of $2$ means that the type is a $16$-bit signed integer.
+The last step is to parse the bytes of the value into a signed $16$-bit integer.
 
 
 % TODO: Explain stacktrace
