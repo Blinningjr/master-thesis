@@ -299,7 +299,7 @@ Therefore, the following example is presented to simplify the explanation.
 In the example, in figure \ref{fig:subprogramexample}, there is a function/subprogram \gls{die} with the name \emph{my\_function} (it is the \gls{die} with the tag \emph{DW\_TAG\_subprogram}).
 The function has a parameter named \emph{val}, which is the \gls{die} with the tag \emph{DW\_TAG\_formal\_parameter}.
 It is a child of the function \gls{die}, which means that it is a parameter to the function \emph{my\_function}.
-This parameter \emph{val} will be used as an example of how to evaluate a variable.
+This parameter \emph{val} will be used as an example of evaluating a variable.
 
 
 \begin{figure}[h]
@@ -316,27 +316,27 @@ Other attributes in the example will not be mentioned because they are not neede
 
 
 \subsubsection{Finding Raw Value Location}
-Examining the \gls{die} for the argument \emph{val} there is an attribute named \emph{DW\_AT\_location}.
-The value of that attribute is a number of operations, performing these operations will give the location of the variable.
+Examining the \gls{die} for the argument \emph{val}, there is an attribute named \emph{DW\_AT\_location}.
+The value of that attribute is several operations, and performing these operations will give the location of the variable.
 
 
-In this example the operation in the \emph{DW\_AT\_location} attribute in figure \ref{fig:subprogramexample} is \emph{DW\_OP\_fbreg $-2$}.
+In this example, the operation in the \emph{DW\_AT\_location} attribute in figure \ref{fig:subprogramexample} is \emph{DW\_OP\_fbreg} -$2$.
 That operation describes that the value is stored in memory at the \emph{frame base} minus $2$ (see \cite{dwarf} page 18).
 The \emph{Frame base} is the address to the first variable in the functions stack frame (see \cite{dwarf} page 56).
 
 
-Currently, the value of the \emph{frame base} is unknown, but the location of the \emph{frame base}  is described in the \emph{my\_function} \gls{die}.
-The location of the \emph{frame base} is also described in a number of operations.
-Those operations can be found under the attribute \emph{DW\_AT\_frame\_base}.
-Looking at figure \ref{fig:subprogramexample}, the \emph{frame base} location is described with the operation \emph{DW\_OP\_reg7}.
-The operation \emph{DW\_OP\_reg7} describe that the value is located in register $7$ (see \cite{dwarf} page 27).
+Currently, the value of the \emph{frame base} is unknown, but the location of the \emph{frame base} is described in the \emph{my\_function} \gls{die}.
+The location of the \emph{frame base} is also described in several operations, and those operations are under the attribute \emph{DW\_AT\_frame\_base}.
+Figure \ref{fig:subprogramexample} describes the \emph{frame base} location with the operation \emph{DW\_OP\_reg7}.
+The operation \emph{DW\_OP\_reg7} describes that the value is located in register $7$ (see \cite{dwarf} page 27).
 Thus register $7$ needs to be read to get the value of the \emph{frame base}.
 
 
-Now that the value of the \emph{frame base} is known we can proceed to calculate the location of the parameter \emph{val}.
+Now that the value of the \emph{frame base} is known, we can proceed to calculate the location of the parameter \emph{val}.
 As mentioned previously, the location of parameter \emph{val} is the \emph{frame base} minus $2$.
-Thus, the value of \emph{val} can be read from the memory at address of the \emph{frame base} minus $2$.
-However, the value also has to be parsed into the type of \emph{val}, see section \ref{sec:parsingvalue} for how that is done.
+Thus, the value of \emph{val} can be read from memory at the address of the \emph{frame base} minus $2$.
+However, the value must also be parsed into the type of \emph{val}.
+See section \ref{sec:parsingvalue} for how to parse the value into the correct type.
 
 
 \subsubsection{Parsing the Raw Value} \label{sec:parsingvalue}
