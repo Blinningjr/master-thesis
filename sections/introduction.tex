@@ -37,7 +37,7 @@ In the \emph{Rust} programming language community, very few projects focus on de
 One of the larger projects focusing on debugging is named \emph{gimli-rs}.
 One of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with various \glspl{mcu} and debugging probes.
-One of their newest tools which are in early development, is a debugger that also uses the \emph{gimli-rs} library to read the DWARF file.
+One of their newest tools which are in early development is a debugger that also uses the \emph{gimli-rs} library to read the DWARF file.
 
 
 There is some work done on the \emph{LLVM} project to improve the generation of debugging information.
@@ -116,7 +116,7 @@ The following is the list of features the debugger is required to have:
 
 
 Debugging embedded systems requires that the debugger knows specific information about the target system, e.g., the architecture.
-Supporting every \gls{mcu} out there would be too big of scope for this thesis.
+Supporting every \gls{mcu} out there would be too big of a scope for this thesis.
 Therefore, the debugger must only work with the target system \emph{Nucleo-64, STM32F401RET6 64 pin}.
 
 
