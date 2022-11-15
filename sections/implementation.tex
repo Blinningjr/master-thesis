@@ -205,17 +205,14 @@ That task's primary job is to report if the debug target has halted the program 
 
 
 \subsection{The Debug Adapter module}
-% Explain the implementaiton of the debug adapeter
-
-All the \gls{dap} communication is handled in the debug adapter module.
-The main job of this module is to translate \gls{dap} messages into requests, which are forwarded to the debugger module.
-It also handles the translation of the responses and events from the debugger module.
+All the \gls{dap} communication is handled in the \emph{debug adapter} module.
+The main job of this module is to translate \gls{dap} messages into requests, which are forwarded to the \emph{debugger} module.
+It also handles the translation of the responses and events from the \emph{debugger} module.
 
 
-The \gls{dap} protocol communicates through \gls{tcp}, requiring the debug adapter module to have a \gls{tcp} server.
-All the \gls{tcp} communication is handled asynchronously, this is to enable the other tasks to run simultaneously.
-Currently, only one \gls{tcp} connection can be open at a time.
-This is because the rest of the system does not yet support multiple simultaneous debugging session.
+The DAP protocol communicates through \gls{tcp}, requiring the \emph{debug adapter} module to have a \gls{tcp} server.
+All the \gls{tcp} communication is handled asynchronously, and it is to enable the other tasks to run simultaneously.
+Currently, only one \gls{tcp} connection can be open at a time, and it is because the rest of the system still needs to support multiple simultaneous debugging sessions.
 
 
 
