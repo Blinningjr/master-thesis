@@ -180,29 +180,27 @@ The code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 
 \subsection{The CLI Module} 
-% Explain how the CLI is implemented.
-The \acrshort{cli} module has two jobs, the first is to read and parse the input from the terminal into a request that the \emph{Debugger} module can understand.
-The second is to convert the responses it gets from the \emph{Debugger} module to text, and output that text to the terminal.
+The \acrshort{cli} module has two jobs.
+The first is to read and parse the input from the terminal into a request that the \emph{Debugger} module can understand.
+The second is to convert the responses from the Debugger module to text and output that text to the terminal.
 
 
 Reading the input from the terminal is done asynchronously, which enables other tasks to be done while the \acrshort{cli} waits for the user input.
 When a new line has been entered, the \acrshort{cli} module will try to parse the string into a \emph{DebugRequest} enum.
-The string is parsed by first matching the first word in the string to a command.
-Each command has a parser that is then used to parse the rest of the string.
-The resulting \emph{DebugRequest} enum is then return to the main function, and then sent to the \emph{Debugger} module.
+The string is parsed by matching the first word in the string to a command.
+Also, each command has a parser that is then used to parse the rest of the string.
+The resulting \emph{DebugRequest} enum is then returned to the main loop and sent to the \emph{Debugger} module.
 
 
-
-After the \emph{Debugger} module has done its work, the result it outputted to the terminal.
-This is done by sending the \emph{DebugResponse} enum, that the \emph{Debugger} module returned, to a function that has a match for each of the enum variants.
-Each of the variants have a unique message that is outputted to the terminal, and the messages often contain data from the \emph{DebugResponse} enum.
-If the input text cannot be parsed, a helpful message is printed to the terminal.
-
+After the \emph{Debugger} module has done its work, the result is printed to the terminal.
+It is done by sending the \emph{DebugResponse} enum that the \emph{Debugger} module returned to a function that has a match for each of the enum variants.
+Each variant has a unique message printed to the terminal, and the messages often contain data from the \emph{DebugResponse} enum.
+A helpful message is printed to the terminal if the input text cannot be parsed.
 
 
-There is also a \emph{DebugEvent} enum, that is outputted to the terminal in the same way the \emph{DebugResponse} is.
+There is also a \emph{DebugEvent} enum, that is printed to the terminal in the same way the \emph{DebugResponse} is.
 The \emph{DebugEvent} enum is created by another task, which polls the debug target state.
-That tasks main job is to report if the debug target has halted the program that is being debugged.
+That task's primary job is to report if the debug target has halted the program that is being debugged.
 
 
 
