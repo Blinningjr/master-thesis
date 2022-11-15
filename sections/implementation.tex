@@ -19,17 +19,16 @@ The last project is a \emph{VSCode} extension that launches the \gls{erdb} debug
 
 \section{Debugging Library \emph{rust-debug}}
 \label{section:rust-debug}
-% Explain the implementation of the library rust-debug
-% Explain why this library was made.
-Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that needs to be solved when creating a debugger.
+Retrieving debug information from the \gls{DWARF} sections in the \gls{elf} file is one of the main problems that must be solved when creating a debugger.
 The \emph{Rust} library \emph{gimli-rs} simplifies that problem by providing data structures and functions for reading the \gls{DWARF} sections.
-However, the library requires the user to be knowledgeable about the \gls{DWARF} format, the target system and the programming language/compiler used.
+However, the library requires the user to know the \gls{DWARF} format, the target system, and the programming language/compiler.
 The \emph{rust-debug} library is created to make it possible to get information from the \gls{DWARF} format for someone without that knowledge.
+
 
 Some of the main functionality that \emph{rust-debug} provides solutions for are the following:
 
 \begin{itemize}
-  \item Retrieving the source code file location for were functions, variables, types and more are declared.
+  \item Retrieve the source code file location where functions, variables, types, and more are declared.
   \item Virtually unwinding the call stack.
   \item Evaluating variables.
   \item Translating source file line number to the nearest machine code address.
