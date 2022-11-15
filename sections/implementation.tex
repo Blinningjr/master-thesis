@@ -77,15 +77,14 @@ An example of implementing this can be found in the git repository for \gls{erdb
 
 
 The functionalities that require access to the debug target's memory require a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
-This trait is straightforward and only has one function: for reading various bytes at a given address.
+This trait is straightforward and only has one function: reading various bytes at a given address.
 Users can create a struct that implements that function almost however they want.
 An example of implementing this using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \cite{erdb}.
 
 
 
 \subsection{Evaluating Variables} \label{sec:ievalvar}
-% Explain the evaluation of variables.
-To make evaluating the value of a variable and retrieving other information about the variable easy, \emph{rust-debug} provides a struct named \emph{Variable}.
+To make evaluating a variable's value and retrieving other information about the variable easy, \emph{rust-debug} provides a struct named \emph{Variable}.
 That struct only has one function named \emph{get\_variable}, which takes a \gls{die} and returns a \emph{rust-debug} \emph{Variable} struct.
 The \emph{rust-debug} \emph{Variable} struct may contain the following information:
 
@@ -97,13 +96,14 @@ The \emph{rust-debug} \emph{Variable} struct may contain the following informati
 \end{itemize}
 
 
-All the information in the \emph{Variable} struct may not be present, because not all \glspl{die} contain the information the struct may have.
+All the information in the Variable struct may not be present because not all \glspl{die} contain the information the struct may have.
 
 
-The evaluated value of a variable is represented in a tree structure which is very similar to how the information is stored in the \gls{DWARF} format.
-However, the value of each branch is evaluated into a value of one of the basic types, such as a signed integer.
-Thus, it removes the hardest part of evaluating a variable, without losing the flexibility of the \gls{DWARF} format.
-The only downside of this solution is that it requires the user to understand how variables are structure in the \gls{DWARF} format.
+The evaluated value of a variable is represented in a tree structure.
+The structure is similar to how the information is stored in the \gls{DWARF} format.
+However, the value of each branch is evaluated into a primary value type, such as a signed integer.
+Therefore, it removes the most challenging part of evaluating a variable without losing the flexibility of the \gls{DWARF} format.
+The only downside of this solution is that it requires the user to understand how variables are structured in the \gls{DWARF} format.
 
 
 \subsection{Finding the current function} \label{sec:funcdie} % TODO: Explain in more detail what the function does.
