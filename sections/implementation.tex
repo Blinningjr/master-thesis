@@ -217,17 +217,19 @@ Currently, only one \gls{tcp} connection can be open at a time, and it is becaus
 
 
 \subsection{The Debugger Module}
-The debugger module mainly consists of one struct named \emph{DebugHandler}, its main job is to get the debug information from the \gls{DWARF} format.
-Another of its jobs is to keeps track of the debug targets state.
-This struct only has two methods for accomplishing it jobs, one for polling the state of the debug target.
-The other method named \emph{handle\_request} takes a \emph{DebugRequest} as an argument, and calls a function based on the argument.
+The \emph{debugger} module primarily consists of one struct named \emph{DebugHandler}.
+Its primary job is to get the debug information from the \gls{DWARF} format, and another is to keep track of the debug targets state.
+This struct only has two methods for accomplishing its jobs, one for polling the state of the debug target.
+The other method, named \emph{handle\_request}, takes a \emph{DebugRequest} as an argument and calls a function based on the argument.
 The method also returns a \emph{DebugResponse} with the result.
 
 
 The general flow when the \emph{handle\_request} method is called is as follows.
-First the \emph{DebugRequest} enum is matched, and a check is done to see that all the required information is present.
-Then, the debugger module will preform some task related to the given argument, which often involve using the \emph{probe-rs} library to access the debug target, and/or the \emph{rust-debug} for retrieving debug information.
-Lastly the result is returned using the enum \emph{DebugResponse}.
+
+
+First, the \emph{DebugRequest} enum is matched, and a check is done to see that all the required information is present.
+Then, the \emph{debugger} module will perform some task related to the given argument, which often involves using the \emph{probe-rs} library to access the debug target and/or the rust-debug for retrieving debug information.
+Lastly, the result is returned using the enum \emph{DebugResponse}.
 
 
 
