@@ -148,23 +148,23 @@ Otherwise, the one with the closest column number is returned.
 
 
 \section{Embedded Rust Debugger}
-% Explain the genral stucture of the debugger
-The debugger \acrfull{erdb} is implemented using the debugging library \emph{rust-debug}, which requires the \emph{gimli-rs} library.
-\emph{rust-debug} provides all the needed functionalities for retrieving debug information from the \gls{DWARF} format.
-The debugger also uses the \emph{probe-rs} library for controlling the debug target, it is also used for accessing the registers and memory of the debug target.
+The \acrfull{erdb} is implemented using the debugging library \emph{rust-debug}, which requires the \emph{gimli-rs} library.
+\emph{Rust-debug} provides all the needed functionalities for retrieving debug information from the \gls{DWARF} format.
+The debugger also uses the \emph{probe-rs} library for controlling the debug target, and it is also used for accessing the registers and memory of the debug target.
 
 
-The debugger is made up of three modules, the first one is named \acrshort{cli}.
-Its main functionality is to handle the input and output from the terminal.
+The debugger consists of three modules.
+The first one is named \acrshort{cli}.
+Its primary function is to handle the input and output from the terminal.
 The second module is named \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
-These \gls{dap} messages are sent through a \acrshort{tcp} connection and is for supporting the \gls{dap} protocol.
-The last module is named \emph{Debugger}, it is for getting debug information and controlling the debug target.
+These \gls{dap} messages are sent through a \acrshort{tcp} connection and are for supporting the \gls{dap} protocol.
+The last module is named \emph{Debugger}.
+It is for getting debug information and controlling the debug target.
 
 
-
-The debugger is implemented asynchronously, because all the modules handle input, either from the user or from the debug target.
-Thus, the main function of the debugger waits for input from any of the modules, and then handles them.
+The debugger is implemented asynchronously because all the modules handle input from the user or the debug target.
+Therefore, the main loop waits for input from any modules and then handles them.
 Figure \ref{fig:ERDStruct} shows a diagram of how these modules are structured.
 
 
