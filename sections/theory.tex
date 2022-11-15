@@ -398,32 +398,31 @@ The unwinding is then repeated for the rest of the activations.
 
 \subsubsection{Subroutine Activation} \label{sec:subact}
 A \emph{subroutine activation} contains information on a subroutine call/activation.
-Each \emph{subroutine activation} contains a code location within the subroutine, it is the location where the subroutine stopped.
-The reason for halting could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the next subroutine.
+Each \emph{subroutine activation} contains a code location within the subroutine, and it is the location where the subroutine stopped.
+The reason for halting could be that a breakpoint was hit, it was interrupted by an event, or it could be a location where it made a call to the following subroutine.
 
 
-The address of the stopped code location is easily found using the stack pointer of the above activation in the activation stack.
+The address of the stopped code location is found using the stack pointer of the above activation in the activation stack.
 That is because the return address of the above activation is the stopped code location of the current activation.
-The return address is almost always stored on the stack thus, it can easily be read if the stack pointer is known.
-This works for all activations except for the top activation, where the current \gls{pc} value is the stopped code location.
+The return address is almost always stored on the stack.
+Therefore, it can be read if the stack pointer is known.
+It is true for all activations except for the top activation, where the current \gls{pc} value is the stopped code location.
 
 
 An activation also describes the state of some registers where it stopped.
-Those are the registers that are preserved thanks to the prologue and epilogue code of the subroutine.
+Those registers are preserved thanks to the prologue and epilogue code of the subroutine.
 The rest of the registers are unknown because they have been written over, which makes them impossible to recover.
 
 
-The activations are identified by their \gls{cfa} value. 
+The activations are identified by their \gls{cfa} value.
 The \gls{cfa} is the value of the stack pointer in the previous stack frame.
 Note that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame} (see \cite{dwarf} page 126).
 
 
-Both the values of the \gls{cfa} and the preserved register can be restored using tables located in the \gls{DWARF} section \emph{.debug\_frame}.
+Both the \gls{cfa} and the preserved register values can be restored using tables located in the \gls{DWARF} section \emph{.debug\_frame}.
 For further details, the reader is referred to section \ref{sec:evalcfa}.
 
 
-
-% ###############################################
 \subsubsection{Unwinding CFA and Registers} \label{sec:evalcfa}
 The tables in the \glspl{fde} contains virtual unwinding rules for a subroutine.
 These virtual unwinding rules are used to restore the values of registers and the \gls{cfa}.
