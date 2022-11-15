@@ -419,19 +419,20 @@ The \gls{cfa} is the value of the stack pointer in the previous stack frame.
 Note that the \gls{cfa} is not the same value as the stack pointer when entering the current \emph{call frame} (see \cite{dwarf} page 126).
 
 
-Both the \gls{cfa} and the preserved register values can be restored using tables located in the \gls{DWARF} section \emph{.debug\_frame}.
+The \gls{cfa} and the preserved register values can be restored using tables in the \gls{DWARF} section \emph{.debug\_frame}.
 For further details, the reader is referred to section \ref{sec:evalcfa}.
 
 
+
 \subsubsection{Unwinding CFA and Registers} \label{sec:evalcfa}
-The tables in the \glspl{fde} contains virtual unwinding rules for a subroutine.
+The tables in the \glspl{fde} contain virtual unwinding rules for a subroutine.
 These virtual unwinding rules are used to restore the values of registers and the \gls{cfa}.
 
 
 The first column in the tables contains code addresses.
-Those addresses are used to identify the code location that all the virtual unwinding rules on that row applies for.
-Next column is special because it contains the virtual unwinding rules for \gls{cfa}.
-The rest of the columns contain the virtual unwinding rules for registers $0$ to $n$, where $n$ is the last registry.
+Those addresses are used to identify the code location to which all the row's virtual unwinding rules apply.
+The next column is unique and contains the \gls{cfa}'s virtual unwinding rules. 
+The remaining columns contain the virtual unwinding rules for registers $0$ to $n$, where n is the last registry.
 See figure \ref{fig:stacktracetable} for a visual of how the tables are structured.
 
 
@@ -443,16 +444,16 @@ See figure \ref{fig:stacktracetable} for a visual of how the tables are structur
 \end{figure}
 
 
-There are several virtual unwinding rules, the ones for the registers are named register rules.
-Some of them are easy to use such as the register rule \emph{undefined}.
-This rule means that it is impossible to unwind that register.
-Other ones require some calculations such as the register rule \emph{offset(N)}, where the \emph{N} is a signed offset.
-This rule means that the register value is stored at the \gls{cfa} address plus the offset $N$.
+There are several virtual unwinding rules.
+The ones for the registers are named \emph{register rules}.
+Some of them are easy to use, such as the \emph{register rule} \emph{undefined}, and this rule means that it is impossible to unwind that register.
+Other rules require calculations, such as the \emph{register rule} \emph{offset(N)}, where the \emph{N} is a signed offset.
+This rule means that the register value is stored at an address that can be calculated by adding the \gls{cfa} address and the offset \emph{N}.
 All the rules can be read about in the \gls{DWARF} specification \cite{dwarf} on page 128.
 
 
 Unwinding a register is done by first finding the correct row.
 That is done by finding the row which contains the address that is closest but not greater than the current address.
-Next step is to evaluate the new value using the register rule on the row, then go to the next row in the table and repeat but with the new value.
+The next step is to evaluate the new value using the \emph{register rule} on the row, then go to the next row in the table and repeat but with the new value.
 Repeat until there are no more rows.
 That is how to use the table to unwind a register.
