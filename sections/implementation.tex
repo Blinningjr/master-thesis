@@ -40,24 +40,23 @@ The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 
 
 \subsection{Retrieving Source Code File Location} \label{sec:decl}
-% Explain the evaluation of source information 
-In the \emph{DWARF} format, the source code location of where any type of data was declared, is stored in three attributes on the \gls{die} that represents that data.
-One of the attributes contain indirect information about which file the data was declared, another contains the line number and the last one contains the column number.
+In the \gls{DWARF} format, the source code location where any data was declared is stored in three attributes on the \gls{die} representing that data.
+One attribute contains indirect information about which file the data was declared, another contains the line number, and the last contains the column number.
 
 
-The attribute contains the file path and name information is named \emph{DW\_AT\_decl\_file}.
-It does not contain the file path and name directly, instead it contains a file index.
-This file index is used to look up the file path and name in a table named, \emph{line number information table}.
-There is one such table in each compilation unit, and the file index $0$ is special.
-File index $0$ is reserved for when a source file cannot be specified.
+The attribute contains the file path and name information named \emph{DW\_AT\_decl\_file}.
+It does not contain the file path and name directly.
+Instead, it contains a file index.
+This file index is used to look up the file path and name in a line number information table, and each compilation unit has one such table.
+File index 0 is reserved and used when the source file is unknown.
 
 
-The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column} respectively.
+The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}, respectively.
 Thus, they are much easier to retrieve.
 
 
-\emph{rust-debug} provides a function that performs the lookup file index lookup, and it also gets the line and column numbers.
-The function requires that a \gls{die} and related compilation unit is given.
+\emph{Rust-debug} provides a function that performs the file index lookup and gets the line and column numbers.
+The function requires that a DIE and related compilation unit is given.
 
 
 \subsection{Accessing Memory And Registers}
