@@ -115,23 +115,20 @@ Thus, the function \gls{die} can easily be found by tracking all the function \g
 
 
 \subsection{Unwinding the Call Stack}
-% Explain the evaluation of call stack 
-% Explain the evaluation of stackframe 
-
 The \emph{rust-debug} library has a function for virtually unwinding the current call stack, and it does it in two separate steps.
-Unwinding the call stack to get all the register values for each stack frame, is the first step.
-The second step is to find the subroutine and to evaluate all the variables for each stack frame.
+Unwinding the call stack to get all the register values for each stack frame is the first step.
+The second step is to find the subroutine and evaluate all the variables for each stack frame.
 
 
 Unwinding the call stack to get the register values is done by a separate function, which returns a \emph{Vec} of \emph{CallFrame} structs.
-Where each \emph{CallFrame} struct contain information about each of the stack frames.
-The most important information the struct contains is the unwound register values, but it also contains other useful information, such as the start and end memory address of the stack frame.
+Each \emph{CallFrame} struct contains information about each of the stack frames.
+The essential information the struct contains is the unwound register values, but it also contains other helpful information, such as the stack frame's start and end memory addresses.
 All the information in the struct is retrieved using the method described in section \ref{sec:stacktrace}.
 
 
 In the second step, the function loops through all the \emph{CallFrame} structs and tries to retrieve all the information it can about the stack frame.
-This includes the name of the subroutine and the declaration location, which is found using the function describe in section \ref{sec:decl}.
-It also includes the variable information that retrieved using the function describe in section \ref{sec:ievalvar}.
+It includes the subroutine's name and the declaration location, which is found using the function described in section \ref{sec:decl}.
+It also includes the variable information retrieved using the function described in section \ref{sec:ievalvar}.
 
 
 
