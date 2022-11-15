@@ -60,29 +60,26 @@ The function requires that a DIE and related compilation unit is given.
 
 
 \subsection{Accessing Memory And Registers}
-% Explain the evaluation part.
-% Explain the stored target memory and registers
-Some functionalities in the \gls{DWARF} format requires access to register and memory.
+Some functionalities in the \gls{DWARF} format require access to register and memory.
 One of them is the evaluation of variables.
 
 
-Accessing the debug targets registers and memory is a different problem from reading and using the \gls{DWARF} format.
+Accessing the debug target registers and memory is a different problem from reading and using the \gls{DWARF} format.
 Thus, \emph{rust-debug} lets the user of the library solve that problem.
-This has the benefit that any existing solutions can be used, like \emph{probe-rs}.
-It also has one downside, \emph{rust-debug} is a little harder to use because of extra work the user must do.
+It has the benefit that any existing solutions can be used, like \emph{probe-rs}.
+It also has one downside, \emph{rust-debug} is harder to use because of the extra work the user must do.
 
 
-All the functionalities in \emph{rust-debug} that requires access to the registers requires a struct from the library named \emph{Registers}.
-This struct contains a \emph{HashMap} with the register numbers and there corresponding values.
-It also contains the register number of some special registers, like the \acrshort{pc} register.
-Thus, it is up to the user that the correct register numbers and values are stored on the struct.  
-An example on how this can be implemented can be found in the git repository for \gls{erdb} \cite{erdb}.
+All the functionalities in \emph{rust-debug} that require access to the registers require a struct named \emph{Registers}.
+This struct contains a \emph{HashMap} with the register numbers and their corresponding values, and it also contains the register number of some special registers, like the \gls{pc} register.
+Therefore, it is up to the user to fill in the correct register numbers and values.
+An example of implementing this can be found in the git repository for \gls{erdb} \cite{erdb}.
 
 
-The functionalities that require access to the memory of the debug target, requires a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
-This trait is very simple and only has one function, which is for reading a varied number of bytes at a given address.
-The user can create a struct that implements that function almost however they want.
-An example on how this can be implemented using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \cite{erdb}.
+The functionalities that require access to the debug target's memory require a struct that implements the \emph{rust-debug} trait \emph{MemoryAccess}.
+This trait is straightforward and only has one function: for reading various bytes at a given address.
+Users can create a struct that implements that function almost however they want.
+An example of implementing this using the \emph{probe-rs} library can be found in the git repository for \gls{erdb} \cite{erdb}.
 
 
 
