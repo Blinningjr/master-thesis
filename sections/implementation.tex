@@ -52,7 +52,7 @@ File index 0 is reserved and used when the source file is unknown.
 
 
 The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}, respectively.
-Thus, they are much easier to retrieve.
+Therefore, they are much easier to retrieve.
 
 
 \emph{Rust-debug} provides a function that performs the file index lookup and gets the line and column numbers.
@@ -65,7 +65,7 @@ One of them is the evaluation of variables.
 
 
 Accessing the debug target registers and memory is a different problem from reading and using the \gls{DWARF} format.
-Thus, \emph{rust-debug} lets the user of the library solve that problem.
+Therefore, \emph{rust-debug} lets the user of the library solve that problem.
 It has the benefit that any existing solutions can be used, like \emph{probe-rs}.
 It also has one downside, \emph{rust-debug} is harder to use because of the extra work the user must do.
 
@@ -109,7 +109,7 @@ The only downside of this solution is that it requires the user to understand ho
 \subsection{Finding the current function} \label{sec:funcdie}
 When debugging, knowing the current function that is being executed is very useful.
 Finding that function can be done by finding the function \gls{die}, which is the furthest down the \gls{die} tree, in the branch where the current address is in range.
-Thus, the function \gls{die} can easily be found by tracking all the function \glspl{die} while going down the \gls{die} tree.
+Therefore, the function \gls{die} can easily be found by tracking all the function \glspl{die} while going down the \gls{die} tree.
 \emph{Rust-debug} makes this even easier by providing a function that does exactly this.
 
 

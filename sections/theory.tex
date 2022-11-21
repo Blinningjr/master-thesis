@@ -329,12 +329,12 @@ Currently, the value of the \emph{frame base} is unknown, but the location of th
 The location of the \emph{frame base} is also described in several operations, and those operations are under the attribute \emph{DW\_AT\_frame\_base}.
 Figure \ref{fig:subprogramexample} describes the \emph{frame base} location with the operation \emph{DW\_OP\_reg7}.
 The operation \emph{DW\_OP\_reg7} describes that the value is located in register $7$ (see \cite{dwarf} page 27).
-Thus register $7$ needs to be read to get the value of the \emph{frame base}.
+Therefore register $7$ needs to be read to get the value of the \emph{frame base}.
 
 
 Now that the value of the \emph{frame base} is known, we can proceed to calculate the location of the parameter \emph{val}.
 As mentioned previously, the location of parameter \emph{val} is the \emph{frame base} minus $2$.
-Thus, the value of \emph{val} can be read from memory at the address of the \emph{frame base} minus $2$.
+Therefore, the value of \emph{val} can be read from memory at the address of the \emph{frame base} minus $2$.
 However, the value must also be parsed into the type of \emph{val}.
 See section \ref{sec:parsingvalue} for how to parse the value into the correct type.
 
@@ -376,7 +376,7 @@ The call stack is virtually unwinding by recursively unwinding a stack of \emph{
 It is named virtual unwinding because the state of the debug target is not changed at any point during the unwinding.
 Every subroutine in the call stack has an activation and a stack frame.
 Because the activation often has the stack pointer value, the related stack frame is also known.
-Thus, successfully unwinding all the \emph{subroutine activations} will result in a complete understanding of the state of the call stack.
+Therefore, successfully unwinding all the \emph{subroutine activations} will result in a complete understanding of the state of the call stack.
 
 
 The debug information needed to unwind activations are stored in the \gls{DWARF} section \emph{.debug\_frame}.
