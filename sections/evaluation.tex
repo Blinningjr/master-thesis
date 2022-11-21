@@ -8,22 +8,22 @@
 
 \section{Evaluating \emph{rust-debug}} \label{sec:evalrd}
 The debugging library \emph{rust-debug} aims to solve the problem of getting debug information from the \gls{DWARF} format.
-The difficult part is that it requires many lines of code and knowledge about the \gls{DWARF} format, to get the wanted debug information.
-One way to measure if \emph{rust-debug} makes it easier to retrieve debug information, is to compare the amount of code lines it takes to create a debugger with and without using \emph{rust-debug}.
+It requires many lines of code and knowledge about the \gls{DWARF} format to get the wanted debug information.
+One way to measure if \emph{rust-debug} makes it easier is to compare the number of code lines required to create a debugger with and without \emph{rust-debug}.
 
 
-Unfortunately, there is no other debugger that has the exact same features as \gls{erdb}.
-Also, it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has a lot more features.
+Unfortunately, no other debugger has a similar feature set as \gls{erdb}.
+Also, it would be unfair to compare \gls{erdb} with a debugger like \emph{GDB}, which has many more features.
 
 
 Instead, the number of lines in \emph{rust-debug} will be compared against the debugger module in \gls{erdb}.
 The number of \emph{Rust} code lines was counted using the tool \emph{tokei} \cite{tokei}.
-\emph{rust-debug} contains $3626$ lines of \emph{Rust} code, and the debugger module contains $1358$ lines.
+\emph{Rust-debug} contains $3626$ lines of \emph{Rust} code, and the debugger module contains $1358$ lines.
 Also, the whole debugger \gls{erdb} contains $3068$ lines of \emph{Rust} code.
 
 
 The amount of \emph{Rust} code in \emph{rust-debug} is more than double that of the debugger module in \gls{erdb}.
-Thus, \emph{rust-debug} has made it significantly easier to get some debug information.
+Therefore, \emph{rust-debug} has made it significantly easier to get some debug information.
 
 
 
