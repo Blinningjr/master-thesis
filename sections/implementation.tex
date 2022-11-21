@@ -249,16 +249,12 @@ A state change in the debug target is an event in \gls{erdb}.
 
 
 \subsubsection{Optimization of Repeated Variable Evaluation}
-% How it handles request for stackframes and variables.
-To improve on the performance of the debugger, all the variables and stack frames are temporarily stored.
-This allows for fast repetitive lookup of debug information.
-All this temporarily stored information is removed when the state of the debug target changes.
-This is to ensure that the correct information is returned.
+All the variables and stack frames are temporarily stored, improving the debugger's performance.
+It allows for fast repetitive lookup of debugging information and simplifies the implementation.
+All the temporarily stored information is removed when the state of the debug target changes, and this is to ensure that the correct information is returned.
 
 
-Note that if a request is received to evaluate one variable, the debugger will then perform a whole stack trace instead.
-This simplifies the implementation a lot, it also makes the subsequent evaluation requests faster.
-Because, the value does not need to be evaluated, instead it can be taken from temporarily stored information.
+Note that if a request is received to evaluate one variable, the debugger will perform a whole stack trace instead.
 
 
 
