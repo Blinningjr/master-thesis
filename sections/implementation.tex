@@ -240,13 +240,11 @@ That library sometimes requires values from the debug target, such as the values
 
 
 \subsubsection{Simultaneous Handling of Requests And Events}
-% How the debugger handles request and events simultaneously.
-The state of the debug target is polled every $100\text{th}$ millisecond, to detect if the debug target has continued or stopped the program execution.
-In the time between the polls other tasks can be handled, such as parsing the input from the \acrshort{cli} or doing a stack trace.
-This is possible because there is an asynchronous function which sleeps for $100$ milliseconds, afterwards it polls the debug target state.
-That function repeats if the debug target is being debugged.
-Thus, the debugger can simultaneously handle both input from the user and state changes in the debug target.
-A state change in the debug target is referred to as an event in \gls{erdb}.
+The state of the debug target is polled every $100\text{th}$ millisecond to detect if the debug target has continued or stopped the program execution.
+Other tasks can be handled in the time between the polls, such as parsing the input from the \acrshort{cli} or doing a stack trace.
+It is possible because it is an asynchronous function that sleeps for $100$ milliseconds and then polls the debug target state, and that function repeats if the debug target is being debugged.
+Therefore, the debugger can simultaneously handle both inputs from the user and state changes in the debug target.
+A state change in the debug target is an event in \gls{erdb}.
 
 
 
