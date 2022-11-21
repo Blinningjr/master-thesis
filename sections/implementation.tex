@@ -259,24 +259,24 @@ Note that if a request is received to evaluate one variable, the debugger will p
 
 
 \section{VSCode Extension}
-% Explain the implementation of the vscode explanation.
-Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool named \emph{vscode-generator-code} \cite{vscode-generator-code}, that will generate a empty extension.
+Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool named \emph{vscode-generator-code} \cite{vscode-generator-code} to generate an empty extension.
 The provided documentations also explain how to get started with creating an extension.
 
 
-There are two different types of debug extensions, the first is an extension that implements a debug adapter for a specific debugger.
-These often require a lot of work because a debug adapter needs to translate the \gls{dap} protocol messages to command that the debugger understands.
-Depending on the debugger this can require a lot of work to get it working well.
-The other type of debug extension is just a wrapper for the debugger that already implements the \gls{dap} protocol.
-These extensions are very simple to create, because they only need to start the debugger and connect to it using the \emph{dap} protocol.
-To learn more about \emph{VSCode} debug extension read \emph{Microsofts} documentations \cite{vscode-debugger-extension-doc}.
+There are two different types of debug extensions.
+The first is an extension that implements a debug adapter for a specific debugger.
+These are more difficult because a debug adapter needs to translate the \gls{dap} protocol messages to a command or multiple commands that the debugger understands.
+The difficulty depends on the debugger implementation.
+The other type of debug extension is a wrapper for a debugger that already implements the \gls{dap} protocol.
+These extensions are elementary to create because they only need to start the debugger and connect to it using the \gls{dap} protocol.
+Read \emph{Microsoft's} documentation to learn more about \emph{VSCode} debug extension \cite{vscode-debugger-extension-doc}.
 
 
-The debugger \emph{Embedded Rust Debugger} implements the \gls{dap} protocol over a \gls{tcp} server.
-The \emph{VSCode} extension is just a wrapper that starts the debugger \gls{tcp} server and then connects to it.
-Connecting to the debugger server over \gls{tcp} is very easy to do because \emph{Microsoft} has a library named \emph{VSCode} that does that for you.
-The extension also captures the logs of the debugger and outputs them to the user using the \emph{VSCode} library.
+The debugger \acrlong{erdb} implements the \gls{dap} protocol over a \gls{tcp} server.
+The \emph{VSCode} extension is a wrapper that starts the debugger \gls{tcp} server and then connects to it.
+Connecting to the debugger server over \gls{tcp} is easy because \emph{Microsoft} has a library named \emph{VSCode} that does it.
+The extension also captures the debugger logs and outputs them to the user using the \emph{VSCode} library.
 
 
 There are also some configurations that the user of the \gls{erdb} can set in the \emph{launch.json} file.
-The available configurations are defined in a \emph{json} file named \emph{package.json} in the extension project \cite{erdb-vscode}.
+The available configurations are defined in a \emph{JSON} file named \emph{package.json} in the extension project \cite{erdb-vscode}.
