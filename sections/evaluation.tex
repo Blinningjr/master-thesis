@@ -28,25 +28,23 @@ Therefore, \emph{rust-debug} has made it significantly easier to get some debug 
 
 
 \section{Evaluating \emph{ERDB}} % TODO
-% List all the features it has.
-One of the requirements set in the section \ref{sec:problemDef} was that \gls{erdb} needs to implement some of the most common debugging features.
+One of the requirements in section \ref{sec:problemDef} is that \gls{erdb} must implement some of the most common debugging features.
 A list of these features can be found in section \ref{sec:delimitations}.
-\gls{erdb} implements all of those mentioned features, but there are two of them that are not fully supported.
+\gls{erdb} implements all of those mentioned features, but two are not fully supported.
 
 
-% stepping, sw breakpoints, 
-Currently, \gls{erdb} only supports hardware breakpoints, creating a limit to how many breakpoints can be set.
-To have more breakpoints the debugger needs to support software breakpoints, which will make it possible to have a lot more breakpoints.
+\gls{erdb} only supports hardware breakpoints, limiting how many breakpoints can be set.
+The number of breakpoints can be increased significantly by implementing software breakpoints.
+
+
 The other feature that is not fully supported are the different stepping variants.
-Stepping one machine code instruction is currently the only supported stepping function.
-It would have been very useful if it supported stepping one source code instruction.
+Stepping one machine code instruction is currently the only supported stepping function, and it would have been beneficial if it supported stepping one source code instruction.
 
 
-% Dose not require external program for embedded systems.
-One of the main goals of \gls{erdb} was to improve the user experience, by mainly removing the hassle of using an external program to debug embedded systems.
+One of the main goals of \gls{erdb} is to improve the user experience by mainly removing the hassle of using an external program to debug embedded systems.
 \gls{erdb} has achieved this goal by using the \emph{probe-rs} library.
-\emph{probe-rs} allows \gls{erdb} to access the debug target without starting another program, which greatly improves the user experience.
-There is also a \emph{vscode} extension for \gls{erdb} that makes the user experience as good as other debuggers.
+\emph{Probe-rs} allows \gls{erdb} to access the debug target without starting another program, significantly improving the user experience.
+There is also a \emph{VSCode} extension for \gls{erdb} that makes the user experience as good as other debuggers.
 
 
 
