@@ -6,7 +6,7 @@
 
 % Overall Discussion of how the problem is solved
 
-\section{Usefulness of \emph{rust-debug}} % TODO: Change name of section
+\section{Usefulness of \emph{rust-debug}}
 The \emph{rust-debug} library makes it much easier to get information from \gls{DWARF}.
 One reason is that it requires much less knowledge about \gls{DWARF}.
 Also, the documentation for \emph{rust-debug} is much less text than the specification for the \gls{DWARF} format.
@@ -18,22 +18,21 @@ Using the number of code lines to measure complexity is not the most accurate me
 
 
 
-\section{Debug Experience For Optimized Rust Code} %TODO: Rewrite section
-% My Results Compared to expected results
-At the beginning of this thesis, it was thought that \emph{GDB} was not able to evaluate variables located in registers.
-This thought came from the observation that \emph{GDB} for the most part prints that the variables are optimized out, when debugging optimized code.
-Thus, it was thought that those variables were not completely removed from the optimized code.
-However, it turns out that \emph{GDB} was right in that they were completely optimized out.
+\section{Debug Experience For Optimized Rust Code}
+At the beginning of this thesis, it was thought that \emph{GDB} could not evaluate variables located in registers.
+This thought came from the observation that \emph{GDB} mainly prints that the variables are \emph{optimized out} when debugging optimized code.
+Therefore, it was thought that those variables were not wholly removed from the optimized code.
+However, \emph{GDB} was right in that they were wholly optimized out.
 
 
-Keeping these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing.
-Because the goal was to create a debugger that could improve on this problem.
+With these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing because the goal was to create a debugger that could improve on this problem.
 
 
-Unexpectedly, both \emph{GDB} \emph{LLDB} has other smaller problems.
-Such as \emph{GDB} parsed $64$-bit integers as $32$-bit.
-Those small problems might be specific to the debuggers \gls{cli}, and thus not present in other releases of the debuggers.
-However, the problems show that \emph{erdb} has some small advantages.
+Unexpectedly, both \emph{GDB} and \emph{LLDB} have other minor problems.
+Such as, \emph{GDB} parsed $64$-bit integers as $32$-bit.
+Those minor problems might be specific to the debugger's \gls{cli} and thus not present in other releases of the debuggers.
+However, the problems show that \gls{erdb} has some slight advantages.
+
 
 
 \subsection{Debugging Rust Code on Embedded Systems}
