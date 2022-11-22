@@ -14,7 +14,7 @@ Also, it does not block the user from using \emph{gimli-rs} directly.
 
 
 Overall, the goal of this thesis was achieved.
-However, a lot still needs to be done in developing debugging tools and the compiler.
+However, many developments still need to be done to the compiler and debugging tools.
 
 
 
@@ -26,26 +26,13 @@ A potential improvement to debugging would be to improve how the variable locati
 
 
 \section{Future Debugger Improvement}
-% Future work that can be done on the debugger side.
 The debugger \gls{erdb} only supports the most important functionalities of a debugger.
 Therefore, there are many more features that could be added.
-One important one, left for future work, are the different stepping variations.
-Having the ability to step one source code instruction and stepping in and out of functions is very useful when debugging.
-Because, it makes it easy to traverse the code while debugging.
+One important one, left for future work is the different stepping variations.
+The ability to step one source code instruction and step in and out of functions is valuable when debugging because it makes it easy to traverse the code while debugging.
 
 
-% Future work that can be done on the debugger side.
 One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
-This causes the variables to be overwritten when they are not needed anymore.
-That fact makes debugging very hard, because the user must halt the execution when the variable still exists.
+It causes the variables to be overwritten when they are not needed anymore.
+That fact makes debugging very hard because the user must halt the execution when the variable still exists.
 However, if the debugger could get the last value of the variable and store it, the last known value of the variable could then be displayed to the user instead.
-
-
-%\section{Future Debugger Library Improvement}
-%% Future work that can be done on the debugger side.
-%Currently the debugging library \emph{rust-debug} is not able to display values stored on the heap.
-%It will instead show the pointer to the heap location where the value is stored.
-%This problem is a little bit hard because the pointer is a data structure, thus it is hard to determine if it is a pointer or not.
-%Implementing a solution for this is left as future work.
-
-
