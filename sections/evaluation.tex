@@ -50,24 +50,21 @@ There is also a \emph{VSCode} extension for \gls{erdb} that makes the user exper
 
 \section{Debugger Comparison} % TODO
 \label{sec:debuggercomparison}
-% TODO: Compare to erdb, gdb and lldb.
-
-% TODO: Mention the testing of the three debuggers.
-
 The debugger \gls{erdb} needs to be compared to the already existing debuggers to see if any improvement is made to debugging optimized \emph{Rust} code.
-The two most popular debugger used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
-They are also the two debuggers that are supported by the \emph{Rust} development team according to the \emph{rustc-dev-guide} \cite{rust-dev-guide}.
-%The criteria they will be compared to is how well the debuggers can retrieve debug information from optimized code and how well they can display that information to the user.
-%Because getting the information is important but it is pretty much useless if it is not displayed in an user friendly way.
+The two most popular debuggers used for debugging \emph{Rust} code are \emph{GDB} and \emph{LLDB}.
+They are also the two debuggers supported by the \emph{Rust} development team, according to the \emph{rustc-dev-guide} \cite{rust-dev-guide}.
 
 
-The testing and comparison of the three different debuggers is done manually on some example code, see the git repository \cite{example-code} for the example code.
-The example code was modified to test how well the three debugger handled different situations.
+The testing and comparison of the three different debuggers are made manually on some example code.
+See the git repository \cite{example-code} for the example code.
+The example code was modified to test how well the three debuggers handled different situations.
 
-To keep the comparison fair a breakpoint was added to the same machine code instructions when comparing the debugger.
-This ensures that all the three debuggers stop on the same instruction.
+
+A breakpoint was added to the same machine code instructions to keep the comparison fair when comparing the debugger.
+It ensures that all three debuggers stop on the same instruction.
 Also, the latest released version of each compiler was used to keep the comparison fair.
-At the time of writing the latest versions of debuggers are:
+The latest versions of debuggers are:
+
 
 \begin{itemize}
     \item \emph{GDB} 12.1
