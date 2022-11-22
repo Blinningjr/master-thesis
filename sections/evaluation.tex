@@ -88,20 +88,19 @@ All the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal, 
 
 
 \subsection{Optimized Code Comparison}
-Debugging the code with optimization $2$, \emph{LLDB} differed a bit from the other two debuggers.
-It is still not able to evaluate \emph{Rust enums}.
+Debugging the code with optimization $2$, \emph{LLDB} differed slightly from the other two debuggers.
+It is still not able to evaluate \emph{Rust} enums.
 Also, it wrote all $8$-bit integers in hexadecimal format, but the values were correct.
 
 
-\emph{GDB} differed in that it evaluated all the $64$ bit integers as $32$ bit integers, thus it showed the wrong values.
-It did not have this problem when debugging the same code but unoptimized.
+\emph{GDB} differed in that it evaluated all the $64$-bit integers as $32$-bit integers.
+Therefore, it showed the wrong values and did not have this problem when debugging the same code but unoptimized.
 
 
-Compared to the other debuggers, \gls{erdb} did not have any problems with evaluating variables.
-However, it sometimes does not give the correct stack trace when there are inline functions.
-This problem has only occurred on optimized code.
+Compared to the other debuggers, \gls{erdb} had no problems evaluating variables.
+However, it sometimes does not give the correct stack trace when there are inline functions, and this problem has only occurred on optimized code.
 
 
-All the three debuggers where equally bad when it comes to the main problem of debugging optimized code, which is the problem of many variables being optimized out.
-That in turn makes it very hard to understand what is happening in the program, and thus hard to debug.
+All three debuggers were equally bad regarding the main problem of debugging optimized code: the problem of many variables being optimized out.
+That makes it very hard to understand what is happening in the program and, therefore, difficult to debug.
 
