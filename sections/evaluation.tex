@@ -76,18 +76,18 @@ The latest versions of debuggers are:
 
 
 \subsection{Unoptimized Code Comparison}
-All the debuggers were first tested on unoptimized \emph{Rust} code, to see that the debuggers were correctly installed and configured.
-While testing them there were some differences between the debuggers that are interesting.
-The most significant one being that \emph{LLDB} is not able to evaluate \emph{Rust} \emph{enums}, which both \emph{GDB} and \gls{erdb} are capable of.
+All the debuggers were first tested on unoptimized \emph{Rust} code to see that the debuggers were correctly installed and configured.
+While testing them, there were some differences between the debuggers that are interesting.
+The most significant is that \emph{LLDB} cannot evaluate \emph{Rust} enums, which both \emph{GDB} and \emph{ERDB} can.
 
 
-Another difference found is that both \emph{LLDB} and \emph{GDB} evaluated a \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
-In the \emph{Rust} source code, the \emph{f32} was assigned the value of $10.2$, and all the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal.
-Reading those raw bytes as a $32$-bit float using little endian, gives $10.2$.
+Another difference was that both \emph{LLDB} and \emph{GDB} evaluated an \emph{f32} to $10.1999998$, and \gls{erdb} evaluated it to $10.2$.
+In the \emph{Rust} source code, the \emph{f32} was assigned the value of $10.2$.
+All the debuggers returned that the raw bytes were $0x33332341$ in hexadecimal, and reading those raw bytes as a $32$-bit float using little endian gives $10.2$.
 
 
 
-\subsection{Optimized Code Comparison} % TODO:
+\subsection{Optimized Code Comparison}
 Debugging the code with optimization $2$, \emph{LLDB} differed a bit from the other two debuggers.
 It is still not able to evaluate \emph{Rust enums}.
 Also, it wrote all $8$-bit integers in hexadecimal format, but the values were correct.
