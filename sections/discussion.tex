@@ -36,11 +36,9 @@ However, the problems show that \gls{erdb} has some slight advantages.
 
 
 \subsection{Debugging Rust Code on Embedded Systems}
-% My Results Compared to expected results
-The experience of debugging \emph{Rust} code on embedded systems with both \emph{LLDB} and \emph{GDB} is not very good.
-There are a lot of configuring, and both require a program like \emph{openocd} that handles the communication between the debugger and the target device.
-Using \gls{erdb} is easier, because it removes the step of starting a separate program.
-
+The experience of debugging \emph{Rust} code on embedded systems with both \emph{LLDB} and \emph{GDB} could be better.
+It requires much configuring and a program like \emph{openocd}, which handles the communication between the debugger and the target device.
+Using \gls{erdb} is easier because it removes the step of starting a separate program.
 
 \section{Accuracy of the DWARF Location Ranges}\label{section:loc-ranges}
 % The accuracy of the Location list entry ranges.
