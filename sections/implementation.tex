@@ -207,7 +207,7 @@ That task's primary job is to report if the debug target has halted the program 
 \subsection{The Debug Adapter module}
 All the \gls{dap} communication is handled in the \emph{debug adapter} module.
 The main job of this module is to translate \gls{dap} messages into requests, which are forwarded to the \emph{debugger} module.
-It also handles the translation of the responses and events from the \emph{debugger} module.
+It also handles translating the responses and events from the \emph{debugger} module.
 
 
 The DAP protocol communicates through \gls{tcp}, requiring the \emph{debug adapter} module to have a \gls{tcp} server.
