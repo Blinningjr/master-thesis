@@ -40,13 +40,14 @@ The experience of debugging \emph{Rust} code on embedded systems with both \emph
 It requires much configuring and a program like \emph{openocd}, which handles the communication between the debugger and the target device.
 Using \gls{erdb} is easier because it removes the step of starting a separate program.
 
+
+
 \section{Accuracy of the DWARF Location Ranges}\label{section:loc-ranges}
-% The accuracy of the Location list entry ranges.
-While working on \emph{rust-debug} and \gls{erdb} it was discovered that variables can sometimes live longer on the debugged target then described in \gls{DWARF}.
-This means that some variables can potentially be read when \gls{DWARF} says that they have no location.
+While working on \emph{rust-debug} and \gls{erdb}, it was discovered that variables could sometimes live longer on the debugged target than described in \gls{DWARF}.
+It means that some variables can potentially be read when \gls{DWARF} says they have no location.
 
 
-The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors that effect the variable location fidelity, they are:
+The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three significant factors that affect the variable location fidelity, they are:
 
 \begin{enumerate}
   \item Instruction Selection
@@ -54,11 +55,11 @@ The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three major factors t
   \item Block layout
 \end{enumerate}
 
-The documentation about the three major factors does not mention a lot about how the ranges could be set too tight.
-Thus, to be able to find if this can be improved on, there has to be a good understanding of \emph{LLVM}, which is out of scope for this thesis.
+The documentation about the three significant factors does not mention how the ranges could be set too tight.
+Therefore, to find out if this can be improved, there has to be a good understanding of \emph{LLVM}, which is out of the scope of this thesis.
 
 
-The documentation also mention that some location changes are ignored by \emph{LLVM} in some situations.
-One situation they mention, is that location changes is ignored for the prologue and epilogue code of a function.
-However, this should not be a problem, because most debuggers will step over the prologue and epilogue code.
+The documentation also mentions that \emph{LLVM} ignores some location changes in some situations.
+One situation they mention is that location changes are ignored for a function's prologue and epilogue code.
+However, this should not be a problem because most debuggers will step over the prologue and epilogue code.
 
