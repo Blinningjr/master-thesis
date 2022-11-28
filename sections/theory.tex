@@ -107,9 +107,9 @@ Lastly, resetting means that the target program will start execution from the be
 
 
 Most debuggers display the state of the target program relative to the source code.
-If the target program has stopped, most debuggers will translate the location in the machine code it stopped on into the location of the source instruction from where the machine code instruction from which it was generated.
+Therefore, if the target program has halted, the closest source code location will be shown as the halt location.
 They also often let the user set the breakpoint in the source code and translate that to the closest machine code instruction.
-Other features most debuggers have is the ability to show a stack trace, variables (type and content), and evaluate an expression.
+Other features most debuggers have is the ability to show a stack trace, variables (type and value), and evaluate an expression.
 There are a lot more functionalities that a debugger can have, but these are some of the most common ones.
 
 
@@ -149,7 +149,7 @@ For further details, we refer the reader to section $7.5.3$ in \cite{dwarf}.
 All the information needed to look up compilation units using machine code addresses is in the \gls{DWARF} section \emph{.debug\_aranges}.
 Compilation units contain debugging information for a range of machine code addresses.
 Each compilation unit has a start address followed by a length.
-Therefore, to find the correct compilation, the user only needs to check if the current address is between the start address and the start address plus the length.
+Therefore, to find the correct compilation unit, the user only needs to check if the current address is between the start address and the start address plus the length.
 For further details, we refer the reader to section $6.1.2$ in \cite{dwarf}.
 
 
@@ -193,12 +193,6 @@ Some \glspl{die} in the \gls{DWARF} section \emph{.debug\_info} point to these e
 For further information, we refer the reader to section $6.3$ in \cite{dwarf}.
 
 
-In the section \emph{.debug\_macinfo}, the macro information is stored.
-It is stored in entries that each represents the macro after it has been expanded by the compiler.
-These entries are also pointed to by \glspl{die} in the \emph{.debug\_info} section, and those pointers can be found in the attribute \emph{DW\_AT\_macinfo}.
-This section is too complex, for further details we refer the reader to section $6.3$ in \cite{dwarf}.
-
-
 \subsubsection{\emph{.debug\_pubnames} and \emph{.debug\_pubtypes}}
 There are two sections for looking up compilation units by the name of functions, variables, types, and more.
 The first is \emph{.debug\_pubnames}, which is for finding functions, variables, and objects, and the other is for finding types.
@@ -220,7 +214,7 @@ An example of these strings is the names of the functions and variables.
 
 
 \subsubsection{\emph{.debug\_type}}
-The \gls{DWARF} section \emph{.debug\_type} is similar to section \emph{.debug\_info} in that it is also made up of units, with each a tree of \glspl{die}.
+The \gls{DWARF} section \emph{.debug\_type} is similar to section \emph{.debug\_info} in that it is also made up of compilation units, with each a tree of \glspl{die}.
 The difference is that the \glspl{die} are a low-level representation of the types in the source code.
 
 

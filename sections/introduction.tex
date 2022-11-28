@@ -37,7 +37,7 @@ In the \emph{Rust} programming language community, very few projects focus on de
 One of the larger projects focusing on debugging is named \emph{gimli-rs}.
 One of the main goals of the projects is to make a \emph{Rust} library for reading the debugging format \gls{DWARF}.
 Then there are other projects like \emph{probe-rs} that focus on making a library that provides different tools to interact with various \glspl{mcu} and debugging probes.
-One of their newest tools which are in early development is a debugger that also uses the \emph{gimli-rs} library to read the DWARF file.
+One of their newest tool, which is in early development, is a debugger that also uses the \emph{gimli-rs} library to read the DWARF file.
 
 
 There is some work done on the \emph{LLVM} project to improve the generation of debugging information.
@@ -62,7 +62,7 @@ Also, a debugger is an excellent tool for showing these peripherals' state, maki
 Another reason is that hardware bugs are much easier to find if it is possible to inspect the state of a device quickly.
 
 
-Another motivation for creating a debugger for embedded systems is that the \emph{Rust} team's two supported \emph{Rust} debuggers are \emph{LLDB} (part of the \emph{LLVM} project) and \emph{GDB}, which at the time of writing, both require another program to interact with the gls{mcu}.
+Another motivation for creating a debugger for embedded systems is that the \emph{Rust} team's two supported \emph{Rust} debuggers are \emph{LLDB} (part of the \emph{LLVM} project) and \emph{GDB}, which at the time of writing, both require another program to interact with the \gls{mcu}.
 An example of such a program is \emph{openocd} (openocd homepage \cite{openocd}), which works as a \emph{GDB} stub to which the debugger connects.
 It complicates the process of debugging, especially for new developers.
 
@@ -108,7 +108,7 @@ The following is the list of features the debugger is required to have:
   \end{itemize}
   \item Set and remove breakpoints.
   \item Virtually unwind the call stack.
-  \item Evaluating variables and thir types.
+  \item Evaluating variables and their types.
   \item Finding source code location of functions and variables.
   \item A \acrfull{cli}.
   \item Support the \emph{Microsoft} \acrfull{dap}.
