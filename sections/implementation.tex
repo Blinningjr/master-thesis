@@ -197,12 +197,11 @@ The resulting \emph{DebugRequest} enum is then returned to the main loop and sen
 After the \emph{Debugger} module has done its work, the result is printed to the terminal.
 It is done by sending the \emph{DebugResponse} enum that the \emph{Debugger} module returned to a function that has a match for each of the enum variants.
 Each variant has a unique message printed to the terminal, and the messages often contain data from the \emph{DebugResponse} enum.
-A helpful message is printed to the terminal if the input text cannot be parsed.
 
 
 There is also a \emph{DebugEvent} enum, that is printed to the terminal in the same way the \emph{DebugResponse} is.
 The \emph{DebugEvent} enum is created by another task, which polls the debug target state.
-That task's primary job is to report if the debug target has halted the program that is being debugged.
+That task's primary job is to report if the debug target has halted.
 
 
 
@@ -214,8 +213,7 @@ It also handles translating the responses and events from the \emph{debugger} mo
 
 The DAP protocol communicates through \gls{tcp}, requiring the \emph{debug adapter} module to have a \gls{tcp} server.
 All the \gls{tcp} communication is handled asynchronously, and it is to enable the other tasks to run simultaneously.
-Currently, only one \gls{tcp} connection can be open at a time, and it is because the rest of the system still needs to support multiple simultaneous debugging sessions.
-
+Currently, only one \gls{tcp} connection can be open at a time, and it is because the rest of the system only supports having one debugging session.
 
 
 \subsection{The Debugger Module}
@@ -236,17 +234,17 @@ Lastly, the result is returned using the enum \emph{DebugResponse}.
 
 
 \subsubsection{Retrieving Debug Information}
-The \emph{debugger} module retrieves debug information by using the \emph{rust-debug} library.
+The \emph{debugger} module retrieves debug information using the \emph{rust-debug} library.
 That library sometimes requires values from the debug target, such as the values stored in registers and memory addresses, and those values are retrieved from the debug target using \emph{probe-rs}.
 
 
 
-\subsubsection{Simultaneous Handling of Requests And Events}
-The state of the debug target is polled every $100\text{th}$ millisecond to detect if the debug target has continued or stopped the program execution.
-Other tasks can be handled in the time between the polls, such as parsing the input from the \acrshort{cli} or doing a stack trace.
-It is possible because it is an asynchronous function that sleeps for $100$ milliseconds and then polls the debug target state, and that function repeats if the debug target is being debugged.
-Therefore, the debugger can simultaneously handle both inputs from the user and state changes in the debug target.
-A state change in the debug target is an event in \gls{erdb}.
+% \subsubsection{Simultaneous Handling of Requests And Events}
+% The state of the debug target is polled every $100\text{th}$ millisecond to detect changes in the state.
+% Other tasks can be handled in the time between the polls, such as parsing the input from the \acrshort{cli} or doing a stack trace.
+% That is possible because it is an asynchronous function that sleeps for $100$ milliseconds and then polls the debug target state, and that function repeats if the debug target is being debugged.
+% Therefore, the debugger can simultaneously handle both inputs from the user and state changes in the debug target.
+% A state change in the debug target is an event in \gls{erdb}.
 
 
 
@@ -261,7 +259,7 @@ Note that if a request is received to evaluate one variable, the debugger will p
 
 
 \section{VSCode Extension}
-Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool named \emph{vscode-generator-code} \cite{vscode-generator-code} to generate an empty extension.
+Creating a \emph{VSCode} extension is simple because \emph{Microsoft} has a tool named \emph{vscode-generator-code} \cite{vscode-generator-code} that generates a simple extension.
 The provided documentations also explain how to get started with creating an extension.
 
 
