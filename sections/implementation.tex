@@ -40,23 +40,21 @@ The code for this library is in the \emph{GitHub} repository \cite{rust-debug}.
 
 
 \subsection{Retrieving Source Code File Location} \label{sec:decl}
-In the \gls{DWARF} format, the source code location where any data was declared is stored in three attributes on the \gls{die} representing that data.
+In the \gls{DWARF} format, the source code location where a variable is declared is described by three attributes.
 One attribute contains indirect information about which file the data was declared, another contains the line number, and the last contains the column number.
 
 
-The attribute contains the file path and name information named \emph{DW\_AT\_decl\_file}.
-It does not contain the file path and name directly.
-Instead, it contains a file index.
+The attribute \emph{DW\_AT\_decl\_file} contains a file index.
 This file index is used to look up the file path and name in a line number information table, and each compilation unit has one such table.
-File index 0 is reserved and used when the source file is unknown.
+File index $0$ is reserved and used when the source file is unknown.
 
 
 The source code line and column number can be read directly from the attributes \emph{DW\_AT\_decl\_line} and \emph{DW\_AT\_decl\_column}, respectively.
 Therefore, they are much easier to retrieve.
 
 
-\emph{Rust-debug} provides a function that performs the file index lookup and gets the line and column numbers.
-The function requires that a DIE and related compilation unit is given.
+\emph{Rust-debug} provides a function that performs the file index lookup and retrieves the line and column numbers.
+
 
 
 \subsection{Accessing Memory And Registers}
@@ -67,7 +65,7 @@ One of them is the evaluation of variables.
 Accessing the debug target registers and memory is a different problem from reading and using the \gls{DWARF} format.
 Therefore, \emph{rust-debug} lets the user of the library solve that problem.
 It has the benefit that any existing solutions can be used, like \emph{probe-rs}.
-It also has one downside, \emph{rust-debug} is harder to use because of the extra work the user must do.
+However, it also has one downside, \emph{rust-debug} is harder to use because of the extra work the user must do.
 
 
 All the functionalities in \emph{rust-debug} that require access to the registers require a struct named \emph{Registers}.
@@ -101,8 +99,8 @@ All the information in the Variable struct may not be present because not all \g
 
 The evaluated value of a variable is represented in a tree structure.
 The structure is similar to how the information is stored in the \gls{DWARF} format.
-However, the value of each branch is evaluated into a primary value type, such as a signed integer.
-Therefore, it removes the most challenging part of evaluating a variable without losing the flexibility of the \gls{DWARF} format.
+However, all the values in each node are evaluated into their standard type.
+It removes the most challenging part of evaluating a variable without losing the flexibility of the \gls{DWARF} format.
 The only downside of this solution is that it requires the user to understand how variables are structured in the \gls{DWARF} format.
 
 
@@ -110,18 +108,22 @@ The only downside of this solution is that it requires the user to understand ho
 When debugging, knowing the current function that is being executed is very useful.
 Finding that function can be done by finding the function \gls{die}, which is the furthest down the \gls{die} tree, in the branch where the current address is in range.
 Therefore, the function \gls{die} can easily be found by tracking all the function \glspl{die} while going down the \gls{die} tree.
-\emph{Rust-debug} makes this even easier by providing a function that does exactly this.
+\emph{Rust-debug} makes this even easier by providing a function that does exactly that.
 
 
 
 \subsection{Unwinding the Call Stack}
-The \emph{rust-debug} library has a function for virtually unwinding the current call stack, and it does it in two separate steps.
-Unwinding the call stack to get all the register values for each stack frame is the first step.
-The second step is to find the subroutine and evaluate all the variables for each stack frame.
+The \emph{rust-debug} library has a function for virtually unwinding the current call stack, and it does it in two separate steps:
+
+
+\begin{enumerate}
+  \item Unwind the call stack, and evaluate the register values for each stack frame.
+  \item For each stack frame, find the subroutine and evaluate all the variables.
+\end{enumerate}
 
 
 Unwinding the call stack to get the register values is done by a separate function, which returns a \emph{Vec} of \emph{CallFrame} structs.
-Each \emph{CallFrame} struct contains information about each of the stack frames.
+Each \emph{CallFrame} struct contains valuable information about a stack frame.
 The essential information the struct contains is the unwound register values, but it also contains other helpful information, such as the stack frame's start and end memory addresses.
 All the information in the struct is retrieved using the method described in section \ref{sec:stacktrace}.
 
@@ -138,11 +140,11 @@ This machine code location is the closest one that represents the given line in 
 The function requires a file path and line number, but it also can take a column number.
 
 
-The mentioned function works by first finding out which compilation unit contains information on the inputted file path.
-It does this by looping through all the file entries in the line number information table for every compilation unit.
+The mentioned function works by first finding out which compilation unit contains information on the given file path.
+It does this by looping through all the file entries in the line number information tables.
 Each line number information table entry has rows containing information on a line from the source code.
-All the rows with the search line numbers are added to a list.
-The machine code address of the first element in this list is returned if no column line was inputted into the function.
+All the rows with the searched line number are added to a list.
+The machine code address of the first element in this list is returned if no column line was given.
 Otherwise, the one with the closest column number is returned.
 
 
@@ -154,7 +156,7 @@ The debugger also uses the \emph{probe-rs} library for controlling the debug tar
 
 
 The debugger consists of three modules.
-The first one is named \acrshort{cli}.
+The first one is named \emph{\acrshort{cli}}.
 Its primary function is to handle the input and output from the terminal.
 The second module is named \emph{DebugAdapter}.
 It also handles the input and output, but in the form of \gls{dap} messages.
@@ -180,7 +182,7 @@ The code for \gls{erdb} can be found in this git repository \cite{erdb}.
 
 
 \subsection{The CLI Module} 
-The \acrshort{cli} module has two jobs.
+The \emph{\acrshort{cli}} module has two jobs.
 The first is to read and parse the input from the terminal into a request that the \emph{Debugger} module can understand.
 The second is to convert the responses from the Debugger module to text and output that text to the terminal.
 
