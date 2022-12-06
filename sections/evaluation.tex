@@ -101,6 +101,6 @@ Compared to the other debuggers, \gls{erdb} had no problems evaluating variables
 However, it sometimes does not give the correct stack trace when there are inline functions, and this problem has only occurred on optimized code.
 
 
-All three debuggers were equally bad regarding the main problem of debugging optimized code: the problem of many variables being optimized out.
-That makes it very hard to understand what is happening in the program and, therefore, difficult to debug.
+All three debuggers were unable to debug a couple of the variables.
+Instead, they were shown as being optimized out.
 
