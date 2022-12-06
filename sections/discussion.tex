@@ -13,19 +13,20 @@ Also, the documentation for \emph{rust-debug} is much less text than the specifi
 Therefore, reading and understanding take less time, making it easier to use.
 
 
-The amount of code needed to get the debug information is much less using \emph{rust-debug}, as section \ref{sec:evalrd} shows.
+The amount of code needed to get debug information is much less using \emph{rust-debug}, as section \ref{sec:evalrd} shows.
 Using the number of code lines to measure complexity is not the most accurate method.
+However, when the difference in the result is this significant, it shows that \emph{rust-debug} is less complex to use.
 
 
 
 \section{Debug Experience For Optimized Rust Code}
 At the beginning of this thesis, it was thought that \emph{GDB} could not evaluate variables located in registers.
-This thought came from the observation that \emph{GDB} mainly prints that the variables are \emph{optimized out} when debugging optimized code.
-Therefore, it was thought that those variables were not wholly removed from the optimized code.
-However, \emph{GDB} was right in that they were wholly optimized out.
+This thought came from the observation that \emph{GDB} sometimes show all the variables as optimized out when debugging optimized code.
+That seemed impossible in some cases because then the code should not work.
+However, \emph{GDB} was right in that the variables were wholly optimized out.
 
 
-With these expectations in mind, the result in section \ref{sec:debuggercomparison} is disappointing because the goal was to create a debugger that could improve on this problem.
+With the expectation that those variables could still be debugged in mind, the result in section 5.3 is disappointing.
 
 
 Unexpectedly, both \emph{GDB} and \emph{LLDB} have other minor problems.
@@ -38,13 +39,13 @@ However, the problems show that \gls{erdb} has some slight advantages.
 \subsection{Debugging Rust Code on Embedded Systems}
 The experience of debugging \emph{Rust} code on embedded systems with both \emph{LLDB} and \emph{GDB} could be better.
 It requires much configuring and a program like \emph{openocd}, which handles the communication between the debugger and the target device.
-Using \gls{erdb} is easier because it removes the step of starting a separate program.
+Using \gls{erdb} is easier because it removes that step.
 
 
 
 \section{Accuracy of the DWARF Location Ranges}\label{section:loc-ranges}
 While working on \emph{rust-debug} and \gls{erdb}, it was discovered that variables could sometimes live longer on the debugged target than described in \gls{DWARF}.
-It means that some variables can potentially be read when \gls{DWARF} says they have no location.
+Therefore, some variables can potentially be read when \gls{DWARF} says they have no location.
 
 
 The documentation for \emph{LLVM} \cite{llvm-dbs} mentions three significant factors that affect the variable location fidelity, they are:
