@@ -4,6 +4,7 @@
 \usepackage{import}
 \usepackage{hyperref} % - Package for including hyperlinks in the document.
 \usepackage{microtype}
+\usepackage[section]{placeins}
 
 \usepackage{graphicx}
 \graphicspath{ {images/} }
@@ -38,7 +39,7 @@ sorting=ynt
 
 \makeatletter
 \newcommand\subsubsubsection{\@startsection{paragraph}{4}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
-\newcommand\subsubsubsubsection{\@startsection{subparagraph}{5}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
+%\newcommand\subsubsubsubsection{\@startsection{subparagraph}{5}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
 \makeatother
 
 
@@ -95,8 +96,8 @@ sorting=ynt
 \listoffigures
 \clearpage
 
-\listoftables
-\clearpage
+%\listoftables
+%\clearpage
 
 \chapter{Introduction}
 \label{sec:introfuction}

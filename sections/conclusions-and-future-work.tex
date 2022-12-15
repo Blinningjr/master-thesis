@@ -2,54 +2,36 @@
 % It also outlines things that are left to do to reach a full solution, or to integrate your solution with something else.
 
 % The conclusion from the results
-The result from testing and comparing the different settings in the compiler is a bit disappointing.
-Because the settings found did not do much or were well known before, thus there was no real improvement.
 
 
-But the result from comparing the debuggers was a success.
-The main reason for this is that the debugger \gls{erdb} is able to correctly evaluate the value of variables that are of the \emph{Rust} enum type.
-While both of the two supported debugger by the \emph{Rust} team evaluated the wrong value in some special cases.
-The debugger \gls{erdb} was also able to simplify the process of debugging embedded systems that run \emph{Rust} code.
+The result from comparing the debuggers could have been a lot better.
+\gls{erdb} could not improve on the main problem with debugging optimized code, i.e., variables are often displayed as optimized out, which makes it impossible for the user to understand what is happening in the program.
 
 
-The debugging library \emph{rust-debug} was also successful in simplifying the process of retrieving debug information from \gls{DWARF}.
-The key design feature that makes it very useful, is that it is designed to be platform independent.
-Which makes the library a good contribution to the \emph{Rust} debugging community.
+The debugging library \emph{rust-debug} successfully simplifies retrieving debug information from \gls{DWARF}.
+It is a highly versatile library because it has very few dependencies.
 
 
-Overall we would say that goal of improving debugging of optimized \emph{Rust} code was achieved, but that there is still a lot more that needs to be done.
+Overall, the goal of this thesis was achieved.
+However, many developments still need to be done to the compiler and debugging tools.
+
 
 
 \section{Potential Future Debugging Improvement}
-% Future work that can be done on the llvm
-The ranges for the location information seam to be set a bit to tightly by \emph{LLVM} in some cases, meaning that the value still is in the debugged target for some time after the end address of the given address range.
-There are three major factors that affects the variable location correctness, they are mentioned in section \ref{section:loc-ranges}.
-Thus one potential improvement to debugging would be to improve how the variable location ranges are set.
+The ranges for the location information seem to be set a bit too tightly by \emph{LLVM} in some cases, meaning that the value still is in the debugged target for some time after the end address of the given address range.
+Three significant factors affect the variable location correctness, as mentioned in section \ref{section:loc-ranges}.
+A potential improvement to debugging would be to improve how the variable location ranges are set.
+
 
 
 \section{Future Debugger Improvement}
-% Future work that can be done on the debuger side.
 The debugger \gls{erdb} only supports the most important functionalities of a debugger.
-Thus there is many more features that could be added.
-One important one is the ability to evaluate expressions which is left to be done as future work.
-This is a hard problem because the evolution of the expressions should work exactly the same as the \emph{Rust} compiler.
-Thus it would be best if the same code could be used so that it does not need to be written twice.
+Therefore, there are many more features that could be added.
+One important one, left for future work is the different stepping variations.
+The ability to step one source code instruction and step in and out of functions is valuable when debugging because it makes it easy to traverse the code while debugging.
 
 
-% Future work that can be done on the debuger side.
 One of the main problems with debugging optimized code is that the variables are stored in registers and never pushed to the stack.
-This causes the variables to be overwritten when they are not needed anymore.
-That fact makes debugging very hard because the user has to stop the execution when the variable still exist.
-But if the debugger is able to get the last value of the variable and store it.
-The last known value of the variable could be displayed to the user if it is out of range.
-There is no time to make a solution for this problem, thus this will have to be left for future work.
-
-
-%\section{Future Debugger Library Improvement}
-%% Future work that can be done on the debuger side.
-%Currently the debugging library \emph{rust-debug} is not able to display values stored on the heap.
-%It will instead show the pointer to the heap location where the value is stored.
-%This problem is a little bit hard because the pointer is a data structure, thus it is hard to determine if it is a pointer or not.
-%Implementing a solution for this is left as future work.
-
-
+It causes the variables to be overwritten when they are not needed anymore.
+That fact makes debugging very hard because the user must halt the execution when the variable still exists.
+However, if the debugger could get the last value of the variable and store it, the last known value of the variable could then be displayed to the user instead.
