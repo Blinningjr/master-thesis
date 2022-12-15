@@ -136,3 +136,22 @@ Due to this, the description in section \ref{sec:dwarf} will not go into every d
 Instead, it will focus on explaining the minimum theory to understand the implementation of the debugger.
 For further details, we refer the reader to \cite{dwarf}.
 
+\section{Sustainability}
+% Technical sustainability refers to longevity of information, systems, and infrastructure and their adequate evolution with changing surrounding conditions.
+Debuggers must be continuously developed to keep up with the evolving programming languages.
+However, debugging formats like \gls{DWARF} specify the communication between the compiler and debugger.
+Therefore, little maintenance is needed because \gls{DWARF} is infrequently updated.
+This project tries to minimize this problem and be more sustainable by creating the debugging library \emph{rust-debug}.
+The hope is that the library will gain a community around it, which can help evolve it and the debugger \gls{erdb} alongside the \emph{Rust} programming language.
+
+
+Debugging embedded systems requires the debugger to have support for different kinds of \glspl{mcu}.
+Therefore, support for new \glspl{mcu} must be added to the debugger, and the old ones maintained.
+That is the primary technical sustainability problem that this project has.
+The project minimizes this problem by using the open source library \emph{probe-rs}.
+There are also some other libraries used to make the project more sustainable.
+
+
+Overall technical sustainability is a significant problem that this project faces.
+The only solution is that more people get interested in it and start to help out with maintaining and developing it.
+
